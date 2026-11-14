@@ -1,0 +1,67 @@
+# Cliderness biomes - coasts (surface within 1 block of sea level)
+
+[biome mangrove_coast]
+name=Mangrove Coast
+kind=coast
+temp=74..100
+humid=60..100
+surface=mud
+subsurface=mud
+seabed=mud
+tree=mangrove_log
+tree_top=oak_leaves
+tree_density=90
+plant=reeds
+plant_density=60
+base_temp=27
+humidity=90
+map_color=cyan
+
+[biome mudflat]
+name=Mudflat
+kind=coast
+humid=72..100
+surface=mud
+subsurface=clay
+seabed=mud
+plant=reeds
+plant_density=15
+base_temp=16
+humidity=85
+map_color=brown
+
+[biome rocky_shore]
+name=Rocky Shore
+kind=coast
+special=70..100
+surface=stone
+subsurface=stone
+seabed=gravel
+base_temp=13
+humidity=60
+map_color=lightgray
+
+[biome gravel_shore]
+name=Gravel Shore
+kind=coast
+temp=0..34
+surface=gravel
+subsurface=gravel
+seabed=gravel
+freeze=1
+base_temp=4
+humidity=60
+map_color=darkgray
+
+[biome sand_beach]
+name=Sand Beach
+kind=coast
+surface=sand
+subsurface=sand
+seabed=sand
+tree=palm_log
+tree_top=jungle_leaves
+tree_density=8
+base_temp=22
+humidity=55
+map_color=yellow

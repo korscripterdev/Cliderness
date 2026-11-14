@@ -1,0 +1,83 @@
+# Cliderness biomes - caves (kind=cave). height = the explorer's y level.
+# In 0.1.0 cave biomes classify underground areas (status panel); unique
+# cave decoration per biome is planned for Phase 6.
+
+[biome deep_bedrock_cave]
+name=Deep Bedrock Cave
+kind=cave
+height=0..11
+base_temp=24
+map_color=darkgray
+
+[biome lava_cave]
+name=Lava Cave
+kind=cave
+height=0..22
+special=55..100
+base_temp=38
+map_color=lightred
+
+[biome crystal_cave]
+name=Crystal Cave
+kind=cave
+height=0..34
+special=84..100
+base_temp=14
+map_color=lightmagenta
+
+[biome ice_cave]
+name=Ice Cave
+kind=cave
+temp=0..24
+base_temp=-3
+map_color=lightcyan
+
+[biome fungal_cave]
+name=Fungal Cave
+kind=cave
+humid=76..100
+base_temp=16
+map_color=lightgreen
+
+[biome fossil_cave]
+name=Fossil Cave
+kind=cave
+height=24..60
+special=0..10
+base_temp=13
+map_color=white
+
+[biome underground_lake]
+name=Underground Lake
+kind=cave
+humid=62..75
+base_temp=11
+map_color=blue
+
+[biome underground_river]
+name=Underground River
+kind=cave
+special=45..55
+base_temp=11
+map_color=lightblue
+
+[biome dripstone_cave]
+name=Dripstone Cave
+kind=cave
+height=20..60
+special=30..45
+base_temp=12
+map_color=brown
+
+[biome limestone_cave]
+name=Limestone Cave
+kind=cave
+special=10..30
+base_temp=12
+map_color=white
+
+[biome stone_cave]
+name=Stone Cave
+kind=cave
+base_temp=12
+map_color=lightgray

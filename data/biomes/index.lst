@@ -1,0 +1,5 @@
+# biome definition files (first match wins, in this order)
+surface.def
+coast.def
+ocean.def
+cave.def

@@ -1,0 +1,31 @@
+# 변경 기록
+
+[English](changelogs.md) · **한국어** · [日本語](changelogs.ja.md) · [简体中文](changelogs.zh-CN.md) · [繁體中文](changelogs.zh-TW.md) · [Español](changelogs.es.md) · [Français](changelogs.fr.md) · [Deutsch](changelogs.de.md) · [Português](changelogs.pt.md) · [Русский](changelogs.ru.md) · [Italiano](changelogs.it.md)
+
+Cliderness(제작: korscripterdev)의 주요 변경 사항입니다.
+
+## [0.1.0] — 2026-11-14
+
+첫 번째 플레이 가능한 기반 (로드맵 1~3단계 완료, 4~6·10단계 부분 구현).
+
+### 추가
+- Windows 콘솔, POSIX 터미널(Linux, macOS, BSD), MS-DOS/FreeDOS(VGA 텍스트,
+  BIOS 키보드, PC Speaker), 테스트용 헤드리스 어댑터를 갖춘 ISO C90 엔진.
+- 더티 셀 출력과 와이드 문자를 지원하는 CP437 / VGA 16색 프레임버퍼.
+- 시드 기반 정수 월드 생성: 3D 청크, 데이터 기반 바이옴 38종, 동굴, 광석,
+  바다. 청크 캐시와 충돌에 안전한 청크 저장소.
+- 이동, 달리기, 웅크리기, 수영, 오르기, 추락 피해. 채굴, 설치, 도구와 내구도.
+  경험치 악용 방지 규칙이 있는 숙련도.
+- 생존 수치, 체온, 사망과 부활.
+- 인벤토리, 핫바, 부력이 있는 드롭 아이템.
+- ClideTime(계절, 달 위상, 시간 배율), 날씨 18종, 하늘 관측.
+- 명령어 71개, 권한, 자동완성, 기록, Undo/Redo를 갖춘 ClideConsole.
+- 영어·한국어 45개 주제의 ClideHelp, 11개 언어 UI.
+- WAV 내보내기(`--render-sfx`)가 가능한 절차적 DSP 사운드 라이브러리.
+- CMake, Make, Open Watcom, DJGPP 빌드, GitHub Actions, 테스트 검사 293,610개.
+
+### 알려진 제한
+- 제작, 생물, 전투, 흐르는 물, 선박, 고대 차원은 아직 없습니다.
+- Windows/Linux/macOS 실시간 PCM 소리 없음 (무음 실행).
+- DOS 빌드는 아직 컴파일·실행되지 않았습니다 (로컬 툴체인 없음).
+- 도움말은 영어와 한국어만 제공되며, 다른 언어는 영어 도움말로 대체됩니다.

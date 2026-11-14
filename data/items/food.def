@@ -1,0 +1,56 @@
+# Cliderness item definitions - food (food / water restore the 0..1000 meters)
+
+[item berries]
+name=Berries
+type=food
+glyph=','
+fg=lightred
+food=60
+water=30
+weight=20
+volume=2
+density=900
+
+[item apple]
+name=Apple
+type=food
+glyph=7
+fg=lightred
+food=120
+water=40
+weight=150
+volume=15
+density=800
+
+[item mushroom]
+name=Mushroom
+type=food
+glyph='t'
+fg=lightred
+food=60
+water=10
+weight=40
+volume=5
+density=600
+
+[item coconut]
+name=Coconut
+type=food
+glyph='o'
+fg=brown
+food=90
+water=120
+weight=700
+volume=60
+density=900
+
+[item cactus_fruit]
+name=Cactus Fruit
+type=food
+glyph=7
+fg=lightmagenta
+food=60
+water=100
+weight=80
+volume=8
+density=950

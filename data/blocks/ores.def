@@ -1,0 +1,157 @@
+# Cliderness block definitions - ores and minerals
+# ore_y = min-max height, ore_chance = per 10000 host blocks, ore_host = block id
+
+[block coal_ore]
+name=Coal Ore
+category=ore
+glyph=4
+fg=black
+bg=lightgray
+floor_glyph=4
+floor_fg=black
+floor_bg=lightgray
+flags=solid
+hardness=35
+tool=pickaxe
+drop=coal
+ore_y=5-110
+ore_chance=120
+ore_host=stone
+
+[block iron_ore]
+name=Iron Ore
+category=ore
+glyph=4
+fg=brown
+bg=lightgray
+floor_glyph=4
+floor_fg=brown
+floor_bg=lightgray
+flags=solid
+hardness=45
+tool=pickaxe
+drop=raw_iron
+ore_y=5-70
+ore_chance=70
+ore_host=stone
+
+[block copper_ore]
+name=Copper Ore
+category=ore
+glyph=4
+fg=lightred
+bg=lightgray
+floor_glyph=4
+floor_fg=lightred
+floor_bg=lightgray
+flags=solid
+hardness=40
+tool=pickaxe
+drop=raw_copper
+ore_y=20-90
+ore_chance=60
+ore_host=stone
+
+[block tin_ore]
+name=Tin Ore
+category=ore
+glyph=4
+fg=white
+bg=lightgray
+floor_glyph=4
+floor_fg=white
+floor_bg=lightgray
+flags=solid
+hardness=40
+tool=pickaxe
+drop=raw_tin
+ore_y=10-70
+ore_chance=40
+ore_host=stone
+
+[block fossil_rock]
+name=Fossil Rock
+category=ore
+glyph=21
+fg=white
+bg=lightgray
+floor_glyph=21
+floor_fg=white
+floor_bg=lightgray
+flags=solid
+hardness=30
+tool=pickaxe
+drop=fossil
+ore_y=24-60
+ore_chance=12
+ore_host=stone
+
+[block silver_ore]
+name=Silver Ore
+category=ore
+glyph=4
+fg=lightcyan
+bg=darkgray
+floor_glyph=4
+floor_fg=lightcyan
+floor_bg=darkgray
+flags=solid
+hardness=55
+tool=pickaxe
+drop=raw_silver
+ore_y=3-23
+ore_chance=35
+ore_host=deep_rock
+
+[block gold_ore]
+name=Gold Ore
+category=ore
+glyph=4
+fg=yellow
+bg=darkgray
+floor_glyph=4
+floor_fg=yellow
+floor_bg=darkgray
+flags=solid
+hardness=55
+tool=pickaxe
+drop=raw_gold
+ore_y=3-23
+ore_chance=25
+ore_host=deep_rock
+
+[block crystal_ore]
+name=Crystal Cluster
+category=ore
+glyph=4
+fg=lightmagenta
+bg=darkgray
+floor_glyph=4
+floor_fg=lightmagenta
+floor_bg=darkgray
+flags=solid,light
+light=4
+hardness=50
+tool=pickaxe
+drop=crystal_shard
+drop_count=2
+ore_y=3-23
+ore_chance=12
+ore_host=deep_rock
+
+[block gem_ore]
+name=Gem Ore
+category=ore
+glyph=4
+fg=lightcyan
+bg=black
+floor_glyph=4
+floor_fg=lightcyan
+floor_bg=black
+flags=solid
+hardness=80
+tool=pickaxe
+drop=gem
+ore_y=3-16
+ore_chance=6
+ore_host=deep_rock

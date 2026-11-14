@@ -1,0 +1,65 @@
+# Cliderness biomes - oceans (surface below sea level 62); height = sea floor
+
+[biome trench]
+name=Ocean Trench
+kind=ocean
+height=0..29
+seabed=deep_rock
+subsurface=deep_rock
+base_temp=4
+humidity=100
+map_color=black
+
+[biome deep_ocean]
+name=Deep Ocean
+kind=ocean
+height=30..43
+seabed=gravel
+subsurface=stone
+base_temp=8
+humidity=100
+map_color=blue
+
+[biome open_ocean]
+name=Open Sea
+kind=ocean
+height=44..53
+seabed=sand
+subsurface=sand
+plant=seaweed
+plant_density=20
+base_temp=12
+humidity=100
+map_color=blue
+
+[biome frozen_sea]
+name=Frozen Sea
+kind=ocean
+temp=0..18
+seabed=gravel
+freeze=1
+base_temp=-6
+humidity=90
+map_color=lightcyan
+
+[biome coral_reef]
+name=Coral Reef
+kind=ocean
+height=54..61
+temp=68..100
+seabed=sand
+plant=coral
+plant_density=420
+base_temp=26
+humidity=100
+map_color=lightmagenta
+
+[biome shallow_sea]
+name=Shallow Sea
+kind=ocean
+seabed=sand
+plant=seaweed
+plant_density=70
+base_temp=17
+humidity=100
+map_color=lightblue

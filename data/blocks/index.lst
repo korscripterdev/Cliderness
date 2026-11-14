@@ -1,0 +1,5 @@
+# block definition files, loaded in this order
+terrain.def
+ores.def
+plants.def
+building.def

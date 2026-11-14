@@ -1,0 +1,120 @@
+# Cliderness item definitions - tools
+# power = mining speed in percent (100 = bare hands); durability = uses.
+# Tools are not craftable yet in 0.1.0 (crafting is Phase 4): use /give.
+
+[item wooden_pickaxe]
+name=Wooden Pickaxe
+type=tool
+tool=pickaxe
+glyph=231
+fg=brown
+power=200
+durability=60
+stack=1
+weight=900
+volume=60
+density=700
+
+[item stone_pickaxe]
+name=Stone Pickaxe
+type=tool
+tool=pickaxe
+glyph=231
+fg=lightgray
+power=400
+durability=130
+stack=1
+weight=1400
+volume=60
+density=1800
+
+[item iron_pickaxe]
+name=Iron Pickaxe
+type=tool
+tool=pickaxe
+glyph=231
+fg=white
+power=700
+durability=250
+stack=1
+weight=1800
+volume=60
+density=4000
+
+[item wooden_axe]
+name=Wooden Axe
+type=tool
+tool=axe
+glyph=226
+fg=brown
+power=200
+durability=60
+stack=1
+weight=900
+volume=60
+density=700
+
+[item stone_axe]
+name=Stone Axe
+type=tool
+tool=axe
+glyph=226
+fg=lightgray
+power=400
+durability=130
+stack=1
+weight=1400
+volume=60
+density=1800
+
+[item iron_axe]
+name=Iron Axe
+type=tool
+tool=axe
+glyph=226
+fg=white
+power=700
+durability=250
+stack=1
+weight=1800
+volume=60
+density=4000
+
+[item wooden_shovel]
+name=Wooden Shovel
+type=tool
+tool=shovel
+glyph=159
+fg=brown
+power=200
+durability=60
+stack=1
+weight=800
+volume=60
+density=700
+
+[item stone_shovel]
+name=Stone Shovel
+type=tool
+tool=shovel
+glyph=159
+fg=lightgray
+power=400
+durability=130
+stack=1
+weight=1200
+volume=60
+density=1800
+
+[item iron_shovel]
+name=Iron Shovel
+type=tool
+tool=shovel
+glyph=159
+fg=white
+power=700
+durability=250
+stack=1
+weight=1500
+volume=60
+density=4000

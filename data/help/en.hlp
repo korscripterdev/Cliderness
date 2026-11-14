@@ -1,0 +1,454 @@
+@topic start
+@title Getting Started
+@level 1
+@related controls,survival,gamemodes,about
+# Welcome to Cliderness
+Cliderness is a free-form open world survival sandbox by korscripterdev. There is no story you must follow and no ending: explore, gather, mine, build and survive however you like.
+
+# Your first minutes
+1. Choose New World on the title screen, keep or change the name and seed, pick a game mode and press Enter.
+2. You are the white @ in the middle of the map. Walk with W A S D.
+3. Watch the panel on the right: health, stamina, hunger, thirst, fatigue and body temperature.
+4. Face a tree or rock and press F to mine it. Resources go to your hotbar at the bottom.
+5. Select a block with 1-9 and press R to place it.
+6. Press Esc to pause and save. Press F1 at any time for this help.
+
+The world is generated from the seed, so the same seed always gives the same world. Only your changes are saved.
+
+@topic controls
+@title Controls
+@level 1
+@related movement,keybinds,inventory,commands
+# Default keys
+> W A S D / arrows   move
+> Shift + W A S D    sprint
+> Ctrl (tap) or X    crouch on / off
+> Right Shift or V   look at the sky
+> F                  mine / break the block you face
+> R                  place the selected block
+> >                  dig down (descend)
+> <                  build up under yourself (ascend)
+> E                  pick up items / respawn
+> U                  use: eat, drink water
+> Q / Ctrl+Q         drop one item / the whole stack
+> Tab or I           inventory
+> C                  character sheet
+> 1-9                select hotbar slot
+> P                  switch status panel page
+> F1 or ?            help (pauses the game)
+> Esc                pause menu (pauses the game)
+> / or T             command console
+
+Every key can be changed in Settings > Key bindings. Terminals on Linux, macOS and Unix cannot report Right Shift or Ctrl pressed alone; use the alternative keys V and X there. Windows and DOS support both.
+
+@topic movement
+@title Movement
+@level 1
+@related sprint,crouch,stamina,terrain
+# Walking
+Each key press or key repeat moves you one cell. You face the direction you last moved; the cell in front of you is highlighted.
+
+# Height
+The world is 3D but shown from above. A cell drawn as a bright floor one level higher is a step: walk into it to climb up (costs stamina). Shaded cells (light shade = 2 high, dark shade = 3 or more) are cliffs you cannot climb directly; dig steps into them or build up with <.
+
+Walking off an edge makes you fall. Falls of 4 or more blocks hurt unless you land in water.
+
+# Swimming
+Over water you float on the surface and swim. Swimming is slower and uses a little stamina, and trains the Swimming skill.
+
+@topic sprint
+@title Sprinting
+@level 2
+@related stamina,movement,stats
+Hold Shift while moving (or type capital W A S D) to sprint. Sprinting is about twice as fast as walking but costs stamina every step and makes a lot of noise. When stamina is too low you fall back to walking.
+
+Sprinting during a game minute doubles hunger loss for that minute.
+
+@topic crouch
+@title Crouching
+@level 2
+@related movement,stealth
+Tap Ctrl (Windows, DOS) or press X to toggle crouching. You move at about half speed but make very little noise (10% instead of 30%). Stamina regenerates faster while crouching or standing still.
+
+Noise will matter for monsters, which are planned for a later version.
+
+@topic stealth
+@title Noise and Stealth
+@level 3
+@related crouch,monsters
+The status panel shows your current noise: walking 30%, sprinting 80%, swimming 40%, crouching 10%, standing still slowly drops to 0%. Monster hearing based on this value arrives together with monsters (Phase 7).
+
+@topic stamina
+@title Stamina
+@level 2
+@related sprint,survival,stats
+Stamina (0-100%) is used by sprinting, climbing steps, swimming and mining. It regenerates every tick you are not sprinting or swimming:
+> regen per tick = 3 + END / 5  (+2 when idle or crouching)
+Regeneration is halved when you are starving or dehydrated. When fatigue rises above 80% your maximum stamina drops to 60%. Some weather (wind, storms, blizzards) drains extra stamina every minute.
+
+@topic survival
+@title Survival Basics
+@level 1
+@related stamina,items,time,weather
+# Meters
+> HP       health; at 0 you die
+> Hunger   100% = full; eat food with U
+> Thirst   100% = hydrated; face water and press U to drink
+> Fatigue  rises slowly while awake (sleep is planned)
+> Temp     body temperature; keep it near 37 C
+
+Hunger and thirst fall over game time. At 0 you lose health. You slowly regenerate health while both are above 60%.
+
+# Death
+When you die your items drop where you fell. Press E or Enter to respawn at your spawn point and go back for them.
+
+# Temperature
+Cold biomes, winter, night, altitude, wind and water cool you; deserts, summer and heat waves warm you. Below 35.0 C or above 39.5 C you take damage every minute. Willpower slows the change.
+
+@topic gathering
+@title Gathering
+@level 1
+@related mining,items,blocks
+Face a plant, tree or block and press F. Plants break instantly, trees and rock take longer. Drops go straight into your inventory; if it is full they fall to the ground.
+> Tall grass, ferns, reeds  -> plant fiber
+> Bushes, leaves, dead bushes -> sticks
+> Berry bushes -> berries (food)
+> Trees -> logs, cactus -> cactus fruit
+> Jungle leaves -> coconuts
+Food can be eaten with U.
+
+@topic mining
+@title Mining
+@level 2
+@related gathering,durability,skills,caves
+Press F to mine the block you face. If that cell is empty, you dig into the floor in front of you. Press > to dig the floor under you and descend.
+
+Mining takes time (see the bar at the bottom of the panel). Moving cancels it. Bedrock cannot be broken.
+
+# Tools
+Pickaxes speed up rock and ore, axes wood, shovels soil and sand. Without the right tool, blocks that need a pickaxe or axe take three times longer. Tools lose durability with each block.
+
+Ores are found underground: coal, iron, copper and tin in stone; silver, gold, crystals and gems in deep rock below height 24.
+
+@topic building
+@title Building
+@level 2
+@related mining,blocks,cheats,commands
+Select a block in the hotbar (1-9) and press R to place it in front of you. If that cell is full, the block goes on top of it. Press < to put a block under yourself and rise one level (pillar up).
+
+Placed blocks are remembered as player-made: mining them gives no experience. Everything you change - holes, walls, filled lakes, removed hills - is saved; untouched terrain is regenerated from the seed.
+
+Creative mode places blocks without using them up. With cheats, /fill, /replace, /clone, /flatten, /raise, /lower and /smooth edit large areas and can be undone with /undo.
+
+@topic crafting
+@title Crafting (planned)
+@level 3
+@related items,durability
+Crafting, smelting, cooking and farming are planned for Phase 4 of the roadmap. In version 0.1.0 tools exist as items (wooden, stone and iron pickaxes, axes and shovels) but can only be obtained with /give. Recipes will be data files in data/recipes.
+
+@topic combat
+@title Combat (planned)
+@level 3
+@related monsters,skills
+Melee and ranged combat, attack, defence and dodging are planned for Phase 7. The Melee and Ranged skills already exist on the character sheet but cannot be trained yet.
+
+@topic monsters
+@title Monsters and Animals (planned)
+@level 3
+@related combat,stealth
+Animals, monsters and NPCs with day/night and weather dependent behaviour are planned for Phase 7. Version 0.1.0 has no creatures; the world is peaceful. /kill @e[type=...] reports that the entity type does not exist yet; /kill @e removes dropped items.
+
+@topic items
+@title Items
+@level 2
+@related inventory,blocks,durability
+Every block that can be picked up is also an item. Other items are resources (coal, raw metals, crystals, gems, fossils), materials (sticks, plant fiber), food and tools.
+
+Items have weight and volume. Your carry capacity is 20 kg + 3 kg per Strength point; carrying more slows you down.
+
+Dropped items lie in the world as entities. In water they float when lighter than water (wood, plant fiber, food) and sink to the bottom when heavier (stone, metal). Dropped items disappear after 20 real minutes.
+
+@topic blocks
+@title Blocks and Symbols
+@level 2
+@related items,terrain,biomes
+All graphics are CP437 characters in 16 VGA colours.
+> @   you
+> ♠   tree (oak, birch, jungle, mangrove)
+> ▲   pine tree
+> ♣   leaves, bush
+> ¥   tall grass
+> *   flower
+> ~   water (blue), lava (red)
+> ≈   mud
+> ░   sand, snow, ice
+> .   grass or dirt floor
+> ·   stone floor
+> ▒ ▓ cliffs 2 or 3+ blocks above you
+> ♦   ore (colour = mineral)
+> ☼   coral
+Block appearance is defined in data/blocks.
+
+@topic inventory
+@title Inventory and Hotbar
+@level 1
+@related items,controls
+You have 36 slots; slots 1-9 are the hotbar at the bottom of the screen. Open the inventory with Tab.
+> Enter      pick up a stack, Enter again to move / swap / merge
+> 1-9        move the selected stack to that hotbar slot
+> Q / Ctrl+Q drop one / the whole stack
+> S          sort the backpack (merges stacks)
+> X          split a stack in half
+> /          search by name
+> F          filter by item type
+> U          use (hotbar slots)
+The right side shows weight, volume, whether the item floats, durability and food value.
+
+@topic stats
+@title Character Attributes
+@level 3
+@related skills,formulas
+Open the character sheet with C. Attributes start at 10.
+> STR  carry capacity, mining speed
+> DEX  movement speed
+> INT  experience gain
+> PER  sight radius at night and underground
+> CON  maximum HP = 80 + 2 x CON
+> END  stamina regeneration and sprint cost
+> WIL  resistance to cold and heat
+> LCK  chance of an extra drop when mining
+Attributes can currently be changed with /attribute; growth through play is planned.
+
+@topic skills
+@title Skills
+@level 3
+@related stats,mining,formulas
+Skills grow by doing: Mining, Woodcutting, Building, Swimming and Exploration can be trained in 0.1.0. Crafting, combat, sailing, fishing, cooking and stealth will train once those systems exist.
+
+Level = square root of (XP / 10), up to 100. Mining and woodcutting levels make breaking blocks faster.
+
+Anti-farming rules: blocks placed by a player give no XP, exploration XP is only given for reaching new distances from spawn, and at most 60 XP can be earned per game minute.
+
+@topic time
+@title Time, Days and Seasons
+@level 2
+@related weather,sky,pause
+Game time is separate from real time. By default one game day lasts 20 real minutes (1 real second = 72 game seconds). Change it in Settings, with /daylength, or speed it up with /timescale.
+
+A year has 12 months of 30 days and four seasons of 90 days, starting in spring. Days are longer in summer. The moon has 8 phases over 30 days.
+
+Night is dark: you only see a few cells around you, more under a full moon. Time stops completely while help (F1) or the pause menu (Esc) is open.
+
+@topic pause
+@title Pausing
+@level 1
+@related time,saving
+Opening help (F1, ?) or the pause menu (Esc) freezes the game: time, weather, survival meters, physics and everything else stop. The menus themselves still work. When you close them the game continues exactly where it stopped; the real time you spent paused is not added.
+
+The inventory, character sheet, console and sky view do NOT pause the game.
+
+@topic weather
+@title Weather
+@level 2
+@related time,sky,survival
+There are 18 weather types: clear, cloudy, drizzle, rain, heavy rain, thunderstorm, fog, strong wind, storm, snow, heavy snow, blizzard, hail, sandstorm, heat wave, cold snap, volcanic ash and the Ancient Storm (Ancient Dimension only).
+
+Which weather can happen depends on the climate where you are: no snow in hot deserts, sandstorms only in dry heat. Weather changes visibility, temperature, movement speed, stamina and the sky. Rain and snow are animated on the map when you are outdoors.
+
+Effects on water flow, plant growth, monsters and ships will follow with those systems.
+
+@topic sky
+@title Looking at the Sky
+@level 2
+@related time,weather
+Press Right Shift (or V) to look up. The sky shows the sun moving from sunrise to sunset, the moon and its phase, seeded stars and constellations (N shows their names), the Milky Way, clouds drifting with the wind, birds with flapping wings, crows (~), meteors, rare comets, aurora in cold regions, solar and lunar eclipses, sunrise and sunset colours and lightning during storms.
+
+The constellations depend on the world seed. Time keeps running while you look up; F1 or Esc pause as usual.
+
+@topic biomes
+@title Biomes
+@level 3
+@related terrain,ocean,caves
+Land: plains, grassland, deciduous forest, conifer forest, rainforest, bamboo forest, desert, savanna, swamp, wetland, tundra, snowfield, alpine highlands, volcanic land, flower field, wasteland.
+Coast: sand beach, gravel shore, rocky shore, mudflat, mangrove coast.
+Ocean: shallow sea, coral reef, open sea, deep ocean, ocean trench, frozen sea.
+Caves: stone, limestone, dripstone, crystal, ice, fungal, fossil, lava and deep bedrock caves, underground lakes and rivers.
+
+Biomes are chosen from temperature, humidity and height noise. Use /biome to see where you are and /locate <biome> to find one. Biomes are defined in data/biomes.
+
+@topic terrain
+@title Terrain and the 3D World
+@level 3
+@related movement,building,caves
+The world is made of blocks in three dimensions: x (east), z (south) and y (height, 0-127). Sea level is 62. You see the level you stand on: walls at eye level, the floor below, and lower ground in darker colours.
+
+Everything can be changed: dig holes and tunnels, cut mountains, fill the sea, build islands. Use > and < to go down and up, or dig stairs.
+
+Bedrock at height 0 cannot be broken.
+
+@topic caves
+@title Caves and Ores
+@level 3
+@related mining,terrain,biomes
+Caves are carved by 3D noise: large chambers and long winding tunnels. Deep below height 10 they fill with lava. Underground you only see a few cells around you (more with Perception); lava, torches and crystals give light.
+
+Coal, iron, copper and tin appear in stone; silver, gold, crystal clusters and gems in deep rock (below 24). Fossils hide in stone between 24 and 60.
+
+@topic ocean
+@title Oceans and Coasts
+@level 3
+@related biomes,fluids,ships
+Oceans cover low areas below sea level 62: shallow seas with seaweed, colourful coral reefs in warm water, open sea, deep ocean and trenches. Cold seas freeze at the surface.
+
+You can swim on the surface. Diving, ships and sailing are planned (Phase 8).
+
+@topic fluids
+@title Water and Lava
+@level 4
+@related ocean,terrain
+In 0.1.0 water and lava are static blocks: you can drain them (/drain), flood areas (/flood), drink water (U) and swim. Lava hurts.
+
+Flowing water (ClideFluid) with volume conservation, rivers, dams, waterfalls, flooding and rain accumulation is planned for Phase 6.
+
+@topic ships
+@title Ships (planned)
+@level 3
+@related ocean,durability
+Rafts, rowing boats, sailing ships and large ships with hulls, sails, rudders, decks and cargo holds are planned for Phase 8, including wind, waves, buoyancy, flooding and the three damage stages of rafts.
+
+@topic ancient
+@title The Ancient Dimension (planned)
+@level 3
+@related biomes,weather
+The only other dimension is the Ancient Dimension with its own biomes (ancient grassland and forest, forgotten garden, crystal wilds, silent swamp, void rift, starlight plain, ancient sanctuary), minerals, structures, sky and the Ancient Storm. It is planned for Phase 9; the world format already stores a dimension for every chunk.
+
+@topic durability
+@title Durability
+@level 3
+@related mining,items,ships
+Tools have durability. Each block mined with the right tool costs 1 point, with the wrong tool 2. At 10% you get a warning; at 0 the tool breaks. The hotbar shows the remaining durability for tools.
+> /durability set <percent>   /repair
+Durability for weapons, armour, ships and buildings, and repairs with materials, come with crafting and ships.
+
+@topic gamemodes
+@title Game Modes
+@level 2
+@related cheats,survival
+> Survival   all survival meters, limited resources
+> Creative   no hunger or damage, instant mining, blocks are not used up
+> Adventure  survival rules but you cannot break or place blocks
+> Spectator  fly through everything, no world changes
+Change with /gamemode (needs cheats). Cheats are a separate world setting.
+
+@topic cheats
+@title Cheats
+@level 3
+@related commands,gamemodes
+Cheat commands (marked [cheat] in the command list) need cheats to be enabled for the world: when creating it, or with /cheats on. Using any cheat marks the world as cheated; this is saved.
+
+God mode (/god), flying (/fly) and walking through blocks (/noclip) are flags independent of the game mode.
+
+@topic commands
+@title All Commands
+@level 3
+@related cheats,controls
+Open the console with / (or T). Type a command and press Enter. Tab completes command names and arguments (blocks, items, weather, modes...), Up/Down recall earlier commands, PgUp/PgDn scroll the output. Coordinates accept ~ for "relative to me", e.g. /tp ~10 ~ ~.
+
+@topic saving
+@title Saving and Loading
+@level 2
+@related pause,troubleshooting
+Save with Esc > Save or /save; leaving to the menu also saves. Worlds are stored in saves/<name>/:
+> world.ini   seed, time, weather, player, inventory, items
+> chunks.dat  only the chunks you changed
+Every save is written to a temporary file, read back and checked (CRC-32) before it replaces the old save, so a crash while saving cannot destroy your previous save. Load worlds from the title screen.
+
+@topic settings
+@title Settings
+@level 2
+@related languages,keybinds
+Settings are stored in clide.ini next to the game:
+> Language       see the language list
+> Key bindings   change any key (two keys per action)
+> Sound          on / off
+> Day length     10 to 60 real minutes per game day
+
+@topic keybinds
+@title Changing Keys
+@level 2
+@related settings,controls
+Settings > Key bindings lists every action. Enter sets the first key, A the second, Del clears the second, R restores the defaults. Bindings are saved in keys.ini. Shift on a movement key always means sprint.
+
+@topic languages
+@title Languages
+@level 2
+@related settings,troubleshooting
+The game detects your system language and uses it if your display can show it. On a CP437 display (DOS) only languages whose text fits CP437 are offered; others are hidden. On Unicode terminals, languages with special scripts (Korean, Japanese, Chinese) are marked unverified because the game cannot know whether your font has the glyphs: choosing one shows a sample and asks you to confirm.
+
+@topic audio
+@title Sound
+@level 4
+@related settings,platforms
+ClideAudio generates sound procedurally instead of playing recordings. On DOS the PC Speaker plays short tone patterns for steps, mining, menus and so on. The procedural PCM synthesiser (noise generators, oscillators, filters, envelopes, distance attenuation, cave echo) can already render wind, rain, storm, thunder, river, waves, fire, wood creaking and breaking, stone, mining, steps, birds, crows, caves and ancient drones to WAV files:
+> cliderness --render-sfx wind wind.wav
+Live PCM output on Windows, Linux and macOS is planned; without an audio device the game simply runs silently.
+
+@topic platforms
+@title Platforms
+@level 4
+@related audio,troubleshooting
+The engine is ISO C90. Supported: Windows console, Linux, macOS and other Unix terminals (UTF-8), MS-DOS and FreeDOS (VGA text mode, 16-bit Open Watcom or DJGPP builds). All platforms use the same 80x25 CP437 grid and 16 colours; the exact glyph shapes depend on the terminal font.
+
+On DOS the world cache is smaller (40 chunks) and memory use is capped to fit in 640 KB.
+
+@topic troubleshooting
+@title Troubleshooting
+@level 3
+@related platforms,languages,saving
+> Boxes or ? instead of symbols: use a font with box drawing characters (Consolas, DejaVu Sans Mono), or Windows Terminal.
+> Screen too small: the game needs at least 80x25 characters; a red notice shows the current size.
+> Korean/Japanese/Chinese text broken: your font lacks the glyphs; choose another language or font.
+> Right Shift / Ctrl do nothing: your terminal cannot report them; use V and X.
+> "data error" at start: run the game from its folder or pass --data <dir>.
+> Load fails with CRC mismatch: world.ini was edited or damaged.
+> No sound: normal without a supported device; check Settings > Sound.
+
+@topic world
+@title World Generation
+@level 4
+@related terrain,biomes,formulas
+The world is generated from the seed with integer value noise, so it is identical on every platform, including 16-bit DOS without a floating point unit. Height comes from a continental layer (256-block features), detail (32 blocks) and mountains. Temperature, humidity and a special layer pick the biome. 3D noise carves caves; ores are placed by per-block hash.
+
+The world is stored in 32x32 chunks, one height level each. Only chunks you change are saved.
+
+@topic advanced
+@title Advanced Mechanics
+@level 4
+@related formulas,world,time
+The simulation runs at a fixed 20 ticks per second. Real time is accumulated and converted into ticks only while no pausing screen is open; long stalls are capped at 250 ms so the game never jumps ahead. Game time advances by 50 ms x 86400 / day_length x time_scale per tick (3.6 game seconds by default) with exact remainders, so 20 real minutes are exactly one game day.
+
+Movement waits for a per-step cooldown in ticks: walk 4, sprint 2, crouch 7, swim 6, multiplied by 100 / (90 + DEX). Slowing blocks add 3, overloading adds 2 or 6, weather adds its move penalty in percent.
+
+@topic formulas
+@title Formulas (Master)
+@level 5
+@related advanced,stats,skills
+> mining ticks = hardness (x3 without a needed tool, or x100/power with the right tool), then x100/(100+2 STR), then x100/(100+3 skill)
+> skill level = isqrt(xp / 10); xp per natural block = hardness/4 + 1, x(100 + 3 INT)/130, max 60 per minute
+> sprint cost = 12 x 100 / (80 + 2 END) per step
+> stamina regen = 3 + END/5 per tick (+2 idle)
+> hunger: -0.5 per game minute (-1.0 if you sprinted), thirst -0.7 (-1.0 above 28 C), fatigue +0.4
+> body temperature drift = |env - limit| x 10 / (20 + WIL) tenths of a degree per minute outside 10..28 C
+> fall damage = (blocks - 3) x 8 for falls of 4+
+> carry capacity = 20 kg + 3 kg x STR
+> sight radius = 4 + visibility x 32 / 100 + PER/3 outdoors, 4 + PER/4 underground
+
+@topic about
+@title About Cliderness
+@level 1
+@related start,platforms
+Cliderness - Open World Survival Sandbox
+Created by korscripterdev.
+Engine: Cliderness Engine, written in ISO C90.
+License: GNU GPL version 3 or later (LICENSE).
+Version 0.1.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.

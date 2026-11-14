@@ -1,0 +1,316 @@
+# Cliderness block definitions - terrain, rock, liquids
+# glyph / floor_glyph: CP437 code (decimal) or a single character.
+# glyph is drawn when the block is at the player's eye level (a wall),
+# floor_glyph when the player looks down onto its top face.
+# hardness = base break time in ticks (20 ticks = 1 second).
+
+[block bedrock]
+name=Bedrock
+category=rock
+glyph=219
+fg=darkgray
+floor_glyph=178
+floor_fg=darkgray
+flags=solid,nomine
+hardness=255
+drop=none
+
+[block stone]
+name=Stone
+category=rock
+glyph=177
+fg=lightgray
+floor_glyph=250
+floor_fg=lightgray
+flags=solid
+hardness=30
+tool=pickaxe
+drop=cobblestone
+weight=2500
+density=2600
+
+[block deep_rock]
+name=Deep Rock
+category=rock
+glyph=178
+fg=darkgray
+floor_glyph=250
+floor_fg=darkgray
+flags=solid
+hardness=45
+tool=pickaxe
+weight=2900
+density=3000
+
+[block granite]
+name=Granite
+category=rock
+glyph=177
+fg=lightred
+floor_glyph=250
+floor_fg=lightred
+flags=solid
+hardness=35
+tool=pickaxe
+weight=2700
+density=2700
+
+[block limestone]
+name=Limestone
+category=rock
+glyph=177
+fg=white
+floor_glyph=250
+floor_fg=white
+flags=solid
+hardness=22
+tool=pickaxe
+weight=2300
+density=2500
+
+[block sandstone]
+name=Sandstone
+category=rock
+glyph=177
+fg=yellow
+floor_glyph=250
+floor_fg=yellow
+flags=solid
+hardness=18
+tool=pickaxe
+weight=2200
+density=2300
+
+[block basalt]
+name=Basalt
+category=rock
+glyph=178
+fg=darkgray
+floor_glyph=250
+floor_fg=lightgray
+bg=black
+flags=solid
+hardness=40
+tool=pickaxe
+weight=2900
+density=3000
+
+[block obsidian]
+name=Obsidian
+category=rock
+glyph=178
+fg=magenta
+floor_glyph=254
+floor_fg=magenta
+flags=solid
+hardness=120
+tool=pickaxe
+weight=2600
+density=2600
+
+[block magma_rock]
+name=Magma Rock
+category=rock
+glyph=177
+fg=lightred
+bg=red
+floor_glyph=247
+floor_fg=yellow
+floor_bg=red
+flags=solid,hurt,light
+light=6
+hardness=35
+tool=pickaxe
+weight=2800
+density=2800
+
+[block dirt]
+name=Dirt
+category=terrain
+glyph=177
+fg=brown
+floor_glyph='.'
+floor_fg=brown
+flags=solid
+hardness=10
+tool=shovel
+weight=1500
+density=1600
+
+[block grass]
+name=Grass Block
+category=terrain
+glyph=177
+fg=green
+floor_glyph='.'
+floor_fg=green
+flags=solid
+hardness=12
+tool=shovel
+drop=dirt
+weight=1500
+density=1600
+
+[block snowy_grass]
+name=Snowy Grass
+category=terrain
+glyph=177
+fg=white
+floor_glyph='.'
+floor_fg=white
+flags=solid
+hardness=12
+tool=shovel
+drop=dirt
+
+[block podzol]
+name=Podzol
+category=terrain
+glyph=177
+fg=brown
+floor_glyph=','
+floor_fg=brown
+flags=solid
+hardness=12
+tool=shovel
+drop=dirt
+
+[block sand]
+name=Sand
+category=terrain
+glyph=177
+fg=yellow
+floor_glyph=176
+floor_fg=yellow
+flags=solid
+hardness=8
+tool=shovel
+weight=1600
+density=1600
+
+[block red_sand]
+name=Red Sand
+category=terrain
+glyph=177
+fg=lightred
+floor_glyph=176
+floor_fg=lightred
+flags=solid
+hardness=8
+tool=shovel
+
+[block gravel]
+name=Gravel
+category=terrain
+glyph=177
+fg=darkgray
+floor_glyph=':'
+floor_fg=lightgray
+flags=solid
+hardness=12
+tool=shovel
+weight=1800
+density=1800
+
+[block clay]
+name=Clay
+category=terrain
+glyph=177
+fg=cyan
+floor_glyph='.'
+floor_fg=cyan
+flags=solid
+hardness=12
+tool=shovel
+weight=1700
+density=1800
+
+[block mud]
+name=Mud
+category=terrain
+glyph=177
+fg=brown
+floor_glyph=247
+floor_fg=brown
+flags=solid
+hardness=9
+tool=shovel
+weight=1700
+density=1700
+
+[block ash]
+name=Volcanic Ash
+category=terrain
+glyph=177
+fg=darkgray
+floor_glyph=':'
+floor_fg=darkgray
+flags=solid
+hardness=8
+tool=shovel
+
+[block snow]
+name=Snow
+category=terrain
+glyph=177
+fg=white
+floor_glyph=176
+floor_fg=white
+flags=solid
+hardness=6
+tool=shovel
+weight=400
+density=500
+
+[block ice]
+name=Ice
+category=terrain
+glyph=177
+fg=lightcyan
+floor_glyph=176
+floor_fg=lightcyan
+flags=solid
+hardness=14
+tool=pickaxe
+weight=900
+density=917
+
+[block packed_ice]
+name=Packed Ice
+category=terrain
+glyph=178
+fg=lightcyan
+floor_glyph=176
+floor_fg=lightcyan
+flags=solid
+hardness=25
+tool=pickaxe
+weight=900
+density=917
+
+[block water]
+name=Water
+category=liquid
+glyph='~'
+fg=lightblue
+bg=blue
+floor_glyph='~'
+floor_fg=lightblue
+floor_bg=blue
+flags=liquid,replaceable,nomine
+hardness=0
+drop=none
+
+[block lava]
+name=Lava
+category=liquid
+glyph='~'
+fg=yellow
+bg=red
+floor_glyph=247
+floor_fg=yellow
+floor_bg=red
+flags=liquid,hurt,light,nomine,replaceable
+light=12
+hardness=0
+drop=none

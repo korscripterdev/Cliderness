@@ -1,0 +1,78 @@
+# Cliderness block definitions - building materials and decoration
+
+[block cobblestone]
+name=Cobblestone
+category=building
+glyph=176
+fg=lightgray
+bg=darkgray
+floor_glyph=176
+floor_fg=lightgray
+flags=solid
+hardness=30
+tool=pickaxe
+weight=2400
+density=2500
+
+[block oak_planks]
+name=Wooden Planks
+category=building
+glyph=240
+fg=brown
+floor_glyph=240
+floor_fg=brown
+flags=solid
+hardness=20
+tool=axe
+weight=500
+density=600
+
+[block stone_bricks]
+name=Stone Bricks
+category=building
+glyph='#'
+fg=lightgray
+floor_glyph=254
+floor_fg=lightgray
+flags=solid
+hardness=35
+tool=pickaxe
+weight=2400
+density=2500
+
+[block bricks]
+name=Bricks
+category=building
+glyph='#'
+fg=lightred
+floor_glyph=254
+floor_fg=lightred
+flags=solid
+hardness=35
+tool=pickaxe
+weight=2000
+density=2000
+
+[block glass]
+name=Glass
+category=decoration
+glyph=197
+fg=lightcyan
+floor_glyph=197
+floor_fg=cyan
+flags=solid
+hardness=6
+drop=none
+weight=800
+density=2500
+
+[block torch]
+name=Torch
+category=functional
+glyph=173
+fg=yellow
+flags=plant,light
+light=12
+hardness=1
+weight=80
+density=600

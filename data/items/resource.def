@@ -1,0 +1,104 @@
+# Cliderness item definitions - resources and materials
+# Every block with item=1 (default) automatically gets a block item with the
+# same id; this file only defines items that are not blocks.
+# weight in grams, volume in centilitres, density in kg/m3 (< 1000 floats).
+
+[item stick]
+name=Stick
+type=material
+glyph='/'
+fg=brown
+weight=50
+volume=10
+density=600
+
+[item plant_fiber]
+name=Plant Fiber
+type=material
+glyph='"'
+fg=green
+weight=10
+volume=5
+density=500
+
+[item coal]
+name=Coal
+type=resource
+glyph=7
+fg=darkgray
+weight=100
+volume=8
+density=1300
+
+[item raw_iron]
+name=Raw Iron
+type=resource
+glyph=7
+fg=brown
+weight=300
+volume=8
+density=5000
+
+[item raw_copper]
+name=Raw Copper
+type=resource
+glyph=7
+fg=lightred
+weight=300
+volume=8
+density=5000
+
+[item raw_tin]
+name=Raw Tin
+type=resource
+glyph=7
+fg=white
+weight=280
+volume=8
+density=4800
+
+[item raw_silver]
+name=Raw Silver
+type=resource
+glyph=7
+fg=lightcyan
+weight=350
+volume=8
+density=6000
+
+[item raw_gold]
+name=Raw Gold
+type=resource
+glyph=7
+fg=yellow
+weight=400
+volume=8
+density=9000
+
+[item crystal_shard]
+name=Crystal Shard
+type=resource
+glyph=4
+fg=lightmagenta
+weight=40
+volume=3
+density=2600
+
+[item gem]
+name=Gem
+type=resource
+glyph=4
+fg=lightcyan
+weight=20
+volume=1
+density=3500
+
+[item fossil]
+name=Fossil
+type=relic
+glyph=21
+fg=white
+weight=600
+volume=20
+density=2200
+stack=16

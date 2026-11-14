@@ -1,0 +1,263 @@
+# Cliderness biomes - land (kind=land). The first matching entry wins.
+# height = surface y range, temp/humid/special = climate samples 0..100.
+# tree / plant densities are per 1000 surface cells.
+
+[biome volcanic]
+name=Volcanic Land
+kind=land
+height=66..255
+special=93..100
+surface=ash
+subsurface=basalt
+stone=basalt
+plant=dead_bush
+plant2=magma_rock
+plant_density=25
+base_temp=34
+humidity=10
+map_color=lightred
+
+[biome alpine]
+name=Alpine Highlands
+kind=land
+height=96..255
+surface=gravel
+subsurface=stone
+plant=fern
+plant_density=20
+tree=pine_log
+tree_top=pine_needles
+tree_density=6
+base_temp=2
+humidity=40
+map_color=lightgray
+
+[biome snowfield]
+name=Snowfield
+kind=land
+temp=0..14
+surface=snow
+subsurface=dirt
+freeze=1
+plant=dead_bush
+plant_density=3
+base_temp=-14
+humidity=40
+map_color=white
+
+[biome tundra]
+name=Tundra
+kind=land
+temp=15..25
+surface=snowy_grass
+subsurface=dirt
+freeze=1
+plant=fern
+plant2=dead_bush
+plant_density=40
+tree=pine_log
+tree_density=3
+base_temp=-4
+humidity=40
+map_color=white
+
+[biome conifer_forest]
+name=Conifer Forest
+kind=land
+temp=26..42
+humid=30..100
+surface=podzol
+subsurface=dirt
+tree=pine_log
+tree_top=pine_needles
+tree_density=120
+plant=fern
+plant2=mushroom_plant
+plant_density=60
+base_temp=7
+humidity=60
+map_color=green
+
+[biome flower_field]
+name=Flower Field
+kind=land
+temp=40..72
+humid=35..80
+special=84..100
+surface=grass
+plant=red_flower
+plant2=yellow_flower
+plant3=blue_flower
+plant_density=320
+tree=birch_log
+tree_top=oak_leaves
+tree_density=4
+base_temp=18
+humidity=55
+map_color=lightmagenta
+
+[biome swamp]
+name=Swamp
+kind=land
+temp=50..90
+humid=80..100
+surface=mud
+subsurface=clay
+tree=mangrove_log
+tree_top=oak_leaves
+tree_density=45
+plant=reeds
+plant2=mushroom_plant
+plant3=tall_grass
+plant_density=180
+base_temp=22
+humidity=95
+map_color=cyan
+
+[biome wetland]
+name=Wetland
+kind=land
+temp=30..72
+humid=70..100
+surface=grass
+subsurface=clay
+plant=reeds
+plant2=tall_grass
+plant3=white_flower
+plant_density=260
+tree=oak_log
+tree_top=oak_leaves
+tree_density=10
+base_temp=15
+humidity=85
+map_color=lightcyan
+
+[biome wasteland]
+name=Wasteland
+kind=land
+temp=55..100
+humid=0..22
+special=0..32
+surface=red_sand
+subsurface=sandstone
+stone=sandstone
+tree=dead_tree
+tree_density=4
+plant=dead_bush
+plant_density=20
+base_temp=30
+humidity=8
+map_color=lightred
+
+[biome desert]
+name=Desert
+kind=land
+temp=68..100
+humid=0..30
+surface=sand
+subsurface=sand
+stone=sandstone
+tree=cactus
+tree_density=10
+plant=dead_bush
+plant_density=8
+base_temp=36
+humidity=5
+map_color=yellow
+
+[biome bamboo_forest]
+name=Bamboo Forest
+kind=land
+temp=62..86
+humid=58..80
+special=50..100
+surface=grass
+tree=bamboo
+tree_density=260
+plant=fern
+plant_density=60
+base_temp=22
+humidity=75
+map_color=lightgreen
+
+[biome rainforest]
+name=Rainforest
+kind=land
+temp=75..100
+humid=62..100
+surface=grass
+tree=jungle_log
+tree_top=jungle_leaves
+tree_density=190
+plant=bush
+plant2=berry_bush
+plant3=fern
+plant_density=170
+base_temp=29
+humidity=90
+map_color=lightgreen
+
+[biome savanna]
+name=Savanna
+kind=land
+temp=66..100
+humid=22..58
+surface=grass
+tree=acacia_log
+tree_density=12
+plant=tall_grass
+plant2=dead_bush
+plant_density=260
+base_temp=29
+humidity=30
+map_color=brown
+
+[biome deciduous_forest]
+name=Deciduous Forest
+kind=land
+temp=40..66
+humid=55..100
+surface=grass
+tree=oak_log
+tree2=birch_log
+tree_top=oak_leaves
+tree_density=110
+plant=bush
+plant2=berry_bush
+plant3=tall_grass
+plant_density=90
+base_temp=14
+humidity=65
+map_color=green
+
+[biome grassland]
+name=Grassland
+kind=land
+temp=40..80
+humid=36..56
+surface=grass
+plant=tall_grass
+plant2=tall_grass
+plant3=yellow_flower
+plant_density=360
+tree=oak_log
+tree_top=oak_leaves
+tree_density=3
+base_temp=18
+humidity=45
+map_color=lightgreen
+
+[biome plains]
+name=Plains
+kind=land
+surface=grass
+plant=tall_grass
+plant2=red_flower
+plant3=white_flower
+plant_density=120
+tree=oak_log
+tree_top=oak_leaves
+tree_density=6
+base_temp=16
+humidity=50
+map_color=lightgreen

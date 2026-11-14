@@ -1,0 +1,289 @@
+# Cliderness block definitions - wood, leaves and vegetation
+# Trees occupy the cell above the ground (eye level) so they block movement.
+
+[block oak_log]
+name=Oak Tree
+category=wood
+glyph=6
+fg=green
+floor_glyph='o'
+floor_fg=brown
+flags=solid
+hardness=30
+tool=axe
+weight=800
+density=700
+
+[block birch_log]
+name=Birch Tree
+category=wood
+glyph=6
+fg=white
+floor_glyph='o'
+floor_fg=white
+flags=solid
+hardness=28
+tool=axe
+weight=750
+density=650
+
+[block pine_log]
+name=Pine Tree
+category=wood
+glyph=30
+fg=green
+floor_glyph='o'
+floor_fg=brown
+flags=solid
+hardness=28
+tool=axe
+weight=700
+density=550
+
+[block jungle_log]
+name=Jungle Tree
+category=wood
+glyph=6
+fg=lightgreen
+floor_glyph='o'
+floor_fg=brown
+flags=solid
+hardness=32
+tool=axe
+weight=850
+density=750
+
+[block acacia_log]
+name=Acacia Tree
+category=wood
+glyph='T'
+fg=brown
+floor_glyph='o'
+floor_fg=brown
+flags=solid
+hardness=30
+tool=axe
+weight=800
+density=700
+
+[block palm_log]
+name=Palm Tree
+category=wood
+glyph=244
+fg=lightgreen
+floor_glyph='o'
+floor_fg=yellow
+flags=solid
+hardness=25
+tool=axe
+weight=700
+density=600
+
+[block mangrove_log]
+name=Mangrove Tree
+category=wood
+glyph=6
+fg=cyan
+floor_glyph='o'
+floor_fg=brown
+flags=solid
+hardness=30
+tool=axe
+weight=850
+density=800
+
+[block dead_tree]
+name=Dead Tree
+category=wood
+glyph='Y'
+fg=brown
+floor_glyph='o'
+floor_fg=darkgray
+flags=solid
+hardness=18
+tool=axe
+weight=500
+density=500
+
+[block bamboo]
+name=Bamboo
+category=wood
+glyph=186
+fg=lightgreen
+floor_glyph='o'
+floor_fg=lightgreen
+flags=solid
+hardness=10
+tool=axe
+weight=300
+density=400
+
+[block cactus]
+name=Cactus
+category=plant
+glyph=197
+fg=green
+floor_glyph='+'
+floor_fg=green
+flags=solid,hurt
+hardness=8
+drop=cactus_fruit
+weight=400
+density=900
+
+[block oak_leaves]
+name=Leaves
+category=plant
+glyph=5
+fg=green
+floor_glyph=5
+floor_fg=green
+flags=solid,slow
+hardness=3
+drop=stick
+density=400
+
+[block pine_needles]
+name=Pine Needles
+category=plant
+glyph=5
+fg=green
+floor_glyph=30
+floor_fg=green
+flags=solid,slow
+hardness=3
+drop=stick
+density=400
+
+[block jungle_leaves]
+name=Jungle Leaves
+category=plant
+glyph=5
+fg=lightgreen
+floor_glyph=5
+floor_fg=lightgreen
+flags=solid,slow
+hardness=3
+drop=coconut
+density=400
+
+[block tall_grass]
+name=Tall Grass
+category=plant
+glyph=157
+fg=lightgreen
+flags=plant,replaceable
+hardness=1
+drop=plant_fiber
+
+[block fern]
+name=Fern
+category=plant
+glyph='"'
+fg=green
+flags=plant,replaceable
+hardness=1
+drop=plant_fiber
+
+[block bush]
+name=Bush
+category=plant
+glyph=5
+fg=green
+flags=plant,slow
+hardness=4
+drop=stick
+
+[block berry_bush]
+name=Berry Bush
+category=plant
+glyph=5
+fg=lightred
+flags=plant,slow
+hardness=4
+drop=berries
+drop_count=2
+
+[block red_flower]
+name=Red Flower
+category=plant
+glyph='*'
+fg=lightred
+flags=plant,replaceable
+hardness=1
+
+[block yellow_flower]
+name=Yellow Flower
+category=plant
+glyph='*'
+fg=yellow
+flags=plant,replaceable
+hardness=1
+
+[block blue_flower]
+name=Blue Flower
+category=plant
+glyph='*'
+fg=lightblue
+flags=plant,replaceable
+hardness=1
+
+[block white_flower]
+name=White Flower
+category=plant
+glyph='*'
+fg=white
+flags=plant,replaceable
+hardness=1
+
+[block reeds]
+name=Reeds
+category=plant
+glyph=179
+fg=yellow
+flags=plant,slow
+hardness=2
+drop=plant_fiber
+
+[block mushroom_plant]
+name=Mushroom
+category=plant
+glyph='t'
+fg=lightred
+flags=plant,replaceable
+hardness=1
+drop=mushroom
+
+[block dead_bush]
+name=Dead Bush
+category=plant
+glyph='%'
+fg=brown
+flags=plant,replaceable
+hardness=1
+drop=stick
+
+[block seaweed]
+name=Seaweed
+category=plant
+glyph='"'
+fg=lightgreen
+bg=blue
+floor_glyph='"'
+floor_fg=lightgreen
+floor_bg=blue
+flags=liquid,plant,replaceable
+hardness=1
+drop=plant_fiber
+
+[block coral]
+name=Coral
+category=plant
+glyph=15
+fg=lightmagenta
+bg=blue
+floor_glyph=15
+floor_fg=lightmagenta
+floor_bg=blue
+flags=liquid,plant
+hardness=6
