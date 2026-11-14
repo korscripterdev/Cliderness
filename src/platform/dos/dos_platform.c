@@ -67,9 +67,9 @@ static void bios_video(unsigned short ax, unsigned short bx, unsigned short cx)
 {
     union REGS r;
     memset(&r, 0, sizeof(r));
-    r.x.ax = ax;
-    r.x.bx = bx;
-    r.x.cx = cx;
+    r.w.ax = ax;
+    r.w.bx = bx;
+    r.w.cx = cx;
 #if defined(__DJGPP__) || !defined(__386__)
     int86(0x10, &r, &r);
 #else
