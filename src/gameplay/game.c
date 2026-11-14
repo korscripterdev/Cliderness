@@ -91,6 +91,7 @@ int game_create(Game *g, const char *name, const char *dir, cl_u32 seed, int mod
     g->last_minute = ctime_total_minutes(&g->time);
     g->difficulty = DIFF_NORMAL;
     g->spawning = 1;
+    g->aboard = -1;
     game_set_mode(g, mode);
     if (mode == GM_CREATIVE) {
         creative_kit(g);
@@ -188,6 +189,10 @@ static int move_cooldown(Game *g, int mode, cl_u8 target)
 void game_request_move(Game *g, int dir, int sprint)
 {
     if (g->p.dead) {
+        return;
+    }
+    if (g->aboard >= 0) {
+        ship_steer(g, dir);
         return;
     }
     g->p.facing = dir & 3;
@@ -338,6 +343,9 @@ void game_tick(Game *g)
         }
         if (p->pending_dir >= 0 && p->cooldown == 0) {
             do_move(g);
+        } else if (g->aboard >= 0) {
+            p->move_mode = MOVE_SAIL;
+            p->pending_dir = -1;
         } else if (p->cooldown == 0) {
             p->move_mode = p->fly ? MOVE_FLY : blk_liquid(at(g, p->x, p->y - 1, p->z)) ? MOVE_SWIM :
                            p->crouch ? MOVE_CROUCH : MOVE_IDLE;
@@ -360,6 +368,7 @@ void game_tick(Game *g)
     ent_tick(g);
     mob_tick(g);
     mob_spawn_tick(g);
+    ship_tick(g);
     if ((g->tick % 5L) == 0) {
         fluid_step(&g->world);
     }
@@ -424,6 +433,12 @@ void game_mine(Game *g)
         return;
     }
     facing_cell(g, &x, &y, &z);
+    if (g->aboard < 0) {
+        int s = ship_at(g, g->p.dim, x, y, z);
+        if (s >= 0 && ship_pickup(g, s)) {
+            return;
+        }
+    }
     b = at(g, x, y, z);
     if (b == BLOCK_AIR || blk_liquid(b)) {
         cl_u8 floor = at(g, x, y - 1, z);
@@ -469,8 +484,14 @@ void game_place(Game *g)
     if (g->p.dead) {
         return;
     }
+    if (ship_open_cargo(g)) {
+        return;
+    }
     if (!game_can_edit_world(g)) {
         log_add(MSG_WARN, loc_get("msg.cannot_edit"));
+        return;
+    }
+    if (ship_place(g)) {
         return;
     }
     if (st->item >= 0 && (st->item == item_find("water_bucket") || st->item == item_find("lava_bucket"))) {
@@ -581,6 +602,13 @@ void game_interact(Game *g)
         game_respawn(g);
         return;
     }
+    if (g->aboard >= 0) {
+        ship_disembark(g);
+        return;
+    }
+    if (ship_board(g)) {
+        return;
+    }
     facing_cell(g, &x, &y, &z);
     {
         cl_u8 b = at(g, x, y, z);
@@ -656,6 +684,9 @@ void game_use(Game *g)
     ItemStack *st = inv_selected(&g->inv);
     Player *p = &g->p;
     if (p->dead) {
+        return;
+    }
+    if (ship_use(g)) {
         return;
     }
     if (st->item >= 0 && g_items[st->item].tool_type == TOOL_HOE && farm_till(g)) {
@@ -789,6 +820,7 @@ void game_teleport(Game *g, long x, long y, long z)
     g->p.z = z;
     g->p.mining = 0;
     g->p.pending_dir = -1;
+    g->aboard = -1;
 }
 
 void game_respawn(Game *g)

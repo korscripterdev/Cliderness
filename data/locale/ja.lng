@@ -516,3 +516,47 @@ mob.frost_ghoul=霜のグール
 mob.trader=行商人
 mob.hermit=隠者
 mob.miner_npc=老鉱夫
+
+# --- added ---
+con.already_aboard=すでに船に乗っています。
+con.no_oars=この船には後退用のオールがありません。
+con.no_ship=ここに船はありません。
+con.not_aboard=船に乗っていません。
+con.unknown_ship=不明な船の種類: {0}
+move.sail=航海
+msg.anchor_down=錨を下ろしました。
+msg.anchor_up=錨を上げました。
+msg.ship_aground=船体が底をこすった!
+msg.ship_bailed=水をかき出した(浸水{0}%)。
+msg.ship_blocked=船はこれ以上進めません。
+msg.ship_boarded={0}に乗りました。移動キーで操船、Uで排水/修理、Rで船倉、Eで下船。
+msg.ship_cargo_full=先に船倉を空にしてください。
+msg.ship_dry=船体に水はありません。
+msg.ship_flooding=船に水が入っています!
+msg.ship_jumped=水に飛び込みました。
+msg.ship_left=岸に降りました。
+msg.ship_limit=このワールドには船が多すぎます。
+msg.ship_need_water={0}を浮かべるには前に開けた水面が必要です。
+msg.ship_no_cargo=この船には船倉がありません。
+msg.ship_no_exit=下船できる場所がありません。
+msg.ship_no_turn=向きを変える空間がありません。
+msg.ship_picked={0}を岸に引き上げました。
+msg.ship_placed={0}を水に浮かべました。
+msg.ship_repaired=船体を修理しました({0}%)。
+msg.ship_sank={0}が沈みます!
+msg.ship_stage={0}: {1}!
+ship.intact=無傷
+ship.damaged=損傷
+ship.critical=大破寸前
+ship.heading=針路
+ship.hull=船体
+ship.load=積載
+ship.speed=速度
+ship.throttle=出力
+ship.travelled=航行距離
+ship.water=浸水
+ship.wind=風
+ship.wind_to=風下
+
+# --- added ---
+msg.ship_overloaded=船が積みすぎで浸水しています!

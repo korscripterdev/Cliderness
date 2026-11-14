@@ -28,7 +28,7 @@ The world is generated from the seed, so the same seed always gives the same wor
 > R                  place the selected block
 > >                  dig down (descend)
 > <                  build up under yourself (ascend)
-> E                  interact: open, trade, pick up items / respawn
+> E                  interact: open, trade, board / leave a ship, pick up items / respawn
 > U                  use: eat, drink water
 > Q / Ctrl+Q         drop one item / the whole stack
 > Tab or I           inventory
@@ -343,10 +343,17 @@ Build dams with any solid block; break them to flood the valley behind. Lava is 
 Only cells next to a change are simulated; still water costs nothing. /fluid shows statistics, /settle calms everything, /volume measures.
 
 @topic ships
-@title Ships (planned)
-@level 3
-@related ocean,durability
-Rafts, rowing boats, sailing ships and large ships with hulls, sails, rudders, decks and cargo holds are planned for Phase 8, including wind, waves, buoyancy, flooding and the three damage stages of rafts.
+@title Ships
+@level 2
+@related sailing,shipdamage,ocean,crafting
+Four ships can be crafted (category Vehicles):
+> Raft          6 logs + 2 rope; 1 cell, paddled, 220 kg, no hold
+> Rowing Boat   workbench; 2 cells, rowed, 400 kg, cargo hold
+> Sailing Boat  workbench, Crafting 8; 3 cells, sails + oars, 900 kg
+> Merchant Ship workbench, Crafting 15; 5 x 3 cells, sails only, 4000 kg
+Hold the ship, face open water and press R to launch it (the stern starts next to you). Press E next to it to board, E again to leave: you step ashore when there is land next to the hull, otherwise you jump into the water. F on an empty ship while you are ashore hauls it back into your inventory; the item keeps the hull damage.
+
+Aboard, R opens the cargo hold (27 slots, limited by the ship's capacity) and U bails water or, while holding the repair material (logs for rafts, planks for boats), patches the hull.
 
 @topic ancient
 @title The Ancient Dimension (planned)
@@ -488,7 +495,7 @@ Cliderness - Open World Survival Sandbox
 Created by korscripterdev.
 Engine: Cliderness Engine, written in ISO C90.
 License: GNU GPL version 3 or later (LICENSE).
-Version 0.4.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
+Version 0.5.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
 
 @topic stations
 @title Workstations
@@ -602,3 +609,30 @@ Face an NPC and press E (or use /trade). If you carry what one of its offers ask
 > Hermit            leather for bandages, raw meat for herbal tea, gems for tokens
 > Old Miner         raw iron for an iron pickaxe, bread for torches, crystal shards for tokens
 NPCs are defensive: they fight back if you attack them. Pressing E on an animal or monster shows what it is doing.
+
+@topic sailing
+@title Sailing
+@level 2
+@related ships,wind,shipdamage,skills
+Aboard, the movement keys steer: the key in the direction of the bow raises the throttle (0-3), the opposite key lowers it (to -1 = backwards for ships with oars), a sideways key turns the bow that way if there is room. /anchor stops the ship.
+> Oars    speed from your arms: costs stamina for every cell
+> Sails   speed from the wind: full in a tailwind, 75% on a broad reach, 45% across the wind, 15% into it
+The faster of both counts. Overloading halves the speed, flooding slows the ship. Every 8 cells train Sailing, which adds 1% speed per level. The status panel shows ship, hull, flooding %, throttle and speed. /shipinfo shows everything, /wind the wind.
+
+@topic shipdamage
+@title Hull Damage and Sinking
+@level 3
+@related ships,sailing,weather,formulas
+Every ship has hull points and three damage stages:
+> Intact    above 66%
+> Damaged   34-66%: leaks 1 litre per second (yellow hull)
+> Critical  33% or less: leaks 4 litres per second (red hull)
+Waves damage the hull when the wind is stronger than the ship can take (raft 40%, rowing boat 55%, sailing boat 70%, merchant ship 85%): storms are dangerous for small boats. Running aground faster than 30 cells per 100 ticks costs hull points. Rain and overloading let water in.
+
+Water in the hull is shown in percent; above 50% the hull turns blue. The ship sinks when it is full (capacity / 4 litres), when its hull reaches 0, or when cargo + water exceed 150% of its capacity. A sinking ship releases its cargo and some wreckage as floating items. Bail (U or /bail; a bucket in hand bails three times as much) and repair in time. Creaking and cracking sounds warn you.
+
+@topic wind
+@title Wind
+@level 3
+@related sailing,weather
+The wind strength comes from the weather (clear 10%, rain 30%, thunderstorm 60%, windy 80%, storm 95%), its direction drifts slowly. /wind shows both; the direction is where the wind blows to. Sailing ships are fastest with the wind behind them and almost stop when sailing into it. Strong wind raises waves that damage small hulls.

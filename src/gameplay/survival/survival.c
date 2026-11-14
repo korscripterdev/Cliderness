@@ -143,7 +143,7 @@ void surv_tick(Game *g)
     if (p->fatigue > 800) {
         p->stamina_max = 600;
     }
-    if (p->move_mode != MOVE_SPRINT && p->move_mode != MOVE_SWIM) {
+    if (p->move_mode != MOVE_SPRINT && p->move_mode != MOVE_SWIM && !ship_rowing(g)) {
         regen = 3 + p->stats[ST_END] / 5;
         if (p->move_mode == MOVE_IDLE || p->move_mode == MOVE_CROUCH) {
             regen += 2;
@@ -195,7 +195,7 @@ void surv_minute(Game *g)
         return;
     }
     /* wet: swimming, or rain while outdoors */
-    if (blk_liquid(world_get(&g->world, p->dim, p->x, p->y - 1, p->z)) ||
+    if ((g->aboard < 0 && blk_liquid(world_get(&g->world, p->dim, p->x, p->y - 1, p->z))) ||
         (weather_cur(&g->weather)->precip == PRECIP_RAIN && !game_is_covered(g, p->x, p->y, p->z))) {
         fx_add(g, effect_find("wet"), 20);
     }

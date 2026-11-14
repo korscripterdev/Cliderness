@@ -516,3 +516,47 @@ mob.frost_ghoul=Ледяной гуль
 mob.trader=Странствующий торговец
 mob.hermit=Отшельник
 mob.miner_npc=Старый шахтёр
+
+# --- added ---
+con.already_aboard=Вы уже на борту судна.
+con.no_oars=У этого судна нет вёсел для заднего хода.
+con.no_ship=Здесь нет судна.
+con.not_aboard=Вы не на борту судна.
+con.unknown_ship=Неизвестный тип судна: {0}
+move.sail=плавание
+msg.anchor_down=Якорь брошен.
+msg.anchor_up=Якорь поднят.
+msg.ship_aground=Корпус скребёт по дну!
+msg.ship_bailed=Вы вычерпываете воду (затоплено {0}%).
+msg.ship_blocked=Судно не может плыть дальше.
+msg.ship_boarded=Вы на борту: {0}. Клавиши движения — руль, U — вычерпать/починить, R — трюм, E — сойти.
+msg.ship_cargo_full=Сначала освободите трюм.
+msg.ship_dry=В корпусе нет воды.
+msg.ship_flooding=Судно набирает воду!
+msg.ship_jumped=Вы прыгаете в воду.
+msg.ship_left=Вы сходите на берег.
+msg.ship_limit=В этом мире слишком много судов.
+msg.ship_need_water=Для {0} нужна открытая вода перед вами.
+msg.ship_no_cargo=У этого судна нет трюма.
+msg.ship_no_exit=Негде сойти с судна.
+msg.ship_no_turn=Недостаточно места для поворота.
+msg.ship_picked=Вы вытаскиваете {0} на берег.
+msg.ship_placed=Вы спускаете на воду: {0}.
+msg.ship_repaired=Вы латаете корпус ({0}%).
+msg.ship_sank={0} тонет!
+msg.ship_stage={0}: {1}!
+ship.intact=цело
+ship.damaged=повреждено
+ship.critical=тяжело повреждено
+ship.heading=Курс
+ship.hull=Корпус
+ship.load=Груз
+ship.speed=Скорость
+ship.throttle=Тяга
+ship.travelled=Пройдено
+ship.water=Вода
+ship.wind=Ветер
+ship.wind_to=дует на
+
+# --- added ---
+msg.ship_overloaded=Судно перегружено и набирает воду!

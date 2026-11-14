@@ -1,0 +1,46 @@
+# Cliderness item definitions - vehicles
+# Face open water and press R to launch. Durability = hull points.
+
+[item raft]
+name=Raft
+type=building
+glyph=240
+fg=brown
+durability=30
+stack=1
+weight=12000
+volume=400
+density=600
+
+[item rowboat]
+name=Rowing Boat
+type=building
+glyph=127
+fg=brown
+durability=60
+stack=1
+weight=25000
+volume=800
+density=600
+
+[item sailboat]
+name=Sailing Boat
+type=building
+glyph=244
+fg=brown
+durability=100
+stack=1
+weight=30000
+volume=1500
+density=600
+
+[item large_ship]
+name=Merchant Ship
+type=building
+glyph=244
+fg=yellow
+durability=220
+stack=1
+weight=30000
+volume=4000
+density=600

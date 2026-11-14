@@ -4,6 +4,17 @@
 
 Cambios importantes de Cliderness (creado por korscripterdev).
 
+## [0.5.0] — 2026-11-14
+
+Fase 8 de la hoja de ruta (barcos).
+
+### Añadido
+- Balsa, bote de remos, velero y barco mercante (5x3 casillas) con recetas.
+- R para botar, E para subir/bajar, F para recoger un barco vacío. Gobierno con las teclas de movimiento (potencia -1..3, giro), ancla.
+- Los remos gastan aguante; las velas usan la dirección y fuerza del viento. Habilidad de navegación.
+- Flotabilidad y capacidad, bodegas, sobrecarga. 3 etapas de daño del casco, vías de agua, achique, reparación, olas, encallar, hundimiento.
+- Sonidos de crujido y rotura. 12 comandos nuevos (116 en total).
+
 ## [0.4.0] — 2026-11-14
 
 Fase 7 de la hoja de ruta (criaturas y combate).

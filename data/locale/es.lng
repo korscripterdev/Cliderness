@@ -516,3 +516,47 @@ mob.frost_ghoul=Necrófago de escarcha
 mob.trader=Mercader errante
 mob.hermit=Ermitaño
 mob.miner_npc=Viejo minero
+
+# --- added ---
+con.already_aboard=Ya estás a bordo de un barco.
+con.no_oars=Este barco no tiene remos para ir hacia atrás.
+con.no_ship=Aquí no hay ningún barco.
+con.not_aboard=No estás a bordo de un barco.
+con.unknown_ship=Tipo de barco desconocido: {0}
+move.sail=navegando
+msg.anchor_down=El ancla está echada.
+msg.anchor_up=El ancla está levada.
+msg.ship_aground=¡El casco roza el fondo!
+msg.ship_bailed=Achicas agua ({0}% inundado).
+msg.ship_blocked=El barco no puede avanzar más.
+msg.ship_boarded=Subes a {0}. Teclas de movimiento: gobernar, U achicar/reparar, R bodega, E bajar.
+msg.ship_cargo_full=Vacía primero la bodega.
+msg.ship_dry=El casco está seco.
+msg.ship_flooding=¡El barco se está llenando de agua!
+msg.ship_jumped=Saltas al agua.
+msg.ship_left=Bajas a tierra.
+msg.ship_limit=Hay demasiados barcos en este mundo.
+msg.ship_need_water={0} necesita agua abierta delante de ti.
+msg.ship_no_cargo=Este barco no tiene bodega.
+msg.ship_no_exit=No hay sitio para bajar del barco.
+msg.ship_no_turn=No hay espacio para girar.
+msg.ship_picked=Sacas {0} a tierra.
+msg.ship_placed=Botas {0}.
+msg.ship_repaired=Reparas el casco ({0}%).
+msg.ship_sank=¡{0} se hunde!
+msg.ship_stage=¡{0}: {1}!
+ship.intact=intacto
+ship.damaged=dañado
+ship.critical=gravemente dañado
+ship.heading=Rumbo
+ship.hull=Casco
+ship.load=Carga
+ship.speed=Velocidad
+ship.throttle=Potencia
+ship.travelled=Recorrido
+ship.water=Agua
+ship.wind=Viento
+ship.wind_to=hacia
+
+# --- added ---
+msg.ship_overloaded=¡El barco va sobrecargado y hace agua!

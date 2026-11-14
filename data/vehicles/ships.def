@@ -1,0 +1,77 @@
+# Cliderness ship definitions
+#
+# item        the item that places the ship (its durability is the hull)
+# length      hull cells along the heading; width 1 or 3 (3 = large ship)
+# glyph       CP437 code of a one-cell hull; sail_glyph for the mast
+# hull        hull points; damage stages at 66% and 33%
+# oar_speed   cells per 100 ticks at full rowing (0 = no oars)
+# sail_speed  cells per 100 ticks with full sails in a 100% tailwind
+# capacity    kg the hull carries; flooding limit = capacity / 4 litres
+# cargo       1 = has a cargo hold (27 slots, limited by capacity)
+# wave_limit  wind % the hull withstands without damage
+# repair      material used with U aboard; wreck = what floats up on sinking
+
+[ship raft]
+name=Raft
+item=raft
+length=1
+glyph=240
+color=brown
+hull=30
+oar_speed=25
+sail_speed=0
+capacity=220
+cargo=0
+wave_limit=40
+repair=oak_log
+wreck=oak_log
+wreck_count=2
+
+[ship rowboat]
+name=Rowing Boat
+item=rowboat
+length=2
+color=brown
+hull=60
+oar_speed=55
+sail_speed=0
+capacity=400
+cargo=1
+wave_limit=55
+repair=oak_planks
+wreck=oak_planks
+wreck_count=3
+
+[ship sailboat]
+name=Sailing Boat
+item=sailboat
+length=3
+color=brown
+sail_glyph=244
+hull=100
+oar_speed=18
+sail_speed=130
+capacity=900
+cargo=1
+wave_limit=70
+repair=oak_planks
+wreck=oak_planks
+wreck_count=5
+
+[ship large_ship]
+name=Merchant Ship
+item=large_ship
+length=5
+width=3
+color=brown
+sail_glyph=244
+crew=1
+hull=220
+oar_speed=0
+sail_speed=110
+capacity=4000
+cargo=1
+wave_limit=85
+repair=oak_planks
+wreck=oak_planks
+wreck_count=10

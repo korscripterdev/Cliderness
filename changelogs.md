@@ -4,6 +4,24 @@
 
 All notable changes to Cliderness (created by korscripterdev).
 
+## [0.5.0] — 2026-11-14
+
+Roadmap phase 8 (ships).
+
+### Added
+- Ships (`data/vehicles/ships.def`): raft (1 cell), rowing boat (2), sailing boat (3) and merchant ship (5 x 3 cells), with recipes in the Vehicles category.
+- Launch with R on open water, board and leave with E, haul an empty ship ashore with F (the item keeps the hull damage).
+- Steering with the movement keys: throttle -1..3 and turning; /anchor.
+- Oars cost stamina; sails use the wind strength and direction (100% tailwind, 75% broad reach, 45% beam, 15% headwind). Sailing skill adds speed.
+- Buoyancy: capacity in kg, cargo holds (R aboard), overloading halves the speed and lets water in.
+- Hull damage in three stages (intact, damaged, critical) with leaks, flooding, bailing (U), repairs with logs or planks, waves above a ship's wave limit, damage when running aground, sinking with floating cargo and wreckage.
+- Creaking and cracking hull sounds.
+- 12 commands (116 in total): ships, boats, board, disembark, throttle, anchor, shipinfo, bail, hull, spawnship, sinkship, wind.
+- Help: ships, sailing, hull damage and sinking, wind. Ships, cargo and the ship you are on are saved.
+
+### Changed
+- Creative mode: ships take no damage.
+
 ## [0.4.0] — 2026-11-14
 
 Roadmap phase 7 (creatures and combat).

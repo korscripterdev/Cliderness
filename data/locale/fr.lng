@@ -516,3 +516,47 @@ mob.frost_ghoul=Goule du givre
 mob.trader=Marchand ambulant
 mob.hermit=Ermite
 mob.miner_npc=Vieux mineur
+
+# --- added ---
+con.already_aboard=Vous êtes déjà à bord d'un bateau.
+con.no_oars=Ce bateau n'a pas de rames pour reculer.
+con.no_ship=Il n'y a pas de bateau ici.
+con.not_aboard=Vous n'êtes pas à bord d'un bateau.
+con.unknown_ship=Type de bateau inconnu : {0}
+move.sail=navigue
+msg.anchor_down=L'ancre est jetée.
+msg.anchor_up=L'ancre est levée.
+msg.ship_aground=La coque racle le fond !
+msg.ship_bailed=Vous écopez ({0}% inondé).
+msg.ship_blocked=Le bateau ne peut pas aller plus loin.
+msg.ship_boarded=Vous montez à bord : {0}. Déplacement : barrer, U écoper/réparer, R cale, E descendre.
+msg.ship_cargo_full=Videz d'abord la cale.
+msg.ship_dry=La coque est sèche.
+msg.ship_flooding=Le bateau prend l'eau !
+msg.ship_jumped=Vous sautez à l'eau.
+msg.ship_left=Vous débarquez.
+msg.ship_limit=Trop de bateaux dans ce monde.
+msg.ship_need_water={0} a besoin d'eau libre devant vous.
+msg.ship_no_cargo=Ce bateau n'a pas de cale.
+msg.ship_no_exit=Aucun endroit pour débarquer.
+msg.ship_no_turn=Pas assez de place pour tourner.
+msg.ship_picked=Vous tirez {0} à terre.
+msg.ship_placed=Vous mettez {0} à l'eau.
+msg.ship_repaired=Vous colmatez la coque ({0}%).
+msg.ship_sank={0} coule !
+msg.ship_stage={0} : {1} !
+ship.intact=intact
+ship.damaged=endommagé
+ship.critical=gravement endommagé
+ship.heading=Cap
+ship.hull=Coque
+ship.load=Charge
+ship.speed=Vitesse
+ship.throttle=Puissance
+ship.travelled=Parcouru
+ship.water=Eau
+ship.wind=Vent
+ship.wind_to=vers
+
+# --- added ---
+msg.ship_overloaded=Le bateau est surchargé et prend l'eau !

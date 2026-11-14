@@ -17,9 +17,13 @@ static const Tone s_splash[] = { { 400, 15 }, { 250, 20 }, { 500, 15 }, { 0, 0 }
 static const Tone s_thunder[] = { { 60, 120 }, { 45, 160 }, { 70, 90 }, { 0, 0 } };
 static const Tone s_crow[] = { { 700, 60 }, { 1, 30 }, { 650, 70 }, { 0, 0 } };
 static const Tone s_bird[] = { { 2400, 25 }, { 3000, 25 }, { 2600, 30 }, { 0, 0 } };
+/* wood: a creaking hull and a cracking plank */
+static const Tone s_creak[] = { { 130, 40 }, { 150, 50 }, { 125, 60 }, { 0, 0 } };
+static const Tone s_crack[] = { { 900, 10 }, { 240, 25 }, { 1, 10 }, { 180, 40 }, { 90, 60 }, { 0, 0 } };
 
 static const Tone *const g_seq[SFX_COUNT] = {
-    0, s_step, s_mine, s_break, s_place, s_pickup, s_hurt, s_menu, s_splash, s_thunder, s_crow, s_bird
+    0, s_step, s_mine, s_break, s_place, s_pickup, s_hurt, s_menu, s_splash, s_thunder, s_crow, s_bird,
+    s_creak, s_crack
 };
 
 static const ClidePlatform *g_p = 0;
@@ -74,7 +78,7 @@ void aud_silence(void)
 void aud_play(int sfx)
 {
     /* simple priority mixing: a louder event interrupts a quieter one */
-    static const int prio[SFX_COUNT] = { 0, 1, 2, 3, 2, 4, 6, 5, 3, 7, 4, 2 };
+    static const int prio[SFX_COUNT] = { 0, 1, 2, 3, 2, 4, 6, 5, 3, 7, 4, 2, 4, 6 };
     if (!g_available || !g_enabled || sfx <= SFX_NONE || sfx >= SFX_COUNT) {
         return;
     }

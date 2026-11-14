@@ -516,3 +516,47 @@ mob.frost_ghoul=Ghoul del gelo
 mob.trader=Mercante errante
 mob.hermit=Eremita
 mob.miner_npc=Vecchio minatore
+
+# --- added ---
+con.already_aboard=Sei già a bordo di una nave.
+con.no_oars=Questa nave non ha remi per andare indietro.
+con.no_ship=Qui non c'è nessuna nave.
+con.not_aboard=Non sei a bordo di una nave.
+con.unknown_ship=Tipo di nave sconosciuto: {0}
+move.sail=navigazione
+msg.anchor_down=L'ancora è calata.
+msg.anchor_up=L'ancora è salpata.
+msg.ship_aground=Lo scafo striscia sul fondo!
+msg.ship_bailed=Sgotti l'acqua ({0}% allagato).
+msg.ship_blocked=La nave non può andare oltre.
+msg.ship_boarded=Sali a bordo: {0}. Movimento: timone, U sgottare/riparare, R stiva, E scendere.
+msg.ship_cargo_full=Svuota prima la stiva.
+msg.ship_dry=Lo scafo è asciutto.
+msg.ship_flooding=La nave si sta riempiendo d'acqua!
+msg.ship_jumped=Salti in acqua.
+msg.ship_left=Scendi a terra.
+msg.ship_limit=Troppe navi in questo mondo.
+msg.ship_need_water={0} ha bisogno di acqua libera davanti a te.
+msg.ship_no_cargo=Questa nave non ha una stiva.
+msg.ship_no_exit=Non c'è un posto dove scendere.
+msg.ship_no_turn=Non c'è spazio per virare.
+msg.ship_picked=Tiri {0} a riva.
+msg.ship_placed=Vari {0}.
+msg.ship_repaired=Ripari lo scafo ({0}%).
+msg.ship_sank={0} affonda!
+msg.ship_stage={0}: {1}!
+ship.intact=intatto
+ship.damaged=danneggiato
+ship.critical=gravemente danneggiato
+ship.heading=Rotta
+ship.hull=Scafo
+ship.load=Carico
+ship.speed=Velocità
+ship.throttle=Potenza
+ship.travelled=Percorso
+ship.water=Acqua
+ship.wind=Vento
+ship.wind_to=verso
+
+# --- added ---
+msg.ship_overloaded=La nave è sovraccarica e imbarca acqua!

@@ -516,3 +516,47 @@ mob.frost_ghoul=Frostghul
 mob.trader=Wanderhändler
 mob.hermit=Einsiedler
 mob.miner_npc=Alter Bergmann
+
+# --- added ---
+con.already_aboard=Du bist schon an Bord eines Schiffes.
+con.no_oars=Dieses Schiff hat keine Ruder zum Rückwärtsfahren.
+con.no_ship=Hier ist kein Schiff.
+con.not_aboard=Du bist nicht an Bord eines Schiffes.
+con.unknown_ship=Unbekannter Schiffstyp: {0}
+move.sail=segelt
+msg.anchor_down=Der Anker ist geworfen.
+msg.anchor_up=Der Anker ist gelichtet.
+msg.ship_aground=Der Rumpf schrammt über Grund!
+msg.ship_bailed=Du schöpfst Wasser ({0}% geflutet).
+msg.ship_blocked=Das Schiff kommt nicht weiter.
+msg.ship_boarded=Du gehst an Bord: {0}. Bewegung steuert, U schöpfen/reparieren, R Laderaum, E von Bord.
+msg.ship_cargo_full=Leere zuerst den Laderaum.
+msg.ship_dry=Der Rumpf ist trocken.
+msg.ship_flooding=Das Schiff läuft voll Wasser!
+msg.ship_jumped=Du springst ins Wasser.
+msg.ship_left=Du gehst an Land.
+msg.ship_limit=Zu viele Schiffe in dieser Welt.
+msg.ship_need_water={0} braucht offenes Wasser vor dir.
+msg.ship_no_cargo=Dieses Schiff hat keinen Laderaum.
+msg.ship_no_exit=Hier kannst du nicht von Bord gehen.
+msg.ship_no_turn=Nicht genug Platz zum Wenden.
+msg.ship_picked=Du ziehst {0} an Land.
+msg.ship_placed=Du lässt {0} zu Wasser.
+msg.ship_repaired=Du flickst den Rumpf ({0}%).
+msg.ship_sank={0} sinkt!
+msg.ship_stage={0}: {1}!
+ship.intact=unbeschädigt
+ship.damaged=beschädigt
+ship.critical=schwer beschädigt
+ship.heading=Kurs
+ship.hull=Rumpf
+ship.load=Ladung
+ship.speed=Tempo
+ship.throttle=Leistung
+ship.travelled=Strecke
+ship.water=Wasser
+ship.wind=Wind
+ship.wind_to=weht nach
+
+# --- added ---
+msg.ship_overloaded=Das Schiff ist überladen und nimmt Wasser auf!

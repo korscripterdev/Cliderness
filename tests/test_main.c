@@ -12,6 +12,7 @@
 #include "world/weather/weather.h"
 #include "world/structures/structure.h"
 #include "gameplay/entities/creature.h"
+#include "gameplay/vehicles/ship.h"
 #include "localization/locale.h"
 #include "commands/console.h"
 #include "help/help.h"
@@ -71,7 +72,8 @@ static int setup(void)
     }
     if (!content_load(tf_data, err, sizeof(err)) || !biome_load(tf_data, err, sizeof(err)) ||
         !weather_load(tf_data, err, sizeof(err)) || !structures_load(tf_data, err, sizeof(err)) ||
-        !creatures_load(tf_data, err, sizeof(err))) {
+        !creatures_load(tf_data, err, sizeof(err)) ||
+        !ships_load(tf_data, err, sizeof(err))) {
         printf("data error: %s\n", err);
         return 0;
     }
@@ -107,6 +109,7 @@ int main(int argc, char **argv)
     if (!only || str_ieq(only, "crafting")) { printf("[crafting]\n"); suite_crafting(); }
     if (!only || str_ieq(only, "fluid")) { printf("[fluid]\n"); suite_fluid(); }
     if (!only || str_ieq(only, "mob")) { printf("[mob]\n"); suite_mob(); }
+    if (!only || str_ieq(only, "ship")) { printf("[ship]\n"); suite_ship(); }
     if (!only || str_ieq(only, "app")) { printf("[app]\n"); suite_app(); }
     printf("\n%d checks passed, %d failed\n", tf_pass, tf_fail);
     return tf_fail ? 1 : 0;

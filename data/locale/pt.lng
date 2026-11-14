@@ -516,3 +516,47 @@ mob.frost_ghoul=Carniçal de gelo
 mob.trader=Mercador errante
 mob.hermit=Eremita
 mob.miner_npc=Velho mineiro
+
+# --- added ---
+con.already_aboard=Você já está a bordo de um barco.
+con.no_oars=Este barco não tem remos para ir para trás.
+con.no_ship=Não há barco aqui.
+con.not_aboard=Você não está a bordo de um barco.
+con.unknown_ship=Tipo de barco desconhecido: {0}
+move.sail=navegando
+msg.anchor_down=A âncora está lançada.
+msg.anchor_up=A âncora está içada.
+msg.ship_aground=O casco raspa no fundo!
+msg.ship_bailed=Você tira água ({0}% alagado).
+msg.ship_blocked=O barco não pode avançar mais.
+msg.ship_boarded=Você embarca: {0}. Movimento: pilotar, U tirar água/reparar, R porão, E desembarcar.
+msg.ship_cargo_full=Esvazie o porão primeiro.
+msg.ship_dry=O casco está seco.
+msg.ship_flooding=O barco está enchendo de água!
+msg.ship_jumped=Você pula na água.
+msg.ship_left=Você desce em terra.
+msg.ship_limit=Há barcos demais neste mundo.
+msg.ship_need_water={0} precisa de água aberta à sua frente.
+msg.ship_no_cargo=Este barco não tem porão.
+msg.ship_no_exit=Não há onde desembarcar.
+msg.ship_no_turn=Não há espaço para virar.
+msg.ship_picked=Você puxa {0} para a terra.
+msg.ship_placed=Você lança {0} na água.
+msg.ship_repaired=Você remenda o casco ({0}%).
+msg.ship_sank={0} afunda!
+msg.ship_stage={0}: {1}!
+ship.intact=intacto
+ship.damaged=danificado
+ship.critical=gravemente danificado
+ship.heading=Rumo
+ship.hull=Casco
+ship.load=Carga
+ship.speed=Velocidade
+ship.throttle=Potência
+ship.travelled=Percorrido
+ship.water=Água
+ship.wind=Vento
+ship.wind_to=para
+
+# --- added ---
+msg.ship_overloaded=O barco está sobrecarregado e entra água!

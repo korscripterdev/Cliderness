@@ -1,0 +1,41 @@
+# Cliderness recipes - vehicle.def (ships)
+# in = item:count, station = none/workbench/furnace/campfire/anvil/altar
+
+[recipe raft]
+result=raft
+in=oak_log:6
+in=rope:2
+skill=crafting
+category=vehicles
+
+[recipe rowboat]
+result=rowboat
+in=oak_planks:12
+in=stick:4
+in=rope:2
+station=workbench
+skill=crafting
+min_skill=3
+category=vehicles
+
+[recipe sailboat]
+result=sailboat
+in=oak_planks:24
+in=cloth:8
+in=rope:6
+in=iron_ingot:2
+station=workbench
+skill=crafting
+min_skill=8
+category=vehicles
+
+[recipe large_ship]
+result=large_ship
+in=oak_planks:64
+in=cloth:20
+in=rope:12
+in=iron_ingot:10
+station=workbench
+skill=crafting
+min_skill=15
+category=vehicles

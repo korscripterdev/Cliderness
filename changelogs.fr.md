@@ -4,6 +4,17 @@
 
 Changements notables de Cliderness (créé par korscripterdev).
 
+## [0.5.0] — 2026-11-14
+
+Phase 8 de la feuille de route (bateaux).
+
+### Ajouté
+- Radeau, barque, voilier et navire marchand (5x3 cases) avec recettes.
+- R pour mettre à l'eau, E pour monter/descendre, F pour récupérer un bateau vide. Pilotage avec les touches de déplacement (puissance -1..3, virage), ancre.
+- Les rames coûtent de l'endurance ; les voiles utilisent la direction et la force du vent. Compétence de navigation.
+- Flottabilité et capacité, cales, surcharge. 3 stades de dégâts de coque, voies d'eau, écopage, réparation, vagues, échouage, naufrage.
+- Sons de grincement et de craquement. 12 nouvelles commandes (116 au total).
+
 ## [0.4.0] — 2026-11-14
 
 Phase 7 de la feuille de route (créatures et combat).

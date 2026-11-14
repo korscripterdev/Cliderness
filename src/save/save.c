@@ -5,6 +5,7 @@
 #include "content/content.h"
 #include "content/effects.h"
 #include "gameplay/entities/creature.h"
+#include "gameplay/vehicles/ship.h"
 #include "core/crc.h"
 #include "core/ini.h"
 #include "core/str.h"
@@ -145,6 +146,7 @@ static void write_body(SaveW *w, Game *g)
     sw_kl(w, "difficulty", g->difficulty);
     sw_kl(w, "spawning", g->spawning);
     sw_kl(w, "kills", g->kills);
+    sw_kl(w, "aboard", g->aboard);
     sw_kl(w, "tick", g->tick);
     sw_line(w, "[time]");
     sw_kl(w, "day", g->time.day);
@@ -262,6 +264,17 @@ static void write_body(SaveW *w, Game *g)
         }
         sw_kl(w, "enabled", f->enabled);
     }
+    sw_line(w, "[ships]");
+    for (i = 0; i < MAX_SHIPS; ++i) {
+        const Ship *s = &g->ships[i];
+        if (!s->active) {
+            continue;
+        }
+        sprintf(key, "s%d", i);
+        sprintf(buf, "%s %d %ld %ld %ld %d %d %d %d %d %ld", g_ships[s->def].id, s->dim, s->x, s->y, s->z,
+                s->heading, s->hull, s->water, (int)s->throttle, s->anchored, s->moved);
+        sw_kv(w, key, buf);
+    }
     sw_line(w, "[mobs]");
     for (i = 0; i < MAX_MOBS; ++i) {
         const Mob *m = &g->mobs[i];
@@ -340,6 +353,7 @@ typedef struct LoadCtx {
     int   mode, cheats;
     int   format;
     int   unknown_items;
+    int   aboard;
     char  game[24];
 } LoadCtx;
 
@@ -401,6 +415,7 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
         else if (c->phase && str_ieq(key, "difficulty")) g->difficulty = (int)CL_CLAMP(num(v), 0L, (long)(DIFF_COUNT - 1));
         else if (c->phase && str_ieq(key, "spawning")) g->spawning = num(v) != 0;
         else if (c->phase && str_ieq(key, "kills")) g->kills = num(v);
+        else if (c->phase && str_ieq(key, "aboard")) c->aboard = (int)num(v);
         else if (c->phase && str_ieq(key, "tick")) g->tick = num(v);
         return 0;
     }
@@ -578,6 +593,36 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
             g->chests[idx].s[slot].count = (cl_s16)cnt;
             g->chests[idx].s[slot].dur = (cl_s16)dur;
         }
+    } else if (str_ieq(type, "ships")) {
+        char sid[32];
+        int dim, heading, hull, water, throttle, anchored, def;
+        long x, y, z, moved, slot;
+        if (key[0] != 's' || !str_to_long(key + 1, &slot) || slot < 0 || slot >= MAX_SHIPS ||
+            sscanf(v, "%31s %d %ld %ld %ld %d %d %d %d %d %ld", sid, &dim, &x, &y, &z, &heading, &hull, &water,
+                   &throttle, &anchored, &moved) != 11) {
+            return 0;
+        }
+        def = shipdef_find(sid);
+        if (def < 0) {
+            return 0;
+        }
+        {
+            Ship *s = &g->ships[slot];
+            memset(s, 0, sizeof(*s));
+            s->active = 1;
+            s->def = (cl_s16)def;
+            s->dim = (cl_u8)dim;
+            s->x = x;
+            s->y = y;
+            s->z = z;
+            s->heading = (cl_u8)(heading & 3);
+            s->hull = (cl_s16)hull;
+            s->water = (cl_s16)water;
+            s->throttle = (signed char)CL_CLAMP(throttle, -1, 3);
+            s->anchored = (cl_u8)(anchored != 0);
+            s->moved = moved;
+            s->chest = -1;
+        }
     } else if (str_ieq(type, "mobs")) {
         char cid[32];
         int dim, hp, aggro, m, def;
@@ -658,7 +703,20 @@ int save_load(Game *g, const ClidePlatform *p, const char *name, const ClideTime
     g->world.replace = p->fs.replace;
     inv_clear(&g->inv);
     c.phase = 1;
+    c.aboard = -1;
     ini_parse_file(path, load_cb, &c);
+    {
+        /* reconnect cargo holds and the ship the player was on */
+        int i;
+        for (i = 0; i < MAX_SHIPS; ++i) {
+            if (g->ships[i].active && g_ships[g->ships[i].def].cargo > 0) {
+                int ch = chest_find(g, CHEST_DIM_SHIP + i, 0, 0, 0);
+                if (ch < 0) ch = chest_create(g, CHEST_DIM_SHIP + i, 0, 0, 0);
+                g->ships[i].chest = (cl_s16)ch;
+            }
+        }
+        g->aboard = (c.aboard >= 0 && c.aboard < MAX_SHIPS && g->ships[c.aboard].active) ? c.aboard : -1;
+    }
     if (c.unknown_items) {
         log_addf(ATTR(C_YELLOW, C_BLACK), "%d unknown items skipped", c.unknown_items);
     }

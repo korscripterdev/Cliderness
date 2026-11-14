@@ -10,7 +10,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATTERN = re.compile(r'loc_(?:get|fmt|get_or)\(\s*"([a-z0-9_.]+)"')
-LITERAL = re.compile(r'"((?:hud|msg|con|craft|chest|inv|eq|station|rcat|effect|cause|hint|set|lang|kb|help|menu|nw|lw|err|pause|stats|sky|mode|move|stat|skill|season|moon|ui|dim|itype|action|credits|mob|veh|ancient|fluid|npc|ai|diff|mk|agg)\.[a-z0-9_]+)"')
+LITERAL = re.compile(r'"((?:hud|msg|con|craft|chest|inv|eq|station|rcat|effect|cause|hint|set|lang|kb|help|menu|nw|lw|err|pause|stats|sky|mode|move|stat|skill|season|moon|ui|dim|itype|action|credits|mob|veh|ancient|fluid|npc|ai|diff|mk|agg|ship)\.[a-z0-9_]+)"')
 
 
 def used_keys():

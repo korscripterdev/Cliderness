@@ -19,7 +19,7 @@ static const char *const g_skill_ids[SK_COUNT] = {
     "swimming", "sailing", "fishing", "cooking", "stealth", "exploration"
 };
 static const char *const g_move_keys[] = {
-    "move.walk", "move.sprint", "move.crouch", "move.swim", "move.fly", "move.idle"
+    "move.walk", "move.sprint", "move.crouch", "move.swim", "move.fly", "move.idle", "move.sail"
 };
 
 void player_init(Player *p)
@@ -80,7 +80,7 @@ const char *player_skill_key(int sk)
 
 const char *player_move_key(int mode)
 {
-    return g_move_keys[(mode >= 0 && mode <= MOVE_IDLE) ? mode : 0];
+    return g_move_keys[(mode >= 0 && mode <= MOVE_SAIL) ? mode : 0];
 }
 
 int player_find_stat(const char *name)

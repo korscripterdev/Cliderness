@@ -4,6 +4,17 @@
 
 Modifiche principali di Cliderness (creato da korscripterdev).
 
+## [0.5.0] — 2026-11-14
+
+Fase 8 della roadmap (navi).
+
+### Aggiunto
+- Zattera, barca a remi, barca a vela e nave mercantile (5x3 celle) con ricette.
+- R per varare, E per salire/scendere, F per recuperare una nave vuota. Timone con i tasti di movimento (potenza -1..3, virata), ancora.
+- I remi consumano resistenza; le vele usano direzione e forza del vento. Abilità di navigazione.
+- Galleggiamento e portata, stive, sovraccarico. 3 stadi di danno dello scafo, falle, allagamento, sgottatura, riparazione, onde, incaglio, affondamento.
+- Suoni di scricchiolio e schianto. 12 nuovi comandi (116 in totale).
+
 ## [0.4.0] — 2026-11-14
 
 Fase 7 della roadmap (creature e combattimento).

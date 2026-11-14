@@ -4,6 +4,17 @@
 
 Mudanças importantes do Cliderness (criado por korscripterdev).
 
+## [0.5.0] — 2026-11-14
+
+Fase 8 do roteiro (barcos).
+
+### Adicionado
+- Jangada, barco a remo, veleiro e navio mercante (5x3 células) com receitas.
+- R para lançar, E para embarcar/desembarcar, F para recolher um barco vazio. Pilotagem com as teclas de movimento (potência -1..3, curva), âncora.
+- Remos gastam fôlego; velas usam a direção e a força do vento. Habilidade de navegação.
+- Flutuação e capacidade, porões, sobrecarga. 3 estágios de dano no casco, vazamentos, alagamento, retirada de água, reparo, ondas, encalhe, naufrágio.
+- Sons de rangido e rachadura. 12 comandos novos (116 no total).
+
 ## [0.4.0] — 2026-11-14
 
 Fase 7 do roteiro (criaturas e combate).

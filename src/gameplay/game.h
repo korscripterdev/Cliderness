@@ -16,6 +16,7 @@
 #include "gameplay/inventory/inventory.h"
 #include "gameplay/entities/entity.h"
 #include "gameplay/building/edit.h"
+#include "audio/audio.h"
 
 #define TICK_MS 50L
 #define TICKS_PER_SECOND 20
@@ -35,6 +36,25 @@ enum { GM_SURVIVAL = 0, GM_CREATIVE, GM_ADVENTURE, GM_SPECTATOR, GM_COUNT };
 #else
 #define MAX_MOBS 48
 #endif
+
+#ifdef CLIDE_TARGET_DOS16
+#define MAX_SHIPS 4
+#else
+#define MAX_SHIPS 16
+#endif
+
+/* a ship on the water (definition in gameplay/vehicles/ship.h) */
+typedef struct Ship {
+    long   x, y, z;            /* centre cell (air above water) */
+    long   moved;              /* cells travelled */
+    cl_s16 def;
+    cl_s16 hull;
+    cl_s16 water;              /* litres in the hull */
+    cl_s16 acc;                /* movement accumulator (100 = one cell) */
+    cl_s16 chest;              /* cargo hold (virtual chest) or -1 */
+    cl_u8  dim, active, heading, anchored;
+    signed char throttle;      /* -1 reverse .. 3 full */
+} Ship;
 
 enum { DIFF_PEACEFUL = 0, DIFF_EASY, DIFF_NORMAL, DIFF_HARD, DIFF_COUNT };
 
@@ -92,6 +112,9 @@ typedef struct Game {
     int         difficulty;
     int         spawning;      /* natural creature spawning on */
     long        kills;
+    Ship        ships[MAX_SHIPS];
+    int         aboard;        /* ship the player is on, -1 = none */
+    int         sfx;           /* sound requested by the simulation (audio.h SFX_*) */
 } Game;
 
 extern Game g_game;
@@ -144,6 +167,29 @@ void mob_spawn_tick(Game *g);
 int  game_attack(Game *g);   /* 1 if an attack happened (or was on cooldown) */
 const char *difficulty_key(int d);
 int  difficulty_find(const char *name);
+
+/* ships (gameplay/vehicles/ship.c) */
+int  ship_spawn(Game *g, int def, int dim, long x, long y, long z, int heading, int hull);
+void ship_remove(Game *g, int idx, int wreck);
+int  ship_at(Game *g, int dim, long x, long y, long z);
+int  ship_covers(Game *g, int idx, long x, long z);
+int  ship_cell_role(Game *g, int idx, long x, long z);
+int  ship_count(const Game *g);
+int  ship_stage(const Game *g, int idx);
+long ship_max_water(const Game *g, int idx);
+int  ship_flood_pct(const Game *g, int idx);
+long ship_load(Game *g, int idx);
+int  ship_wind_pct(Game *g, int idx);
+int  ship_speed(Game *g, int idx);
+int  ship_place(Game *g);
+int  ship_pickup(Game *g, int idx);
+int  ship_board(Game *g);
+int  ship_disembark(Game *g);
+void ship_steer(Game *g, int dir);
+void ship_tick(Game *g);
+int  ship_use(Game *g);
+int  ship_open_cargo(Game *g);
+int  ship_rowing(Game *g);   /* 1 while the player rows (no stamina regeneration) */
 
 /* survival (once per game minute) */
 void surv_minute(Game *g);

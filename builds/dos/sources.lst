@@ -7,6 +7,7 @@ src/commands/cmd_fluid.c
 src/commands/cmd_items.c
 src/commands/cmd_mob.c
 src/commands/cmd_player.c
+src/commands/cmd_ship.c
 src/commands/cmd_system.c
 src/commands/cmd_world.c
 src/commands/console.c
@@ -33,6 +34,7 @@ src/gameplay/player/player.c
 src/gameplay/storage/chest.c
 src/gameplay/survival/effects.c
 src/gameplay/survival/survival.c
+src/gameplay/vehicles/ship.c
 src/help/help.c
 src/input/keybind.c
 src/localization/locale.c

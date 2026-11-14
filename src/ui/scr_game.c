@@ -27,6 +27,7 @@
 #include "core/mem.h"
 #include "content/effects.h"
 #include "gameplay/entities/creature.h"
+#include "gameplay/vehicles/ship.h"
 
 #define VIEW_W 56
 #define VIEW_H 19
@@ -214,6 +215,42 @@ static void draw_world(Framebuffer *fb, Game *g)
         fb_put(fb, (int)dx, (int)dz, g_items[e->item].glyph,
                ATTR(g_items[e->item].fg, e->floating ? C_BLUE : ATTR_BG(fb->cells[dz * FB_W + dx].attr)));
     }
+    /* ships */
+    for (i = 0; i < MAX_SHIPS; ++i) {
+        const Ship *s = &g->ships[i];
+        const ShipDef *d;
+        long sx, sz, r = 6;
+        int stage;
+        if (!s->active || s->dim != p->dim || mx_abs(s->y - p->y) > 2) {
+            continue;
+        }
+        d = &g_ships[s->def];
+        stage = ship_stage(g, i);
+        for (sz = s->z - r; sz <= s->z + r; ++sz) {
+            for (sx = s->x - r; sx <= s->x + r; ++sx) {
+                long dx = sx - ox, dz = sz - oz;
+                int role;
+                cl_u8 glyph, fg, bg;
+                if (dx < 0 || dz < 0 || dx >= VIEW_W || dz >= VIEW_H) continue;
+                if ((sx - p->x) * (sx - p->x) + (sz - p->z) * (sz - p->z) > r2) continue;
+                role = ship_cell_role(g, i, sx, sz);
+                if (role == 0) continue;
+                fg = stage == SHIP_INTACT ? d->color : stage == SHIP_DAMAGED ? C_YELLOW : C_LIGHTRED;
+                bg = ship_flood_pct(g, i) >= 50 ? C_BLUE : C_BLACK;
+                if (role == 2) {
+                    static const cl_u8 bows[4] = { 30, 16, 31, 17 };
+                    glyph = bows[s->heading & 3];
+                } else if (role == 3) {
+                    glyph = s->throttle > 0 && !s->anchored ? d->sail_glyph : '|';
+                    fg = C_WHITE;
+                } else {
+                    glyph = d->length == 1 ? d->glyph : (s->heading & 1) ? 205 : 186;
+                    if (d->width == 1 && d->glyph != 240 && d->length == 1) glyph = d->glyph;
+                }
+                fb_put(fb, (int)dx, (int)dz, glyph, ATTR(fg, bg));
+            }
+        }
+    }
     /* creatures */
     for (i = 0; i < MAX_MOBS; ++i) {
         const Mob *m = &g->mobs[i];
@@ -387,6 +424,16 @@ static void draw_panel(Framebuffer *fb, Game *g)
     if (p->mining && y < VIEW_H) {
         fb_text(fb, PANEL_X, VIEW_H - 1, loc_get("hud.mining"), ATTR(C_YELLOW, C_BLACK), 8);
         fb_bar(fb, PANEL_X + 8, VIEW_H - 1, 14, p->mine_progress, p->mine_total, ATTR(C_YELLOW, C_BLACK));
+    } else if (g->aboard >= 0) {
+        /* ship status: name, hull bar, flooding, throttle, speed */
+        const Ship *s = &g->ships[g->aboard];
+        const ShipDef *d = &g_ships[s->def];
+        int w = fb_text(fb, PANEL_X, VIEW_H - 1, shipdef_name(s->def), ATTR(C_LIGHTCYAN, C_BLACK), 9);
+        fb_bar(fb, PANEL_X + w + 1, VIEW_H - 1, 5, s->hull, d->hull,
+               ATTR(ship_stage(g, g->aboard) == SHIP_INTACT ? C_LIGHTGREEN : C_LIGHTRED, C_BLACK));
+        sprintf(buf, "~%d%% %+d %d", ship_flood_pct(g, g->aboard), s->anchored ? 0 : s->throttle, ship_speed(g, g->aboard));
+        fb_text(fb, PANEL_X + w + 7, VIEW_H - 1, buf, ship_flood_pct(g, g->aboard) >= 50 ? UI_BAD : UI_TEXT,
+                PANEL_W - w - 7);
     } else {
         /* the creature in front of the player */
         long fdx, fdz;
@@ -464,6 +511,10 @@ static void game_draw(Framebuffer *fb)
     if (!g_game.active) {
         return;
     }
+    if (g_game.sfx) {
+        aud_play(g_game.sfx);
+        g_game.sfx = SFX_NONE;
+    }
     draw_world(fb, &g_game);
     draw_panel(fb, &g_game);
     draw_hotbar(fb, &g_game);
@@ -498,12 +549,6 @@ static void game_key(const ClideKeyEvent *ev)
     case ACT_INTERACT:
         game_interact(g);
         aud_play(SFX_PICKUP);
-        if (g->ui_request == UIREQ_CHEST) {
-            app_open_chest(g->ui_arg);
-        } else if (g->ui_request == UIREQ_CRAFT) {
-            app_push(&scr_craft);
-        }
-        g->ui_request = UIREQ_NONE;
         break;
     case ACT_HELP: app_open_help("controls"); break;
     case ACT_PAUSE: app_push(&scr_pause); break;
@@ -521,6 +566,13 @@ static void game_key(const ClideKeyEvent *ev)
         }
         break;
     }
+    /* screens requested by the action (chest, cargo hold, crafting) */
+    if (g->ui_request == UIREQ_CHEST) {
+        app_open_chest(g->ui_arg);
+    } else if (g->ui_request == UIREQ_CRAFT) {
+        app_push(&scr_craft);
+    }
+    g->ui_request = UIREQ_NONE;
 }
 
 const Screen scr_game = { "game", 0, 1, NULL, game_key, game_draw };

@@ -4,6 +4,17 @@
 
 Wichtige Änderungen an Cliderness (erstellt von korscripterdev).
 
+## [0.5.0] — 2026-11-14
+
+Roadmap-Phase 8 (Schiffe).
+
+### Hinzugefügt
+- Floß, Ruderboot, Segelboot und Handelsschiff (5x3 Felder) mit Rezepten.
+- R zum Ablegen, E zum An-/Von-Bord-Gehen, F holt ein leeres Schiff an Land. Steuern mit den Bewegungstasten (Leistung -1..3, Wenden), Anker.
+- Ruder kosten Ausdauer; Segel nutzen Windrichtung und -stärke. Segel-Fertigkeit.
+- Auftrieb und Tragfähigkeit, Laderäume, Überladung. 3 Rumpfschadensstufen, Lecks, Wassereinbruch, Schöpfen, Reparatur, Wellen, Auflaufen, Sinken.
+- Knarr- und Bruchgeräusche. 12 neue Befehle (116 insgesamt).
+
 ## [0.4.0] — 2026-11-14
 
 Roadmap-Phase 7 (Kreaturen und Kampf).

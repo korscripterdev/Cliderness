@@ -10,6 +10,7 @@
 #include "world/weather/weather.h"
 #include "world/structures/structure.h"
 #include "gameplay/entities/creature.h"
+#include "gameplay/vehicles/ship.h"
 #include "localization/locale.h"
 #include "commands/console.h"
 #include "help/help.h"
@@ -468,6 +469,9 @@ static int load_content(char *err, size_t n)
         return 0;
     }
     if (!creatures_load(g_data_root, err, n)) {
+        return 0;
+    }
+    if (!ships_load(g_data_root, err, n)) {
         return 0;
     }
     ctime_default_cfg(&g_app.tcfg);

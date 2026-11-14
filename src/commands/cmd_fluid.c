@@ -81,7 +81,7 @@ static int c_structures(ConCtx *c)
     char buf[160];
     (void)c;
     for (i = 0; i < g_struct_count; ++i) {
-        sprintf(buf, "%-16s %3d%%", g_structs[i].id, g_structs[i].rarity);
+        sprintf(buf, "%-16.16s %3d%%", g_structs[i].id, g_structs[i].rarity);
         con_out(buf);
     }
     return CMD_OK;

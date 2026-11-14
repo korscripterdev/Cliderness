@@ -516,3 +516,47 @@ mob.frost_ghoul=冰霜食屍鬼
 mob.trader=流浪商人
 mob.hermit=隱士
 mob.miner_npc=老礦工
+
+# --- added ---
+con.already_aboard=你已經在船上了。
+con.no_oars=這艘船沒有可以倒划的槳。
+con.no_ship=這裡沒有船。
+con.not_aboard=你不在船上。
+con.unknown_ship=未知船型：{0}
+move.sail=航行
+msg.anchor_down=已拋錨。
+msg.anchor_up=已起錨。
+msg.ship_aground=船體擦到了水底！
+msg.ship_bailed=你舀出了水（進水 {0}%）。
+msg.ship_blocked=船無法繼續前進。
+msg.ship_boarded=你登上了{0}。方向鍵操縱，U 舀水/修理，R 打開貨艙，E 下船。
+msg.ship_cargo_full=請先清空貨艙。
+msg.ship_dry=船體內沒有水。
+msg.ship_flooding=船正在進水！
+msg.ship_jumped=你跳進了水裡。
+msg.ship_left=你上岸了。
+msg.ship_limit=這個世界的船太多了。
+msg.ship_need_water={0}需要前方有開闊水面。
+msg.ship_no_cargo=這艘船沒有貨艙。
+msg.ship_no_exit=沒有可以下船的地方。
+msg.ship_no_turn=沒有足夠的空間轉向。
+msg.ship_picked=你把{0}拖上了岸。
+msg.ship_placed=你讓{0}下水了。
+msg.ship_repaired=你修補了船體（{0}%）。
+msg.ship_sank={0}沉沒了！
+msg.ship_stage={0}：{1}！
+ship.intact=完好
+ship.damaged=受損
+ship.critical=嚴重受損
+ship.heading=航向
+ship.hull=船體
+ship.load=載重
+ship.speed=速度
+ship.throttle=動力
+ship.travelled=航程
+ship.water=進水
+ship.wind=風
+ship.wind_to=吹向
+
+# --- added ---
+msg.ship_overloaded=船超載了，正在進水！

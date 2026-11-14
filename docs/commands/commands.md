@@ -110,5 +110,17 @@ Every command below has a real handler and is covered by the test suite. Cheat c
 | `/trade` | creatures | any |  |
 | `/threat` | combat | any |  |
 | `/kills` | combat | any |  |
+| `/ships` | ships | any |  |
+| `/boats` | ships | any |  |
+| `/board` | ships | any |  |
+| `/disembark` | ships | any |  |
+| `/throttle` | ships | any | `<-1..3>` |
+| `/anchor` | ships | any | `[on\|off]` |
+| `/shipinfo` | ships | any |  |
+| `/bail` | ships | any |  |
+| `/hull` | ships | cheat | `set <0-100>` |
+| `/spawnship` | ships | cheat | `<ship>` |
+| `/sinkship` | ships | cheat |  |
+| `/wind` | weather | any | `[direction\|0-255]` |
 
-total top-level commands: 104 (aliases: 30)
+total top-level commands: 116 (aliases: 35)
