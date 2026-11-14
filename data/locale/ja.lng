@@ -560,3 +560,18 @@ ship.wind_to=風下
 
 # --- added ---
 msg.ship_overloaded=船が積みすぎで浸水しています!
+
+# --- added ---
+con.biomes=バイオーム
+con.creatures=生物
+con.respawn_in=リスポーン地点
+con.same_dim=すでにその次元にいます。
+con.structures=構造物
+msg.dim_arrive=世界が光に溶けていく…{0}に到着しました。
+mob.star_stag=星鹿
+mob.glow_moth=光る蛾
+mob.void_wisp=虚空の鬼火
+mob.ancient_guardian=古代の守護者
+mob.crystal_golem=水晶ゴーレム
+mob.silent_stalker=静寂の追跡者
+mob.sanctuary_keeper=聖域の守り人

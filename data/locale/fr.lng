@@ -560,3 +560,18 @@ ship.wind_to=vers
 
 # --- added ---
 msg.ship_overloaded=Le bateau est surchargé et prend l'eau !
+
+# --- added ---
+con.biomes=biomes
+con.creatures=créatures
+con.respawn_in=Point de réapparition :
+con.same_dim=Vous êtes déjà dans cette dimension.
+con.structures=structures
+msg.dim_arrive=Le monde se dissout dans la lumière... vous arrivez : {0}.
+mob.star_stag=Cerf stellaire
+mob.glow_moth=Phalène lumineuse
+mob.void_wisp=Feu follet du vide
+mob.ancient_guardian=Gardien ancien
+mob.crystal_golem=Golem de cristal
+mob.silent_stalker=Traqueur silencieux
+mob.sanctuary_keeper=Gardien du sanctuaire

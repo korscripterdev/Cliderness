@@ -95,5 +95,6 @@ CommandTable cmd_table_craft(void);
 CommandTable cmd_table_fluid(void);
 CommandTable cmd_table_mob(void);
 CommandTable cmd_table_ship(void);
+CommandTable cmd_table_ancient(void);
 
 #endif

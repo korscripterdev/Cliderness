@@ -1,0 +1,82 @@
+# Cliderness recipes - ancient.def (the portal and the Ancient Dimension)
+# in = item:count, station = none/workbench/furnace/campfire/anvil/altar
+
+[recipe portal_core]
+result=portal_core
+in=obsidian:4
+in=crystal_shard:6
+in=gem:2
+in=gold_ingot:2
+station=anvil
+skill=crafting
+min_skill=5
+category=ancient
+
+[recipe ancient_bricks]
+result=ancient_bricks
+count=4
+in=ancient_stone:4
+skill=building
+category=ancient
+
+[recipe ancient_altar]
+result=ancient_altar
+in=ancient_bricks:6
+in=aether_shard:4
+station=workbench
+skill=crafting
+category=ancient
+
+[recipe starmetal_ingot]
+result=starmetal_ingot
+in=raw_starmetal:1
+station=furnace
+fuel=3
+skill=crafting
+category=ancient
+
+[recipe starmetal_pickaxe]
+result=starmetal_pickaxe
+in=starmetal_ingot:3
+in=stick:2
+in=aether_shard:1
+station=altar
+skill=crafting
+min_skill=10
+category=ancient
+
+[recipe starmetal_sword]
+result=starmetal_sword
+in=starmetal_ingot:2
+in=stick:1
+in=aether_shard:1
+station=altar
+skill=crafting
+min_skill=10
+category=ancient
+
+[recipe starmetal_chestplate]
+result=starmetal_chestplate
+in=starmetal_ingot:8
+in=aether_shard:2
+station=altar
+skill=crafting
+min_skill=12
+category=ancient
+
+[recipe aether_elixir]
+result=aether_elixir
+in=aether_shard:2
+in=star_petal:3
+in=glowcap_spore:1
+station=altar
+skill=cooking
+category=ancient
+
+[recipe aether_lantern]
+result=aether_lantern
+count=2
+in=aether_shard:2
+in=ancient_bricks:1
+station=altar
+category=ancient

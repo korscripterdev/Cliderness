@@ -457,6 +457,155 @@ trade=raw_iron:4>iron_pickaxe:1
 trade=bread:2>torch:8
 trade=crystal_shard:2>trade_token:3
 
+# ------------------------------------------------------ Ancient Dimension
+
+[creature star_stag]
+name=Star Stag
+glyph='Y'
+color=white
+kind=animal
+aggression=defensive
+activity=day
+habitat=surface
+dimension=ancient
+hp=24
+damage=5
+speed=4
+attack_cd=24
+sight=12
+hearing=14
+flee_pct=30
+weight=12
+group=1-3
+xp=8
+loot=star_stag
+
+[creature glow_moth]
+name=Glow Moth
+glyph=157
+color=lightgreen
+kind=animal
+aggression=never
+activity=night
+habitat=surface
+dimension=ancient
+hp=4
+speed=3
+sight=6
+hearing=8
+flee_pct=100
+weight=10
+group=2-4
+xp=2
+loot=glow_moth
+
+[creature void_wisp]
+name=Void Wisp
+glyph=9
+color=lightmagenta
+kind=monster
+aggression=night
+activity=night
+habitat=surface
+dimension=ancient
+hp=18
+damage=6
+speed=4
+attack_cd=24
+sight=14
+hearing=10
+weight=10
+group=1-2
+xp=14
+loot=void_wisp
+effect=poisoned
+effect_chance=15
+
+[creature ancient_guardian]
+name=Ancient Guardian
+glyph='&'
+color=lightcyan
+kind=monster
+aggression=always
+activity=any
+habitat=surface
+dimension=ancient
+hp=60
+damage=10
+defense=3
+speed=7
+attack_cd=32
+sight=10
+hearing=10
+weight=3
+xp=40
+loot=guardian
+biomes=ancient_sanctuary,crystal_wilds,void_rift
+
+[creature crystal_golem]
+name=Crystal Golem
+glyph='O'
+color=cyan
+kind=monster
+aggression=defensive
+activity=any
+habitat=cave
+dimension=ancient
+hp=45
+damage=8
+defense=4
+speed=9
+attack_cd=34
+sight=6
+hearing=8
+weight=6
+xp=25
+loot=golem
+
+[creature silent_stalker]
+name=Silent Stalker
+glyph='s'
+color=darkgray
+kind=monster
+aggression=always
+activity=night
+habitat=surface
+dimension=ancient
+hp=22
+damage=7
+speed=4
+attack_cd=22
+sight=8
+hearing=18
+weight=6
+xp=16
+loot=void_wisp
+effect=bleeding
+effect_chance=20
+biomes=silent_swamp,ancient_forest
+
+[creature sanctuary_keeper]
+name=Sanctuary Keeper
+glyph=2
+color=lightcyan
+kind=npc
+aggression=defensive
+activity=day
+habitat=surface
+dimension=ancient
+hp=40
+damage=5
+speed=8
+sight=8
+hearing=8
+weight=2
+xp=0
+trade=aether_shard:6>ancient_relic:1
+trade=star_petal:8>aether_elixir:1
+trade=raw_starmetal:3>starmetal_ingot:2
+biomes=ancient_sanctuary,ancient_grassland,forgotten_garden
+
+
 # -------------------------------------------------------------------- loot
 
 [loot deer]
@@ -522,3 +671,26 @@ trade_token=0-1:25
 [loot scorpion]
 venom_gland=1-1:60
 string=0-1:30
+
+[loot star_stag]
+raw_meat=2-3:100
+leather=1-2:80
+star_petal=0-2:40
+
+[loot glow_moth]
+glowcap_spore=1-1:60
+star_petal=0-1:30
+
+[loot void_wisp]
+aether_shard=1-2:70
+string=0-1:20
+
+[loot guardian]
+aether_shard=2-5:100
+raw_starmetal=1-3:70
+ancient_relic=0-1:35
+
+[loot golem]
+crystal_shard=2-5:100
+aether_shard=1-2:60
+gem=0-1:20

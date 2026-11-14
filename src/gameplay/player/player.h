@@ -51,6 +51,7 @@ typedef struct Player {
     int  god, noclip, fly;
     int  dead;
     long spawn_x, spawn_y, spawn_z;
+    int  spawn_dim;
     /* survival accumulators (tenths) */
     int  acc_hunger, acc_thirst, acc_fatigue, acc_regen;
     /* status effects (content/effects.h) */

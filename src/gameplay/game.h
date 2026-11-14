@@ -189,7 +189,13 @@ void ship_steer(Game *g, int dir);
 void ship_tick(Game *g);
 int  ship_use(Game *g);
 int  ship_open_cargo(Game *g);
-int  ship_rowing(Game *g);   /* 1 while the player rows (no stamina regeneration) */
+int  ship_rowing(Game *g);
+
+/* dimensions (gameplay/dimension/portal.c) */
+const char *dim_key(int dim);
+int  dim_find(const char *name);
+/* move the player to dim `target` (same x/z, nearest land); 1 on success */
+int  portal_travel(Game *g, int target, int build_return);   /* 1 while the player rows (no stamina regeneration) */
 
 /* survival (once per game minute) */
 void surv_minute(Game *g);

@@ -1,0 +1,273 @@
+# Cliderness block definitions - the Ancient Dimension
+
+[block ancient_grass]
+name=Ancient Grass
+category=ancient
+glyph=176
+fg=lightmagenta
+bg=magenta
+floor_glyph=','
+floor_fg=lightmagenta
+flags=solid,ancient
+hardness=7
+tool=shovel
+drop=ancient_soil
+weight=1300
+density=1300
+
+[block ancient_soil]
+name=Ancient Soil
+category=ancient
+glyph=177
+fg=magenta
+floor_glyph='.'
+floor_fg=magenta
+flags=solid,ancient
+hardness=7
+tool=shovel
+weight=1300
+density=1300
+
+[block ancient_stone]
+name=Ancient Stone
+category=ancient
+glyph=178
+fg=lightblue
+bg=blue
+floor_glyph=250
+floor_fg=lightblue
+flags=solid,ancient
+hardness=40
+tool=pickaxe
+weight=2700
+density=2700
+
+[block ancient_bricks]
+name=Ancient Bricks
+category=ancient
+glyph=206
+fg=lightcyan
+bg=blue
+floor_glyph=206
+floor_fg=lightcyan
+flags=solid,ancient
+hardness=45
+tool=pickaxe
+weight=2600
+density=2600
+
+[block star_sand]
+name=Star Sand
+category=ancient
+glyph=176
+fg=white
+bg=blue
+floor_glyph=250
+floor_fg=white
+flags=solid,ancient,light
+light=2
+hardness=6
+tool=shovel
+weight=1500
+density=1500
+
+[block crystal_grass]
+name=Crystal Turf
+category=ancient
+glyph=176
+fg=lightcyan
+bg=cyan
+floor_glyph=39
+floor_fg=lightcyan
+flags=solid,ancient
+hardness=8
+tool=shovel
+drop=ancient_soil
+weight=1400
+density=1400
+
+[block silent_mud]
+name=Silent Mud
+category=ancient
+glyph=177
+fg=darkgray
+bg=magenta
+floor_glyph='~'
+floor_fg=darkgray
+flags=solid,slow,ancient
+hardness=6
+tool=shovel
+weight=1700
+density=1700
+
+[block void_stone]
+name=Void Stone
+category=ancient
+glyph=219
+fg=black
+bg=black
+floor_glyph=250
+floor_fg=darkgray
+flags=solid,ancient
+hardness=70
+tool=pickaxe
+weight=3200
+density=3200
+
+[block elder_log]
+name=Elder Log
+category=ancient
+glyph=186
+fg=lightmagenta
+floor_glyph='o'
+floor_fg=lightmagenta
+flags=solid,ancient
+hardness=22
+tool=axe
+drop=oak_log
+fuel=4
+weight=800
+density=700
+
+[block elder_leaves]
+name=Elder Leaves
+category=ancient
+glyph=5
+fg=lightcyan
+floor_glyph=5
+floor_fg=lightcyan
+flags=solid,slow,ancient,light
+light=2
+hardness=3
+drop=stick
+density=400
+
+[block glowcap]
+name=Glowcap
+category=ancient
+glyph=6
+fg=lightgreen
+flags=plant,replaceable,light,ancient
+light=4
+hardness=1
+drop=glowcap_spore
+
+[block star_flower]
+name=Star Flower
+category=ancient
+glyph=15
+fg=yellow
+flags=plant,replaceable,light,ancient
+light=3
+hardness=1
+drop=star_petal
+
+[block crystal_bloom]
+name=Crystal Bloom
+category=ancient
+glyph=4
+fg=lightcyan
+flags=plant,replaceable,light,ancient
+light=3
+hardness=2
+drop=crystal_shard
+
+[block moonreed]
+name=Moonreed
+category=ancient
+glyph=244
+fg=lightgray
+flags=plant,replaceable,ancient
+hardness=1
+drop=plant_fiber
+
+[block aether_ore]
+name=Aether Vein
+category=ore
+glyph=15
+fg=lightcyan
+bg=blue
+floor_glyph=15
+floor_fg=lightcyan
+floor_bg=blue
+flags=solid,light,ancient
+light=3
+hardness=55
+tool=pickaxe
+drop=aether_shard
+drop_count=1
+ore_y=8-90
+ore_chance=60
+ore_host=ancient_stone
+
+[block starmetal_ore]
+name=Starmetal Ore
+category=ore
+glyph=7
+fg=yellow
+bg=blue
+floor_glyph=7
+floor_fg=yellow
+floor_bg=blue
+flags=solid,ancient
+hardness=65
+tool=pickaxe
+drop=raw_starmetal
+ore_y=4-40
+ore_chance=35
+ore_host=ancient_stone
+
+[block ancient_crate]
+name=Ancient Coffer
+category=functional
+glyph=254
+fg=lightcyan
+bg=blue
+floor_glyph=254
+floor_fg=lightcyan
+flags=solid,ancient
+func=chest
+loot=ancient
+hardness=30
+tool=pickaxe
+drop=chest
+
+[block ancient_altar]
+name=Ancient Altar
+category=functional
+glyph=239
+fg=lightmagenta
+bg=blue
+floor_glyph=239
+floor_fg=lightmagenta
+flags=solid,light,ancient
+light=5
+station=altar
+hardness=50
+tool=pickaxe
+
+[block ancient_portal]
+name=Ancient Portal
+category=functional
+glyph=233
+fg=lightmagenta
+bg=magenta
+floor_glyph=233
+floor_fg=lightmagenta
+floor_bg=magenta
+flags=solid,light,ancient
+light=7
+func=portal
+hardness=60
+tool=pickaxe
+drop=portal_core
+
+[block ancient_lamp]
+name=Aether Lantern
+category=ancient
+glyph=15
+fg=lightcyan
+flags=light,ancient
+light=8
+hardness=5
+drop=aether_lantern

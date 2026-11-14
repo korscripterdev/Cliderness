@@ -184,6 +184,7 @@ static void write_body(SaveW *w, Game *g)
     sw_kl(w, "spawn_x", p->spawn_x);
     sw_kl(w, "spawn_y", p->spawn_y);
     sw_kl(w, "spawn_z", p->spawn_z);
+    sw_kl(w, "spawn_dim", p->spawn_dim);
     sw_kl(w, "best_dist", p->best_dist);
     for (i = 0; i < ST_COUNT; ++i) {
         sprintf(key, "stat%d", i);
@@ -377,6 +378,7 @@ static cl_u32 unum(const char *s)
 static int *player_int(Player *p, const char *key)
 {
     if (str_ieq(key, "dim")) return &p->dim;
+    if (str_ieq(key, "spawn_dim")) return &p->spawn_dim;
     if (str_ieq(key, "facing")) return &p->facing;
     if (str_ieq(key, "hp")) return &p->hp;
     if (str_ieq(key, "hp_max")) return &p->hp_max;

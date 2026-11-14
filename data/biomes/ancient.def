@@ -1,0 +1,130 @@
+# Cliderness biomes - the Ancient Dimension (kind=ancient).
+# Selected by height, temperature, humidity and the special layer like the
+# overworld; the first matching entry wins, the last one is the fallback.
+
+[biome void_rift]
+name=Void Rift
+kind=ancient
+special=90..100
+surface=void_stone
+subsurface=void_stone
+stone=ancient_stone
+seabed=void_stone
+base_temp=4
+humidity=5
+map_color=black
+
+[biome ancient_sanctuary]
+name=Ancient Sanctuary
+kind=ancient
+special=80..89
+surface=ancient_bricks
+subsurface=ancient_stone
+stone=ancient_stone
+seabed=ancient_stone
+plant=star_flower
+plant_density=30
+base_temp=20
+humidity=40
+map_color=lightcyan
+
+[biome crystal_wilds]
+name=Crystal Wilds
+kind=ancient
+height=80..255
+surface=crystal_grass
+subsurface=ancient_soil
+stone=ancient_stone
+seabed=ancient_stone
+plant=crystal_bloom
+plant_density=60
+base_temp=8
+humidity=30
+map_color=cyan
+
+[biome silent_swamp]
+name=Silent Swamp
+kind=ancient
+humid=70..100
+height=0..70
+surface=silent_mud
+subsurface=ancient_soil
+stone=ancient_stone
+seabed=silent_mud
+plant=moonreed
+plant2=glowcap
+plant_density=110
+tree=elder_log
+tree_top=elder_leaves
+tree_density=8
+base_temp=16
+humidity=90
+map_color=darkgray
+
+[biome starlight_plain]
+name=Starlight Plain
+kind=ancient
+humid=0..30
+surface=star_sand
+subsurface=star_sand
+stone=ancient_stone
+seabed=star_sand
+plant=star_flower
+plant_density=45
+base_temp=14
+humidity=20
+map_color=white
+
+[biome forgotten_garden]
+name=Forgotten Garden
+kind=ancient
+temp=60..100
+humid=40..100
+surface=ancient_grass
+subsurface=ancient_soil
+stone=ancient_stone
+seabed=ancient_soil
+plant=star_flower
+plant2=glowcap
+plant3=crystal_bloom
+plant_density=160
+tree=elder_log
+tree_top=elder_leaves
+tree_density=12
+base_temp=22
+humidity=70
+map_color=lightmagenta
+
+[biome ancient_forest]
+name=Ancient Forest
+kind=ancient
+humid=50..100
+surface=ancient_grass
+subsurface=ancient_soil
+stone=ancient_stone
+seabed=ancient_soil
+plant=glowcap
+plant_density=50
+tree=elder_log
+tree_top=elder_leaves
+tree_density=60
+base_temp=17
+humidity=65
+map_color=magenta
+
+[biome ancient_grassland]
+name=Ancient Grassland
+kind=ancient
+surface=ancient_grass
+subsurface=ancient_soil
+stone=ancient_stone
+seabed=ancient_soil
+plant=star_flower
+plant2=glowcap
+plant_density=40
+tree=elder_log
+tree_top=elder_leaves
+tree_density=3
+base_temp=18
+humidity=50
+map_color=lightmagenta

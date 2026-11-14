@@ -241,3 +241,35 @@ move_penalty=15
 stamina=3
 ancient=1
 duration=20..90
+
+[weather starfall]
+name=Starfall
+precip=star
+intensity=12
+weight=14
+cloud=10
+wind=15
+visibility=110
+duration=30..120
+ancient=1
+
+[weather silent_mist]
+name=Silent Mist
+weight=12
+cloud=60
+wind=3
+visibility=35
+temp_delta=-3
+duration=60..240
+ancient=1
+
+[weather aether_wind]
+name=Aether Wind
+weight=8
+cloud=30
+wind=85
+visibility=90
+move_penalty=10
+stamina=2
+duration=30..120
+ancient=1

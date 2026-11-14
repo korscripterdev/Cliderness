@@ -122,5 +122,10 @@ Every command below has a real handler and is covered by the test suite. Cheat c
 | `/spawnship` | ships | cheat | `<ship>` |
 | `/sinkship` | ships | cheat |  |
 | `/wind` | weather | any | `[direction\|0-255]` |
+| `/dimension` | world | any |  |
+| `/dimensions` | world | any |  |
+| `/travel` | world | cheat | `<overworld\|ancient> [portal]` |
+| `/makeportal` | world | cheat |  |
+| `/ancientbiomes` | world | any |  |
 
-total top-level commands: 116 (aliases: 35)
+total top-level commands: 121 (aliases: 37)

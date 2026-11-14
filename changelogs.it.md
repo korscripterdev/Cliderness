@@ -4,6 +4,16 @@
 
 Modifiche principali di Cliderness (creato da korscripterdev).
 
+## [0.6.0] — 2026-11-14
+
+Fase 9 della roadmap (la Dimensione Antica).
+
+### Aggiunto
+- Portali: crea un nucleo di portale all'incudine, piazzalo e premi E per viaggiare; viene costruito un portale di ritorno.
+- La Dimensione Antica: seme proprio, 8 biomi (con fenditure del vuoto), blocchi e piante antichi, vene di etere e minerale di metallo stellare.
+- 7 creature antiche, città e santuari antichi, l'altare antico con 9 ricette, reliquie.
+- Meteo della dimensione (pioggia di stelle, nebbia silenziosa, vento d'etere), rinascita per dimensione. 5 nuovi comandi (121 in totale).
+
 ## [0.5.0] — 2026-11-14
 
 Fase 8 della roadmap (navi).

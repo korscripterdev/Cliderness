@@ -560,3 +560,18 @@ ship.wind_to=weht nach
 
 # --- added ---
 msg.ship_overloaded=Das Schiff ist überladen und nimmt Wasser auf!
+
+# --- added ---
+con.biomes=Biome
+con.creatures=Kreaturen
+con.respawn_in=Wiedereinstieg in
+con.same_dim=Du bist schon in dieser Dimension.
+con.structures=Bauwerke
+msg.dim_arrive=Die Welt löst sich in Licht auf... du erreichst: {0}.
+mob.star_stag=Sternhirsch
+mob.glow_moth=Leuchtmotte
+mob.void_wisp=Leerenirrlicht
+mob.ancient_guardian=Uralter Wächter
+mob.crystal_golem=Kristallgolem
+mob.silent_stalker=Stiller Pirscher
+mob.sanctuary_keeper=Heiligtumshüter

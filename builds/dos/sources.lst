@@ -1,6 +1,7 @@
 # Cliderness DOS build: every source compiled into CLIDE.EXE (checked by tools/check_dos_sources.cmake)
 src/audio/audio.c
 src/audio/dsp.c
+src/commands/cmd_ancient.c
 src/commands/cmd_build.c
 src/commands/cmd_craft.c
 src/commands/cmd_fluid.c
@@ -24,6 +25,7 @@ src/core/rng.c
 src/core/str.c
 src/gameplay/building/edit.c
 src/gameplay/crafting/crafting.c
+src/gameplay/dimension/portal.c
 src/gameplay/entities/entity.c
 src/gameplay/entities/creature.c
 src/gameplay/entities/mob.c

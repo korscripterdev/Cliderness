@@ -4,6 +4,16 @@
 
 Cambios importantes de Cliderness (creado por korscripterdev).
 
+## [0.6.0] — 2026-11-14
+
+Fase 9 de la hoja de ruta (la Dimensión Ancestral).
+
+### Añadido
+- Portales: fabrica un núcleo de portal en el yunque, colócalo y pulsa E para viajar; se construye un portal de regreso.
+- La Dimensión Ancestral: semilla propia, 8 biomas (con grietas del vacío), bloques y plantas ancestrales, menas de éter y metal estelar.
+- 7 criaturas ancestrales, ciudades y santuarios ancestrales, el altar ancestral con 9 recetas, reliquias.
+- Clima de la dimensión (lluvia de estrellas, niebla silenciosa, viento de éter), reaparición por dimensión. 5 comandos nuevos (121 en total).
+
 ## [0.5.0] — 2026-11-14
 
 Fase 8 de la hoja de ruta (barcos).

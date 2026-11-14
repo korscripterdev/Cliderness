@@ -37,6 +37,7 @@ void suite_fluid(void);
 void suite_crafting(void);
 void suite_mob(void);
 void suite_ship(void);
+void suite_ancient(void);
 
 /* helpers shared by suites */
 struct Game;

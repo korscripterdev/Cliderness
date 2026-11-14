@@ -560,3 +560,18 @@ ship.wind_to=дует на
 
 # --- added ---
 msg.ship_overloaded=Судно перегружено и набирает воду!
+
+# --- added ---
+con.biomes=биомы
+con.creatures=существа
+con.respawn_in=Точка возрождения:
+con.same_dim=Вы уже в этом измерении.
+con.structures=сооружения
+msg.dim_arrive=Мир растворяется в свете... вы прибыли: {0}.
+mob.star_stag=Звёздный олень
+mob.glow_moth=Светящийся мотылёк
+mob.void_wisp=Огонёк пустоты
+mob.ancient_guardian=Древний страж
+mob.crystal_golem=Хрустальный голем
+mob.silent_stalker=Тихий охотник
+mob.sanctuary_keeper=Хранитель святилища

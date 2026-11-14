@@ -1,0 +1,140 @@
+# Cliderness item definitions - the Ancient Dimension
+
+[item aether_shard]
+name=Aether Shard
+type=material
+glyph=15
+fg=lightcyan
+weight=40
+volume=2
+density=900
+
+[item raw_starmetal]
+name=Raw Starmetal
+type=resource
+glyph=7
+fg=yellow
+weight=500
+volume=8
+density=6000
+
+[item starmetal_ingot]
+name=Starmetal Ingot
+type=material
+glyph=22
+fg=yellow
+weight=400
+volume=7
+density=6000
+
+[item glowcap_spore]
+name=Glowcap
+type=food
+glyph=6
+fg=lightgreen
+food=50
+water=20
+weight=30
+volume=3
+density=500
+
+[item star_petal]
+name=Star Petal
+type=material
+glyph=15
+fg=yellow
+weight=5
+volume=1
+density=200
+
+[item portal_core]
+name=Portal Core
+type=relic
+glyph=233
+fg=lightmagenta
+stack=4
+place=ancient_portal
+weight=2000
+volume=20
+density=3000
+
+[item ancient_relic]
+name=Ancient Relic
+type=relic
+glyph=232
+fg=lightcyan
+stack=8
+effect=ancient_blessing
+effect_chance=100
+weight=300
+volume=5
+density=3000
+
+[item aether_elixir]
+name=Aether Elixir
+type=consumable
+glyph=173
+fg=lightcyan
+food=40
+water=200
+effect=ancient_blessing
+effect_chance=100
+weight=300
+volume=5
+density=1000
+
+[item starmetal_pickaxe]
+name=Starmetal Pickaxe
+type=tool
+tool=pickaxe
+glyph=231
+fg=yellow
+power=1100
+durability=600
+stack=1
+weight=1600
+volume=60
+density=5000
+repair=starmetal_ingot
+repair_pct=30
+
+[item starmetal_sword]
+name=Starmetal Sword
+type=weapon
+glyph=24
+fg=yellow
+damage=12
+speed=9
+durability=600
+stack=1
+weight=1500
+volume=40
+density=5000
+repair=starmetal_ingot
+repair_pct=30
+
+[item starmetal_chestplate]
+name=Starmetal Chestplate
+type=armor
+equip=body
+glyph=219
+fg=yellow
+defense=28
+insulation=1
+durability=500
+stack=1
+weight=5000
+volume=60
+density=5000
+repair=starmetal_ingot
+repair_pct=30
+
+[item aether_lantern]
+name=Aether Lantern
+type=building
+glyph=15
+fg=lightcyan
+place=ancient_lamp
+weight=600
+volume=10
+density=1500

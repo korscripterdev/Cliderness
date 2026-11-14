@@ -12,11 +12,13 @@
 
 static int g_ores[MAX_ORES];
 static int g_nores = 0;
+static int g_void_biome = -1;   /* Ancient Dimension chasms: no water, deep floor */
 
 void terrain_init_ores(void)
 {
     int i;
     g_nores = 0;
+    g_void_biome = biome_find("void_rift");
     for (i = 1; i < g_block_count && g_nores < MAX_ORES; ++i) {
         if (g_blocks[i].ore_chance > 0) {
             g_ores[g_nores++] = i;
@@ -85,10 +87,16 @@ void terrain_gen_column(cl_u32 seed, int dim, ColumnData *col)
             if (dim == DIM_ANCIENT) {
                 kind = BK_ANCIENT;
             }
+            col->biome[i] = (cl_u8)biome_select(kind, h, t, m, sp);
+            if (dim == DIM_ANCIENT && col->biome[i] == g_void_biome) {
+                /* the rift falls away towards a floor of void stone; the
+                 * edge (special 90..92) slopes down over a few cells */
+                int depth = sp >= 93 ? 44 : (sp - 89) * 12;
+                h = CL_MAX(14, h - depth);
+            }
             col->height[i] = (cl_u8)h;
             col->temp[i] = (cl_u8)t;
             col->humid[i] = (cl_u8)m;
-            col->biome[i] = (cl_u8)biome_select(kind, h, t, m, sp);
         }
     }
     col->valid = 1;
@@ -163,6 +171,9 @@ cl_u8 terrain_block(cl_u32 seed, int dim, const ColumnData *col, int index, long
         cl_u32 r = rng_hash3(CL_U32(s ^ 0x7EE7UL), x, 0, z);
         long roll = (long)(r % 1000UL);
         int tree = (h >= SEA_LEVEL && b->tree && roll < (long)b->tree_density);
+        if (y < SEA_LEVEL && dim == DIM_ANCIENT && col->biome[index] == g_void_biome) {
+            return BLOCK_AIR;
+        }
         if (y < SEA_LEVEL) {
             if (y == h + 1 && b->plant && roll < (long)b->plant_density) {
                 return b->plant;

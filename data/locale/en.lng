@@ -626,3 +626,23 @@ cmd.wind=Show the wind, or set its direction (cheat).
 
 # --- added ---
 msg.ship_overloaded=The ship is overloaded and takes on water!
+
+# --- added ---
+con.biomes=biomes
+con.creatures=creatures
+con.respawn_in=Respawn point in
+con.same_dim=You are already in that dimension.
+con.structures=structures
+msg.dim_arrive=The world dissolves in light... you arrive in the {0}.
+mob.star_stag=Star Stag
+mob.glow_moth=Glow Moth
+mob.void_wisp=Void Wisp
+mob.ancient_guardian=Ancient Guardian
+mob.crystal_golem=Crystal Golem
+mob.silent_stalker=Silent Stalker
+mob.sanctuary_keeper=Sanctuary Keeper
+cmd.dimension=Show the dimension you are in and where you respawn.
+cmd.dimensions=List the dimensions with their biomes, creatures and structures.
+cmd.travel=Travel to a dimension (add 'portal' to build a return portal).
+cmd.makeportal=Place an Ancient Portal in front of you.
+cmd.ancientbiomes=List the biomes of the Ancient Dimension.

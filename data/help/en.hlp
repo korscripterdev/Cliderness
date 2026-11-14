@@ -356,10 +356,16 @@ Hold the ship, face open water and press R to launch it (the stern starts next t
 Aboard, R opens the cargo hold (27 slots, limited by the ship's capacity) and U bails water or, while holding the repair material (logs for rafts, planks for boats), patches the hull.
 
 @topic ancient
-@title The Ancient Dimension (planned)
-@level 3
-@related biomes,weather
-The only other dimension is the Ancient Dimension with its own biomes (ancient grassland and forest, forgotten garden, crystal wilds, silent swamp, void rift, starlight plain, ancient sanctuary), minerals, structures, sky and the Ancient Storm. It is planned for Phase 9; the world format already stores a dimension for every chunk.
+@title The Ancient Dimension
+@level 2
+@related portal,ancientbiomes,monsters,weather
+The only other dimension. Its sky glows magenta by day; its weather includes Starfall, Silent Mist, Aether Wind and the Ancient Storm (no rain or snow there). Terrain, caves and seas are generated like the overworld but with their own seed, blocks and eight biomes (see Ancient Biomes).
+> Ores      Aether veins (8-90) and Starmetal (4-40) in Ancient Stone
+> Plants    glowcaps, star flowers, crystal blooms, moonreed, elder trees (glowing leaves)
+> Creatures star stags, glow moths; void wisps and silent stalkers at night; ancient guardians near sanctuaries and rifts; crystal golems in caves; sanctuary keepers trade relics
+> Structures Ancient Cities (walled, with streets, houses and coffers) and Ancient Shrines
+Ancient recipes need the Ancient Altar (6 ancient bricks + 4 aether shards at a workbench): starmetal tools, sword and armour, Aether Elixir (Ancient Blessing), Aether Lanterns. Ancient Relics grant the Ancient Blessing when used.
+/dimension, /dimensions and /ancientbiomes show where you are.
 
 @topic durability
 @title Durability and Repair
@@ -495,7 +501,7 @@ Cliderness - Open World Survival Sandbox
 Created by korscripterdev.
 Engine: Cliderness Engine, written in ISO C90.
 License: GNU GPL version 3 or later (LICENSE).
-Version 0.5.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
+Version 0.6.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
 
 @topic stations
 @title Workstations
@@ -636,3 +642,24 @@ Water in the hull is shown in percent; above 50% the hull turns blue. The ship s
 @level 3
 @related sailing,weather
 The wind strength comes from the weather (clear 10%, rain 30%, thunderstorm 60%, windy 80%, storm 95%), its direction drifts slowly. /wind shows both; the direction is where the wind blows to. Sailing ships are fastest with the wind behind them and almost stop when sailing into it. Strong wind raises waves that damage small hulls.
+
+@topic portal
+@title Portals
+@level 2
+@related ancient,crafting
+Craft a Portal Core at an anvil (4 obsidian, 6 crystal shards, 2 gems, 2 gold ingots, Crafting 5) and place it with R: it becomes an Ancient Portal. Face it and press E to travel. You arrive at the same x/z in the other dimension, on the nearest dry land within 48 cells; a return portal is built east of you unless one stands within 8 cells. Ships, creatures and items stay behind.
+
+Obsidian forms where water meets lava (or in deep lava caves). Breaking a portal returns its core. If you die, you respawn in the dimension of your spawn point (sleeping in a bed sets it).
+
+@topic ancientbiomes
+@title Ancient Biomes
+@level 3
+@related ancient,biomes
+> Ancient Grassland   magenta grass, star flowers, lone elder trees
+> Ancient Forest      dense elder woods with glowing leaves
+> Forgotten Garden    warm and humid, every kind of glowing plant
+> Crystal Wilds       highlands of crystal turf and crystal blooms
+> Silent Swamp        silent mud, moonreed and glowcaps
+> Starlight Plain     dry fields of glowing star sand
+> Ancient Sanctuary   brick-paved ground, guarded
+> Void Rift           chasms falling 40 blocks to a floor of void stone; no water

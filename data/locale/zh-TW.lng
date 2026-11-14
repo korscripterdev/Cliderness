@@ -560,3 +560,18 @@ ship.wind_to=吹向
 
 # --- added ---
 msg.ship_overloaded=船超載了，正在進水！
+
+# --- added ---
+con.biomes=生物群系
+con.creatures=生物
+con.respawn_in=重生點位於
+con.same_dim=你已經在那個維度了。
+con.structures=結構
+msg.dim_arrive=世界在光芒中消融……你到達了{0}。
+mob.star_stag=星辰雄鹿
+mob.glow_moth=輝光飛蛾
+mob.void_wisp=虛空鬼火
+mob.ancient_guardian=遠古守護者
+mob.crystal_golem=水晶魔像
+mob.silent_stalker=寂靜追獵者
+mob.sanctuary_keeper=聖所守護人

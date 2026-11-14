@@ -4,6 +4,22 @@
 
 All notable changes to Cliderness (created by korscripterdev).
 
+## [0.6.0] — 2026-11-14
+
+Roadmap phase 9 (the Ancient Dimension).
+
+### Added
+- Portals: craft a Portal Core at an anvil, place it and press E to travel. You arrive on the nearest dry land at the same x/z; a return portal is built unless one is near.
+- The Ancient Dimension: its own seed, eight biomes (Ancient Grassland, Ancient Forest, Forgotten Garden, Crystal Wilds, Silent Swamp, Starlight Plain, Ancient Sanctuary, Void Rift with 40-block chasms and no water).
+- 21 ancient blocks (stone, bricks, star sand, void stone, elder trees, glowing plants), Aether and Starmetal ores.
+- 7 ancient creatures: star stags, glow moths, void wisps, ancient guardians, crystal golems, silent stalkers and sanctuary keepers (traders).
+- Ancient Cities and Ancient Shrines with coffers (`ancient` loot table).
+- Ancient Altar and 9 recipes: starmetal ingot, pickaxe, sword and chestplate, Aether Elixir, Aether Lantern; Ancient Relics grant the Ancient Blessing.
+- Weather of the dimension: Starfall, Silent Mist and Aether Wind join the Ancient Storm.
+- Respawn in the dimension of your spawn point.
+- 5 commands (121 in total): dimension, dimensions, travel, makeportal, ancientbiomes.
+- Help: the Ancient Dimension, portals, ancient biomes. Korean names for all new blocks, items, biomes and weather.
+
 ## [0.5.0] — 2026-11-14
 
 Roadmap phase 8 (ships).

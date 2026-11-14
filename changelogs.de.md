@@ -4,6 +4,16 @@
 
 Wichtige Änderungen an Cliderness (erstellt von korscripterdev).
 
+## [0.6.0] — 2026-11-14
+
+Roadmap-Phase 9 (die Uralte Dimension).
+
+### Hinzugefügt
+- Portale: einen Portalkern am Amboss herstellen, setzen und mit E reisen; ein Rückportal wird gebaut.
+- Die Uralte Dimension: eigener Seed, 8 Biome (mit Leerenrissen), uralte Blöcke und Pflanzen, Äther- und Sternmetallerz.
+- 7 uralte Kreaturen, uralte Städte und Schreine, der uralte Altar mit 9 Rezepten, Relikte.
+- Wetter der Dimension (Sternenfall, Stiller Nebel, Ätherwind), Wiedereinstieg je Dimension. 5 neue Befehle (121 insgesamt).
+
 ## [0.5.0] — 2026-11-14
 
 Roadmap-Phase 8 (Schiffe).

@@ -632,7 +632,12 @@ void game_interact(Game *g)
                 g->p.spawn_x = g->p.x;
                 g->p.spawn_y = g->p.y;
                 g->p.spawn_z = g->p.z;
+                g->p.spawn_dim = g->p.dim;
             }
+            return;
+        }
+        if (bd->func == FUNC_PORTAL) {
+            portal_travel(g, g->p.dim == DIM_ANCIENT ? DIM_OVERWORLD : DIM_ANCIENT, 1);
             return;
         }
         if (bd->func == FUNC_STATION) {
@@ -829,6 +834,7 @@ void game_respawn(Game *g)
     int stats[ST_COUNT];
     long xp[SK_COUNT];
     long sx = p->spawn_x, sy = p->spawn_y, sz = p->spawn_z;
+    int sdim = p->spawn_dim;
     int god = p->god, fly = p->fly, noclip = p->noclip;
     memcpy(stats, p->stats, sizeof(stats));
     memcpy(xp, p->skill_xp, sizeof(xp));
@@ -838,12 +844,15 @@ void game_respawn(Game *g)
     p->spawn_x = sx;
     p->spawn_y = sy;
     p->spawn_z = sz;
+    p->spawn_dim = sdim;
+    p->dim = sdim;
+    g->aboard = -1;
     p->god = god;
     p->fly = fly;
     p->noclip = noclip;
     p->x = sx;
     p->z = sz;
-    p->y = world_top(&g->world, 0, sx, sz, WORLD_H - 1) + 1;
+    p->y = world_top(&g->world, sdim, sx, sz, WORLD_H - 1) + 1;
     p->hp_max = 80 + p->stats[ST_CON] * 2;
     p->hp = p->hp_max;
     log_add(MSG_GOOD, loc_get("msg.respawned"));

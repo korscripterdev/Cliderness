@@ -4,6 +4,16 @@
 
 Changements notables de Cliderness (créé par korscripterdev).
 
+## [0.6.0] — 2026-11-14
+
+Phase 9 de la feuille de route (la Dimension Ancienne).
+
+### Ajouté
+- Portails : fabriquez un noyau de portail à l'enclume, posez-le et appuyez sur E pour voyager ; un portail de retour est construit.
+- La Dimension Ancienne : graine propre, 8 biomes (dont les failles du vide), blocs et plantes anciens, filons d'éther et minerai de métal stellaire.
+- 7 créatures anciennes, cités et sanctuaires anciens, l'autel ancien avec 9 recettes, reliques.
+- Météo de la dimension (pluie d'étoiles, brume silencieuse, vent d'éther), réapparition par dimension. 5 nouvelles commandes (121 au total).
+
 ## [0.5.0] — 2026-11-14
 
 Phase 8 de la feuille de route (bateaux).

@@ -110,6 +110,7 @@ int main(int argc, char **argv)
     if (!only || str_ieq(only, "fluid")) { printf("[fluid]\n"); suite_fluid(); }
     if (!only || str_ieq(only, "mob")) { printf("[mob]\n"); suite_mob(); }
     if (!only || str_ieq(only, "ship")) { printf("[ship]\n"); suite_ship(); }
+    if (!only || str_ieq(only, "ancient")) { printf("[ancient]\n"); suite_ancient(); }
     if (!only || str_ieq(only, "app")) { printf("[app]\n"); suite_app(); }
     printf("\n%d checks passed, %d failed\n", tf_pass, tf_fail);
     return tf_fail ? 1 : 0;

@@ -44,6 +44,7 @@ void con_init(void)
     add_table(cmd_table_fluid());
     add_table(cmd_table_mob());
     add_table(cmd_table_ship());
+    add_table(cmd_table_ancient());
 }
 
 int con_count(void)
