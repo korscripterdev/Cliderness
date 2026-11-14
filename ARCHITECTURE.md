@@ -109,6 +109,6 @@ headless) a new sound is mixed into the rest of the current one.
 
 ## Memory budget (16-bit DOS)
 
-Chunk cache 40 × 2 KB, columns 6 × 4 KB, locale pools 2 × 32 KB (+ 840-entry index each), help index
+Chunk cache 40 × 2 KB, columns 6 × 4 KB, locale pools 2 × 36 KB (+ 960-entry index each), help index
 ≈19 KB, store index ≤ 32 KB, edit journal 16 KB. `mem_set_budget(420000)` is
 enforced on 16-bit builds; `/mem` shows live usage.

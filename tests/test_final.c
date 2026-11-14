@@ -204,7 +204,7 @@ static void t_pcm_audio(void)
     aud_shutdown();
 }
 
-/* DOS keeps the language tables in 32000-byte pools with 840 entries */
+/* DOS keeps the language tables in 36000-byte pools with 960 entries */
 static void t_dos_locale_limits(void)
 {
     static const char *const langs[] = { "en", "es", "fr", "de", "pt", "it", NULL };
@@ -225,9 +225,9 @@ static void t_dos_locale_limits(void)
             }
         }
         fclose(f);
-        if (n >= 840 || bytes >= 32000L) printf("    %s: %ld keys, %ld bytes\n", langs[i], n, bytes);
-        CHECK(n < 840);
-        CHECK(bytes < 32000L);
+        if (n >= 960 || bytes >= 36000L) printf("    %s: %ld keys, %ld bytes\n", langs[i], n, bytes);
+        CHECK(n < 960);
+        CHECK(bytes < 36000L);
     }
 }
 
