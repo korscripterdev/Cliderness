@@ -1,0 +1,238 @@
+# Cliderness block definitions - stations, storage, beds, farming
+# func: station / chest / bed / farmland / crop / portal
+# Crops and saplings: grow_to = next stage, grow_minutes = game minutes per
+# stage, grow_top = block placed above when a sapling becomes a tree.
+
+[block workbench]
+name=Workbench
+category=functional
+glyph=227
+fg=brown
+floor_glyph=227
+floor_fg=brown
+flags=solid
+station=workbench
+hardness=25
+tool=axe
+fuel=3
+
+[block furnace]
+name=Furnace
+category=functional
+glyph=233
+fg=lightred
+bg=darkgray
+floor_glyph=233
+floor_fg=lightred
+flags=solid,light
+light=6
+station=furnace
+hardness=35
+tool=pickaxe
+
+[block campfire]
+name=Campfire
+category=functional
+glyph=30
+fg=yellow
+bg=red
+flags=plant,light,hurt
+light=10
+station=campfire
+hardness=4
+drop=stick
+drop_count=2
+
+[block anvil]
+name=Anvil
+category=functional
+glyph=209
+fg=darkgray
+bg=lightgray
+floor_glyph=209
+floor_fg=darkgray
+flags=solid
+station=anvil
+hardness=60
+tool=pickaxe
+
+[block chest]
+name=Chest
+category=functional
+glyph=254
+fg=brown
+floor_glyph=254
+floor_fg=brown
+flags=solid
+func=chest
+hardness=20
+tool=axe
+fuel=3
+
+[block bed]
+name=Bed
+category=functional
+glyph=223
+fg=lightred
+bg=brown
+floor_glyph=223
+floor_fg=lightred
+flags=solid
+func=bed
+hardness=10
+tool=axe
+
+[block farmland]
+name=Farmland
+category=terrain
+glyph=177
+fg=brown
+floor_glyph=240
+floor_fg=brown
+flags=solid
+func=farmland
+hardness=8
+tool=shovel
+drop=dirt
+
+[block wheat_0]
+name=Wheat Sprout
+category=plant
+glyph='.'
+fg=lightgreen
+flags=plant
+func=crop
+place_on=farmland
+grow_to=wheat_1
+grow_minutes=240
+hardness=1
+drop=wheat_seeds
+item=0
+
+[block wheat_1]
+name=Young Wheat
+category=plant
+glyph=','
+fg=lightgreen
+flags=plant
+func=crop
+grow_to=wheat_2
+grow_minutes=240
+hardness=1
+drop=wheat_seeds
+item=0
+
+[block wheat_2]
+name=Growing Wheat
+category=plant
+glyph='"'
+fg=green
+flags=plant
+func=crop
+grow_to=wheat_3
+grow_minutes=240
+hardness=1
+drop=wheat_seeds
+item=0
+
+[block wheat_3]
+name=Ripe Wheat
+category=plant
+glyph=20
+fg=yellow
+flags=plant
+func=crop
+hardness=1
+drop=wheat
+drop2=wheat_seeds
+drop2_chance=100
+drop2_count=2
+item=0
+
+[block potato_0]
+name=Potato Sprout
+category=plant
+glyph='.'
+fg=green
+flags=plant
+func=crop
+place_on=farmland
+grow_to=potato_1
+grow_minutes=300
+hardness=1
+drop=potato
+item=0
+
+[block potato_1]
+name=Young Potato
+category=plant
+glyph=','
+fg=green
+flags=plant
+func=crop
+grow_to=potato_2
+grow_minutes=300
+hardness=1
+drop=potato
+item=0
+
+[block potato_2]
+name=Potato Plant
+category=plant
+glyph=5
+fg=green
+flags=plant
+func=crop
+grow_to=potato_3
+grow_minutes=300
+hardness=1
+drop=potato
+item=0
+
+[block potato_3]
+name=Ripe Potatoes
+category=plant
+glyph=5
+fg=yellow
+flags=plant
+func=crop
+hardness=1
+drop=potato
+drop_count=3
+item=0
+
+[block oak_sapling]
+name=Oak Sapling
+category=plant
+glyph=24
+fg=lightgreen
+flags=plant
+func=crop
+grow_to=oak_log
+grow_top=oak_leaves
+grow_minutes=720
+hardness=1
+
+[block pine_sapling]
+name=Pine Sapling
+category=plant
+glyph=24
+fg=green
+flags=plant
+func=crop
+grow_to=pine_log
+grow_top=pine_needles
+grow_minutes=900
+hardness=1
+
+[block jungle_sapling]
+name=Jungle Sapling
+category=plant
+glyph=24
+fg=lightcyan
+flags=plant
+func=crop
+grow_to=jungle_log
+grow_top=jungle_leaves
+grow_minutes=600
+hardness=1

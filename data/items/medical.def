@@ -1,0 +1,42 @@
+# Cliderness item definitions - medicine (cure = status effect removed)
+
+[item bandage]
+name=Bandage
+type=consumable
+glyph=43
+fg=white
+cure=bleeding
+weight=20
+volume=3
+density=500
+
+[item splint]
+name=Splint
+type=consumable
+glyph=124
+fg=brown
+cure=fracture
+weight=150
+volume=15
+density=600
+
+[item herbal_tea]
+name=Herbal Tea
+type=consumable
+glyph=33
+fg=lightgreen
+cure=common_cold
+water=150
+weight=250
+volume=25
+density=1000
+
+[item charcoal_pill]
+name=Charcoal Pill
+type=consumable
+glyph=7
+fg=black
+cure=food_poisoning
+weight=10
+volume=1
+density=500

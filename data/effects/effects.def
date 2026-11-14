@@ -1,0 +1,69 @@
+# Cliderness status effects. Values apply every game minute while active.
+# hp / hunger / thirst / stamina: per-minute change (meters are 0..1000)
+# temp: felt temperature offset (deg C), move: extra ticks per step,
+# regen: stamina regeneration in percent, duration: default minutes.
+
+[effect bleeding]
+name=Bleeding
+hp=-1
+duration=15
+harmful=1
+color=lightred
+
+[effect fracture]
+name=Fracture
+move=4
+regen=70
+duration=240
+harmful=1
+color=yellow
+
+[effect food_poisoning]
+name=Food Poisoning
+hunger=-3
+thirst=-4
+stamina=-5
+duration=60
+harmful=1
+color=green
+
+[effect common_cold]
+name=Common Cold
+regen=60
+temp=-2
+duration=180
+harmful=1
+color=lightcyan
+
+[effect wet]
+name=Wet
+temp=-4
+duration=20
+color=lightblue
+
+[effect well_fed]
+name=Well Fed
+regen=150
+duration=120
+color=lightgreen
+
+[effect rested]
+name=Rested
+regen=150
+duration=240
+color=white
+
+[effect poisoned]
+name=Poisoned
+hp=-1
+stamina=-3
+duration=10
+harmful=1
+color=lightmagenta
+
+[effect ancient_blessing]
+name=Ancient Blessing
+regen=200
+temp=4
+duration=60
+color=lightmagenta

@@ -44,7 +44,8 @@ int  loc_find(const char *code);
 const char *loc_choose(const char *detected);
 
 /* Translation coverage: number of keys of the English table missing in
- * <code>. If out is not NULL, the first missing keys are written there,
+ * <code> (prefix "x." = only those keys, "!x." = all but those).
+ * If out is not NULL, the first missing keys are written there,
  * one per line. Returns -1 if the language cannot be loaded. */
 int  loc_missing(const char *code, const char *prefix, char *out, size_t n);
 int  loc_key_count(void);

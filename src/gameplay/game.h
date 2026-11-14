@@ -22,6 +22,31 @@
 
 enum { GM_SURVIVAL = 0, GM_CREATIVE, GM_ADVENTURE, GM_SPECTATOR, GM_COUNT };
 
+#ifdef CLIDE_TARGET_DOS16
+#define MAX_CROPS  64
+#define MAX_CHESTS 16
+#else
+#define MAX_CROPS  512
+#define MAX_CHESTS 128
+#endif
+#define CHEST_SLOTS 27
+
+/* a planted crop or sapling waiting for its next growth stage */
+typedef struct Crop {
+    long  x, y, z;
+    long  next_minute;
+    cl_u8 dim, active;
+} Crop;
+
+typedef struct Chest {
+    long  x, y, z;
+    cl_u8 dim, active;
+    ItemStack s[CHEST_SLOTS];
+} Chest;
+
+/* requests from game logic to the UI (opened after an interaction) */
+enum { UIREQ_NONE = 0, UIREQ_CRAFT, UIREQ_CHEST };
+
 typedef struct Game {
     int         active;
     char        name[16];
@@ -42,6 +67,10 @@ typedef struct Game {
     long        last_minute;
     int         blocked_msg;   /* rate limit for repeated messages */
     int         unsaved;
+    Crop        crops[MAX_CROPS];
+    Chest       chests[MAX_CHESTS];
+    int         ui_request;
+    int         ui_arg;
 } Game;
 
 extern Game g_game;
@@ -80,6 +109,10 @@ void ent_tick(Game *g);
 int  ent_pickup(Game *g, long x, long y, long z);
 int  ent_count(const Game *g);
 int  ent_kill_all(Game *g);
+/* creatures (Phase 7): 1 if a hostile creature is within radius */
+int  ent_hostile_near(Game *g, int radius);
+/* interact with a creature in a cell (trade / pet); 1 if handled */
+int  ent_interact(Game *g, long x, long y, long z);
 
 /* survival (once per game minute) */
 void surv_minute(Game *g);
@@ -96,6 +129,41 @@ void edit_set(Game *g, int dim, long x, long y, long z, cl_u8 b, cl_u8 m);
 int  edit_end(EditJournal *j);   /* 1 = undoable op recorded */
 int  edit_undo(Game *g);         /* returns records restored, -1 nothing */
 int  edit_redo(Game *g);
+
+/* crafting (gameplay/crafting/crafting.c) */
+enum { CRAFT_OK = 0, CRAFT_NEED_ITEMS, CRAFT_NEED_STATION, CRAFT_NEED_FUEL, CRAFT_NEED_SKILL, CRAFT_NO_ROOM };
+int  craft_station_near(Game *g, int station);
+int  craft_fuel_units(const Inventory *inv);
+int  craft_check(Game *g, int recipe);
+int  craft_max(Game *g, int recipe);
+int  craft_do(Game *g, int recipe);
+int  repair_check(Game *g, int slot);   /* 0 ok, else CRAFT_* reason */
+int  repair_do(Game *g, int slot);
+long game_carry_capacity(Game *g);
+
+/* farming (gameplay/farming/farming.c) */
+int  farm_till(Game *g);
+int  farm_register(Game *g, int dim, long x, long y, long z);
+void farm_minute(Game *g);
+int  farm_grow_all(Game *g, long radius);
+int  farm_count(const Game *g);
+
+/* chests (gameplay/storage/chest.c) */
+int  chest_find(const Game *g, int dim, long x, long y, long z);
+int  chest_create(Game *g, int dim, long x, long y, long z);
+void chest_remove(Game *g, int idx);
+int  chest_count(const Game *g);
+
+/* status effects and sleep (gameplay/survival/effects.c) */
+void fx_add(Game *g, int effect, int minutes);
+int  fx_has(const Game *g, int effect);
+int  fx_remove(Game *g, int effect);
+void fx_clear(Game *g);
+void fx_minute(Game *g);
+int  fx_temp(const Game *g);
+int  fx_move(const Game *g);
+int  fx_regen(const Game *g);
+int  game_sleep(Game *g, int force);
 
 /* mining / placing internals */
 int  mine_time(Game *g, int block);

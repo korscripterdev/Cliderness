@@ -25,6 +25,7 @@
 #include "core/mathx.h"
 #include "core/str.h"
 #include "core/mem.h"
+#include "content/effects.h"
 
 #define VIEW_W 56
 #define VIEW_H 19
@@ -224,7 +225,7 @@ static void panel_line(Framebuffer *fb, int y, const char *label, const char *va
 
 static void panel_bar(Framebuffer *fb, int y, const char *label, long v, long max, int color, int pct)
 {
-    char num[12];
+    char num[24];
     fb_text(fb, PANEL_X, y, label, UI_DIM, 8);
     fb_bar(fb, PANEL_X + 8, y, 9, v, max, ATTR(color, C_BLACK));
     if (pct) {
@@ -285,9 +286,9 @@ static void draw_panel(Framebuffer *fb, Game *g)
         sprintf(buf, "%d%%", p->visibility);
         panel_line(fb, y++, loc_get("hud.visibility"), buf, UI_TEXT);
         sprintf(buf, "%ld.%ld/%ldkg", inv_weight(&g->inv) / 1000L, (inv_weight(&g->inv) % 1000L) / 100L,
-                player_carry_capacity(p) / 1000L);
+                game_carry_capacity(g) / 1000L);
         panel_line(fb, y++, loc_get("hud.carry"), buf,
-                   inv_weight(&g->inv) > player_carry_capacity(p) ? UI_BAD : UI_TEXT);
+                   inv_weight(&g->inv) > game_carry_capacity(g) ? UI_BAD : UI_TEXT);
         panel_line(fb, y++, loc_get("hud.biome"), biome_name(biome), ATTR(g_biomes[biome].map_color == C_BLACK ? C_LIGHTGRAY : g_biomes[biome].map_color, C_BLACK));
         panel_line(fb, y++, loc_get("hud.weather"), weather_name(g->weather.cur), UI_TEXT);
         sprintf(buf, "%02d:%02d %s %d", d.hour, d.minute, loc_get(ctime_season_key(d.season)), d.day_of_month);
@@ -296,6 +297,18 @@ static void draw_panel(Framebuffer *fb, Game *g)
         sprintf(buf, "%ld,%ld,%ld", p->x, p->y, p->z);
         panel_line(fb, y++, loc_get("hud.pos"), buf, UI_DIM);
         panel_line(fb, y++, loc_get("hud.mode"), loc_get(game_mode_key(g->mode)), UI_TEXT);
+        {
+            int k, x = PANEL_X;
+            for (k = 0; k < PLAYER_FX && x < FB_W - 1; ++k) {
+                if (p->fx[k].id >= 0 && p->fx[k].minutes > 0) {
+                    const EffectDef *e = &g_effects[p->fx[k].id];
+                    x += fb_text(fb, x, y, effect_name(p->fx[k].id), ATTR(e->color, C_BLACK), FB_W - 1 - x) + 1;
+                }
+            }
+            if (x > PANEL_X) {
+                ++y;
+            }
+        }
         {
             char flags[32];
             flags[0] = '\0';
@@ -355,7 +368,7 @@ static void draw_hotbar(Framebuffer *fb, Game *g)
     for (i = 0; i < INV_HOTBAR; ++i) {
         const ItemStack *s = &g->inv.s[i];
         cl_u8 a = i == g->inv.selected ? ATTR(C_BLACK, C_LIGHTGRAY) : ATTR(C_LIGHTGRAY, C_BLUE);
-        char buf[8];
+        char buf[24];
         fb_fill(fb, x, 19, 6, 1, ' ', a);
         buf[0] = (char)('1' + i);
         buf[1] = '\0';
@@ -392,7 +405,7 @@ static void draw_log(Framebuffer *fb)
         fb_text(fb, 0, 20 + i, e->text,
                 i >= 3 ? e->attr : ATTR(color_dim(ATTR_FG(e->attr)), C_BLACK), FB_W - 6);
         if (e->repeat > 1) {
-            char rb[10];
+            char rb[24];
             sprintf(rb, " x%d", e->repeat);
             fb_text(fb, FB_W - 6, 20 + i, rb, UI_DIM, 6);
         }
@@ -435,7 +448,16 @@ static void game_key(const ClideKeyEvent *ev)
     case ACT_DROP: game_drop(g, g->inv.selected, 0); break;
     case ACT_DROP_STACK: game_drop(g, g->inv.selected, 1); break;
     case ACT_STATS: app_push(&scr_stats); break;
-    case ACT_INTERACT: game_interact(g); aud_play(SFX_PICKUP); break;
+    case ACT_INTERACT:
+        game_interact(g);
+        aud_play(SFX_PICKUP);
+        if (g->ui_request == UIREQ_CHEST) {
+            app_open_chest(g->ui_arg);
+        } else if (g->ui_request == UIREQ_CRAFT) {
+            app_push(&scr_craft);
+        }
+        g->ui_request = UIREQ_NONE;
+        break;
     case ACT_HELP: app_open_help("controls"); break;
     case ACT_PAUSE: app_push(&scr_pause); break;
     case ACT_CONSOLE: app_push(&scr_console); break;
@@ -445,6 +467,7 @@ static void game_key(const ClideKeyEvent *ev)
     case ACT_BUILD_UP: game_build_up(g); break;
     case ACT_USE: game_use(g); break;
     case ACT_PANEL: g_app.set.panel_page = (g_app.set.panel_page + 1) % 3; break;
+    case ACT_CRAFT: app_push(&scr_craft); break;
     default:
         if (act >= ACT_HOT1 && act <= ACT_HOT9) {
             game_select(g, act - ACT_HOT1);

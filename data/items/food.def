@@ -32,6 +32,8 @@ water=10
 weight=40
 volume=5
 density=600
+effect=food_poisoning
+effect_chance=20
 
 [item coconut]
 name=Coconut
@@ -54,3 +56,50 @@ water=100
 weight=80
 volume=8
 density=950
+
+[item bread]
+name=Bread
+type=food
+glyph=22
+fg=brown
+food=250
+water=0
+effect=well_fed
+weight=300
+volume=40
+density=300
+
+[item baked_potato]
+name=Baked Potato
+type=food
+glyph=7
+fg=yellow
+food=160
+water=20
+weight=140
+volume=12
+density=1000
+
+[item mushroom_stew]
+name=Mushroom Stew
+type=food
+glyph=4
+fg=brown
+food=200
+water=120
+effect=well_fed
+weight=400
+volume=40
+density=1050
+stack=8
+
+[item roasted_berries]
+name=Roasted Berries
+type=food
+glyph=',' 
+fg=red
+food=100
+water=10
+weight=20
+volume=2
+density=900

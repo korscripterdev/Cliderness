@@ -4,6 +4,20 @@
 
 Wichtige Änderungen an Cliderness (erstellt von korscripterdev).
 
+## [0.2.0] — 2026-11-14
+
+Roadmap-Phase 4 (Handwerk und Bauen) und der Rest von Phase 3.
+
+### Hinzugefügt
+- Handwerksbildschirm (K), 58 datengesteuerte Rezepte, Werkbank, Ofen, Lagerfeuer, Amboss und Brennstoff.
+- Schmelzen, Kochen und Ackerbau (Hacken, Ackerland, Weizen und Kartoffeln, Setzlinge, die zu Bäumen wachsen).
+- Truhen, Betten und Schlaf, Ausrüstungsplätze (Kopf, Körper, Beine, Füße, Rücken) und Reparatur.
+- Zustände: Blutung, Knochenbruch, Lebensmittelvergiftung, Erkältung, nass, satt, ausgeruht und Heilmittel.
+- 15 neue Befehle (86 insgesamt). Lizenz: GPL-3.0 oder später.
+
+### Geändert
+- Beschreibungen neuer Befehle erscheinen auf Englisch (die Oberfläche bleibt in 11 Sprachen übersetzt).
+
 ## [0.1.0] — 2026-11-14
 
 Erste spielbare Grundlage (Phasen 1–3 fertig, 4–6 und 10 teilweise).

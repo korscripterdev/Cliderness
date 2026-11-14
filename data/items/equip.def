@@ -1,0 +1,146 @@
+# Cliderness item definitions - wearable equipment and bags
+# equip = head / body / legs / feet / back
+# defense = damage reduction percent, insulation = deg C of warmth,
+# capacity = extra carry capacity in kg
+
+[item fiber_hat]
+name=Fiber Hat
+type=armor
+equip=head
+glyph=94
+fg=yellow
+insulation=2
+defense=1
+durability=80
+stack=1
+weight=100
+volume=20
+density=500
+repair=cloth
+repair_pct=40
+
+[item fiber_shirt]
+name=Fiber Shirt
+type=armor
+equip=body
+glyph=219
+fg=yellow
+insulation=4
+defense=2
+durability=100
+stack=1
+weight=300
+volume=40
+density=500
+repair=cloth
+repair_pct=40
+
+[item fiber_pants]
+name=Fiber Pants
+type=armor
+equip=legs
+glyph=239
+fg=yellow
+insulation=3
+defense=2
+durability=100
+stack=1
+weight=250
+volume=35
+density=500
+repair=cloth
+repair_pct=40
+
+[item fiber_shoes]
+name=Fiber Shoes
+type=armor
+equip=feet
+glyph=95
+fg=yellow
+insulation=1
+defense=1
+durability=80
+stack=1
+weight=150
+volume=20
+density=500
+repair=cloth
+repair_pct=40
+
+[item iron_helmet]
+name=Iron Helmet
+type=armor
+equip=head
+glyph=94
+fg=white
+defense=10
+insulation=-1
+durability=300
+stack=1
+weight=1500
+volume=40
+density=7800
+repair=iron_ingot
+repair_pct=25
+
+[item iron_chestplate]
+name=Iron Chestplate
+type=armor
+equip=body
+glyph=219
+fg=white
+defense=20
+insulation=-2
+durability=400
+stack=1
+weight=5000
+volume=80
+density=7800
+repair=iron_ingot
+repair_pct=20
+
+[item iron_leggings]
+name=Iron Leggings
+type=armor
+equip=legs
+glyph=239
+fg=white
+defense=15
+insulation=-1
+durability=350
+stack=1
+weight=3500
+volume=60
+density=7800
+repair=iron_ingot
+repair_pct=20
+
+[item iron_boots]
+name=Iron Boots
+type=armor
+equip=feet
+glyph=95
+fg=white
+defense=8
+durability=250
+stack=1
+weight=1500
+volume=30
+density=7800
+repair=iron_ingot
+repair_pct=25
+
+[item fiber_bag]
+name=Fiber Bag
+type=armor
+equip=back
+glyph=233
+fg=yellow
+capacity=15
+durability=200
+stack=1
+weight=400
+volume=30
+density=500
+repair=rope
+repair_pct=50

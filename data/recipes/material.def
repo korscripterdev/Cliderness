@@ -1,0 +1,65 @@
+# Cliderness recipes - material.def
+# in = item:count, station = none/workbench/furnace/campfire/anvil/altar
+# fuel = fuel units (coal 8, charcoal 8, log 4, planks 2, stick 1)
+
+[recipe iron_ingot]
+result=iron_ingot
+in=raw_iron:1
+station=furnace
+fuel=2
+category=materials
+
+[recipe copper_ingot]
+result=copper_ingot
+in=raw_copper:1
+station=furnace
+fuel=2
+category=materials
+
+[recipe tin_ingot]
+result=tin_ingot
+in=raw_tin:1
+station=furnace
+fuel=2
+category=materials
+
+[recipe silver_ingot]
+result=silver_ingot
+in=raw_silver:1
+station=furnace
+fuel=2
+category=materials
+
+[recipe gold_ingot]
+result=gold_ingot
+in=raw_gold:1
+station=furnace
+fuel=2
+category=materials
+
+[recipe bronze_ingot]
+result=bronze_ingot
+count=4
+in=copper_ingot:3
+in=tin_ingot:1
+station=furnace
+fuel=2
+min_skill=5
+category=materials
+
+[recipe charcoal]
+result=charcoal
+in=oak_log:1
+station=furnace
+fuel=1
+category=materials
+
+[recipe cloth]
+result=cloth
+in=plant_fiber:4
+category=materials
+
+[recipe rope]
+result=rope
+in=plant_fiber:3
+category=materials

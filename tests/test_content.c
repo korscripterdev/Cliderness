@@ -44,8 +44,12 @@ static void t_locale(void)
     CHECK(strcmp(loc_fmt("menu.created_by", CLIDE_CREATOR, NULL, NULL), "Created by korscripterdev") == 0);
     for (i = 0; i < loc_lang_count(); ++i) {
         LangInfo *li = loc_lang(i);
-        int ui = loc_missing(li->code, NULL, missing, sizeof(missing));
-        printf("    %-6s %-24s missing %d\n", li->code, li->native, ui);
+        /* every UI string in every language; command descriptions in en/ko
+         * (other languages fall back to English for newer commands) */
+        int full = str_ieq(li->code, "en") || str_ieq(li->code, "ko");
+        int ui = loc_missing(li->code, full ? NULL : "!cmd.", missing, sizeof(missing));
+        int cmd = full ? 0 : loc_missing(li->code, "cmd.", NULL, 0);
+        printf("    %-6s %-24s missing %d (command descriptions in English: %d)\n", li->code, li->native, ui, cmd);
         if (ui > 0) {
             printf("%s", missing);
         }

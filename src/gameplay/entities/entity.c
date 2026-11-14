@@ -146,6 +146,24 @@ int ent_count(const Game *g)
     return n;
 }
 
+/* Creatures arrive with Phase 7; until then no hostile can be near and
+ * there is nothing to interact with. */
+int ent_hostile_near(Game *g, int radius)
+{
+    (void)g;
+    (void)radius;
+    return 0;
+}
+
+int ent_interact(Game *g, long x, long y, long z)
+{
+    (void)g;
+    (void)x;
+    (void)y;
+    (void)z;
+    return 0;
+}
+
 int ent_kill_all(Game *g)
 {
     int i, n = 0;

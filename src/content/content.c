@@ -7,6 +7,8 @@
 #include "core/mem.h"
 #include "renderer/fb.h"
 #include "localization/locale.h"
+#include "content/effects.h"
+#include "content/recipes.h"
 
 char g_data_root[128] = "data";
 BlockDef g_blocks[MAX_BLOCKS];
@@ -18,13 +20,24 @@ CoreBlocks g_cb;
 typedef struct BlockExtra {
     char  drop[ID_LEN];
     char  host[ID_LEN];
+    char  grow_to[ID_LEN];
+    char  grow_top[ID_LEN];
+    char  place_on[ID_LEN];
+    char  drop2[ID_LEN];
     cl_s16 weight;
     cl_s16 density;
+    cl_s16 fuel;
     cl_u8 make_item;
 } BlockExtra;
 
+typedef struct ItemExtra {
+    char repair[ID_LEN];
+    char place[ID_LEN];
+} ItemExtra;
+
 typedef struct LoadCtx {
     BlockExtra *extra;
+    ItemExtra *iextra;
     int cur;
     char *err;
     size_t errn;
@@ -205,6 +218,8 @@ static int block_cb(void *user, const char *type, const char *id, const char *ke
         b->drop_count = 1;
         memset(&c->extra[c->cur], 0, sizeof(BlockExtra));
         str_copy(c->extra[c->cur].drop, "self", ID_LEN);
+        b->drop2 = -1;
+        b->drop2_count = 1;
         c->extra[c->cur].weight = 1000;
         c->extra[c->cur].density = 2000;
         c->extra[c->cur].make_item = 1;
@@ -250,6 +265,9 @@ static int block_cb(void *user, const char *type, const char *id, const char *ke
     } else if (str_ieq(key, "density")) {
         if (!str_to_long(value, &n) || n < 0 || n > 30000) return set_err(c, "bad density", value, line);
         c->extra[c->cur].density = (cl_s16)n;
+    } else if (str_ieq(key, "fuel")) {
+        if (!str_to_long(value, &n) || n < 0 || n > 100) return set_err(c, "bad fuel", value, line);
+        c->extra[c->cur].fuel = (cl_s16)n;
     } else if (str_ieq(key, "ore_chance")) {
         if (!str_to_long(value, &n) || n < 0 || n > 10000) return set_err(c, "bad ore_chance", value, line);
         b->ore_chance = (cl_u16)n;
@@ -274,6 +292,31 @@ static int block_cb(void *user, const char *type, const char *id, const char *ke
         int k = find_name(cats, (int)CL_COUNTOF(cats), value);
         if (k < 0) return set_err(c, "bad category", value, line);
         b->category = (cl_u8)k;
+    } else if (str_ieq(key, "func")) {
+        static const char *const funcs[FUNC_COUNT] = {
+            "none", "station", "chest", "bed", "farmland", "crop", "portal"
+        };
+        int k = find_name(funcs, FUNC_COUNT, value);
+        if (k < 0) return set_err(c, "bad func", value, line);
+        b->func = (cl_u8)k;
+    } else if (str_ieq(key, "station")) {
+        int k = station_find(value);
+        if (k < 0) return set_err(c, "bad station", value, line);
+        b->station = (cl_u8)k;
+        if (!b->func) b->func = FUNC_STATION;
+    } else if (str_ieq(key, "grow_to")) {
+        str_copy(c->extra[c->cur].grow_to, value, ID_LEN);
+    } else if (str_ieq(key, "grow_top")) {
+        str_copy(c->extra[c->cur].grow_top, value, ID_LEN);
+    } else if (str_ieq(key, "place_on")) {
+        str_copy(c->extra[c->cur].place_on, value, ID_LEN);
+    } else if (str_ieq(key, "drop2")) {
+        str_copy(c->extra[c->cur].drop2, value, ID_LEN);
+    } else if (str_ieq(key, "grow_minutes") || str_ieq(key, "drop2_chance") || str_ieq(key, "drop2_count")) {
+        if (!str_to_long(value, &n) || n < 0 || n > 30000) return set_err(c, "bad number", value, line);
+        if (str_ieq(key, "grow_minutes")) b->grow_minutes = (cl_u16)n;
+        else if (str_ieq(key, "drop2_chance")) b->drop2_chance = (cl_u8)CL_MIN(n, 100L);
+        else b->drop2_count = (cl_u8)CL_MIN(n, 64L);
     } else {
         return set_err(c, "unknown key", key, line);
     }
@@ -310,6 +353,11 @@ static int item_cb(void *user, const char *type, const char *id, const char *key
         it->volume = 10;
         it->density = 1500;
         it->place_block = -1;
+        it->repair_item = -1;
+        it->effect = -1;
+        it->cure = -1;
+        c->iextra[c->cur].repair[0] = '\0';
+        c->iextra[c->cur].place[0] = '\0';
         return 0;
     }
     it = &g_items[c->cur];
@@ -327,6 +375,20 @@ static int item_cb(void *user, const char *type, const char *id, const char *key
         int t = find_name(g_tools, TOOL_COUNT, value);
         if (t < 0) return set_err(c, "bad tool", value, line);
         it->tool_type = (cl_u8)t;
+    } else if (str_ieq(key, "equip")) {
+        static const char *const slots[EQ_COUNT] = { "head", "body", "legs", "feet", "back" };
+        int k = find_name(slots, EQ_COUNT, value);
+        if (k < 0) return set_err(c, "bad equip slot", value, line);
+        it->equip = (cl_u8)(k + 1);
+    } else if (str_ieq(key, "repair")) {
+        str_copy(c->iextra[c->cur].repair, value, ID_LEN);
+    } else if (str_ieq(key, "place")) {
+        str_copy(c->iextra[c->cur].place, value, ID_LEN);
+    } else if (str_ieq(key, "effect") || str_ieq(key, "cure")) {
+        int e = effect_find(value);
+        if (e < 0) return set_err(c, "unknown effect", value, line);
+        if (str_ieq(key, "effect")) it->effect = (cl_s16)e;
+        else it->cure = (cl_s16)e;
     } else {
         cl_s16 *dst = NULL;
         long lo = 0, hi = 30000;
@@ -338,6 +400,14 @@ static int item_cb(void *user, const char *type, const char *id, const char *key
         else if (str_ieq(key, "durability")) dst = &it->durability;
         else if (str_ieq(key, "food")) { dst = &it->food; hi = 1000; }
         else if (str_ieq(key, "water")) { dst = &it->water; hi = 1000; }
+        else if (str_ieq(key, "defense")) { dst = &it->defense; hi = 100; }
+        else if (str_ieq(key, "insulation")) { dst = &it->insulation; lo = -20; hi = 40; }
+        else if (str_ieq(key, "capacity")) { dst = &it->capacity; hi = 100; }
+        else if (str_ieq(key, "repair_pct")) { dst = &it->repair_pct; hi = 100; }
+        else if (str_ieq(key, "effect_chance")) { dst = &it->effect_chance; hi = 100; }
+        else if (str_ieq(key, "fuel")) { dst = &it->fuel; hi = 100; }
+        else if (str_ieq(key, "damage")) { dst = &it->damage; hi = 500; }
+        else if (str_ieq(key, "speed")) { dst = &it->speed; lo = 1; hi = 100; }
         if (!dst) {
             return set_err(c, "unknown key", key, line);
         }
@@ -414,7 +484,16 @@ int content_load(const char *root, char *err, size_t errn)
     int i, ok = 1;
     int first_items;
     content_reset();
+    if (!effects_load(root, err, errn)) {
+        return 0;
+    }
     c.extra = (BlockExtra *)mem_calloc(sizeof(BlockExtra) * MAX_BLOCKS);
+    c.iextra = (ItemExtra *)mem_calloc(sizeof(ItemExtra) * MAX_ITEMS);
+    if (!c.iextra) {
+        mem_free(c.extra);
+        str_copy(err, "out of memory", errn);
+        return 0;
+    }
     c.err = err;
     c.errn = errn;
     c.cur = 0;
@@ -462,6 +541,10 @@ int content_load(const char *root, char *err, size_t errn)
         it->volume = 100;
         it->density = c.extra[i].density;
         it->place_block = (cl_s16)i;
+        it->repair_item = -1;
+        it->effect = -1;
+        it->cure = -1;
+        it->fuel = c.extra[i].fuel;
     }
     first_items = g_item_count;
     if (ok && !load_list(root, "items", item_cb, &c)) {
@@ -495,6 +578,42 @@ int content_load(const char *root, char *err, size_t errn)
             }
             g_blocks[i].ore_host = (cl_u8)h;
         }
+        {
+            const char *names[4];
+            cl_u8 *dst8[3];
+            int k;
+            names[0] = e->grow_to;
+            names[1] = e->grow_top;
+            names[2] = e->place_on;
+            dst8[0] = &g_blocks[i].grow_to;
+            dst8[1] = &g_blocks[i].grow_top;
+            dst8[2] = &g_blocks[i].place_on;
+            for (k = 0; k < 3; ++k) {
+                if (names[k][0]) {
+                    int bb = block_find(names[k]);
+                    if (bb < 0) {
+                        str_copy(err, "unknown block reference: ", errn);
+                        str_cat(err, names[k], errn);
+                        ok = 0;
+                        break;
+                    }
+                    *dst8[k] = (cl_u8)bb;
+                }
+            }
+            if (ok && e->drop2[0]) {
+                int d2 = item_find(e->drop2);
+                if (d2 < 0) {
+                    str_copy(err, "unknown drop2 item: ", errn);
+                    str_cat(err, e->drop2, errn);
+                    ok = 0;
+                } else {
+                    g_blocks[i].drop2 = (cl_s16)d2;
+                }
+            }
+            if (!ok) {
+                break;
+            }
+        }
         if (g_blocks[i].floor_glyph == 0) {
             g_blocks[i].floor_glyph = g_blocks[i].glyph;
         }
@@ -505,7 +624,33 @@ int content_load(const char *root, char *err, size_t errn)
             g_blocks[i].floor_bg = g_blocks[i].bg;
         }
     }
+        for (i = 0; ok && i < g_item_count; ++i) {
+        if (c.iextra[i].place[0]) {
+            int pb = block_find(c.iextra[i].place);
+            if (pb < 0) {
+                str_copy(err, "unknown place block: ", errn);
+                str_cat(err, c.iextra[i].place, errn);
+                ok = 0;
+                break;
+            }
+            g_items[i].place_block = (cl_s16)pb;
+        }
+        if (c.iextra[i].repair[0]) {
+            int r = item_find(c.iextra[i].repair);
+            if (r < 0) {
+                str_copy(err, "unknown repair item: ", errn);
+                str_cat(err, c.iextra[i].repair, errn);
+                ok = 0;
+            } else {
+                g_items[i].repair_item = (cl_s16)r;
+            }
+        }
+    }
     mem_free(c.extra);
+    mem_free(c.iextra);
+    if (ok && !recipes_load(root, err, errn)) {
+        ok = 0;
+    }
     if (!ok) {
         return 0;
     }

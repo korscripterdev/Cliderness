@@ -16,6 +16,96 @@ void inv_clear(Inventory *inv)
         inv->s[i].count = 0;
         inv->s[i].dur = 0;
     }
+    for (i = 0; i < INV_EQUIP; ++i) {
+        inv->equip[i].item = -1;
+        inv->equip[i].count = 0;
+        inv->equip[i].dur = 0;
+    }
+}
+
+int inv_equip(Inventory *inv, int slot)
+{
+    ItemStack t;
+    int eq;
+    if (slot < 0 || slot >= INV_SLOTS || inv->s[slot].item < 0) {
+        return 0;
+    }
+    eq = g_items[inv->s[slot].item].equip;
+    if (eq <= 0 || eq > INV_EQUIP) {
+        return 0;
+    }
+    --eq;
+    t = inv->equip[eq];
+    inv->equip[eq] = inv->s[slot];
+    inv->equip[eq].count = 1;
+    if (inv->s[slot].count > 1) {
+        inv->s[slot].count = (cl_s16)(inv->s[slot].count - 1);
+        if (t.item >= 0 && inv_add(inv, t.item, 1, t.dur) > 0) {
+            /* no room: undo */
+            inv->s[slot].count = (cl_s16)(inv->s[slot].count + 1);
+            inv->equip[eq] = t;
+            return 0;
+        }
+    } else {
+        inv->s[slot] = t;
+        if (t.item < 0) {
+            inv->s[slot].count = 0;
+        }
+    }
+    return 1;
+}
+
+int inv_unequip(Inventory *inv, int eq)
+{
+    ItemStack *e;
+    if (eq < 0 || eq >= INV_EQUIP) {
+        return 0;
+    }
+    e = &inv->equip[eq];
+    if (e->item < 0) {
+        return 0;
+    }
+    if (inv_add(inv, e->item, 1, e->dur) > 0) {
+        return 0;
+    }
+    e->item = -1;
+    e->count = 0;
+    e->dur = 0;
+    return 1;
+}
+
+int inv_defense(const Inventory *inv)
+{
+    int i, d = 0;
+    for (i = 0; i < INV_EQUIP; ++i) {
+        if (inv->equip[i].item >= 0) {
+            d += g_items[inv->equip[i].item].defense;
+        }
+    }
+    return d > 80 ? 80 : d;
+}
+
+int inv_insulation(const Inventory *inv)
+{
+    int i, d = 0;
+    for (i = 0; i < INV_EQUIP; ++i) {
+        if (inv->equip[i].item >= 0) {
+            d += g_items[inv->equip[i].item].insulation;
+        }
+    }
+    return d;
+}
+
+long inv_bag_capacity(const Inventory *inv)
+{
+    int i;
+    long c = 0;
+    for (i = 0; i < INV_EQUIP; ++i) {
+        if (inv->equip[i].item >= 0) {
+            c += (long)g_items[inv->equip[i].item].capacity * 1000L;
+        }
+    }
+    return c;
 }
 
 static int max_stack(int item)
@@ -197,6 +287,11 @@ long inv_weight(const Inventory *inv)
 {
     int i;
     long w = 0;
+    for (i = 0; i < INV_EQUIP; ++i) {
+        if (inv->equip[i].item >= 0) {
+            w += (long)g_items[inv->equip[i].item].weight;
+        }
+    }
     for (i = 0; i < INV_SLOTS; ++i) {
         if (inv->s[i].item >= 0) {
             w += (long)g_items[inv->s[i].item].weight * (long)inv->s[i].count;

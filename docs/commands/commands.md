@@ -1,8 +1,8 @@
 # Cliderness command reference
 
-Generated with `cliderness --list-commands` (version 0.1.0). Created by korscripterdev.
+Generated with `cliderness --list-commands`. Created by korscripterdev.
 
-Every command below has a real handler and is covered by `tests/test_commands.c`. Cheat commands need `/cheats on` (or *Allow cheats* when creating the world). `/help <command>` shows the localised description in game.
+Every command below has a real handler and is covered by the test suite. Cheat commands need `/cheats on` (or *Allow cheats* when creating the world). `/help <command>` shows the localised description in game.
 
 | command | category | permission | syntax |
 |---|---|---|---|
@@ -77,5 +77,20 @@ Every command below has a real handler and is covered by `tests/test_commands.c`
 | `/clearlog` | system | any |  |
 | `/quit` | system | any |  |
 | `/debug` | debug | any | `[on\|off]` |
+| `/craft` | item | any | `<recipe> [count]` |
+| `/recipes` | item | any | `[available\|filter]` |
+| `/recipe` | item | any | `<recipe>` |
+| `/stations` | item | any |  |
+| `/fuel` | item | any |  |
+| `/effect` | player | any | `<list\|give\|clear> [effect] [minutes]` |
+| `/cure` | player | cheat |  |
+| `/sleep` | player | any |  |
+| `/skipnight` | time | cheat |  |
+| `/grow` | world | cheat | `[radius]` |
+| `/crops` | world | any |  |
+| `/equip` | equipment | any | `<item>` |
+| `/unequip` | equipment | any | `<head\|body\|legs\|feet\|back\|all>` |
+| `/equipment` | equipment | any |  |
+| `/chests` | item | any |  |
 
-total top-level commands: 71 (aliases: 22)
+total top-level commands: 86 (aliases: 25)

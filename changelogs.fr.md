@@ -4,6 +4,20 @@
 
 Changements notables de Cliderness (créé par korscripterdev).
 
+## [0.2.0] — 2026-11-14
+
+Phase 4 de la feuille de route (artisanat et construction) et le reste de la phase 3.
+
+### Ajouté
+- Écran d'artisanat (K), 58 recettes en données, établi, four, feu de camp, enclume et combustible.
+- Fonte, cuisine et agriculture (houes, terre labourée, blé et pommes de terre, pousses qui deviennent des arbres).
+- Coffres, lits et sommeil, emplacements d'équipement (tête, corps, jambes, pieds, dos) et réparation.
+- États : saignement, fracture, intoxication, rhume, mouillé, rassasié, reposé et leurs remèdes.
+- 15 nouvelles commandes (86 au total). Licence : GPL-3.0 ou ultérieure.
+
+### Modifié
+- Les descriptions des nouvelles commandes s'affichent en anglais (l'interface reste traduite en 11 langues).
+
 ## [0.1.0] — 2026-11-14
 
 Première base jouable (phases 1 à 3 terminées ; 4 à 6 et 10 partielles).

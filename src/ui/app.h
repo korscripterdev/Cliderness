@@ -56,7 +56,7 @@ extern App g_app;
 /* screens */
 extern const Screen scr_menu, scr_newworld, scr_loadworld, scr_settings, scr_language,
     scr_keybinds, scr_credits, scr_help, scr_game, scr_pause, scr_inventory, scr_stats,
-    scr_console, scr_sky, scr_message;
+    scr_console, scr_sky, scr_message, scr_craft, scr_chest;
 
 void app_push(const Screen *s);
 void app_pop(void);
@@ -67,6 +67,7 @@ int  app_paused(void);
 int  app_on_stack(const Screen *s);
 void app_open_help(const char *context);
 void app_message(const char *title, const char *text);
+void app_open_chest(int idx);
 
 void settings_load(void);
 void settings_save(void);

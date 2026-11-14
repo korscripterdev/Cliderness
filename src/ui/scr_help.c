@@ -144,7 +144,7 @@ static void help_draw(Framebuffer *fb)
 {
     int i;
     int rows = 20;
-    char buf[80];
+    char buf[128];
     static const char *const tabs[3] = { "help.tab_all", "help.tab_fav", "help.tab_recent" };
     load_current();
     fb_clear(fb, UI_TEXT);
@@ -195,7 +195,7 @@ static void help_draw(Framebuffer *fb)
 
 static void open_related(void)
 {
-    char buf[80];
+    char buf[128];
     char *tok;
     int k = 0, t;
     HelpTopic *ht;

@@ -378,7 +378,12 @@ int loc_missing(const char *code, const char *prefix, char *out, size_t n)
     }
     for (i = 0; i < g_base.count; ++i) {
         const char *key = g_base.pool + g_base.e[i].key;
-        if (prefix && *prefix && !str_iprefix(key, prefix)) {
+        /* "abc." = only keys with that prefix, "!abc." = all keys except those */
+        if (prefix && prefix[0] == '!') {
+            if (str_iprefix(key, prefix + 1)) {
+                continue;
+            }
+        } else if (prefix && *prefix && !str_iprefix(key, prefix)) {
             continue;
         }
         if (!table_get(&t, key)) {

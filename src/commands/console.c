@@ -40,6 +40,7 @@ void con_init(void)
     add_table(cmd_table_build());
     add_table(cmd_table_items());
     add_table(cmd_table_system());
+    add_table(cmd_table_craft());
 }
 
 int con_count(void)

@@ -1,0 +1,116 @@
+# Cliderness item definitions - processed materials, seeds and crops
+
+[item charcoal]
+name=Charcoal
+type=resource
+glyph=7
+fg=darkgray
+weight=60
+volume=8
+density=500
+fuel=8
+
+[item iron_ingot]
+name=Iron Ingot
+type=material
+glyph=22
+fg=white
+weight=500
+volume=7
+density=7800
+
+[item copper_ingot]
+name=Copper Ingot
+type=material
+glyph=22
+fg=lightred
+weight=550
+volume=7
+density=8900
+
+[item tin_ingot]
+name=Tin Ingot
+type=material
+glyph=22
+fg=lightgray
+weight=450
+volume=7
+density=7300
+
+[item bronze_ingot]
+name=Bronze Ingot
+type=material
+glyph=22
+fg=brown
+weight=540
+volume=7
+density=8800
+
+[item silver_ingot]
+name=Silver Ingot
+type=material
+glyph=22
+fg=lightcyan
+weight=600
+volume=7
+density=10500
+
+[item gold_ingot]
+name=Gold Ingot
+type=material
+glyph=22
+fg=yellow
+weight=1000
+volume=7
+density=19300
+
+[item cloth]
+name=Cloth
+type=material
+glyph=240
+fg=white
+weight=60
+volume=10
+density=600
+fuel=1
+
+[item rope]
+name=Rope
+type=material
+glyph=21
+fg=brown
+weight=80
+volume=10
+density=700
+
+[item wheat_seeds]
+name=Wheat Seeds
+type=resource
+glyph=',' 
+fg=yellow
+place=wheat_0
+weight=5
+volume=1
+density=900
+
+[item wheat]
+name=Wheat
+type=resource
+glyph=20
+fg=yellow
+weight=50
+volume=8
+density=600
+fuel=1
+
+[item potato]
+name=Potato
+type=food
+glyph=7
+fg=brown
+food=40
+water=10
+place=potato_0
+weight=150
+volume=12
+density=1080

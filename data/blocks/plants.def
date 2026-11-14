@@ -13,6 +13,7 @@ hardness=30
 tool=axe
 weight=800
 density=700
+fuel=4
 
 [block birch_log]
 name=Birch Tree
@@ -26,6 +27,7 @@ hardness=28
 tool=axe
 weight=750
 density=650
+fuel=4
 
 [block pine_log]
 name=Pine Tree
@@ -39,6 +41,7 @@ hardness=28
 tool=axe
 weight=700
 density=550
+fuel=4
 
 [block jungle_log]
 name=Jungle Tree
@@ -52,6 +55,7 @@ hardness=32
 tool=axe
 weight=850
 density=750
+fuel=4
 
 [block acacia_log]
 name=Acacia Tree
@@ -65,6 +69,7 @@ hardness=30
 tool=axe
 weight=800
 density=700
+fuel=4
 
 [block palm_log]
 name=Palm Tree
@@ -78,6 +83,7 @@ hardness=25
 tool=axe
 weight=700
 density=600
+fuel=4
 
 [block mangrove_log]
 name=Mangrove Tree
@@ -91,6 +97,7 @@ hardness=30
 tool=axe
 weight=850
 density=800
+fuel=4
 
 [block dead_tree]
 name=Dead Tree
@@ -104,6 +111,7 @@ hardness=18
 tool=axe
 weight=500
 density=500
+fuel=4
 
 [block bamboo]
 name=Bamboo
@@ -117,6 +125,7 @@ hardness=10
 tool=axe
 weight=300
 density=400
+fuel=4
 
 [block cactus]
 name=Cactus
@@ -142,6 +151,8 @@ flags=solid,slow
 hardness=3
 drop=stick
 density=400
+drop2=oak_sapling
+drop2_chance=10
 
 [block pine_needles]
 name=Pine Needles
@@ -154,6 +165,8 @@ flags=solid,slow
 hardness=3
 drop=stick
 density=400
+drop2=pine_sapling
+drop2_chance=10
 
 [block jungle_leaves]
 name=Jungle Leaves
@@ -166,6 +179,8 @@ flags=solid,slow
 hardness=3
 drop=coconut
 density=400
+drop2=jungle_sapling
+drop2_chance=10
 
 [block tall_grass]
 name=Tall Grass
@@ -175,6 +190,8 @@ fg=lightgreen
 flags=plant,replaceable
 hardness=1
 drop=plant_fiber
+drop2=wheat_seeds
+drop2_chance=12
 
 [block fern]
 name=Fern
@@ -184,6 +201,8 @@ fg=green
 flags=plant,replaceable
 hardness=1
 drop=plant_fiber
+drop2=potato
+drop2_chance=6
 
 [block bush]
 name=Bush

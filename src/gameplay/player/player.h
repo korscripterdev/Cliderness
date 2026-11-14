@@ -17,6 +17,7 @@ enum { MOVE_WALK = 0, MOVE_SPRINT, MOVE_CROUCH, MOVE_SWIM, MOVE_FLY, MOVE_IDLE }
 enum { DIR_N = 0, DIR_E, DIR_S, DIR_W };
 
 #define SKILL_MAX_LEVEL 100
+#define PLAYER_FX 8
 
 typedef struct Player {
     long x, y, z;
@@ -51,6 +52,10 @@ typedef struct Player {
     long spawn_x, spawn_y, spawn_z;
     /* survival accumulators (tenths) */
     int  acc_hunger, acc_thirst, acc_fatigue, acc_regen;
+    /* status effects (content/effects.h) */
+    struct { cl_s16 id; cl_s16 minutes; } fx[PLAYER_FX];
+    int  cold_minutes;      /* minutes spent hypothermic (common cold trigger) */
+    int  sleeping;
 } Player;
 
 void player_init(Player *p);

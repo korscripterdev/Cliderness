@@ -3,6 +3,7 @@
 #include <string.h>
 #include "save/save.h"
 #include "content/content.h"
+#include "content/effects.h"
 #include "core/crc.h"
 #include "core/ini.h"
 #include "core/str.h"
@@ -197,6 +198,54 @@ static void write_body(SaveW *w, Game *g)
         sprintf(buf, "%s %d %d", g_items[s->item].id, s->count, s->dur);
         sw_kv(w, key, buf);
     }
+    for (i = 0; i < INV_EQUIP; ++i) {
+        const ItemStack *s = &g->inv.equip[i];
+        if (s->item < 0) {
+            continue;
+        }
+        sprintf(key, "eq%d", i);
+        sprintf(buf, "%s %d %d", g_items[s->item].id, s->count, s->dur);
+        sw_kv(w, key, buf);
+    }
+    sw_line(w, "[effects]");
+    for (i = 0; i < PLAYER_FX; ++i) {
+        if (p->fx[i].id < 0 || p->fx[i].minutes <= 0) {
+            continue;
+        }
+        sprintf(key, "fx%d", i);
+        sprintf(buf, "%s %d", g_effects[p->fx[i].id].id, p->fx[i].minutes);
+        sw_kv(w, key, buf);
+    }
+    sw_kl(w, "cold_minutes", p->cold_minutes);
+    sw_line(w, "[crops]");
+    for (i = 0; i < MAX_CROPS; ++i) {
+        const Crop *c = &g->crops[i];
+        if (!c->active) {
+            continue;
+        }
+        sprintf(key, "c%d", i);
+        sprintf(buf, "%d %ld %ld %ld %ld", c->dim, c->x, c->y, c->z, c->next_minute);
+        sw_kv(w, key, buf);
+    }
+    sw_line(w, "[chests]");
+    for (i = 0; i < MAX_CHESTS; ++i) {
+        const Chest *c = &g->chests[i];
+        int k;
+        if (!c->active) {
+            continue;
+        }
+        sprintf(key, "c%d", i);
+        sprintf(buf, "%d %ld %ld %ld", c->dim, c->x, c->y, c->z);
+        sw_kv(w, key, buf);
+        for (k = 0; k < CHEST_SLOTS; ++k) {
+            if (c->s[k].item < 0) {
+                continue;
+            }
+            sprintf(key, "c%d_%d", i, k);
+            sprintf(buf, "%s %d %d", g_items[c->s[k].item].id, c->s[k].count, c->s[k].dur);
+            sw_kv(w, key, buf);
+        }
+    }
     sw_line(w, "[entities]");
     for (i = 0; i < MAX_ITEM_ENTS; ++i) {
         const ItemEntity *e = &g->ents[i];
@@ -379,6 +428,22 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
     } else if (str_ieq(type, "inventory")) {
         if (str_ieq(key, "selected")) {
             g->inv.selected = (int)CL_CLAMP(num(v), 0L, (long)(INV_HOTBAR - 1));
+        } else if (str_iprefix(key, "eq")) {
+            long eq;
+            char iid[ID_LEN + 8];
+            int cnt = 0, dur = 0, it;
+            if (!str_to_long(key + 2, &eq) || eq < 0 || eq >= INV_EQUIP ||
+                sscanf(v, "%35s %d %d", iid, &cnt, &dur) < 2) {
+                return 0;
+            }
+            it = item_find(iid);
+            if (it < 0) {
+                ++c->unknown_items;
+                return 0;
+            }
+            g->inv.equip[eq].item = (cl_s16)it;
+            g->inv.equip[eq].count = (cl_s16)cnt;
+            g->inv.equip[eq].dur = (cl_s16)dur;
         } else if (str_iprefix(key, "slot")) {
             long slot;
             char iid[ID_LEN + 8];
@@ -397,6 +462,83 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
             g->inv.s[slot].item = (cl_s16)it;
             g->inv.s[slot].count = (cl_s16)cnt;
             g->inv.s[slot].dur = (cl_s16)dur;
+        }
+    } else if (str_ieq(type, "effects")) {
+        char eid[32];
+        int mins = 0;
+        if (str_ieq(key, "cold_minutes")) {
+            p->cold_minutes = (int)num(v);
+        } else if (sscanf(v, "%31s %d", eid, &mins) == 2) {
+            int e = effect_find(eid), k;
+            for (k = 0; e >= 0 && k < PLAYER_FX; ++k) {
+                if (p->fx[k].id < 0) {
+                    p->fx[k].id = (cl_s16)e;
+                    p->fx[k].minutes = (cl_s16)mins;
+                    break;
+                }
+            }
+        }
+    } else if (str_ieq(type, "crops")) {
+        int dim, k;
+        long x, y, z, next;
+        if (sscanf(v, "%d %ld %ld %ld %ld", &dim, &x, &y, &z, &next) == 5) {
+            for (k = 0; k < MAX_CROPS; ++k) {
+                Crop *cr = &g->crops[k];
+                if (!cr->active) {
+                    cr->active = 1;
+                    cr->dim = (cl_u8)dim;
+                    cr->x = x;
+                    cr->y = y;
+                    cr->z = z;
+                    cr->next_minute = next;
+                    break;
+                }
+            }
+        }
+    } else if (str_ieq(type, "chests")) {
+        const char *us = strchr(key, '_');
+        long idx;
+        char ib[16];
+        size_t len = us ? (size_t)(us - key - 1) : strlen(key) - 1;
+        if (key[0] != 'c' || len == 0 || len >= sizeof(ib)) {
+            return 0;
+        }
+        memcpy(ib, key + 1, len);
+        ib[len] = '\0';
+        if (!str_to_long(ib, &idx) || idx < 0 || idx >= MAX_CHESTS) {
+            return 0;
+        }
+        if (!us) {
+            int dim, k;
+            long x, y, z;
+            if (sscanf(v, "%d %ld %ld %ld", &dim, &x, &y, &z) == 4) {
+                Chest *ch = &g->chests[idx];
+                memset(ch, 0, sizeof(*ch));
+                ch->active = 1;
+                ch->dim = (cl_u8)dim;
+                ch->x = x;
+                ch->y = y;
+                ch->z = z;
+                for (k = 0; k < CHEST_SLOTS; ++k) {
+                    ch->s[k].item = -1;
+                }
+            }
+        } else {
+            long slot;
+            char iid[ID_LEN + 8];
+            int cnt = 0, dur = 0, it;
+            if (!str_to_long(us + 1, &slot) || slot < 0 || slot >= CHEST_SLOTS ||
+                sscanf(v, "%35s %d %d", iid, &cnt, &dur) < 2) {
+                return 0;
+            }
+            it = item_find(iid);
+            if (it < 0) {
+                ++c->unknown_items;
+                return 0;
+            }
+            g->chests[idx].s[slot].item = (cl_s16)it;
+            g->chests[idx].s[slot].count = (cl_s16)cnt;
+            g->chests[idx].s[slot].dur = (cl_s16)dur;
         }
     } else if (str_ieq(type, "entities")) {
         char iid[ID_LEN + 8];

@@ -11,7 +11,7 @@ static const char *const g_ids[ACT_COUNT] = {
     "none", "move_north", "move_west", "move_south", "move_east",
     "crouch", "look_sky", "inventory", "drop", "drop_stack", "character", "interact",
     "hotbar1", "hotbar2", "hotbar3", "hotbar4", "hotbar5", "hotbar6", "hotbar7", "hotbar8", "hotbar9",
-    "help", "pause", "console", "mine", "place", "dig_down", "build_up", "use", "panel_page"
+    "help", "pause", "console", "mine", "place", "dig_down", "build_up", "use", "panel_page", "craft"
 };
 
 static const char *const g_defaults[ACT_COUNT][2] = {
@@ -22,7 +22,7 @@ static const char *const g_defaults[ACT_COUNT][2] = {
     { "1", "" }, { "2", "" }, { "3", "" }, { "4", "" }, { "5", "" }, { "6", "" }, { "7", "" },
     { "8", "" }, { "9", "" },
     { "F1", "?" }, { "Esc", "" }, { "/", "T" }, { "F", "" }, { "R", "" }, { ">", "" }, { "<", "" },
-    { "U", "" }, { "P", "" }
+    { "U", "" }, { "P", "" }, { "K", "" }
 };
 
 typedef struct NamedKey {

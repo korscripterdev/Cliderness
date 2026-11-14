@@ -4,6 +4,20 @@
 
 Modifiche principali di Cliderness (creato da korscripterdev).
 
+## [0.2.0] — 2026-11-14
+
+Fase 4 della roadmap (artigianato e costruzione) e il resto della fase 3.
+
+### Aggiunto
+- Schermata di artigianato (K), 58 ricette nei dati, banco da lavoro, fornace, falò, incudine e combustibile.
+- Fusione, cucina e agricoltura (zappe, terreno arato, grano e patate, germogli che diventano alberi).
+- Bauli, letti e sonno, slot di equipaggiamento (testa, corpo, gambe, piedi, schiena) e riparazione.
+- Stati: emorragia, frattura, intossicazione, raffreddore, bagnato, sazio, riposato e rimedi.
+- 15 nuovi comandi (86 in totale). Licenza: GPL-3.0 o successiva.
+
+### Modificato
+- Le descrizioni dei nuovi comandi appaiono in inglese (l'interfaccia resta tradotta in 11 lingue).
+
 ## [0.1.0] — 2026-11-14
 
 Prima base giocabile (fasi 1–3 complete; 4–6 e 10 parziali).

@@ -19,6 +19,7 @@
 #include "renderer/fb.h"
 #include "core/log.h"
 #include "core/mathx.h"
+#include "content/effects.h"
 
 #define XP_CAP_PER_MINUTE 60
 
@@ -66,6 +67,16 @@ int surv_env_temp(Game *g)
     if (blk_liquid(world_get(&g->world, p->dim, p->x, p->y - 1, p->z))) {
         t -= 4;
     }
+    t += fx_temp(g);
+    {
+        /* clothing keeps you warm in the cold; metal armour is cold */
+        int ins = inv_insulation(&g->inv);
+        if (ins > 0 && t < 20) {
+            t = CL_MIN(20, t + ins);
+        } else if (ins < 0) {
+            t += ins;
+        }
+    }
     return t;
 }
 
@@ -86,13 +97,14 @@ void surv_damage(Game *g, int amount, const char *cause_key)
     p->mining = 0;
     log_add(ATTR(C_LIGHTRED, C_BLACK), loc_fmt("msg.died", loc_get(cause_key), NULL, NULL));
     /* drop everything where the player died */
-    for (i = 0; i < INV_SLOTS; ++i) {
-        ItemStack *s = &g->inv.s[i];
+    for (i = 0; i < INV_SLOTS + INV_EQUIP; ++i) {
+        ItemStack *s = i < INV_SLOTS ? &g->inv.s[i] : &g->inv.equip[i - INV_SLOTS];
         if (s->item >= 0 && ent_spawn(g, p->dim, p->x, p->y, p->z, s->item, s->count, s->dur) >= 0) {
             s->item = -1;
             s->count = 0;
         }
     }
+    fx_clear(g);
     log_add(ATTR(C_YELLOW, C_BLACK), loc_get("msg.press_respawn"));
 }
 
@@ -139,6 +151,7 @@ void surv_tick(Game *g)
         if (p->hunger < 150 || p->thirst < 150) {
             regen /= 2;
         }
+        regen = regen * fx_regen(g) / 100;
         p->stamina += regen;
     }
     if (p->stamina > p->stamina_max) {
@@ -176,6 +189,24 @@ void surv_minute(Game *g)
     }
     if (p->dead) {
         return;
+    }
+    fx_minute(g);
+    if (p->dead) {
+        return;
+    }
+    /* wet: swimming, or rain while outdoors */
+    if (blk_liquid(world_get(&g->world, p->dim, p->x, p->y - 1, p->z)) ||
+        (weather_cur(&g->weather)->precip == PRECIP_RAIN && !game_is_covered(g, p->x, p->y, p->z))) {
+        fx_add(g, effect_find("wet"), 20);
+    }
+    /* long hypothermia causes a cold */
+    if (p->body_temp < 355) {
+        if (++p->cold_minutes >= 30) {
+            p->cold_minutes = 0;
+            fx_add(g, effect_find("common_cold"), 0);
+        }
+    } else if (p->cold_minutes > 0) {
+        --p->cold_minutes;
     }
     acc_step(&p->acc_hunger, &p->hunger, p->sprinted > 0 ? -10 : -5, 0, 1000);
     acc_step(&p->acc_thirst, &p->thirst, env > 28 ? -10 : -7, 0, 1000);

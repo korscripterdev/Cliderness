@@ -26,6 +26,7 @@ hardness=20
 tool=axe
 weight=500
 density=600
+fuel=2
 
 [block stone_bricks]
 name=Stone Bricks

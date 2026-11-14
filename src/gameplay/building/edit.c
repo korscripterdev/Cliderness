@@ -198,8 +198,17 @@ void mine_finish(Game *g)
     if (b == BLOCK_AIR || blk_liquid(b) || (bd->flags & BF_NOMINE)) {
         return;
     }
+    if (bd->func == FUNC_CHEST) {
+        chest_remove(g, chest_find(g, p->dim, p->mx, p->my, p->mz));
+    }
     world_set(&g->world, p->dim, p->mx, p->my, p->mz, BLOCK_AIR, 0);
     g->unsaved = 1;
+    if (g->mode != GM_CREATIVE && bd->drop2 >= 0 && rng_range(&g->rng, 100) < bd->drop2_chance) {
+        int left = inv_add(&g->inv, bd->drop2, bd->drop2_count ? bd->drop2_count : 1, 0);
+        if (left > 0) {
+            ent_spawn(g, p->dim, p->mx, p->my, p->mz, bd->drop2, left, 0);
+        }
+    }
     if (g->mode != GM_CREATIVE && bd->drop_item >= 0 && bd->drop_count > 0) {
         int n = bd->drop_count;
         int left;

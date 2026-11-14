@@ -558,8 +558,11 @@ int app_main(int argc, char **argv)
         printf("English keys: %d\n", loc_key_count());
         for (k = 0; k < loc_lang_count(); ++k) {
             LangInfo *li = loc_lang(k);
-            int n = loc_missing(li->code, NULL, missing, sizeof(missing));
-            printf("%-6s %-22s missing %d\n", li->code, li->name, n);
+            int full = str_ieq(li->code, "en") || str_ieq(li->code, "ko");
+            int n = loc_missing(li->code, full ? NULL : "!cmd.", missing, sizeof(missing));
+            int cmd = full ? 0 : loc_missing(li->code, "cmd.", NULL, 0);
+            printf("%-6s %-22s missing %d  (command descriptions shown in English: %d)\n",
+                   li->code, li->name, n, cmd);
             if (n > 0) {
                 printf("%s", missing);
                 bad = 1;

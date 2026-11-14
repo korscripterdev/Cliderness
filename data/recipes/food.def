@@ -1,0 +1,35 @@
+# Cliderness recipes - food.def
+# in = item:count, station = none/workbench/furnace/campfire/anvil/altar
+# fuel = fuel units (coal 8, charcoal 8, log 4, planks 2, stick 1)
+
+[recipe bread]
+result=bread
+in=wheat:3
+station=campfire
+fuel=1
+skill=cooking
+category=food
+
+[recipe baked_potato]
+result=baked_potato
+in=potato:1
+station=campfire
+fuel=1
+skill=cooking
+category=food
+
+[recipe mushroom_stew]
+result=mushroom_stew
+in=mushroom:3
+station=campfire
+fuel=1
+skill=cooking
+category=food
+
+[recipe roasted_berries]
+result=roasted_berries
+in=berries:3
+station=campfire
+fuel=1
+skill=cooking
+category=food

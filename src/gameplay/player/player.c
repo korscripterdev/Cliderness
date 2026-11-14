@@ -42,6 +42,10 @@ void player_init(Player *p)
     p->pending_dir = -1;
     p->move_mode = MOVE_IDLE;
     p->visibility = 100;
+    for (i = 0; i < PLAYER_FX; ++i) {
+        p->fx[i].id = -1;
+        p->fx[i].minutes = 0;
+    }
 }
 
 long player_level_xp(int level)

@@ -4,6 +4,20 @@
 
 Cambios importantes de Cliderness (creado por korscripterdev).
 
+## [0.2.0] — 2026-11-14
+
+Fase 4 de la hoja de ruta (fabricación y construcción) y lo que faltaba de la fase 3.
+
+### Añadido
+- Pantalla de fabricación (K), 58 recetas en datos, mesa de trabajo, horno, fogata, yunque y combustible.
+- Fundición, cocina y agricultura (azadas, tierra de cultivo, trigo y patatas, brotes que crecen hasta ser árboles).
+- Cofres, camas y sueño, ranuras de equipo (cabeza, cuerpo, piernas, pies, espalda) y reparación.
+- Estados: sangrado, fractura, intoxicación, resfriado, mojado, bien alimentado, descansado y sus remedios.
+- 15 comandos nuevos (86 en total). Licencia: GPL-3.0 o posterior.
+
+### Cambiado
+- Las descripciones de los comandos nuevos se muestran en inglés (la interfaz sigue traducida en 11 idiomas).
+
 ## [0.1.0] — 2026-11-14
 
 Primera base jugable (fases 1–3 completas; 4–6 y 10 parciales).

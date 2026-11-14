@@ -11,6 +11,7 @@ fg=brown
 weight=50
 volume=10
 density=600
+fuel=1
 
 [item plant_fiber]
 name=Plant Fiber
@@ -20,6 +21,7 @@ fg=green
 weight=10
 volume=5
 density=500
+fuel=1
 
 [item coal]
 name=Coal
@@ -29,6 +31,7 @@ fg=darkgray
 weight=100
 volume=8
 density=1300
+fuel=8
 
 [item raw_iron]
 name=Raw Iron

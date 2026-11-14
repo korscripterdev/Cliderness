@@ -125,7 +125,7 @@ static void inv_draw(Framebuffer *fb)
     }
     /* details */
     fb_vline(fb, 50, 1, FB_H - 3, G_VLINE, UI_DIM);
-    {
+    if (g_inv_sel < INV_SLOTS) {
         const ItemStack *s = &g->inv.s[g_inv_sel];
         int y = 2;
         if (s->item >= 0) {
@@ -163,9 +163,26 @@ static void inv_draw(Framebuffer *fb)
         } else {
             fb_text(fb, 52, y, loc_get("inv.empty_slot"), UI_DIM, 26);
         }
+    }
+    {
+        {
+            static const char *const eqk[INV_EQUIP] = { "eq.head", "eq.body", "eq.legs", "eq.feet", "eq.back" };
+            int k;
+            fb_text(fb, 52, 11, loc_get("inv.equipment"), UI_KEY, 26);
+            for (k = 0; k < INV_EQUIP; ++k) {
+                const ItemStack *e = &g->inv.equip[k];
+                cl_u8 a = (g_inv_sel == INV_SLOTS + k) ? UI_SEL : UI_TEXT;
+                fb_fill(fb, 52, 12 + k, 27, 1, ' ', a);
+                fb_text(fb, 52, 12 + k, loc_get(eqk[k]), a == UI_SEL ? a : UI_DIM, 8);
+                fb_text(fb, 60, 12 + k, e->item >= 0 ? item_name(e->item) : "-", a, 19);
+            }
+            sprintf(buf, "%s %d%%  %s %+d", loc_get("inv.defense"), inv_defense(&g->inv),
+                    loc_get("inv.insulation"), inv_insulation(&g->inv));
+            fb_text(fb, 52, 17, buf, UI_TEXT, 27);
+        }
         sprintf(buf, "%s %ld.%01ld/%ld kg", loc_get("hud.carry"), inv_weight(&g->inv) / 1000L,
-                (inv_weight(&g->inv) % 1000L) / 100L, player_carry_capacity(&g->p) / 1000L);
-        fb_text(fb, 52, 18, buf, inv_weight(&g->inv) > player_carry_capacity(&g->p) ? UI_BAD : UI_TEXT, 26);
+                (inv_weight(&g->inv) % 1000L) / 100L, game_carry_capacity(g) / 1000L);
+        fb_text(fb, 52, 18, buf, inv_weight(&g->inv) > game_carry_capacity(g) ? UI_BAD : UI_TEXT, 26);
         sprintf(buf, "%s %ld L", loc_get("inv.volume"), inv_volume(&g->inv) / 100L);
         fb_text(fb, 52, 19, buf, UI_TEXT, 26);
         if (g_inv_searching || g_inv_search.buf[0]) {
@@ -197,9 +214,29 @@ static void inv_key(const ClideKeyEvent *ev)
         app_pop();
         return;
     }
+    if (g_inv_sel >= INV_SLOTS) {
+        /* equipment rows */
+        if (ev->key == CK_UP) g_inv_sel = g_inv_sel > INV_SLOTS ? g_inv_sel - 1 : INV_SLOTS - 1;
+        else if (ev->key == CK_DOWN) g_inv_sel = g_inv_sel + 1 < INV_SLOTS + INV_EQUIP ? g_inv_sel + 1 : 0;
+        else if (ev->key == CK_LEFT || ev->key == CK_RIGHT) g_inv_sel = 18;
+        else if (ev->key == CK_ENTER || ev->key == 'w' || ev->key == 'W') {
+            int eq = g_inv_sel - INV_SLOTS;
+            int it = g->inv.equip[eq].item;
+            if (it >= 0 && inv_unequip(&g->inv, eq)) {
+                log_add(UI_TEXT, loc_fmt("msg.unequipped", item_name(it), NULL, NULL));
+            }
+        }
+        return;
+    }
     if (ev->key == CK_UP) g_inv_sel = (g_inv_sel + INV_SLOTS - 1) % INV_SLOTS;
     else if (ev->key == CK_DOWN) g_inv_sel = (g_inv_sel + 1) % INV_SLOTS;
-    else if (ev->key == CK_LEFT || ev->key == CK_RIGHT) g_inv_sel = (g_inv_sel + 18) % INV_SLOTS;
+    else if (ev->key == CK_LEFT || ev->key == CK_RIGHT) g_inv_sel = g_inv_sel >= 18 ? INV_SLOTS : g_inv_sel + 18;
+    else if (ev->key == 'w' || ev->key == 'W') {
+        int it = g->inv.s[g_inv_sel].item;
+        if (it >= 0 && g_items[it].equip && inv_equip(&g->inv, g_inv_sel)) {
+            log_add(UI_GOOD, loc_fmt("msg.equipped", item_name(it), NULL, NULL));
+        }
+    }
     else if (ev->key == CK_PGUP || ev->key == CK_HOME) g_inv_sel = 0;
     else if (ev->key == CK_PGDN || ev->key == CK_END) g_inv_sel = INV_SLOTS - 1;
     else if (ev->key == CK_ENTER) {

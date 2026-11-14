@@ -1,0 +1,89 @@
+# Cliderness recipes - equip.def
+# in = item:count, station = none/workbench/furnace/campfire/anvil/altar
+# fuel = fuel units (coal 8, charcoal 8, log 4, planks 2, stick 1)
+
+[recipe fiber_hat]
+result=fiber_hat
+in=cloth:3
+station=workbench
+category=equipment
+
+[recipe fiber_shirt]
+result=fiber_shirt
+in=cloth:6
+station=workbench
+category=equipment
+
+[recipe fiber_pants]
+result=fiber_pants
+in=cloth:5
+station=workbench
+category=equipment
+
+[recipe fiber_shoes]
+result=fiber_shoes
+in=cloth:2
+station=workbench
+category=equipment
+
+[recipe iron_helmet]
+result=iron_helmet
+in=iron_ingot:5
+station=anvil
+min_skill=5
+category=equipment
+
+[recipe iron_chestplate]
+result=iron_chestplate
+in=iron_ingot:8
+station=anvil
+min_skill=5
+category=equipment
+
+[recipe iron_leggings]
+result=iron_leggings
+in=iron_ingot:7
+station=anvil
+min_skill=5
+category=equipment
+
+[recipe iron_boots]
+result=iron_boots
+in=iron_ingot:4
+station=anvil
+min_skill=5
+category=equipment
+
+[recipe fiber_bag]
+result=fiber_bag
+in=cloth:4
+in=rope:2
+station=workbench
+category=equipment
+
+[recipe bandage]
+result=bandage
+count=2
+in=cloth:1
+category=medical
+
+[recipe splint]
+result=splint
+in=stick:2
+in=cloth:1
+category=medical
+
+[recipe herbal_tea]
+result=herbal_tea
+in=blue_flower:2
+in=white_flower:1
+station=campfire
+fuel=1
+skill=cooking
+category=medical
+
+[recipe charcoal_pill]
+result=charcoal_pill
+in=charcoal:2
+station=workbench
+category=medical

@@ -4,6 +4,20 @@
 
 Mudanças importantes do Cliderness (criado por korscripterdev).
 
+## [0.2.0] — 2026-11-14
+
+Fase 4 do roteiro (artesanato e construção) e o que faltava da fase 3.
+
+### Adicionado
+- Tela de artesanato (K), 58 receitas em dados, bancada, fornalha, fogueira, bigorna e combustível.
+- Fundição, culinária e agricultura (enxadas, terra arada, trigo e batatas, mudas que viram árvores).
+- Baús, camas e sono, espaços de equipamento (cabeça, corpo, pernas, pés, costas) e reparo.
+- Efeitos: sangramento, fratura, intoxicação, resfriado, molhado, bem alimentado, descansado e remédios.
+- 15 comandos novos (86 no total). Licença: GPL-3.0 ou posterior.
+
+### Alterado
+- Descrições de comandos novos aparecem em inglês (a interface continua traduzida em 11 idiomas).
+
 ## [0.1.0] — 2026-11-14
 
 Primeira base jogável (fases 1–3 completas; 4–6 e 10 parciais).

@@ -2,3 +2,6 @@
 resource.def
 tools.def
 food.def
+material.def
+equip.def
+medical.def

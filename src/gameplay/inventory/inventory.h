@@ -16,8 +16,11 @@ typedef struct ItemStack {
     cl_s16 dur;    /* remaining durability (tools) */
 } ItemStack;
 
+#define INV_EQUIP 5   /* head, body, legs, feet, back (content.h EQ_*) */
+
 typedef struct Inventory {
     ItemStack s[INV_SLOTS];
+    ItemStack equip[INV_EQUIP];
     int selected;  /* hotbar slot 0..8 */
 } Inventory;
 
@@ -39,5 +42,11 @@ void inv_clear(Inventory *inv);
 long inv_weight(const Inventory *inv);  /* grams */
 long inv_volume(const Inventory *inv);  /* centilitres */
 ItemStack *inv_selected(Inventory *inv);
+/* equipment: returns 1 on success */
+int  inv_equip(Inventory *inv, int slot);
+int  inv_unequip(Inventory *inv, int eq);
+int  inv_defense(const Inventory *inv);
+int  inv_insulation(const Inventory *inv);
+long inv_bag_capacity(const Inventory *inv);   /* grams */
 
 #endif

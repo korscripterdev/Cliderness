@@ -27,6 +27,13 @@
 
 enum { TOOL_NONE = 0, TOOL_PICKAXE, TOOL_AXE, TOOL_SHOVEL, TOOL_HOE, TOOL_SWORD, TOOL_COUNT };
 
+/* functional block kinds */
+enum { FUNC_NONE = 0, FUNC_STATION, FUNC_CHEST, FUNC_BED, FUNC_FARMLAND, FUNC_CROP, FUNC_PORTAL, FUNC_COUNT };
+/* crafting stations (see recipes.h) */
+enum { STATION_NONE = 0, STATION_WORKBENCH, STATION_FURNACE, STATION_CAMPFIRE, STATION_ANVIL, STATION_ALTAR, STATION_COUNT };
+/* equipment slots (ItemDef.equip = slot + 1) */
+enum { EQ_HEAD = 0, EQ_BODY, EQ_LEGS, EQ_FEET, EQ_BACK, EQ_COUNT };
+
 enum {
     ITEM_BLOCK = 0, ITEM_TOOL, ITEM_WEAPON, ITEM_ARMOR, ITEM_FOOD, ITEM_RESOURCE,
     ITEM_MATERIAL, ITEM_CONSUMABLE, ITEM_BUILDING, ITEM_RELIC, ITEM_TYPE_COUNT
@@ -48,6 +55,15 @@ typedef struct BlockDef {
     cl_u16 ore_chance;     /* per 10000 host blocks */
     cl_u8  ore_host;
     cl_u8  category;       /* see block_category_name */
+    cl_u8  func;           /* FUNC_* */
+    cl_u8  station;        /* STATION_* */
+    cl_u8  grow_to;        /* block this one grows into (crops, saplings) */
+    cl_u8  grow_top;       /* placed above when growing (tree canopy) */
+    cl_u16 grow_minutes;   /* game minutes per growth stage */
+    cl_u8  place_on;       /* required block below when placed (0 = any) */
+    cl_s16 drop2;          /* optional second drop (-1 none) */
+    cl_u8  drop2_chance;   /* percent */
+    cl_u8  drop2_count;
 } BlockDef;
 
 typedef struct ItemDef {
@@ -65,6 +81,18 @@ typedef struct ItemDef {
     cl_s16 durability;     /* 0 = no durability */
     cl_s16 food;           /* hunger restored (0..1000 scale) */
     cl_s16 water;          /* thirst restored */
+    cl_u8  equip;          /* 0 = not wearable, else EQ_* + 1 */
+    cl_s16 defense;        /* damage reduction percent */
+    cl_s16 insulation;     /* deg C of warmth */
+    cl_s16 capacity;       /* extra carry capacity in kg (bags) */
+    cl_s16 repair_item;    /* material used to repair (-1 none) */
+    cl_s16 repair_pct;     /* durability restored per material, percent */
+    cl_s16 effect;         /* status effect applied when used (-1) */
+    cl_s16 effect_chance;  /* percent, 0 = always */
+    cl_s16 cure;           /* status effect removed when used (-1) */
+    cl_s16 fuel;           /* fuel units when burnt in a furnace */
+    cl_s16 damage;         /* melee damage */
+    cl_s16 speed;          /* attack cooldown in ticks (weapons) */
 } ItemDef;
 
 /* root of the data directory, set at start-up ("data") */
@@ -86,6 +114,8 @@ int  item_find(const char *id);
 const char *block_name(int b);  /* localised */
 const char *item_name(int i);   /* localised */
 const char *item_type_name(int t);
+int  station_find(const char *name);
+const char *station_key(int st);
 
 #define BLOCK_AIR 0
 #define blk_solid(b)  ((g_blocks[(b)].flags & BF_SOLID) != 0)

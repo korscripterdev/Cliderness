@@ -14,6 +14,8 @@ stack=1
 weight=900
 volume=60
 density=700
+repair=oak_planks
+repair_pct=25
 
 [item stone_pickaxe]
 name=Stone Pickaxe
@@ -27,6 +29,8 @@ stack=1
 weight=1400
 volume=60
 density=1800
+repair=cobblestone
+repair_pct=25
 
 [item iron_pickaxe]
 name=Iron Pickaxe
@@ -40,6 +44,8 @@ stack=1
 weight=1800
 volume=60
 density=4000
+repair=iron_ingot
+repair_pct=30
 
 [item wooden_axe]
 name=Wooden Axe
@@ -53,6 +59,8 @@ stack=1
 weight=900
 volume=60
 density=700
+repair=oak_planks
+repair_pct=25
 
 [item stone_axe]
 name=Stone Axe
@@ -66,6 +74,8 @@ stack=1
 weight=1400
 volume=60
 density=1800
+repair=cobblestone
+repair_pct=25
 
 [item iron_axe]
 name=Iron Axe
@@ -79,6 +89,8 @@ stack=1
 weight=1800
 volume=60
 density=4000
+repair=iron_ingot
+repair_pct=30
 
 [item wooden_shovel]
 name=Wooden Shovel
@@ -92,6 +104,8 @@ stack=1
 weight=800
 volume=60
 density=700
+repair=oak_planks
+repair_pct=25
 
 [item stone_shovel]
 name=Stone Shovel
@@ -105,6 +119,8 @@ stack=1
 weight=1200
 volume=60
 density=1800
+repair=cobblestone
+repair_pct=25
 
 [item iron_shovel]
 name=Iron Shovel
@@ -118,3 +134,50 @@ stack=1
 weight=1500
 volume=60
 density=4000
+repair=iron_ingot
+repair_pct=30
+
+[item wooden_hoe]
+name=Wooden Hoe
+type=tool
+tool=hoe
+glyph=244
+fg=brown
+power=150
+durability=60
+stack=1
+weight=700
+volume=60
+density=700
+repair=oak_planks
+repair_pct=25
+
+[item stone_hoe]
+name=Stone Hoe
+type=tool
+tool=hoe
+glyph=244
+fg=lightgray
+power=200
+durability=130
+stack=1
+weight=1100
+volume=60
+density=1800
+repair=cobblestone
+repair_pct=25
+
+[item iron_hoe]
+name=Iron Hoe
+type=tool
+tool=hoe
+glyph=244
+fg=white
+power=300
+durability=250
+stack=1
+weight=1400
+volume=60
+density=4000
+repair=iron_ingot
+repair_pct=30

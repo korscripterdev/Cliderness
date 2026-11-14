@@ -4,6 +4,26 @@
 
 All notable changes to Cliderness (created by korscripterdev).
 
+## [0.2.0] — 2026-11-14
+
+Roadmap phase 4 (crafting and building) and the phase 3 leftovers.
+
+### Added
+- Crafting screen (K) with 58 data-driven recipes (`data/recipes`), categories, search, craft-all.
+- Stations: workbench, furnace, campfire, anvil; fuel units (coal/charcoal 8, logs 4, planks 2, sticks 1).
+- Smelting (iron, copper, tin, silver, gold, bronze ingots, glass, bricks, charcoal) and cooking (bread, baked potato, mushroom stew, roasted berries, herbal tea).
+- Farming: hoes, farmland, wheat and potato crops with growth stages (faster in rain, slower in winter); saplings that grow into trees.
+- Chests (27 slots), beds and sleeping until morning (sets the spawn point).
+- Equipment slots (head, body, legs, feet, back): fiber clothes, iron armour, fiber bag; defense, warmth and extra carry capacity.
+- Repairing tools and clothes with materials at a workbench or anvil.
+- Status effects (`data/effects`): bleeding, fracture, food poisoning, common cold, wet, well fed, rested; bandage, splint, charcoal pill, herbal tea.
+- 15 commands (86 in total): craft, recipes, recipe, stations, fuel, effect, cure, sleep, skipnight, grow, crops, equip, unequip, equipment, chests.
+- Help topics: crafting, stations, farming, chests, equipment, sleep, effects, durability. Save format 2 (format 1 saves still load).
+- License: GPL-3.0-or-later.
+
+### Changed
+- Command descriptions added after 0.1.0 are translated into English and Korean; other languages show them in English. All UI text remains translated in 11 languages.
+
 ## [0.1.0] — 2026-11-14
 
 First playable foundation (roadmap phases 1–3 complete, 4–6 and 10 partial).

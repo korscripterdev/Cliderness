@@ -94,6 +94,7 @@ int main(int argc, char **argv)
     if (!only || str_ieq(only, "gameplay")) { printf("[gameplay]\n"); suite_gameplay(); }
     if (!only || str_ieq(only, "commands")) { printf("[commands]\n"); suite_commands(); }
     if (!only || str_ieq(only, "save")) { printf("[save]\n"); suite_save(); }
+    if (!only || str_ieq(only, "crafting")) { printf("[crafting]\n"); suite_crafting(); }
     if (!only || str_ieq(only, "app")) { printf("[app]\n"); suite_app(); }
     printf("\n%d checks passed, %d failed\n", tf_pass, tf_fail);
     return tf_fail ? 1 : 0;

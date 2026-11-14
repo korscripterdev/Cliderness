@@ -1,0 +1,140 @@
+# Cliderness recipes - building.def
+# in = item:count, station = none/workbench/furnace/campfire/anvil/altar
+# fuel = fuel units (coal 8, charcoal 8, log 4, planks 2, stick 1)
+
+[recipe oak_planks]
+result=oak_planks
+count=4
+in=oak_log:1
+skill=woodcutting
+category=building
+
+[recipe birch_planks]
+result=oak_planks
+count=4
+in=birch_log:1
+skill=woodcutting
+category=building
+
+[recipe pine_planks]
+result=oak_planks
+count=4
+in=pine_log:1
+skill=woodcutting
+category=building
+
+[recipe jungle_planks]
+result=oak_planks
+count=4
+in=jungle_log:1
+skill=woodcutting
+category=building
+
+[recipe acacia_planks]
+result=oak_planks
+count=4
+in=acacia_log:1
+skill=woodcutting
+category=building
+
+[recipe palm_planks]
+result=oak_planks
+count=4
+in=palm_log:1
+skill=woodcutting
+category=building
+
+[recipe mangrove_planks]
+result=oak_planks
+count=4
+in=mangrove_log:1
+skill=woodcutting
+category=building
+
+[recipe bamboo_planks]
+result=oak_planks
+count=2
+in=bamboo:4
+skill=woodcutting
+category=building
+
+[recipe sticks]
+result=stick
+count=4
+in=oak_planks:2
+category=materials
+
+[recipe workbench]
+result=workbench
+in=oak_planks:4
+category=building
+
+[recipe chest]
+result=chest
+in=oak_planks:8
+station=workbench
+category=building
+
+[recipe bed]
+result=bed
+in=oak_planks:3
+in=cloth:3
+station=workbench
+category=building
+
+[recipe furnace]
+result=furnace
+in=cobblestone:8
+station=workbench
+category=building
+
+[recipe campfire]
+result=campfire
+in=stick:3
+in=cobblestone:3
+category=building
+
+[recipe anvil]
+result=anvil
+in=iron_ingot:5
+in=stone_bricks:2
+station=workbench
+min_skill=5
+category=building
+
+[recipe stone_bricks]
+result=stone_bricks
+count=4
+in=cobblestone:4
+station=workbench
+skill=building
+category=building
+
+[recipe bricks]
+result=bricks
+count=4
+in=clay:4
+station=furnace
+fuel=1
+category=building
+
+[recipe glass]
+result=glass
+in=sand:1
+station=furnace
+fuel=1
+category=building
+
+[recipe torch]
+result=torch
+count=4
+in=stick:1
+in=coal:1
+category=building
+
+[recipe torch_charcoal]
+result=torch
+count=4
+in=stick:1
+in=charcoal:1
+category=building

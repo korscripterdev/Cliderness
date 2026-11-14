@@ -2,6 +2,7 @@
 #include <string.h>
 #include "gameplay/game.h"
 #include "content/content.h"
+#include "content/effects.h"
 #include "world/biomes/biome.h"
 #include "localization/locale.h"
 #include "renderer/fb.h"
@@ -154,7 +155,7 @@ static int move_cooldown(Game *g, int mode, cl_u8 target)
 {
     int base, cd;
     long carry = inv_weight(&g->inv);
-    long cap = player_carry_capacity(&g->p);
+    long cap = game_carry_capacity(g);
     const WeatherDef *w = weather_cur(&g->weather);
     switch (mode) {
     case MOVE_SPRINT: base = 2; break;
@@ -170,6 +171,7 @@ static int move_cooldown(Game *g, int mode, cl_u8 target)
     if (g_blocks[target].flags & BF_SLOW) {
         cd += 3;
     }
+    cd += fx_move(g);
     if (mode != MOVE_FLY) {
         if (carry > cap * 3 / 2) {
             cd += 6;
@@ -217,7 +219,16 @@ static void apply_gravity(Game *g)
         ++fall;
     }
     if (fall >= 4 && !blk_liquid(at(g, p->x, p->y - 1, p->z))) {
-        surv_damage(g, (fall - 3) * 8, "cause.fall");
+        int dmg = (fall - 3) * 8;
+        surv_damage(g, dmg, "cause.fall");
+        if (!p->dead && !p->god && (g->mode == GM_SURVIVAL || g->mode == GM_ADVENTURE)) {
+            if (fall >= 7) {
+                fx_add(g, effect_find("fracture"), 0);
+            }
+            if (dmg >= 16) {
+                fx_add(g, effect_find("bleeding"), 0);
+            }
+        }
     }
 }
 
@@ -347,6 +358,7 @@ void game_tick(Game *g)
         ++g->last_minute;
         ++guard;
         surv_minute(g);
+        farm_minute(g);
         weather_minute(&g->weather, world_climate_temp(&g->world, p->dim, p->x, p->z),
                        g_biomes[world_biome(&g->world, p->dim, p->x, p->z)].humidity, p->dim);
     }
@@ -462,10 +474,25 @@ void game_place(Game *g)
             return;
         }
     }
+    if (g_blocks[blk].place_on && at(g, x, y - 1, z) != g_blocks[blk].place_on) {
+        log_add(MSG_INFO, loc_fmt("msg.need_soil", block_name(g_blocks[blk].place_on), NULL, NULL));
+        return;
+    }
+    if (g_blocks[blk].func == FUNC_CHEST && chest_find(g, g->p.dim, x, y, z) < 0) {
+        int c = chest_create(g, g->p.dim, x, y, z);
+        if (c < 0) {
+            log_add(MSG_WARN, loc_get("msg.no_chest_slot"));
+            return;
+        }
+    }
     if (!consume_selected(g)) {
         return;
     }
     world_set(&g->world, g->p.dim, x, y, z, (cl_u8)blk, META_PLACED);
+    if (g_blocks[blk].grow_to) {
+        farm_register(g, g->p.dim, x, y, z);
+        log_add(MSG_GOOD, loc_fmt("msg.planted", block_name(blk), NULL, NULL));
+    }
     g->unsaved = 1;
     skill_gain(g, SK_BUILDING, 1);
 }
@@ -518,8 +545,39 @@ void game_interact(Game *g)
         game_respawn(g);
         return;
     }
-    n = ent_pickup(g, g->p.x, g->p.y, g->p.z);
     facing_cell(g, &x, &y, &z);
+    {
+        cl_u8 b = at(g, x, y, z);
+        const BlockDef *bd = &g_blocks[b];
+        if (bd->func == FUNC_CHEST) {
+            int c = chest_find(g, g->p.dim, x, y, z);
+            if (c < 0) {
+                c = chest_create(g, g->p.dim, x, y, z);
+            }
+            if (c >= 0) {
+                g->ui_request = UIREQ_CHEST;
+                g->ui_arg = c;
+            }
+            return;
+        }
+        if (bd->func == FUNC_BED) {
+            if (game_sleep(g, 0)) {
+                g->p.spawn_x = g->p.x;
+                g->p.spawn_y = g->p.y;
+                g->p.spawn_z = g->p.z;
+            }
+            return;
+        }
+        if (bd->func == FUNC_STATION) {
+            g->ui_request = UIREQ_CRAFT;
+            g->ui_arg = bd->station;
+            return;
+        }
+        if (ent_interact(g, x, y, z)) {
+            return;
+        }
+    }
+    n = ent_pickup(g, g->p.x, g->p.y, g->p.z);
     n += ent_pickup(g, x, y, z);
     if (n == 0) {
         log_add(MSG_INFO, loc_get("msg.nothing_here"));
@@ -561,11 +619,29 @@ void game_use(Game *g)
     if (p->dead) {
         return;
     }
-    if (st->item >= 0 && (g_items[st->item].food > 0 || g_items[st->item].water > 0)) {
+    if (st->item >= 0 && g_items[st->item].tool_type == TOOL_HOE && farm_till(g)) {
+        return;
+    }
+    if (st->item >= 0 && g_items[st->item].equip) {
+        int worn = st->item;
+        if (inv_equip(&g->inv, g->inv.selected)) {
+            log_add(MSG_GOOD, loc_fmt("msg.equipped", item_name(worn), NULL, NULL));
+        }
+        return;
+    }
+    if (st->item >= 0 && (g_items[st->item].food > 0 || g_items[st->item].water > 0 ||
+                          g_items[st->item].cure >= 0 || g_items[st->item].effect >= 0)) {
         const ItemDef *it = &g_items[st->item];
+        int id = st->item;
         p->hunger = CL_MIN(1000, p->hunger + it->food);
         p->thirst = CL_MIN(1000, p->thirst + it->water);
-        log_add(MSG_GOOD, loc_fmt("msg.ate", item_name(st->item), NULL, NULL));
+        log_add(MSG_GOOD, loc_fmt("msg.ate", item_name(id), NULL, NULL));
+        if (it->cure >= 0 && fx_remove(g, it->cure)) {
+            log_add(MSG_GOOD, loc_fmt("msg.cured", effect_name(it->cure), NULL, NULL));
+        }
+        if (it->effect >= 0 && (it->effect_chance == 0 || rng_range(&g->rng, 100) < it->effect_chance)) {
+            fx_add(g, it->effect, 0);
+        }
         inv_remove_slot(&g->inv, g->inv.selected, 1);
         return;
     }

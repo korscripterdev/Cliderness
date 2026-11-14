@@ -1,0 +1,91 @@
+# Cliderness recipes - tools.def
+# in = item:count, station = none/workbench/furnace/campfire/anvil/altar
+# fuel = fuel units (coal 8, charcoal 8, log 4, planks 2, stick 1)
+
+[recipe wooden_pickaxe]
+result=wooden_pickaxe
+in=oak_planks:3
+in=stick:2
+station=workbench
+category=tools
+
+[recipe wooden_axe]
+result=wooden_axe
+in=oak_planks:3
+in=stick:2
+station=workbench
+category=tools
+
+[recipe wooden_shovel]
+result=wooden_shovel
+in=oak_planks:1
+in=stick:2
+station=workbench
+category=tools
+
+[recipe wooden_hoe]
+result=wooden_hoe
+in=oak_planks:2
+in=stick:2
+station=workbench
+category=tools
+
+[recipe stone_pickaxe]
+result=stone_pickaxe
+in=cobblestone:3
+in=stick:2
+station=workbench
+category=tools
+
+[recipe stone_axe]
+result=stone_axe
+in=cobblestone:3
+in=stick:2
+station=workbench
+category=tools
+
+[recipe stone_shovel]
+result=stone_shovel
+in=cobblestone:1
+in=stick:2
+station=workbench
+category=tools
+
+[recipe stone_hoe]
+result=stone_hoe
+in=cobblestone:2
+in=stick:2
+station=workbench
+category=tools
+
+[recipe iron_pickaxe]
+result=iron_pickaxe
+in=iron_ingot:3
+in=stick:2
+station=anvil
+min_skill=3
+category=tools
+
+[recipe iron_axe]
+result=iron_axe
+in=iron_ingot:3
+in=stick:2
+station=anvil
+min_skill=3
+category=tools
+
+[recipe iron_shovel]
+result=iron_shovel
+in=iron_ingot:1
+in=stick:2
+station=anvil
+min_skill=3
+category=tools
+
+[recipe iron_hoe]
+result=iron_hoe
+in=iron_ingot:2
+in=stick:2
+station=anvil
+min_skill=3
+category=tools

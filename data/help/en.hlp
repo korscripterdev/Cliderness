@@ -33,6 +33,7 @@ The world is generated from the seed, so the same seed always gives the same wor
 > Q / Ctrl+Q         drop one item / the whole stack
 > Tab or I           inventory
 > C                  character sheet
+> K                  crafting
 > 1-9                select hotbar slot
 > P                  switch status panel page
 > F1 or ?            help (pauses the game)
@@ -141,10 +142,20 @@ Placed blocks are remembered as player-made: mining them gives no experience. Ev
 Creative mode places blocks without using them up. With cheats, /fill, /replace, /clone, /flatten, /raise, /lower and /smooth edit large areas and can be undone with /undo.
 
 @topic crafting
-@title Crafting (planned)
-@level 3
-@related items,durability
-Crafting, smelting, cooking and farming are planned for Phase 4 of the roadmap. In version 0.1.0 tools exist as items (wooden, stone and iron pickaxes, axes and shovels) but can only be obtained with /give. Recipes will be data files in data/recipes.
+@title Crafting, Smelting and Cooking
+@level 2
+@related stations,farming,equipment,durability
+Press K to open crafting. The list shows every recipe; bright entries can be made now. Tab shows only craftable recipes, C cycles categories, / searches.
+> Enter  craft once
+> A      craft as many as possible
+> R      repair the item held in the hotbar
+
+A recipe can need: ingredients, a station nearby (within 3 cells), fuel units and a minimum skill level. Hand recipes need no station: planks from logs, sticks, a workbench, campfires, torches, cloth and rope.
+
+# Smelting and cooking
+The furnace turns raw ores into ingots, sand into glass, clay into bricks and logs into charcoal. The campfire cooks bread, baked potatoes, stews and herbal tea. Both burn fuel: coal and charcoal give 8 units, logs 4, planks 2, sticks, cloth and wheat 1.
+
+Crafting trains the Crafting skill, cooking the Cooking skill. Creative mode crafts for free. Recipes are data files in data/recipes.
 
 @topic combat
 @title Combat (planned)
@@ -323,12 +334,13 @@ Rafts, rowing boats, sailing ships and large ships with hulls, sails, rudders, d
 The only other dimension is the Ancient Dimension with its own biomes (ancient grassland and forest, forgotten garden, crystal wilds, silent swamp, void rift, starlight plain, ancient sanctuary), minerals, structures, sky and the Ancient Storm. It is planned for Phase 9; the world format already stores a dimension for every chunk.
 
 @topic durability
-@title Durability
+@title Durability and Repair
 @level 3
-@related mining,items,ships
-Tools have durability. Each block mined with the right tool costs 1 point, with the wrong tool 2. At 10% you get a warning; at 0 the tool breaks. The hotbar shows the remaining durability for tools.
+@related mining,items,crafting
+Tools have durability. Each block mined with the right tool costs 1 point, with the wrong tool 2; hoes lose 1 per tilled cell. At 10% you get a warning; at 0 the tool breaks. The hotbar shows the remaining durability.
+
+Repair: stand near a workbench or anvil, hold the item and press R in the crafting screen. One unit of the repair material (planks for wooden tools, cobblestone for stone, iron ingots for iron, cloth for clothes) restores 25-50% plus 2% per Crafting level.
 > /durability set <percent>   /repair
-Durability for weapons, armour, ships and buildings, and repairs with materials, come with crafting and ships.
 
 @topic gamemodes
 @title Game Modes
@@ -451,4 +463,67 @@ Cliderness - Open World Survival Sandbox
 Created by korscripterdev.
 Engine: Cliderness Engine, written in ISO C90.
 License: GNU GPL version 3 or later (LICENSE).
-Version 0.1.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
+Version 0.2.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
+
+@topic stations
+@title Workstations
+@level 2
+@related crafting,building
+> Workbench  4 planks; tools, chests, beds, furnaces, clothes
+> Furnace    8 cobblestone at a workbench; ingots, glass, bricks, charcoal
+> Campfire   3 sticks + 3 cobblestone; cooking (also a light source)
+> Anvil      5 iron ingots + 2 stone bricks; iron tools and armour
+Place a station with R and stand within 3 cells (one level up or down is fine). Pressing E on a station opens crafting.
+
+@topic farming
+@title Farming and Trees
+@level 2
+@related crafting,time,weather
+Hold a hoe and press U to till the grass or dirt in front of you into farmland. Select seeds and press R to plant them on the farmland.
+> Wheat seeds  from tall grass (12%) or ripe wheat
+> Potatoes     from ferns (6%); plant a potato to grow more
+Crops grow in stages (about 4 game hours per wheat stage, 5 for potatoes). Rain speeds growth by a quarter, winter halves it, and crops covered by a solid block wait for light. Mine a ripe crop to harvest it: wheat gives wheat and two seeds, potatoes give three potatoes.
+
+Leaves sometimes drop saplings (10%). Planted saplings grow into a tree trunk with a canopy after about half a day, if the space above is free.
+
+@topic chests
+@title Chests
+@level 2
+@related inventory,stations
+Craft a chest (8 planks at a workbench) and place it with R. Face it and press E to open it. The left side is the chest (27 slots), the right side your inventory.
+> Tab / Left / Right  switch side
+> Enter               move the selected stack to the other side
+> A                   move everything
+Breaking a chest drops its contents. Chests are saved with the world.
+
+@topic equipment
+@title Equipment and Bags
+@level 2
+@related inventory,survival,combat
+Clothes, armour and bags are worn in five slots: head, body, legs, feet and back. Select an item in the inventory and press W (or hold it and press U) to wear it; select a worn item at the bottom of the inventory list and press Enter or W to take it off.
+> Fiber clothes   warmth +1..+4, little defense
+> Iron armour     defense 8-20% each, slightly cold
+> Fiber bag       +15 kg carry capacity
+Defense reduces damage (up to 80%). Warmth raises the felt temperature in the cold. Worn items count toward your weight.
+
+@topic sleep
+@title Sleeping
+@level 2
+@related survival,time,effects
+Craft a bed (3 planks + 3 cloth at a workbench), place it and press E while facing it. You can sleep at night or whenever fatigue is above 60%. You sleep until half an hour after sunrise (at most 12 hours); during the day a tired player takes a nap instead.
+
+While you sleep fatigue falls, health slowly returns and hunger and thirst drop at half speed; the world keeps going (weather, crops). Sleeping sets your spawn point to the bed and makes you Rested. You cannot sleep with hostile creatures within 12 cells.
+
+@topic effects
+@title Injuries, Illness and Buffs
+@level 3
+@related survival,sleep,crafting
+Status effects are shown on the status panel and last a number of game minutes.
+> Bleeding        -1 HP per minute; from heavy falls; cure: bandage
+> Fracture        slower movement; from falls of 7+ blocks; cure: splint
+> Food poisoning  hunger, thirst and stamina loss; raw mushrooms (20%); cure: charcoal pill
+> Common cold     weak stamina regeneration, feels colder; after 30 minutes of hypothermia; cure: herbal tea
+> Wet             feels 4 C colder; swimming or rain outdoors
+> Well fed        better stamina regeneration; bread, stew
+> Rested          better stamina regeneration; sleeping
+Use a medicine with U. Effects are defined in data/effects/effects.def.
