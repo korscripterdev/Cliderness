@@ -153,6 +153,10 @@ int  chest_find(const Game *g, int dim, long x, long y, long z);
 int  chest_create(Game *g, int dim, long x, long y, long z);
 void chest_remove(Game *g, int idx);
 int  chest_count(const Game *g);
+void chest_fill_loot(Game *g, int idx, const char *table);
+
+/* fluids and rain (game.c) */
+void game_rain_minute(Game *g);
 
 /* status effects and sleep (gameplay/survival/effects.c) */
 void fx_add(Game *g, int effect, int minutes);

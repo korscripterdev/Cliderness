@@ -25,15 +25,17 @@ explore, mine, build, reshape the land and survive.
 * 36-slot inventory + hotbar, dropped items that float or sink.
 * Crafting (58 recipes), workstations, smelting, cooking, farming and growing
   trees, chests, beds and sleep, equipment and bags, repairs, injuries and illness.
+* ClideFluid: flowing water and lava with volume conservation, dams, rain
+  puddles, buckets; rivers, underground lakes, abandoned mines and ruins.
 * Game time with seasons and moon phases, 18 weather types, a full sky view
   (sun, moon, seeded constellations, clouds, birds, meteors, aurora, eclipses).
-* Command console: **86** working commands with permissions, Tab completion,
+* Command console: **93** working commands with permissions, Tab completion,
   history and undo/redo for building commands.
 * Offline help: 45 topics, 5 levels, search, favourites, related links.
 * 11 UI languages; F1 / Esc freeze the game completely.
 * Crash-safe saves (temporary file + CRC verification + atomic replace).
 
-Not yet: creatures and combat, flowing water, ships, the Ancient
+Not yet: creatures and combat, ships, the Ancient
 Dimension, live PCM audio. See [ROADMAP.md](ROADMAP.md) for the exact status.
 
 ## Build

@@ -4,6 +4,19 @@
 
 Modifiche principali di Cliderness (creato da korscripterdev).
 
+## [0.3.0] — 2026-11-14
+
+Fase 6 della roadmap (simulazione del mondo).
+
+### Aggiunto
+- ClideFluid: acqua e lava che scorrono con livelli 1-15, conservazione del volume, mari e laghi che si riempiono, ossidiana, pozzanghere di pioggia.
+- Secchi, fiumi nelle pianure e laghi sotterranei.
+- Strutture: miniere abbandonate e rovine di pietra con casse di bottino.
+- 7 nuovi comandi (93 in totale).
+
+### Modificato
+- Fiumi, laghi e strutture cambiano il terreno inesplorato dei mondi vecchi.
+
 ## [0.2.0] — 2026-11-14
 
 Fase 4 della roadmap (artigianato e costruzione) e il resto della fase 3.

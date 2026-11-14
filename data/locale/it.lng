@@ -442,3 +442,9 @@ station.campfire=Falò
 station.furnace=Fornace
 station.none=nessuna (a mano)
 station.workbench=Banco da lavoro
+
+# --- added ---
+con.unknown_structure=Struttura sconosciuta: {0}
+msg.bucket_filled=Riempi il secchio.
+msg.bucket_poured=Svuoti il secchio.
+msg.no_fluid_here=Qui non c'è acqua né lava da raccogliere.

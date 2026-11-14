@@ -33,6 +33,7 @@ void suite_commands(void);
 void suite_save(void);
 void suite_content(void);
 void suite_app(void);
+void suite_fluid(void);
 void suite_crafting(void);
 
 /* helpers shared by suites */

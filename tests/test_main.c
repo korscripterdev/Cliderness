@@ -10,6 +10,7 @@
 #include "content/content.h"
 #include "world/biomes/biome.h"
 #include "world/weather/weather.h"
+#include "world/structures/structure.h"
 #include "localization/locale.h"
 #include "commands/console.h"
 #include "help/help.h"
@@ -33,7 +34,12 @@ int tf_make_game(Game *g, int mode, const char *dir)
 {
     ClideTimeCfg tc;
     ctime_default_cfg(&tc);
-    return game_create(g, "test", dir, 12345UL, mode, 1, &tc);
+    if (!game_create(g, "test", dir, 12345UL, mode, 1, &tc)) {
+        return 0;
+    }
+    /* most tests build ad-hoc pools and pits; the fluid tests enable flow */
+    g->world.fluid.enabled = 0;
+    return 1;
 }
 
 /* a flat stone platform with open air above, radius r around (cx, cz) */
@@ -61,7 +67,7 @@ static int setup(void)
         return 0;
     }
     if (!content_load(tf_data, err, sizeof(err)) || !biome_load(tf_data, err, sizeof(err)) ||
-        !weather_load(tf_data, err, sizeof(err))) {
+        !weather_load(tf_data, err, sizeof(err)) || !structures_load(tf_data, err, sizeof(err))) {
         printf("data error: %s\n", err);
         return 0;
     }
@@ -95,6 +101,7 @@ int main(int argc, char **argv)
     if (!only || str_ieq(only, "commands")) { printf("[commands]\n"); suite_commands(); }
     if (!only || str_ieq(only, "save")) { printf("[save]\n"); suite_save(); }
     if (!only || str_ieq(only, "crafting")) { printf("[crafting]\n"); suite_crafting(); }
+    if (!only || str_ieq(only, "fluid")) { printf("[fluid]\n"); suite_fluid(); }
     if (!only || str_ieq(only, "app")) { printf("[app]\n"); suite_app(); }
     printf("\n%d checks passed, %d failed\n", tf_pass, tf_fail);
     return tf_fail ? 1 : 0;

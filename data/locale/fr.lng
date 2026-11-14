@@ -442,3 +442,9 @@ station.campfire=Feu de camp
 station.furnace=Four
 station.none=aucun (à la main)
 station.workbench=Établi
+
+# --- added ---
+con.unknown_structure=Structure inconnue : {0}
+msg.bucket_filled=Vous remplissez le seau.
+msg.bucket_poured=Vous videz le seau.
+msg.no_fluid_here=Il n'y a ni eau ni lave à puiser ici.

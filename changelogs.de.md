@@ -4,6 +4,19 @@
 
 Wichtige Änderungen an Cliderness (erstellt von korscripterdev).
 
+## [0.3.0] — 2026-11-14
+
+Roadmap-Phase 6 (Weltsimulation).
+
+### Hinzugefügt
+- ClideFluid: fließendes Wasser und Lava mit Stufen 1-15, Volumenerhaltung, Meer und Seen füllen sich nach, Obsidian, Regenpfützen.
+- Eimer, Flüsse im Tiefland und unterirdische Seen.
+- Bauwerke: verlassene Minen und Steinruinen mit Beutekisten.
+- 7 neue Befehle (93 insgesamt).
+
+### Geändert
+- Flüsse, Seen und Bauwerke verändern das unerkundete Gelände alter Welten.
+
 ## [0.2.0] — 2026-11-14
 
 Roadmap-Phase 4 (Handwerk und Bauen) und der Rest von Phase 3.

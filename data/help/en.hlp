@@ -306,20 +306,29 @@ Caves are carved by 3D noise: large chambers and long winding tunnels. Deep belo
 Coal, iron, copper and tin appear in stone; silver, gold, crystal clusters and gems in deep rock (below 24). Fossils hide in stone between 24 and 60.
 
 @topic ocean
-@title Oceans and Coasts
+@title Oceans, Coasts and Rivers
 @level 3
 @related biomes,fluids,ships
 Oceans cover low areas below sea level 62: shallow seas with seaweed, colourful coral reefs in warm water, open sea, deep ocean and trenches. Cold seas freeze at the surface.
 
-You can swim on the surface. Diving, ships and sailing are planned (Phase 8).
+Rivers wind through low land and are cut slightly below sea level, so they are filled with water and connect lakes and the sea. Deep caves sometimes hold underground lakes.
+
+You can swim on the surface. Rafts and boats are described under Ships.
 
 @topic fluids
-@title Water and Lava
-@level 4
-@related ocean,terrain
-In 0.1.0 water and lava are static blocks: you can drain them (/drain), flood areas (/flood), drink water (U) and swim. Lava hurts.
+@title Flowing Water and Lava
+@level 3
+@related ocean,terrain,buckets,weather
+ClideFluid moves water and lava. Every fluid cell has a level from 1 to 15 (15 = full block); shallow cells are drawn with a wave sign.
+> Fluid falls straight down first, filling the cell below.
+> It runs over edges and into holes, even as a thin film.
+> On flat ground neighbouring cells share their water until they differ by at most one level, so pools settle and become calm.
+> The amount of water is conserved: digging a channel moves water, it does not create or destroy it.
+Exceptions: the sea and lakes below sea level refill themselves, so an ocean cannot be drained by a ditch; rain adds water to dents in the ground; water touching lava turns it into obsidian (full lava) or cobblestone.
 
-Flowing water (ClideFluid) with volume conservation, rivers, dams, waterfalls, flooding and rain accumulation is planned for Phase 6.
+Build dams with any solid block; break them to flood the valley behind. Lava is slower and thicker than water.
+
+Only cells next to a change are simulated; still water costs nothing. /fluid shows statistics, /settle calms everything, /volume measures.
 
 @topic ships
 @title Ships (planned)
@@ -463,7 +472,7 @@ Cliderness - Open World Survival Sandbox
 Created by korscripterdev.
 Engine: Cliderness Engine, written in ISO C90.
 License: GNU GPL version 3 or later (LICENSE).
-Version 0.2.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
+Version 0.3.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
 
 @topic stations
 @title Workstations
@@ -527,3 +536,18 @@ Status effects are shown on the status panel and last a number of game minutes.
 > Well fed        better stamina regeneration; bread, stew
 > Rested          better stamina regeneration; sleeping
 Use a medicine with U. Effects are defined in data/effects/effects.def.
+
+@topic buckets
+@title Buckets
+@level 2
+@related fluids,crafting
+Craft a bucket from 3 iron ingots at an anvil. Hold it and press U while facing water or lava to scoop up that whole cell; press R to pour it out again in front of you. A bucket remembers how much it carries (1-15 levels), so water is never duplicated, except when you scoop from the sea, which refills.
+
+@topic structures
+@title Mines and Ruins
+@level 2
+@related caves,items,chests
+The world hides structures generated from the seed:
+> Abandoned mines  underground (height 16-44): two long crossing corridors with branches, wooden ceiling beams, torches and mine crates at the corridor ends.
+> Stone ruins      on dry land: a broken ring of cobblestone with an old crate in the middle.
+Opening a crate for the first time fills it with loot (coal, ores, ingots, tools, food, cloth, seeds, rarely gems). /findstructure abandoned_mine shows the nearest one (cheat).

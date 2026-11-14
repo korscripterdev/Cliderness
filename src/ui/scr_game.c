@@ -129,6 +129,11 @@ static void draw_world(Framebuffer *fb, Game *g)
                         fg = f->floor_fg;
                         bg = f->floor_bg;
                         depth = k;
+                        if ((fbk == (cl_u8)g_cb.water || fbk == (cl_u8)g_cb.lava) &&
+                            fluid_level(&g->world, p->dim, wx, p->y - k, wz) < 8) {
+                            glyph = 247;   /* shallow */
+                            bg = fbk == (cl_u8)g_cb.water ? C_BLACK : bg;
+                        }
                         break;
                     }
                 }

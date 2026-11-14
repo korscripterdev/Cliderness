@@ -442,3 +442,9 @@ station.campfire=Костёр
 station.furnace=Печь
 station.none=нет (вручную)
 station.workbench=Верстак
+
+# --- added ---
+con.unknown_structure=Неизвестное сооружение: {0}
+msg.bucket_filled=Вы наполнили ведро.
+msg.bucket_poured=Вы опустошили ведро.
+msg.no_fluid_here=Здесь нечего зачерпнуть.

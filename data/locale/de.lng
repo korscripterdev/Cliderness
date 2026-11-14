@@ -442,3 +442,9 @@ station.campfire=Lagerfeuer
 station.furnace=Ofen
 station.none=keine (von Hand)
 station.workbench=Werkbank
+
+# --- added ---
+con.unknown_structure=Unbekanntes Bauwerk: {0}
+msg.bucket_filled=Du füllst den Eimer.
+msg.bucket_poured=Du leerst den Eimer.
+msg.no_fluid_here=Hier gibt es kein Wasser und keine Lava zum Schöpfen.

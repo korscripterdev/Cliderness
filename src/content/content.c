@@ -304,6 +304,8 @@ static int block_cb(void *user, const char *type, const char *id, const char *ke
         if (k < 0) return set_err(c, "bad station", value, line);
         b->station = (cl_u8)k;
         if (!b->func) b->func = FUNC_STATION;
+    } else if (str_ieq(key, "loot")) {
+        str_copy(b->loot, value, sizeof(b->loot));
     } else if (str_ieq(key, "grow_to")) {
         str_copy(c->extra[c->cur].grow_to, value, ID_LEN);
     } else if (str_ieq(key, "grow_top")) {

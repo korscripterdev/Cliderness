@@ -442,3 +442,9 @@ station.campfire=营火
 station.furnace=熔炉
 station.none=无（手工）
 station.workbench=工作台
+
+# --- added ---
+con.unknown_structure=未知结构：{0}
+msg.bucket_filled=你装满了桶。
+msg.bucket_poured=你倒空了桶。
+msg.no_fluid_here=这里没有可以舀的水或熔岩。

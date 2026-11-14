@@ -236,3 +236,33 @@ grow_to=jungle_log
 grow_top=jungle_leaves
 grow_minutes=600
 hardness=1
+
+[block mine_crate]
+name=Mine Crate
+category=functional
+glyph=254
+fg=yellow
+bg=brown
+floor_glyph=254
+floor_fg=yellow
+flags=solid
+func=chest
+loot=mine
+hardness=15
+tool=axe
+drop=chest
+
+[block ruins_crate]
+name=Old Crate
+category=functional
+glyph=254
+fg=lightgray
+bg=brown
+floor_glyph=254
+floor_fg=lightgray
+flags=solid
+func=chest
+loot=ruins
+hardness=15
+tool=axe
+drop=chest

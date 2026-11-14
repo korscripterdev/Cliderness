@@ -3,6 +3,7 @@ src/audio/audio.c
 src/audio/dsp.c
 src/commands/cmd_build.c
 src/commands/cmd_craft.c
+src/commands/cmd_fluid.c
 src/commands/cmd_items.c
 src/commands/cmd_player.c
 src/commands/cmd_system.c
@@ -48,7 +49,9 @@ src/ui/scr_settings.c
 src/ui/widgets.c
 src/world/biomes/biome.c
 src/world/chunks/chunkstore.c
+src/world/fluids/fluid.c
 src/world/sky/sky.c
+src/world/structures/structure.c
 src/world/terrain/terrain.c
 src/world/time/clidetime.c
 src/world/weather/weather.c

@@ -442,3 +442,9 @@ station.campfire=Fogata
 station.furnace=Horno
 station.none=ninguna (a mano)
 station.workbench=Mesa de trabajo
+
+# --- added ---
+con.unknown_structure=Estructura desconocida: {0}
+msg.bucket_filled=Llenas el cubo.
+msg.bucket_poured=Vacías el cubo.
+msg.no_fluid_here=Aquí no hay agua ni lava que recoger.

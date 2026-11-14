@@ -89,3 +89,9 @@ in=stick:2
 station=anvil
 min_skill=3
 category=tools
+
+[recipe bucket]
+result=bucket
+in=iron_ingot:3
+station=anvil
+category=tools

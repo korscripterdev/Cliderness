@@ -4,6 +4,21 @@
 
 All notable changes to Cliderness (created by korscripterdev).
 
+## [0.3.0] — 2026-11-14
+
+Roadmap phase 6 (world simulation).
+
+### Added
+- ClideFluid: flowing water and lava with levels 1-15, volume conservation, edge flow into holes, levelling of pools, active-cell queue with a per-step budget (small on DOS). Sea and lake sources refill; water and lava form obsidian or cobblestone; rain fills dents in the ground.
+- Buckets (scoop and pour a cell; the amount is kept in the bucket).
+- Rivers cut below sea level through low land; underground lakes in deep caves.
+- Structures (`data/structs`): abandoned mines with corridors, beams, torches and loot crates; stone ruins with a crate. Loot tables fill crates when first opened.
+- 7 commands (93 in total): fluid, water, lava, settle, volume, structures, findstructure.
+- Help: fluids, buckets, structures, rivers. Active fluid cells are saved.
+
+### Changed
+- World generation now includes rivers, lakes and structures: unexplored terrain of older worlds differs from 0.2.0.
+
 ## [0.2.0] — 2026-11-14
 
 Roadmap phase 4 (crafting and building) and the phase 3 leftovers.

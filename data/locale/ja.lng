@@ -442,3 +442,9 @@ station.campfire=焚き火
 station.furnace=かまど
 station.none=なし (手作業)
 station.workbench=作業台
+
+# --- added ---
+con.unknown_structure=不明な構造物: {0}
+msg.bucket_filled=バケツを満たしました。
+msg.bucket_poured=バケツを空にしました。
+msg.no_fluid_here=ここにはすくえる水も溶岩もありません。

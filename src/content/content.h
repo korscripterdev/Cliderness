@@ -64,6 +64,7 @@ typedef struct BlockDef {
     cl_s16 drop2;          /* optional second drop (-1 none) */
     cl_u8  drop2_chance;   /* percent */
     cl_u8  drop2_count;
+    char   loot[12];       /* loot table filled into a chest on first open */
 } BlockDef;
 
 typedef struct ItemDef {

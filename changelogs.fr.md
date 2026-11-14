@@ -4,6 +4,19 @@
 
 Changements notables de Cliderness (créé par korscripterdev).
 
+## [0.3.0] — 2026-11-14
+
+Phase 6 de la feuille de route (simulation du monde).
+
+### Ajouté
+- ClideFluid : eau et lave qui coulent avec des niveaux 1-15, conservation du volume, mer et lacs qui se remplissent, obsidienne, flaques de pluie.
+- Seaux, rivières dans les basses terres et lacs souterrains.
+- Structures : mines abandonnées et ruines de pierre avec caisses de butin.
+- 7 nouvelles commandes (93 au total).
+
+### Modifié
+- Rivières, lacs et structures modifient le terrain inexploré des anciens mondes.
+
 ## [0.2.0] — 2026-11-14
 
 Phase 4 de la feuille de route (artisanat et construction) et le reste de la phase 3.

@@ -92,5 +92,6 @@ CommandTable cmd_table_build(void);
 CommandTable cmd_table_items(void);
 CommandTable cmd_table_system(void);
 CommandTable cmd_table_craft(void);
+CommandTable cmd_table_fluid(void);
 
 #endif

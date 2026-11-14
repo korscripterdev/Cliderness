@@ -4,6 +4,19 @@
 
 Mudanças importantes do Cliderness (criado por korscripterdev).
 
+## [0.3.0] — 2026-11-14
+
+Fase 6 do roteiro (simulação do mundo).
+
+### Adicionado
+- ClideFluid: água e lava que fluem com níveis 1-15, conservação do volume, mar e lagos que se reabastecem, obsidiana, poças de chuva.
+- Baldes, rios nas terras baixas e lagos subterrâneos.
+- Estruturas: minas abandonadas e ruínas de pedra com caixas de saque.
+- 7 comandos novos (93 no total).
+
+### Alterado
+- Rios, lagos e estruturas mudam o terreno não explorado de mundos antigos.
+
 ## [0.2.0] — 2026-11-14
 
 Fase 4 do roteiro (artesanato e construção) e o que faltava da fase 3.

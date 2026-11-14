@@ -686,3 +686,23 @@ item.bandage=붕대
 item.splint=부목
 item.herbal_tea=약초차
 item.charcoal_pill=숯 알약
+
+# --- added ---
+con.unknown_structure=알 수 없는 구조물: {0}
+msg.bucket_filled=양동이를 채웠습니다.
+msg.bucket_poured=양동이를 비웠습니다.
+msg.no_fluid_here=여기에는 떠낼 물이나 용암이 없습니다.
+cmd.fluid=ClideFluid 통계를 보거나 흐르는 유체를 켜고 끕니다.
+cmd.water=앞에 물을 놓습니다 (수위 1-15).
+cmd.lava=앞에 용암을 놓습니다 (수위 1-15).
+cmd.settle=유체가 잠잠해질 때까지 시뮬레이션을 돌립니다.
+cmd.volume=주변의 물과 용암 양을 잽니다.
+cmd.structures=구조물 종류와 출현 확률을 나열합니다.
+cmd.findstructure=가장 가까운 해당 구조물을 찾습니다.
+block.mine_crate=폐광 상자
+block.ruins_crate=낡은 상자
+item.bucket=양동이
+item.water_bucket=물 양동이
+item.lava_bucket=용암 양동이
+struct.abandoned_mine=폐광
+struct.stone_ruins=돌 유적

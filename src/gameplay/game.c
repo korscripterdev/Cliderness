@@ -353,12 +353,16 @@ void game_tick(Game *g)
         surv_tick(g);
     }
     ent_tick(g);
+    if ((g->tick % 5L) == 0) {
+        fluid_step(&g->world);
+    }
     m = ctime_total_minutes(&g->time);
     while (g->last_minute < m && guard < 240) {
         ++g->last_minute;
         ++guard;
         surv_minute(g);
         farm_minute(g);
+        game_rain_minute(g);
         weather_minute(&g->weather, world_climate_temp(&g->world, p->dim, p->x, p->z),
                        g_biomes[world_biome(&g->world, p->dim, p->x, p->z)].humidity, p->dim);
     }
@@ -459,6 +463,28 @@ void game_place(Game *g)
         log_add(MSG_WARN, loc_get("msg.cannot_edit"));
         return;
     }
+    if (st->item >= 0 && (st->item == item_find("water_bucket") || st->item == item_find("lava_bucket"))) {
+        int fl = st->item == item_find("water_bucket") ? g_cb.water : g_cb.lava;
+        facing_cell(g, &x, &y, &z);
+        b = at(g, x, y, z);
+        if (!(g_blocks[b].flags & BF_REPLACEABLE) || (blk_liquid(b) && b != (cl_u8)fl)) {
+            log_add(MSG_INFO, loc_get("msg.no_room"));
+            return;
+        }
+        {
+            int have = b == (cl_u8)fl ? fluid_level(&g->world, g->p.dim, x, y, z) : 0;
+            int put = CL_MIN(15 - have, st->dur > 0 ? st->dur : 15);
+            fluid_put(&g->world, g->p.dim, x, y, z, fl, have + put);
+            st->dur = (cl_s16)(st->dur - put);
+            if (st->dur <= 0 || g->mode == GM_CREATIVE) {
+                st->item = (cl_s16)item_find("bucket");
+                st->dur = 0;
+            }
+        }
+        log_add(MSG_GOOD, loc_get("msg.bucket_poured"));
+        g->unsaved = 1;
+        return;
+    }
     if (st->item < 0 || g_items[st->item].place_block < 0) {
         log_add(MSG_INFO, loc_get("msg.not_placeable"));
         return;
@@ -553,6 +579,9 @@ void game_interact(Game *g)
             int c = chest_find(g, g->p.dim, x, y, z);
             if (c < 0) {
                 c = chest_create(g, g->p.dim, x, y, z);
+                if (c >= 0 && bd->loot[0]) {
+                    chest_fill_loot(g, c, bd->loot);
+                }
             }
             if (c >= 0) {
                 g->ui_request = UIREQ_CHEST;
@@ -622,6 +651,29 @@ void game_use(Game *g)
     if (st->item >= 0 && g_items[st->item].tool_type == TOOL_HOE && farm_till(g)) {
         return;
     }
+    if (st->item >= 0 && st->item == item_find("bucket")) {
+        long x, y, z, k;
+        facing_cell(g, &x, &y, &z);
+        for (k = 0; k < 3; ++k) {
+            long tx = k == 2 ? p->x : x, ty = k == 0 ? y : y - 1, tz = k == 2 ? p->z : z;
+            cl_u8 b = at(g, tx, ty, tz);
+            if (b == (cl_u8)g_cb.water || b == (cl_u8)g_cb.lava) {
+                int lvl = fluid_level(&g->world, p->dim, tx, ty, tz);
+                int full = item_find(b == (cl_u8)g_cb.water ? "water_bucket" : "lava_bucket");
+                if (full < 0 || !game_can_edit_world(g)) {
+                    break;
+                }
+                world_set(&g->world, p->dim, tx, ty, tz, BLOCK_AIR, 0);
+                st->item = (cl_s16)full;
+                st->dur = (cl_s16)lvl;
+                log_add(MSG_GOOD, loc_get("msg.bucket_filled"));
+                g->unsaved = 1;
+                return;
+            }
+        }
+        log_add(MSG_INFO, loc_get("msg.no_fluid_here"));
+        return;
+    }
     if (st->item >= 0 && g_items[st->item].equip) {
         int worn = st->item;
         if (inv_equip(&g->inv, g->inv.selected)) {
@@ -669,6 +721,45 @@ void game_select(Game *g, int slot)
         if (g->inv.s[slot].item >= 0) {
             log_add(MSG_INFO, item_name(g->inv.s[slot].item));
         }
+    }
+}
+
+/*
+ * Rain fills depressions: every rainy game minute a few random columns near
+ * the player get one unit of water (three in heavy rain) if their top block
+ * is solid and lower than all four neighbours.
+ */
+void game_rain_minute(Game *g)
+{
+    const WeatherDef *w = weather_cur(&g->weather);
+    int tries, k;
+    if (w->precip != PRECIP_RAIN || g->p.dim != DIM_OVERWORLD) {
+        return;
+    }
+    tries = w->intensity >= 40 ? 6 : 2;
+    for (k = 0; k < tries; ++k) {
+        long x = g->p.x + rng_range(&g->rng, 49) - 24;
+        long z = g->p.z + rng_range(&g->rng, 49) - 24;
+        long top = world_top(&g->world, 0, x, z, WORLD_H - 2);
+        cl_u8 b = world_get(&g->world, 0, x, top, z);
+        int lvl;
+        if (blk_liquid(b)) {
+            if (b != (cl_u8)g_cb.water) {
+                continue;
+            }
+            lvl = fluid_level(&g->world, 0, x, top, z);
+            if (lvl < 15 && !fluid_is_source(&g->world, 0, x, top, z)) {
+                fluid_put(&g->world, 0, x, top, z, g_cb.water, lvl + 1);
+            }
+            continue;
+        }
+        if (!blk_solid(b) || world_top(&g->world, 0, x + 1, z, WORLD_H - 2) <= top ||
+            world_top(&g->world, 0, x - 1, z, WORLD_H - 2) <= top ||
+            world_top(&g->world, 0, x, z + 1, WORLD_H - 2) <= top ||
+            world_top(&g->world, 0, x, z - 1, WORLD_H - 2) <= top) {
+            continue;
+        }
+        fluid_put(&g->world, 0, x, top + 1, z, g_cb.water, 1);
     }
 }
 

@@ -13,6 +13,7 @@
 
 #include "core/types.h"
 #include "world/chunks/chunkstore.h"
+#include "world/fluids/fluid.h"
 
 #define WORLD_H      128
 #define SEA_LEVEL    62
@@ -80,6 +81,7 @@ typedef struct World {
     ChunkStore  store;
     int         store_open;
     WorldStats  stats;
+    FluidSim    fluid;
     /* atomic file replace from the platform layer (NULL = portable fallback) */
     int       (*replace)(const char *tmp, const char *dst);
 } World;
@@ -94,6 +96,8 @@ cl_u8 world_get(World *w, int dim, long x, long y, long z);
 cl_u8 world_get_meta(World *w, int dim, long x, long y, long z);
 /* Sets a block (and meta). Marks the chunk modified. Returns 0 if y is out of range. */
 int   world_set(World *w, int dim, long x, long y, long z, cl_u8 block, cl_u8 meta);
+/* set without waking the fluid simulation (used by ClideFluid itself) */
+int   world_set_raw(World *w, int dim, long x, long y, long z, cl_u8 block, cl_u8 meta);
 
 const ColumnData *world_column(World *w, int dim, long x, long z, int *index);
 int   world_gen_height(World *w, int dim, long x, long z);

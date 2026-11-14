@@ -246,6 +246,18 @@ static void write_body(SaveW *w, Game *g)
             sw_kv(w, key, buf);
         }
     }
+    sw_line(w, "[fluid]");
+    {
+        const FluidSim *f = &g->world.fluid;
+        long k, n = CL_MIN(f->count, 4096L);
+        for (k = 0; k < n; ++k) {
+            const FluidCell *c = &f->q[(f->head + k) % FLUID_QUEUE];
+            sprintf(key, "f%ld", k);
+            sprintf(buf, "%d %ld %d %ld", c->dim, c->x, c->y, c->z);
+            sw_kv(w, key, buf);
+        }
+        sw_kl(w, "enabled", f->enabled);
+    }
     sw_line(w, "[entities]");
     for (i = 0; i < MAX_ITEM_ENTS; ++i) {
         const ItemEntity *e = &g->ents[i];
@@ -462,6 +474,14 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
             g->inv.s[slot].item = (cl_s16)it;
             g->inv.s[slot].count = (cl_s16)cnt;
             g->inv.s[slot].dur = (cl_s16)dur;
+        }
+    } else if (str_ieq(type, "fluid")) {
+        int dim, y;
+        long x, z;
+        if (str_ieq(key, "enabled")) {
+            g->world.fluid.enabled = (int)num(v);
+        } else if (sscanf(v, "%d %ld %d %ld", &dim, &x, &y, &z) == 4) {
+            fluid_enqueue(&g->world, dim, x, y, z);
         }
     } else if (str_ieq(type, "effects")) {
         char eid[32];

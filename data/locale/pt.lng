@@ -442,3 +442,9 @@ station.campfire=Fogueira
 station.furnace=Fornalha
 station.none=nenhuma (à mão)
 station.workbench=Bancada
+
+# --- added ---
+con.unknown_structure=Estrutura desconhecida: {0}
+msg.bucket_filled=Você enche o balde.
+msg.bucket_poured=Você esvazia o balde.
+msg.no_fluid_here=Não há água nem lava para recolher aqui.

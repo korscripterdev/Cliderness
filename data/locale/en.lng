@@ -478,3 +478,16 @@ cmd.equip=Wear an item from the inventory.
 cmd.unequip=Take off equipment.
 cmd.equipment=Show worn equipment, defense and warmth.
 cmd.chests=List chests in this world.
+
+# --- added ---
+con.unknown_structure=Unknown structure: {0}
+msg.bucket_filled=You fill the bucket.
+msg.bucket_poured=You empty the bucket.
+msg.no_fluid_here=There is no water or lava to scoop here.
+cmd.fluid=Show ClideFluid statistics or turn flowing fluids on/off.
+cmd.water=Place water in front of you (level 1-15).
+cmd.lava=Place lava in front of you (level 1-15).
+cmd.settle=Run the fluid simulation until it is calm.
+cmd.volume=Measure water and lava around you.
+cmd.structures=List structure types and rarity.
+cmd.findstructure=Find the nearest structure of a type.

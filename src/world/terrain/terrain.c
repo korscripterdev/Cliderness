@@ -2,6 +2,7 @@
 #include <string.h>
 #include "world/terrain/terrain.h"
 #include "world/biomes/biome.h"
+#include "world/structures/structure.h"
 #include "content/content.h"
 #include "core/noise.h"
 #include "core/rng.h"
@@ -37,6 +38,25 @@ int terrain_height(cl_u32 seed, long x, long z)
     long h = 64L + (cont - 1900L) * 40L / 1000L + (det - 2048L) * 10L / 2048L;
     if (mnt > 2600L) {
         h += (mnt - 2600L) * 36L / 1495L;
+    }
+    /* rivers: a narrow band along the 2048 contour of a large noise field,
+     * cut down to below sea level so that they fill with water and flow
+     * into lakes and the sea */
+    if (h >= SEA_LEVEL - 1 && h <= SEA_LEVEL + 14) {
+        long r = noise2(CL_U32(seed + 404UL), x, z, 9);
+        long d = mx_abs(r - 2048L);
+        if (d < 34L) {
+            long bed = SEA_LEVEL - 2 - (34L - d) / 12L;
+            /* banks slope down towards the channel */
+            if (h > bed) {
+                h = bed;
+            }
+        } else if (d < 70L && h > SEA_LEVEL + 1) {
+            long bank = SEA_LEVEL + 1 + (d - 34L) / 6L;
+            if (h > bank) {
+                h = bank;
+            }
+        }
     }
     return (int)CL_CLAMP(h, 6L, (long)(WORLD_H - 8));
 }
@@ -99,6 +119,12 @@ cl_u8 terrain_block(cl_u32 seed, int dim, const ColumnData *col, int index, long
     if (y <= 0) {
         return (cl_u8)g_cb.bedrock;
     }
+    if (y > 2 && g_struct_count > 0) {
+        int sb = structure_block(seed, dim, h, x, y, z);
+        if (sb >= 0) {
+            return (cl_u8)sb;
+        }
+    }
     if (y <= 2) {
         return (cl_u8)((rng_hash3(s, x, y, z) % 3UL) < (cl_u32)(3 - y) ? g_cb.bedrock : g_cb.deep_rock);
     }
@@ -106,7 +132,15 @@ cl_u8 terrain_block(cl_u32 seed, int dim, const ColumnData *col, int index, long
         int base = y < 24 ? g_cb.deep_rock : b->stone;
         int i;
         if (y > 3 && y < h - 5 && is_cave(s, x, y, z)) {
-            return (cl_u8)(y < 10 ? g_cb.lava : BLOCK_AIR);
+            if (y < 10) {
+                return (cl_u8)g_cb.lava;
+            }
+            /* underground lakes: cave space below a local water line */
+            if (y >= 12 && y <= 30 && noise2(CL_U32(s + 555UL), x, z, 5) < 1500L &&
+                y <= 16 + (int)(noise2(CL_U32(s + 556UL), x, z, 6) * 10L / 4096L)) {
+                return (cl_u8)g_cb.water;
+            }
+            return BLOCK_AIR;
         }
         for (i = 0; i < g_nores; ++i) {
             const BlockDef *o = &g_blocks[g_ores[i]];

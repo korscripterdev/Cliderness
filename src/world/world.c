@@ -49,11 +49,16 @@ int world_open(World *w, cl_u32 seed, const char *dir)
         w->store_open = 1;
     }
     terrain_init_ores();
+    if (!fluid_init(&w->fluid)) {
+        world_close(w);
+        return 0;
+    }
     return 1;
 }
 
 void world_close(World *w)
 {
+    fluid_free(&w->fluid);
     if (w->store_open) {
         store_close(&w->store);
         w->store_open = 0;
@@ -234,6 +239,15 @@ cl_u8 world_get_meta(World *w, int dim, long x, long y, long z)
 }
 
 int world_set(World *w, int dim, long x, long y, long z, cl_u8 block, cl_u8 meta)
+{
+    int r = world_set_raw(w, dim, x, y, z, block, meta);
+    if (r) {
+        fluid_notify(w, dim, x, y, z);
+    }
+    return r;
+}
+
+int world_set_raw(World *w, int dim, long x, long y, long z, cl_u8 block, cl_u8 meta)
 {
     long cx, cz;
     int idx;

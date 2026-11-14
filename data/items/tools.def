@@ -181,3 +181,33 @@ volume=60
 density=4000
 repair=iron_ingot
 repair_pct=30
+
+[item bucket]
+name=Bucket
+type=tool
+glyph=85
+fg=lightgray
+stack=1
+weight=600
+volume=100
+density=7800
+
+[item water_bucket]
+name=Water Bucket
+type=tool
+glyph=85
+fg=lightblue
+stack=1
+weight=10600
+volume=100
+density=1100
+
+[item lava_bucket]
+name=Lava Bucket
+type=tool
+glyph=85
+fg=lightred
+stack=1
+weight=26000
+volume=100
+density=3100
