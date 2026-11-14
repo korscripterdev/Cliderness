@@ -26,6 +26,7 @@
 #include "core/str.h"
 #include "core/mem.h"
 #include "content/effects.h"
+#include "gameplay/entities/creature.h"
 
 #define VIEW_W 56
 #define VIEW_H 19
@@ -213,6 +214,29 @@ static void draw_world(Framebuffer *fb, Game *g)
         fb_put(fb, (int)dx, (int)dz, g_items[e->item].glyph,
                ATTR(g_items[e->item].fg, e->floating ? C_BLUE : ATTR_BG(fb->cells[dz * FB_W + dx].attr)));
     }
+    /* creatures */
+    for (i = 0; i < MAX_MOBS; ++i) {
+        const Mob *m = &g->mobs[i];
+        long dx, dz;
+        cl_u8 bg;
+        if (!m->active || m->dim != p->dim || mx_abs(m->y - p->y) > 1) {
+            continue;
+        }
+        dx = m->x - ox;
+        dz = m->z - oz;
+        if (dx < 0 || dz < 0 || dx >= VIEW_W || dz >= VIEW_H) {
+            continue;
+        }
+        if ((m->x - p->x) * (m->x - p->x) + (m->z - p->z) * (m->z - p->z) > r2) {
+            continue;
+        }
+        bg = (cl_u8)ATTR_BG(fb->cells[dz * FB_W + dx].attr);
+        if (m->state == MS_CHASE || m->state == MS_ATTACK) {
+            bg = C_RED;
+        }
+        fb_put(fb, (int)dx, (int)dz, g_creatures[m->def].glyph,
+               ATTR(m->state == MS_SLEEP ? C_DARKGRAY : g_creatures[m->def].color, bg));
+    }
     /* the player */
     {
         int pf = p->dead ? C_LIGHTRED : p->crouch ? C_LIGHTGRAY :
@@ -344,6 +368,11 @@ static void draw_panel(Framebuffer *fb, Game *g)
         panel_line(fb, y++, loc_get("hud.sea"), buf, UI_TEXT);
         sprintf(buf, "%d", ent_count(g));
         panel_line(fb, y++, loc_get("hud.items"), buf, UI_TEXT);
+        sprintf(buf, "%d", mob_count(g));
+        panel_line(fb, y++, loc_get("hud.creatures"), buf, UI_TEXT);
+        panel_line(fb, y++, loc_get("hud.difficulty"), loc_get(difficulty_key(g->difficulty)), UI_TEXT);
+        sprintf(buf, "%ld", g->kills);
+        panel_line(fb, y++, loc_get("hud.kills"), buf, UI_TEXT);
         sprintf(buf, "%lu", (unsigned long)g->seed);
         panel_line(fb, y++, loc_get("ui.seed"), buf, UI_DIM);
     } else {
@@ -358,6 +387,19 @@ static void draw_panel(Framebuffer *fb, Game *g)
     if (p->mining && y < VIEW_H) {
         fb_text(fb, PANEL_X, VIEW_H - 1, loc_get("hud.mining"), ATTR(C_YELLOW, C_BLACK), 8);
         fb_bar(fb, PANEL_X + 8, VIEW_H - 1, 14, p->mine_progress, p->mine_total, ATTR(C_YELLOW, C_BLACK));
+    } else {
+        /* the creature in front of the player */
+        long fdx, fdz;
+        int t;
+        dir_delta(p->facing, &fdx, &fdz);
+        t = mob_at(g, p->dim, p->x + fdx, p->y, p->z + fdz);
+        if (t >= 0) {
+            const Mob *m = &g->mobs[t];
+            int w = fb_text(fb, PANEL_X, VIEW_H - 1, creature_name(m->def),
+                            ATTR(g_creatures[m->def].color, C_BLACK), 12);
+            fb_bar(fb, PANEL_X + w + 1, VIEW_H - 1, PANEL_W - w - 1, m->hp, g_creatures[m->def].hp,
+                   ATTR(C_LIGHTRED, C_BLACK));
+        }
     }
     if (g_con_debug) {
         sprintf(buf, "t%ld c%d m%luK", g->tick, world_cached_chunks(&g->world), (unsigned long)(mem_in_use() / 1024UL));

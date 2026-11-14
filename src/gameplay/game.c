@@ -89,6 +89,8 @@ int game_create(Game *g, const char *name, const char *dir, cl_u32 seed, int mod
     g->p.spawn_y = g->p.y;
     g->p.spawn_z = g->p.z;
     g->last_minute = ctime_total_minutes(&g->time);
+    g->difficulty = DIFF_NORMAL;
+    g->spawning = 1;
     game_set_mode(g, mode);
     if (mode == GM_CREATIVE) {
         creative_kit(g);
@@ -331,6 +333,9 @@ void game_tick(Game *g)
         if (p->cooldown > 0) {
             --p->cooldown;
         }
+        if (p->attack_cd > 0) {
+            --p->attack_cd;
+        }
         if (p->pending_dir >= 0 && p->cooldown == 0) {
             do_move(g);
         } else if (p->cooldown == 0) {
@@ -353,6 +358,8 @@ void game_tick(Game *g)
         surv_tick(g);
     }
     ent_tick(g);
+    mob_tick(g);
+    mob_spawn_tick(g);
     if ((g->tick % 5L) == 0) {
         fluid_step(&g->world);
     }
@@ -411,6 +418,9 @@ void game_mine(Game *g)
     long x, y, z;
     cl_u8 b;
     if (g->p.dead) {
+        return;
+    }
+    if (game_attack(g)) {
         return;
     }
     facing_cell(g, &x, &y, &z);
@@ -649,6 +659,15 @@ void game_use(Game *g)
         return;
     }
     if (st->item >= 0 && g_items[st->item].tool_type == TOOL_HOE && farm_till(g)) {
+        return;
+    }
+    if (st->item >= 0 && st->item == item_find("bone_meal")) {
+        if (farm_grow_all(g, 2) > 0) {
+            inv_remove_slot(&g->inv, g->inv.selected, 1);
+            log_add(MSG_GOOD, loc_get("msg.fertilised"));
+        } else {
+            log_add(MSG_INFO, loc_get("msg.no_crops_near"));
+        }
         return;
     }
     if (st->item >= 0 && st->item == item_find("bucket")) {

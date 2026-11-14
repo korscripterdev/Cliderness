@@ -16,8 +16,8 @@
 #define CLIDE_DEVELOPER   "korscripterdev"
 #define CLIDE_GENRE       "Open World Survival Sandbox"
 #define CLIDE_ENGINE      "Cliderness Engine"
-#define CLIDE_VERSION     "0.3.0"
-#define CLIDE_VERSION_NUM 300L      /* major*10000 + minor*100 + patch */
+#define CLIDE_VERSION     "0.4.0"
+#define CLIDE_VERSION_NUM 400L      /* major*10000 + minor*100 + patch */
 #define CLIDE_SAVE_FORMAT 2         /* bump when save layout changes */
 #define CLIDE_LICENSE     "GPL-3.0-or-later"
 

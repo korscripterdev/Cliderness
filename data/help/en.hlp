@@ -24,11 +24,11 @@ The world is generated from the seed, so the same seed always gives the same wor
 > Shift + W A S D    sprint
 > Ctrl (tap) or X    crouch on / off
 > Right Shift or V   look at the sky
-> F                  mine / break the block you face
+> F                  attack the creature / mine the block you face
 > R                  place the selected block
 > >                  dig down (descend)
 > <                  build up under yourself (ascend)
-> E                  pick up items / respawn
+> E                  interact: open, trade, pick up items / respawn
 > U                  use: eat, drink water
 > Q / Ctrl+Q         drop one item / the whole stack
 > Tab or I           inventory
@@ -71,13 +71,13 @@ Sprinting during a game minute doubles hunger loss for that minute.
 @related movement,stealth
 Tap Ctrl (Windows, DOS) or press X to toggle crouching. You move at about half speed but make very little noise (10% instead of 30%). Stamina regenerates faster while crouching or standing still.
 
-Noise will matter for monsters, which are planned for a later version.
+Crouching lets you sneak past sleeping or distant creatures.
 
 @topic stealth
 @title Noise and Stealth
 @level 3
-@related crouch,monsters
-The status panel shows your current noise: walking 30%, sprinting 80%, swimming 40%, crouching 10%, standing still slowly drops to 0%. Monster hearing based on this value arrives together with monsters (Phase 7).
+@related crouch,monsters,ai
+The status panel shows your current noise: walking 30%, sprinting 80%, swimming 40%, crouching 10%, standing still slowly drops to 0%; attacking makes 60%. Creatures hear you within hearing radius x noise / 100 cells. Crouching also lowers how far they can see you by a third. Darkness, fog and storms shorten sight.
 
 @topic stamina
 @title Stamina
@@ -158,16 +158,28 @@ The furnace turns raw ores into ingots, sand into glass, clay into bricks and lo
 Crafting trains the Crafting skill, cooking the Cooking skill. Creative mode crafts for free. Recipes are data files in data/recipes.
 
 @topic combat
-@title Combat (planned)
-@level 3
-@related monsters,skills
-Melee and ranged combat, attack, defence and dodging are planned for Phase 7. The Melee and Ranged skills already exist on the character sheet but cannot be trained yet.
+@title Combat
+@level 2
+@related monsters,equipment,skills,formulas
+Face a creature and press F to attack it (F mines blocks when no creature is in front of you). The status panel shows the name and health of the creature you face.
+> Fists      2 damage
+> Tools      3 damage
+> Swords     4-8 damage (wood, stone, bronze, iron), spear 5
+> Bow        hold it and press F: shoots an arrow up to 12 cells in the facing direction (6 damage); arrows are used up, half of the hits can be picked up again
+Every weapon has an attack cooldown; swinging costs stamina in survival. Luck gives a chance of a critical hit (double damage). Killing creatures trains Melee or Ranged.
+
+Creatures hit you when they stand next to you. Worn armour reduces the damage and wears down. Some creatures cause bleeding or poison. /threat tells whether a hostile creature is near; you cannot sleep with one within 12 cells.
 
 @topic monsters
-@title Monsters and Animals (planned)
-@level 3
-@related combat,stealth
-Animals, monsters and NPCs with day/night and weather dependent behaviour are planned for Phase 7. Version 0.1.0 has no creatures; the world is peaceful. /kill @e[type=...] reports that the entity type does not exist yet; /kill @e removes dropped items.
+@title Creatures
+@level 2
+@related combat,stealth,trading,difficulty
+Creatures appear around you, 16-30 cells away, depending on the biome, the time of day and whether you are underground or at sea. They disappear when you go far away.
+> Animals   deer, rabbits, sheep and chickens flee; boars and bears fight back; wolves hunt at night; fish and sharks live in water; bats in caves
+> Monsters  zombies, skeletons, bog wraiths and frost ghouls come out at night and burn in daylight; spiders, cave crawlers and slimes live in caves; sand scorpions in deserts
+> NPCs      wandering traders and hermits on the surface, old miners in caves (see trading)
+Creatures drop meat, leather, bones, feathers, wool, string and more. Cook raw meat and fish at a campfire: raw meat can cause food poisoning.
+/creatures lists all types, /bestiary <type> shows details, /mobs lists the living ones.
 
 @topic items
 @title Items
@@ -463,6 +475,10 @@ Movement waits for a per-step cooldown in ticks: walk 4, sprint 2, crouch 7, swi
 > fall damage = (blocks - 3) x 8 for falls of 4+
 > carry capacity = 20 kg + 3 kg x STR
 > sight radius = 4 + visibility x 32 / 100 + PER/3 outdoors, 4 + PER/4 underground
+> melee damage = weapon x (100 + 3 STR) / 130 x (100 + 2 Melee) / 100, x2 on a critical hit (chance = LCK %), minus the creature's defense (min 1)
+> bow damage = 6 x (100 + 2 Ranged) / 100, range 12
+> creature damage = damage x difficulty (50/100/150%) x (100 - armour defense) / 100, min 1
+> creature spawning: every 2 s, 16-30 cells away, cap 16 + 6 x difficulty (DOS 8 + difficulty)
 
 @topic about
 @title About Cliderness
@@ -472,7 +488,7 @@ Cliderness - Open World Survival Sandbox
 Created by korscripterdev.
 Engine: Cliderness Engine, written in ISO C90.
 License: GNU GPL version 3 or later (LICENSE).
-Version 0.3.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
+Version 0.4.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
 
 @topic stations
 @title Workstations
@@ -511,6 +527,7 @@ Breaking a chest drops its contents. Chests are saved with the world.
 @related inventory,survival,combat
 Clothes, armour and bags are worn in five slots: head, body, legs, feet and back. Select an item in the inventory and press W (or hold it and press U) to wear it; select a worn item at the bottom of the inventory list and press Enter or W to take it off.
 > Fiber clothes   warmth +1..+4, little defense
+> Leather armour  defense 4-12%, a little warmth
 > Iron armour     defense 8-20% each, slightly cold
 > Fiber bag       +15 kg carry capacity
 Defense reduces damage (up to 80%). Warmth raises the felt temperature in the cold. Worn items count toward your weight.
@@ -551,3 +568,37 @@ The world hides structures generated from the seed:
 > Abandoned mines  underground (height 16-44): two long crossing corridors with branches, wooden ceiling beams, torches and mine crates at the corridor ends.
 > Stone ruins      on dry land: a broken ring of cobblestone with an old crate in the middle.
 Opening a crate for the first time fills it with loot (coal, ores, ingots, tools, food, cloth, seeds, rarely gems). /findstructure abandoned_mine shows the nearest one (cheat).
+
+@topic ai
+@title Creature Behaviour
+@level 4
+@related monsters,stealth,formulas
+Every creature runs a goal-driven state machine; twice a second it picks the most urgent goal:
+> 1 survive   badly hurt and sees you: flee
+> 2 attack    hostile and perceives you: chase, then attack
+> 3 shelter   burns in daylight: look for cover
+> 4 home      NPCs walk home at dusk and sleep there
+> 5 rest      day animals sleep at night, night creatures by day
+> 6 wander    otherwise wander or stand still (less in rain)
+Perception: sight = sight radius x weather visibility, halved in the dark for day animals and reduced by a third while you crouch; hearing = hearing radius x your noise %. Sleeping creatures perceive half as far. Attacking any creature makes it remember you (defensive creatures fight back).
+States shown by /mobs: idle, wandering, chasing, attacking, fleeing, sleeping, going home, seeking shelter. A red background marks a creature that is chasing or attacking you; sleeping creatures are dark grey.
+
+@topic difficulty
+@title Difficulty
+@level 2
+@related monsters,combat
+> Peaceful  no monsters; hostile animals still defend themselves
+> Easy      monsters deal 50% damage, fewer creatures
+> Normal    100% damage (default)
+> Hard      150% damage, more creatures
+Change it any time with /difficulty <name>; switching to Peaceful removes all monsters. The difficulty is saved with the world. /spawning off stops natural spawning (cheat).
+
+@topic trading
+@title Trading
+@level 2
+@related monsters,items
+Face an NPC and press E (or use /trade). If you carry what one of its offers asks for, the trade happens at once; otherwise the NPC lists its offers in the message log.
+> Wandering Trader  coal for trade tokens, tokens for bread or iron ingots
+> Hermit            leather for bandages, raw meat for herbal tea, gems for tokens
+> Old Miner         raw iron for an iron pickaxe, bread for torches, crystal shards for tokens
+NPCs are defensive: they fight back if you attack them. Pressing E on an animal or monster shows what it is doing.

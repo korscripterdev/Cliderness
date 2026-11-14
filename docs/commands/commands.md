@@ -22,7 +22,7 @@ Every command below has a real handler and is covered by the test suite. Cheat c
 | `/temperature` | player | cheat | `<set\|get> [30-42]` |
 | `/attribute` | player | cheat | `<set\|get> <stat> [1-100]` |
 | `/skill` | player | cheat | `<set\|get> <skill> [0-100]` |
-| `/kill` | player | cheat | `[@s\|@e\|@e[type=item]]` |
+| `/kill` | player | cheat | `[@s\|@e\|@e[type=item\|mob\|<creature>]]` |
 | `/respawn` | player | any |  |
 | `/spawnpoint` | position | cheat |  |
 | `/crouch` | movement | any |  |
@@ -92,5 +92,23 @@ Every command below has a real handler and is covered by the test suite. Cheat c
 | `/unequip` | equipment | any | `<head\|body\|legs\|feet\|back\|all>` |
 | `/equipment` | equipment | any |  |
 | `/chests` | item | any |  |
+| `/fluid` | fluid | any | `[on\|off]` |
+| `/water` | fluid | cheat | `[level 1-15]` |
+| `/lava` | fluid | cheat | `[level 1-15]` |
+| `/settle` | fluid | cheat | `[steps]` |
+| `/volume` | fluid | any | `[radius]` |
+| `/structures` | world | any |  |
+| `/findstructure` | world | cheat | `<structure>` |
+| `/summon` | creatures | cheat | `<creature> [count]` |
+| `/creatures` | creatures | any | `[animal\|monster\|npc]` |
+| `/mobs` | creatures | any |  |
+| `/difficulty` | world | any | `[peaceful\|easy\|normal\|hard]` |
+| `/spawning` | creatures | cheat | `[on\|off]` |
+| `/despawn` | creatures | cheat | `[creature\|all]` |
+| `/bestiary` | creatures | any | `<creature>` |
+| `/attack` | combat | any |  |
+| `/trade` | creatures | any |  |
+| `/threat` | combat | any |  |
+| `/kills` | combat | any |  |
 
-total top-level commands: 86 (aliases: 25)
+total top-level commands: 104 (aliases: 30)

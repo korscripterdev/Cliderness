@@ -4,6 +4,18 @@
 
 Wichtige Änderungen an Cliderness (erstellt von korscripterdev).
 
+## [0.4.0] — 2026-11-14
+
+Roadmap-Phase 7 (Kreaturen und Kampf).
+
+### Hinzugefügt
+- 22 datengetriebene Kreaturen: 11 Tiere, 8 Monster und 3 NSC.
+- Zielgesteuerte KI (überleben, angreifen, Schutz suchen, heimkehren, ruhen, umherstreifen) mit Sicht, Gehör, Wetter, Dunkelheit und Schleichen.
+- Natürliches Erscheinen nach Biom, Tageszeit, Höhlen und Wasser; Verschwinden fern vom Spieler.
+- Kampf: F greift an, Schwerter, Speer, Bogen und Pfeile, kritische Treffer, Rüstung, Blutung und Gift. Untote verbrennen im Tageslicht.
+- 4 Schwierigkeitsgrade; Kreaturen, Abschüsse und Schwierigkeit werden gespeichert. Beute, gebratenes Fleisch, Lederrüstung, Knochenmehl, Feuerstein, 15 Rezepte.
+- Handel mit NSC (E). 11 neue Befehle (104 insgesamt).
+
 ## [0.3.0] — 2026-11-14
 
 Roadmap-Phase 6 (Weltsimulation).

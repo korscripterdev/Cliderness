@@ -1,0 +1,524 @@
+# Cliderness creature definitions
+#
+# kind       animal / monster / npc
+# aggression never / defensive (fights back) / night (hostile in the dark) / always
+# activity   day / night / any  (when the creature is awake)
+# habitat    surface / cave / water
+# hp, damage, defense  integers; speed = ticks per step (lower is faster)
+# attack_cd  ticks between attacks; sight / hearing in cells
+# flee_pct   flees below this % of max hp; weight = spawn weight
+# group      min-max spawned together; xp = skill xp for the killer
+# effect     status effect inflicted on hit with effect_chance %
+# burns=1    takes damage in daylight; biomes = surface biome ids (empty = any)
+# trade      NPC offers: in_item:count>out_item:count (up to 3)
+#
+# [loot id] sections: item=min-max:chance%
+
+# ---------------------------------------------------------------- animals
+
+[creature deer]
+name=Deer
+glyph='d'
+color=brown
+kind=animal
+aggression=never
+activity=day
+habitat=surface
+hp=12
+speed=4
+sight=10
+hearing=14
+flee_pct=100
+weight=12
+group=1-3
+xp=4
+loot=deer
+biomes=deciduous_forest,conifer_forest,grassland,plains,flower_field,tundra
+
+[creature boar]
+name=Boar
+glyph='b'
+color=brown
+kind=animal
+aggression=defensive
+activity=day
+habitat=surface
+hp=18
+damage=4
+speed=5
+attack_cd=24
+sight=7
+hearing=10
+flee_pct=20
+weight=8
+group=1-2
+xp=6
+loot=boar
+biomes=deciduous_forest,rainforest,savanna,swamp,bamboo_forest
+
+[creature rabbit]
+name=Rabbit
+glyph='r'
+color=white
+kind=animal
+aggression=never
+activity=day
+habitat=surface
+hp=4
+speed=3
+sight=8
+hearing=16
+flee_pct=100
+weight=14
+group=1-3
+xp=2
+loot=rabbit
+biomes=plains,grassland,flower_field,tundra,snowfield,desert
+
+[creature sheep]
+name=Sheep
+glyph='s'
+color=white
+kind=animal
+aggression=never
+activity=day
+habitat=surface
+hp=10
+speed=6
+sight=6
+hearing=8
+weight=10
+group=2-4
+xp=3
+loot=sheep
+biomes=plains,grassland,alpine,flower_field
+
+[creature chicken]
+name=Chicken
+glyph='c'
+color=yellow
+kind=animal
+aggression=never
+activity=day
+habitat=surface
+hp=4
+speed=5
+sight=5
+hearing=8
+weight=10
+group=1-3
+xp=2
+loot=chicken
+biomes=plains,grassland,savanna,rainforest
+
+[creature wolf]
+name=Wolf
+glyph='w'
+color=lightgray
+kind=animal
+aggression=night
+activity=any
+habitat=surface
+hp=16
+damage=5
+speed=4
+attack_cd=20
+sight=12
+hearing=16
+flee_pct=15
+weight=6
+group=2-3
+xp=10
+loot=wolf
+effect=bleeding
+effect_chance=10
+biomes=conifer_forest,tundra,snowfield,alpine
+
+[creature bear]
+name=Bear
+glyph='B'
+color=brown
+kind=animal
+aggression=defensive
+activity=day
+habitat=surface
+hp=40
+damage=9
+defense=2
+speed=6
+attack_cd=30
+sight=8
+hearing=10
+weight=3
+xp=20
+loot=bear
+effect=bleeding
+effect_chance=25
+biomes=conifer_forest,deciduous_forest,alpine
+
+[creature camel]
+name=Camel
+glyph='C'
+color=yellow
+kind=animal
+aggression=never
+activity=day
+habitat=surface
+hp=20
+speed=7
+sight=10
+hearing=8
+weight=6
+xp=4
+loot=boar
+biomes=desert,savanna,wasteland
+
+[creature fish]
+name=Fish
+glyph=224
+color=lightcyan
+kind=animal
+aggression=never
+activity=any
+habitat=water
+hp=3
+speed=3
+sight=5
+hearing=6
+flee_pct=100
+weight=14
+group=2-4
+xp=2
+loot=fish
+biomes=shallow_sea,coral_reef,open_ocean,sand_beach,swamp,wetland,rocky_shore
+
+[creature shark]
+name=Shark
+glyph='S'
+color=darkgray
+kind=animal
+aggression=always
+activity=any
+habitat=water
+hp=30
+damage=8
+speed=4
+attack_cd=24
+sight=10
+hearing=12
+weight=2
+xp=18
+loot=fish
+effect=bleeding
+effect_chance=30
+biomes=open_ocean,deep_ocean,coral_reef
+
+[creature bat]
+name=Bat
+glyph='v'
+color=darkgray
+kind=animal
+aggression=never
+activity=any
+habitat=cave
+hp=3
+speed=3
+sight=4
+hearing=12
+flee_pct=100
+weight=8
+group=1-3
+xp=1
+
+# --------------------------------------------------------------- monsters
+
+[creature zombie]
+name=Zombie
+glyph='Z'
+color=green
+kind=monster
+aggression=night
+activity=night
+habitat=surface
+hp=20
+damage=4
+speed=8
+attack_cd=24
+sight=10
+hearing=12
+weight=10
+group=1-2
+xp=8
+burns=1
+loot=zombie
+effect=food_poisoning
+effect_chance=5
+
+[creature skeleton]
+name=Skeleton
+glyph='K'
+color=white
+kind=monster
+aggression=night
+activity=night
+habitat=surface
+hp=16
+damage=5
+speed=6
+attack_cd=30
+sight=14
+hearing=10
+weight=8
+xp=10
+burns=1
+loot=skeleton
+
+[creature spider]
+name=Giant Spider
+glyph='x'
+color=red
+kind=monster
+aggression=night
+activity=any
+habitat=cave
+hp=14
+damage=4
+speed=4
+attack_cd=20
+sight=8
+hearing=12
+weight=8
+xp=10
+loot=spider
+effect=poisoned
+effect_chance=25
+
+[creature cave_crawler]
+name=Cave Crawler
+glyph='M'
+color=darkgray
+kind=monster
+aggression=always
+activity=any
+habitat=cave
+hp=24
+damage=6
+defense=1
+speed=6
+attack_cd=26
+sight=6
+hearing=14
+weight=6
+group=1-2
+xp=12
+loot=crawler
+
+[creature slime]
+name=Slime
+glyph='o'
+color=lightgreen
+kind=monster
+aggression=always
+activity=any
+habitat=cave
+hp=12
+damage=3
+speed=9
+attack_cd=30
+sight=5
+hearing=6
+weight=6
+group=1-3
+xp=6
+loot=slime
+
+[creature bog_wraith]
+name=Bog Wraith
+glyph='W'
+color=cyan
+kind=monster
+aggression=night
+activity=night
+habitat=surface
+hp=22
+damage=6
+speed=5
+attack_cd=28
+sight=12
+hearing=10
+weight=4
+xp=15
+burns=1
+loot=wraith
+effect=common_cold
+effect_chance=20
+biomes=swamp,wetland,mangrove_coast,mudflat
+
+[creature sand_scorpion]
+name=Sand Scorpion
+glyph='q'
+color=yellow
+kind=monster
+aggression=always
+activity=night
+habitat=surface
+hp=14
+damage=5
+speed=5
+attack_cd=24
+sight=7
+hearing=8
+weight=6
+xp=10
+loot=scorpion
+effect=poisoned
+effect_chance=35
+biomes=desert,wasteland,savanna
+
+[creature frost_ghoul]
+name=Frost Ghoul
+glyph='G'
+color=lightcyan
+kind=monster
+aggression=night
+activity=night
+habitat=surface
+hp=26
+damage=6
+defense=1
+speed=7
+attack_cd=26
+sight=10
+hearing=10
+weight=5
+xp=16
+loot=zombie
+biomes=snowfield,tundra,alpine
+
+# -------------------------------------------------------------------- NPCs
+
+[creature trader]
+name=Wandering Trader
+glyph=1
+color=lightmagenta
+kind=npc
+aggression=defensive
+activity=day
+habitat=surface
+hp=30
+damage=3
+speed=7
+attack_cd=30
+sight=8
+hearing=8
+weight=2
+xp=0
+trade=coal:6>trade_token:1
+trade=trade_token:2>bread:3
+trade=trade_token:5>iron_ingot:2
+biomes=plains,grassland,savanna,desert,deciduous_forest
+
+[creature hermit]
+name=Hermit
+glyph=2
+color=lightgray
+kind=npc
+aggression=defensive
+activity=day
+habitat=surface
+hp=24
+damage=3
+speed=8
+sight=6
+hearing=6
+weight=1
+xp=0
+trade=leather:4>bandage:2
+trade=raw_meat:3>herbal_tea:1
+trade=gem:1>trade_token:6
+biomes=conifer_forest,alpine,tundra,swamp
+
+[creature miner_npc]
+name=Old Miner
+glyph=1
+color=yellow
+kind=npc
+aggression=defensive
+activity=any
+habitat=cave
+hp=26
+damage=4
+speed=8
+sight=6
+hearing=6
+weight=1
+xp=0
+trade=raw_iron:4>iron_pickaxe:1
+trade=bread:2>torch:8
+trade=crystal_shard:2>trade_token:3
+
+# -------------------------------------------------------------------- loot
+
+[loot deer]
+raw_meat=1-3:100
+leather=1-2:80
+bone=0-1:40
+
+[loot boar]
+raw_meat=2-3:100
+leather=1-2:70
+
+[loot rabbit]
+raw_meat=1-1:100
+leather=0-1:40
+
+[loot sheep]
+raw_meat=1-2:100
+wool=1-3:100
+
+[loot chicken]
+raw_meat=1-1:100
+feather=1-3:100
+
+[loot wolf]
+raw_meat=1-2:80
+leather=1-1:60
+bone=1-2:50
+
+[loot bear]
+raw_meat=3-5:100
+leather=2-4:100
+bone=1-2:60
+
+[loot fish]
+raw_fish=1-1:100
+
+[loot zombie]
+rotten_flesh=1-2:100
+iron_ingot=0-1:5
+
+[loot skeleton]
+bone=1-3:100
+arrow=0-3:80
+string=0-1:20
+
+[loot spider]
+string=1-3:100
+venom_gland=0-1:30
+
+[loot crawler]
+bone=0-2:60
+coal=1-2:50
+raw_iron=0-1:25
+
+[loot slime]
+slime_gel=1-2:100
+
+[loot wraith]
+cloth=1-2:70
+bone=0-1:50
+trade_token=0-1:25
+
+[loot scorpion]
+venom_gland=1-1:60
+string=0-1:30

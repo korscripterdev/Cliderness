@@ -5,6 +5,7 @@ src/commands/cmd_build.c
 src/commands/cmd_craft.c
 src/commands/cmd_fluid.c
 src/commands/cmd_items.c
+src/commands/cmd_mob.c
 src/commands/cmd_player.c
 src/commands/cmd_system.c
 src/commands/cmd_world.c
@@ -23,6 +24,8 @@ src/core/str.c
 src/gameplay/building/edit.c
 src/gameplay/crafting/crafting.c
 src/gameplay/entities/entity.c
+src/gameplay/entities/creature.c
+src/gameplay/entities/mob.c
 src/gameplay/farming/farming.c
 src/gameplay/game.c
 src/gameplay/inventory/inventory.c

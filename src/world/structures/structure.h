@@ -20,7 +20,7 @@
 #include "core/types.h"
 
 #define MAX_STRUCTS 16
-#define MAX_LOOT    16
+#define MAX_LOOT    40
 #define LOOT_ENTRIES 12
 
 enum { ST_MINE = 0, ST_RUINS, ST_CITY, ST_TYPE_COUNT };

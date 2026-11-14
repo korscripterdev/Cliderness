@@ -4,6 +4,7 @@
 #include "save/save.h"
 #include "content/content.h"
 #include "content/effects.h"
+#include "gameplay/entities/creature.h"
 #include "core/crc.h"
 #include "core/ini.h"
 #include "core/str.h"
@@ -141,6 +142,9 @@ static void write_body(SaveW *w, Game *g)
     sw_kl(w, "mode", g->mode);
     sw_kl(w, "cheats", g->cheats);
     sw_kl(w, "cheated", g->cheated);
+    sw_kl(w, "difficulty", g->difficulty);
+    sw_kl(w, "spawning", g->spawning);
+    sw_kl(w, "kills", g->kills);
     sw_kl(w, "tick", g->tick);
     sw_line(w, "[time]");
     sw_kl(w, "day", g->time.day);
@@ -257,6 +261,17 @@ static void write_body(SaveW *w, Game *g)
             sw_kv(w, key, buf);
         }
         sw_kl(w, "enabled", f->enabled);
+    }
+    sw_line(w, "[mobs]");
+    for (i = 0; i < MAX_MOBS; ++i) {
+        const Mob *m = &g->mobs[i];
+        if (!m->active) {
+            continue;
+        }
+        sprintf(key, "m%d", i);
+        sprintf(buf, "%s %d %ld %ld %ld %d %ld %ld %d", g_creatures[m->def].id, m->dim, m->x, m->y, m->z,
+                m->hp, m->home_x, m->home_z, m->aggro);
+        sw_kv(w, key, buf);
     }
     sw_line(w, "[entities]");
     for (i = 0; i < MAX_ITEM_ENTS; ++i) {
@@ -383,6 +398,9 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
         else if (str_ieq(key, "format")) c->format = (int)num(v);
         else if (str_ieq(key, "game")) str_copy(c->game, v, sizeof(c->game));
         else if (c->phase && str_ieq(key, "cheated")) g->cheated = (int)num(v);
+        else if (c->phase && str_ieq(key, "difficulty")) g->difficulty = (int)CL_CLAMP(num(v), 0L, (long)(DIFF_COUNT - 1));
+        else if (c->phase && str_ieq(key, "spawning")) g->spawning = num(v) != 0;
+        else if (c->phase && str_ieq(key, "kills")) g->kills = num(v);
         else if (c->phase && str_ieq(key, "tick")) g->tick = num(v);
         return 0;
     }
@@ -559,6 +577,24 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
             g->chests[idx].s[slot].item = (cl_s16)it;
             g->chests[idx].s[slot].count = (cl_s16)cnt;
             g->chests[idx].s[slot].dur = (cl_s16)dur;
+        }
+    } else if (str_ieq(type, "mobs")) {
+        char cid[32];
+        int dim, hp, aggro, m, def;
+        long x, y, z, hx, hz;
+        if (sscanf(v, "%31s %d %ld %ld %ld %d %ld %ld %d", cid, &dim, &x, &y, &z, &hp, &hx, &hz, &aggro) != 9) {
+            return 0;
+        }
+        def = creature_find(cid);
+        if (def < 0) {
+            return 0;
+        }
+        m = mob_spawn(g, def, dim, x, y, z);
+        if (m >= 0) {
+            g->mobs[m].hp = (cl_s16)hp;
+            g->mobs[m].home_x = hx;
+            g->mobs[m].home_z = hz;
+            g->mobs[m].aggro = (cl_u8)(aggro != 0);
         }
     } else if (str_ieq(type, "entities")) {
         char iid[ID_LEN + 8];

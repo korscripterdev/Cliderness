@@ -30,6 +30,23 @@ enum { GM_SURVIVAL = 0, GM_CREATIVE, GM_ADVENTURE, GM_SPECTATOR, GM_COUNT };
 #define MAX_CHESTS 128
 #endif
 #define CHEST_SLOTS 27
+#ifdef CLIDE_TARGET_DOS16
+#define MAX_MOBS 16
+#else
+#define MAX_MOBS 48
+#endif
+
+enum { DIFF_PEACEFUL = 0, DIFF_EASY, DIFF_NORMAL, DIFF_HARD, DIFF_COUNT };
+
+/* a living creature (definition in gameplay/entities/creature.h) */
+typedef struct Mob {
+    long   x, y, z;
+    long   home_x, home_z;
+    cl_s16 def;
+    cl_s16 hp;
+    cl_s16 think, cd_move, cd_attack;
+    cl_u8  dim, active, state, aggro;
+} Mob;
 
 /* a planted crop or sapling waiting for its next growth stage */
 typedef struct Crop {
@@ -71,6 +88,10 @@ typedef struct Game {
     Chest       chests[MAX_CHESTS];
     int         ui_request;
     int         ui_arg;
+    Mob         mobs[MAX_MOBS];
+    int         difficulty;
+    int         spawning;      /* natural creature spawning on */
+    long        kills;
 } Game;
 
 extern Game g_game;
@@ -109,10 +130,20 @@ void ent_tick(Game *g);
 int  ent_pickup(Game *g, long x, long y, long z);
 int  ent_count(const Game *g);
 int  ent_kill_all(Game *g);
-/* creatures (Phase 7): 1 if a hostile creature is within radius */
+/* creatures (gameplay/entities/mob.c): 1 if a hostile creature is within radius */
 int  ent_hostile_near(Game *g, int radius);
-/* interact with a creature in a cell (trade / pet); 1 if handled */
+/* interact with a creature in a cell (trade / look); 1 if handled */
 int  ent_interact(Game *g, long x, long y, long z);
+int  mob_spawn(Game *g, int def, int dim, long x, long y, long z);
+int  mob_at(Game *g, int dim, long x, long y, long z);
+int  mob_count(const Game *g);
+int  mob_damage(Game *g, int idx, int dmg, int skill);   /* 0 none, 1 hit, 2 killed */
+int  mob_kill_type(Game *g, int def);                    /* def -1 = all */
+void mob_tick(Game *g);
+void mob_spawn_tick(Game *g);
+int  game_attack(Game *g);   /* 1 if an attack happened (or was on cooldown) */
+const char *difficulty_key(int d);
+int  difficulty_find(const char *name);
 
 /* survival (once per game minute) */
 void surv_minute(Game *g);

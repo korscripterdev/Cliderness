@@ -4,6 +4,24 @@
 
 All notable changes to Cliderness (created by korscripterdev).
 
+## [0.4.0] — 2026-11-14
+
+Roadmap phase 7 (creatures and combat).
+
+### Added
+- 22 data-driven creatures (`data/entities/creature.def`): deer, boars, rabbits, sheep, chickens, wolves, bears, camels, fish, sharks, bats; zombies, skeletons, giant spiders, cave crawlers, slimes, bog wraiths, sand scorpions, frost ghouls; wandering traders, hermits and old miners.
+- Goal-driven AI state machine (survive, attack, shelter, go home, rest, wander) with sight, hearing, weather visibility, darkness and crouching; day and night routines, NPCs return home at dusk.
+- Natural spawning by biome, time of day, caves and water; creatures despawn far from the player.
+- Combat: F attacks the creature in front of you, swords, flint spear, bow and arrows, critical hits, weapon cooldowns and wear, Melee/Ranged skill xp. Creatures hit back, armour reduces damage and wears, some creatures cause bleeding or poison. Undead burn in daylight.
+- Difficulty (peaceful, easy, normal, hard), saved with the world. Creatures, kills and difficulty are saved.
+- Loot tables for creatures; raw/cooked meat and fish, leather armour, bone meal (fertiliser), flint from gravel; 15 new recipes.
+- NPC trading with E.
+- 11 commands (104 in total): summon, creatures, mobs, difficulty, spawning, despawn, bestiary, attack, trade, threat, kills; /kill @e[type=<creature>] now works.
+- Help: combat, creatures, creature behaviour, difficulty, trading; formulas updated.
+
+### Changed
+- You cannot sleep with a hostile creature within 12 cells (this check now has real creatures).
+
 ## [0.3.0] — 2026-11-14
 
 Roadmap phase 6 (world simulation).

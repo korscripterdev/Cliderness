@@ -1,0 +1,151 @@
+# Cliderness item definitions - combat
+# damage = melee damage, speed = ticks between swings (20 = 1 second).
+# The bow shoots arrows from the inventory (range 12, damage 6 + ranged skill).
+
+[item wooden_sword]
+name=Wooden Sword
+type=weapon
+glyph=24
+fg=brown
+damage=4
+speed=10
+durability=60
+stack=1
+weight=700
+volume=40
+density=700
+repair=oak_planks
+repair_pct=25
+
+[item stone_sword]
+name=Stone Sword
+type=weapon
+glyph=24
+fg=lightgray
+damage=6
+speed=11
+durability=130
+stack=1
+weight=1200
+volume=40
+density=1800
+repair=cobblestone
+repair_pct=25
+
+[item bronze_sword]
+name=Bronze Sword
+type=weapon
+glyph=24
+fg=yellow
+damage=7
+speed=10
+durability=200
+stack=1
+weight=1400
+volume=40
+density=4000
+repair=bronze_ingot
+repair_pct=30
+
+[item iron_sword]
+name=Iron Sword
+type=weapon
+glyph=24
+fg=white
+damage=8
+speed=10
+durability=250
+stack=1
+weight=1500
+volume=40
+density=4000
+repair=iron_ingot
+repair_pct=30
+
+[item flint_spear]
+name=Flint Spear
+type=weapon
+glyph='/'
+fg=darkgray
+damage=5
+speed=14
+durability=80
+stack=1
+weight=900
+volume=60
+density=800
+repair=flint
+repair_pct=30
+
+[item bow]
+name=Bow
+type=weapon
+glyph=')'
+fg=brown
+damage=1
+speed=12
+durability=120
+stack=1
+weight=600
+volume=50
+density=700
+repair=string
+repair_pct=30
+
+[item arrow]
+name=Arrow
+type=resource
+glyph=26
+fg=lightgray
+stack=64
+weight=20
+volume=2
+density=700
+
+[item leather_cap]
+name=Leather Cap
+type=armor
+equip=head
+glyph=127
+fg=brown
+defense=6
+insulation=2
+durability=100
+stack=1
+weight=300
+volume=15
+density=900
+repair=leather
+repair_pct=30
+
+[item leather_tunic]
+name=Leather Tunic
+type=armor
+equip=body
+glyph=219
+fg=brown
+defense=12
+insulation=4
+durability=120
+stack=1
+weight=900
+volume=40
+density=900
+repair=leather
+repair_pct=30
+
+[item leather_boots]
+name=Leather Boots
+type=armor
+equip=feet
+glyph=220
+fg=brown
+defense=4
+insulation=1
+durability=90
+stack=1
+weight=400
+volume=15
+density=900
+repair=leather
+repair_pct=30

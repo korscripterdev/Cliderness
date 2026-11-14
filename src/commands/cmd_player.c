@@ -3,6 +3,7 @@
 #include <string.h>
 #include "commands/console.h"
 #include "content/content.h"
+#include "gameplay/entities/creature.h"
 #include "localization/locale.h"
 #include "core/str.h"
 
@@ -216,9 +217,28 @@ static int c_kill(ConCtx *c)
         con_good(loc_fmt("con.killed", buf, NULL, NULL));
         return CMD_OK;
     }
+    if (str_ieq(sel, "@e[type=mob]") || str_ieq(sel, "@e[type=creature]")) {
+        sprintf(buf, "%d", mob_kill_type(c->g, -1));
+        con_good(loc_fmt("con.killed", buf, NULL, NULL));
+        return CMD_OK;
+    }
     if (str_iprefix(sel, "@e[type=")) {
-        con_err(loc_get("con.no_such_entity"));
-        return CMD_ERR;
+        char id[40];
+        int def;
+        size_t n;
+        str_copy(id, sel + 8, sizeof(id));
+        n = strlen(id);
+        if (n > 0 && id[n - 1] == ']') {
+            id[n - 1] = '\0';
+        }
+        def = creature_find(id);
+        if (def < 0) {
+            con_err(loc_get("con.no_such_entity"));
+            return CMD_ERR;
+        }
+        sprintf(buf, "%d", mob_kill_type(c->g, def));
+        con_good(loc_fmt("con.killed", buf, NULL, NULL));
+        return CMD_OK;
     }
     return con_usage(c);
 }
@@ -348,7 +368,7 @@ static const Command g_cmds[] = {
     { "temperature", "player", "<set|get> [30-42]", "xn", "set|get", PERM_CHEAT, c_temperature, "temp" },
     { "attribute", "player", "<set|get> <stat> [1-100]", "xsn", "set|get", PERM_CHEAT, c_attribute, "attr" },
     { "skill", "player", "<set|get> <skill> [0-100]", "xkn", "set|get", PERM_CHEAT, c_skill, NULL },
-    { "kill", "player", "[@s|@e|@e[type=item]]", "@", NULL, PERM_CHEAT, c_kill, NULL },
+    { "kill", "player", "[@s|@e|@e[type=item|mob|<creature>]]", "@", NULL, PERM_CHEAT, c_kill, NULL },
     { "respawn", "player", "", "", NULL, PERM_ANY, c_respawn, NULL },
     { "spawnpoint", "position", "", "", NULL, PERM_CHEAT, c_spawnpoint, "setspawn" },
     { "crouch", "movement", "", "", NULL, PERM_ANY, c_crouch, "sneak" },

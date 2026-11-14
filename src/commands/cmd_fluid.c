@@ -78,7 +78,7 @@ static int c_volume(ConCtx *c)
 static int c_structures(ConCtx *c)
 {
     int i;
-    char buf[96];
+    char buf[160];
     (void)c;
     for (i = 0; i < g_struct_count; ++i) {
         sprintf(buf, "%-16s %3d%%", g_structs[i].id, g_structs[i].rarity);

@@ -4,6 +4,18 @@
 
 Changements notables de Cliderness (créé par korscripterdev).
 
+## [0.4.0] — 2026-11-14
+
+Phase 7 de la feuille de route (créatures et combat).
+
+### Ajouté
+- 22 créatures définies par les données : 11 animaux, 8 monstres et 3 PNJ.
+- IA à objectifs (survivre, attaquer, s'abriter, rentrer, se reposer, errer) avec vue, ouïe, météo, obscurité et discrétion.
+- Apparition naturelle selon le biome, l'heure, les grottes et l'eau ; disparition loin du joueur.
+- Combat : F attaque, épées, lance, arc et flèches, coups critiques, armure, saignement et poison. Les morts-vivants brûlent au soleil.
+- 4 niveaux de difficulté ; créatures, victimes et difficulté sauvegardées. Butin, viande cuite, armure de cuir, poudre d'os, silex, 15 recettes.
+- Commerce avec les PNJ (E). 11 nouvelles commandes (104 au total).
+
 ## [0.3.0] — 2026-11-14
 
 Phase 6 de la feuille de route (simulation du monde).

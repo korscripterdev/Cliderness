@@ -33,6 +33,7 @@ typedef struct Player {
     int  move_mode;
     int  crouch;
     int  cooldown;
+    int  attack_cd;       /* ticks until the next attack */
     int  pending_dir;
     int  pending_sprint;
     int  noise;           /* 0..100 */

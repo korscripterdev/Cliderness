@@ -209,6 +209,8 @@ floor_fg=lightgray
 flags=solid
 hardness=12
 tool=shovel
+drop2=flint
+drop2_chance=12
 weight=1800
 density=1800
 

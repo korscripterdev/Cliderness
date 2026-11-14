@@ -115,7 +115,8 @@ static void t_handlers(void)
     CHECK(run(g, "/durability set 50") == CMD_OK);
     CHECK(g->inv.s[0].dur == g_items[g->inv.s[0].item].durability / 2);
     CHECK(run(g, "/repair") == CMD_OK && g->inv.s[0].dur == g_items[g->inv.s[0].item].durability);
-    CHECK(run(g, "/kill @e[type=Cliderness:zombie]") == CMD_ERR);   /* monsters: Phase 7 */
+    CHECK(run(g, "/kill @e[type=Cliderness:zombie]") == CMD_OK);
+    CHECK(run(g, "/kill @e[type=unicorn]") == CMD_ERR);
     CHECK(run(g, "/kill @e[type=item]") == CMD_OK);
     CHECK(run(g, "/locate desert") == CMD_OK || run(g, "/locate desert") == CMD_ERR);
     CHECK(run(g, "/help noclip") == CMD_OK);

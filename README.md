@@ -15,7 +15,7 @@ explore, mine, build, reshape the land and survive.
 ~~~~~~~~~≈≈≈≈@..¥.▒▓▓·····▓│Hunger  ████████·  90%
 ```
 
-## What works in 0.1.0
+## What works in 0.4.0
 
 * Seeded, deterministic 3D world (identical on 16-bit and 64-bit), 38 biomes,
   caves, ores, oceans, coral reefs; only changed chunks are saved.
@@ -27,15 +27,18 @@ explore, mine, build, reshape the land and survive.
   trees, chests, beds and sleep, equipment and bags, repairs, injuries and illness.
 * ClideFluid: flowing water and lava with volume conservation, dams, rain
   puddles, buckets; rivers, underground lakes, abandoned mines and ruins.
+* 22 creatures (animals, monsters, NPCs) with goal-driven AI, sight and
+  hearing, day/night routines; melee and bow combat, armour, loot, trading,
+  undead that burn in daylight, four difficulty levels.
 * Game time with seasons and moon phases, 18 weather types, a full sky view
   (sun, moon, seeded constellations, clouds, birds, meteors, aurora, eclipses).
-* Command console: **93** working commands with permissions, Tab completion,
+* Command console: **104** working commands with permissions, Tab completion,
   history and undo/redo for building commands.
-* Offline help: 45 topics, 5 levels, search, favourites, related links.
+* Offline help: 56 topics, 5 levels, search, favourites, related links.
 * 11 UI languages; F1 / Esc freeze the game completely.
 * Crash-safe saves (temporary file + CRC verification + atomic replace).
 
-Not yet: creatures and combat, ships, the Ancient
+Not yet: ships, the Ancient
 Dimension, live PCM audio. See [ROADMAP.md](ROADMAP.md) for the exact status.
 
 ## Build

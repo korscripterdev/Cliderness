@@ -4,6 +4,18 @@
 
 Modifiche principali di Cliderness (creato da korscripterdev).
 
+## [0.4.0] — 2026-11-14
+
+Fase 7 della roadmap (creature e combattimento).
+
+### Aggiunto
+- 22 creature definite dai dati: 11 animali, 8 mostri e 3 PNG.
+- IA a obiettivi (sopravvivere, attaccare, ripararsi, tornare a casa, riposare, vagare) con vista, udito, meteo, buio e furtività.
+- Comparsa naturale per bioma, ora, grotte e acqua; scompaiono lontano dal giocatore.
+- Combattimento: F attacca, spade, lancia, arco e frecce, colpi critici, armatura, sanguinamento e veleno. I non morti bruciano alla luce del giorno.
+- 4 livelli di difficoltà; creature, uccisioni e difficoltà vengono salvate. Bottino, carne cotta, armatura di cuoio, farina d'ossa, selce, 15 ricette.
+- Commercio con i PNG (E). 11 nuovi comandi (104 in totale).
+
 ## [0.3.0] — 2026-11-14
 
 Fase 6 della roadmap (simulazione del mondo).

@@ -1,0 +1,153 @@
+# Cliderness item definitions - creature drops
+
+[item raw_meat]
+name=Raw Meat
+type=food
+glyph=15
+fg=lightred
+food=80
+water=10
+weight=300
+volume=10
+density=1050
+effect=food_poisoning
+effect_chance=30
+
+[item cooked_meat]
+name=Cooked Meat
+type=food
+glyph=15
+fg=brown
+food=260
+water=10
+weight=250
+volume=10
+density=1000
+
+[item raw_fish]
+name=Raw Fish
+type=food
+glyph=224
+fg=lightcyan
+food=60
+water=20
+weight=250
+volume=10
+density=1050
+effect=food_poisoning
+effect_chance=20
+
+[item cooked_fish]
+name=Cooked Fish
+type=food
+glyph=224
+fg=yellow
+food=200
+water=20
+weight=220
+volume=10
+density=1000
+
+[item leather]
+name=Leather
+type=material
+glyph=240
+fg=brown
+weight=200
+volume=10
+density=900
+
+[item bone]
+name=Bone
+type=material
+glyph=196
+fg=white
+weight=150
+volume=5
+density=1800
+
+[item bone_meal]
+name=Bone Meal
+type=resource
+glyph=250
+fg=white
+weight=50
+volume=2
+density=1200
+
+[item feather]
+name=Feather
+type=material
+glyph=39
+fg=white
+weight=5
+volume=1
+density=100
+
+[item wool]
+name=Wool
+type=material
+glyph=176
+fg=white
+weight=100
+volume=15
+density=300
+fuel=1
+
+[item string]
+name=String
+type=material
+glyph=126
+fg=lightgray
+weight=10
+volume=1
+density=900
+
+[item flint]
+name=Flint
+type=material
+glyph=30
+fg=darkgray
+weight=80
+volume=2
+density=2600
+
+[item rotten_flesh]
+name=Rotten Flesh
+type=food
+glyph=15
+fg=green
+food=40
+weight=200
+volume=10
+density=1050
+effect=food_poisoning
+effect_chance=80
+
+[item venom_gland]
+name=Venom Gland
+type=material
+glyph=7
+fg=lightgreen
+weight=30
+volume=2
+density=1000
+
+[item slime_gel]
+name=Slime Gel
+type=material
+glyph=9
+fg=lightgreen
+weight=60
+volume=3
+density=1100
+
+[item trade_token]
+name=Trade Token
+type=resource
+glyph=155
+fg=yellow
+stack=99
+weight=10
+volume=1
+density=8000

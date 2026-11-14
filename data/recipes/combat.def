@@ -1,0 +1,109 @@
+# Cliderness recipes - combat.def (weapons, ammunition, leather armour, cooking meat)
+# in = item:count, station = none/workbench/furnace/campfire/anvil/altar
+
+[recipe wooden_sword]
+result=wooden_sword
+in=oak_planks:2
+in=stick:1
+station=workbench
+category=tools
+
+[recipe stone_sword]
+result=stone_sword
+in=cobblestone:2
+in=stick:1
+station=workbench
+category=tools
+
+[recipe bronze_sword]
+result=bronze_sword
+in=bronze_ingot:2
+in=stick:1
+station=anvil
+skill=crafting
+min_skill=4
+category=tools
+
+[recipe iron_sword]
+result=iron_sword
+in=iron_ingot:2
+in=stick:1
+station=anvil
+skill=crafting
+min_skill=6
+category=tools
+
+[recipe flint_spear]
+result=flint_spear
+in=flint:1
+in=stick:2
+in=plant_fiber:2
+category=tools
+
+[recipe string]
+result=string
+count=2
+in=plant_fiber:3
+category=materials
+
+[recipe bow]
+result=bow
+in=stick:3
+in=string:3
+station=workbench
+category=tools
+
+[recipe arrow]
+result=arrow
+count=4
+in=flint:1
+in=stick:1
+in=feather:1
+category=tools
+
+[recipe leather_cap]
+result=leather_cap
+in=leather:3
+station=workbench
+category=equipment
+
+[recipe leather_tunic]
+result=leather_tunic
+in=leather:6
+station=workbench
+category=equipment
+
+[recipe leather_boots]
+result=leather_boots
+in=leather:2
+station=workbench
+category=equipment
+
+[recipe cooked_meat]
+result=cooked_meat
+in=raw_meat:1
+station=campfire
+fuel=1
+skill=cooking
+category=food
+
+[recipe cooked_fish]
+result=cooked_fish
+in=raw_fish:1
+station=campfire
+fuel=1
+skill=cooking
+category=food
+
+[recipe bone_meal]
+result=bone_meal
+count=3
+in=bone:1
+category=materials
+
+[recipe cloth_wool]
+result=cloth
+count=2
+in=wool:2
+station=workbench
+category=materials

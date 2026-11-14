@@ -5,7 +5,7 @@
 # runner for Windows, Linux, macOS and other Unix systems. DOS builds use
 # builds/dos (Open Watcom / DJGPP), see docs/platforms/dos.md.
 cmake_minimum_required(VERSION 3.10)
-project(Cliderness VERSION 0.3.0 LANGUAGES C)
+project(Cliderness VERSION 0.4.0 LANGUAGES C)
 
 option(CLIDE_STRICT "Fail on non-C90 constructs in the engine (pedantic errors)" ON)
 option(CLIDE_TESTS "Build the automated tests" ON)
