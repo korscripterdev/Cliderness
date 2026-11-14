@@ -500,9 +500,9 @@ static void aud_shutdown(void)
 
 static void aud_tone(int hz) { (void)hz; }
 
-static int aud_pcm(const short *s, long n, int interrupt)
+static int aud_pcm(const short *s, long n, int restart)
 {
-    (void)interrupt;
+    (void)restart;
     if (n <= 0) {
         return 0;
     }

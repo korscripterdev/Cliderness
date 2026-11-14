@@ -1,0 +1,709 @@
+@topic start
+@title Erste Schritte
+@level 1
+@related controls,survival,gamemodes,about
+# Willkommen in Cliderness
+Cliderness ist eine freie Open-World-Survival-Sandbox von korscripterdev. Es gibt keine Geschichte, der du folgen musst, und kein Ende: erkunde, sammle, baue ab, baue auf und überlebe, wie du willst.
+
+# Deine ersten Minuten
+1. Wähle im Titelbild Neue Welt, behalte oder ändere Name und Startwert, wähle einen Spielmodus und drücke Enter.
+2. Du bist das weiße @ in der Mitte der Karte. Gehe mit W A S D.
+3. Behalte die Anzeige rechts im Blick: Gesundheit, Ausdauer, Hunger, Durst, Müdigkeit und Körpertemperatur.
+4. Schau zu einem Baum oder Felsen und drücke F, um ihn abzubauen. Rohstoffe landen in der Schnellleiste unten.
+5. Wähle einen Block mit 1-9 und setze ihn mit R.
+6. Esc pausiert und speichert. F1 öffnet jederzeit diese Hilfe.
+
+Die Welt entsteht aus dem Startwert, derselbe Startwert ergibt also immer dieselbe Welt. Gespeichert werden nur deine Änderungen.
+
+@topic controls
+@title Steuerung
+@level 1
+@related movement,keybinds,inventory,commands
+# Standardtasten
+> W A S D / Pfeile   bewegen
+> Shift + W A S D    sprinten
+> Strg (tippen) / X  ducken an / aus
+> rechte Umschalt / V   in den Himmel schauen
+> F                  Kreatur angreifen / Block vor dir abbauen
+> R                  gewählten Block setzen
+> >                  nach unten graben (absteigen)
+> <                  unter dir aufbauen (aufsteigen)
+> E                  interagieren: öffnen, handeln, an / von Bord, aufheben / wiederbeleben
+> U                  benutzen: essen, Wasser trinken
+> Q / Strg+Q         einen Gegenstand / den ganzen Stapel fallen lassen
+> Tab oder I         Inventar
+> C                  Charakterbogen
+> K                  Handwerk
+> 1-9                Schnellleistenplatz wählen
+> P                  Seite der Statusanzeige wechseln
+> F1 oder ?          Hilfe (pausiert das Spiel)
+> Esc                Pausenmenü (pausiert das Spiel)
+> / oder T           Befehlskonsole
+
+Jede Taste lässt sich unter Einstellungen > Tastenbelegung ändern. Terminals unter Linux, macOS und Unix können rechte Umschalt oder Strg allein nicht melden; nutze dort die Ersatztasten V und X. Windows und DOS unterstützen beides.
+
+@topic movement
+@title Bewegung
+@level 1
+@related sprint,crouch,stamina,terrain
+# Gehen
+Jeder Tastendruck oder jede Tastenwiederholung bewegt dich um ein Feld. Du schaust in die Richtung, in die du dich zuletzt bewegt hast; das Feld vor dir ist hervorgehoben.
+
+# Höhe
+Die Welt ist dreidimensional, wird aber von oben gezeigt. Ein Feld, das als heller Boden eine Ebene höher gezeichnet ist, ist eine Stufe: lauf hinein, um hinaufzusteigen (kostet Ausdauer). Schattierte Felder (hell = 2 hoch, dunkel = 3 oder mehr) sind Klippen, die du nicht direkt erklimmen kannst; grabe Stufen hinein oder baue mit < auf.
+
+Wer über eine Kante läuft, fällt. Stürze von 4 oder mehr Blöcken verletzen, außer du landest im Wasser.
+
+# Schwimmen
+Über Wasser treibst du an der Oberfläche und schwimmst. Schwimmen ist langsamer, kostet etwas Ausdauer und trainiert die Fertigkeit Schwimmen.
+
+@topic sprint
+@title Sprinten
+@level 2
+@related stamina,movement,stats
+Halte Shift beim Bewegen (oder tippe großes W A S D), um zu sprinten. Sprinten ist etwa doppelt so schnell wie Gehen, kostet aber bei jedem Schritt Ausdauer und macht viel Lärm. Ist die Ausdauer zu niedrig, gehst du wieder normal.
+
+Sprinten während einer Spielminute verdoppelt den Hunger in dieser Minute.
+
+@topic crouch
+@title Ducken
+@level 2
+@related movement,stealth
+Tippe Strg (Windows, DOS) oder drücke X, um das Ducken umzuschalten. Du bewegst dich etwa halb so schnell, machst aber sehr wenig Lärm (10 % statt 30 %). Ausdauer erholt sich beim Ducken oder Stillstehen schneller.
+
+Geduckt schleichst du an schlafenden oder entfernten Kreaturen vorbei.
+
+@topic stealth
+@title Lärm und Schleichen
+@level 3
+@related crouch,monsters,ai
+Die Statusanzeige zeigt deinen aktuellen Lärm: Gehen 30 %, Sprinten 80 %, Schwimmen 40 %, Ducken 10 %, Stillstehen sinkt langsam auf 0 %; Angreifen macht 60 %. Kreaturen hören dich im Umkreis von Hörweite x Lärm / 100 Feldern. Ducken verringert außerdem um ein Drittel, wie weit sie dich sehen. Dunkelheit, Nebel und Stürme verkürzen die Sicht.
+
+@topic stamina
+@title Ausdauer
+@level 2
+@related sprint,survival,stats
+Ausdauer (0-100 %) verbrauchen Sprinten, Stufensteigen, Schwimmen und Abbauen. Sie erholt sich in jedem Tick, in dem du nicht sprintest oder schwimmst:
+> Erholung pro Tick = 3 + END / 5  (+2 beim Stillstehen oder Ducken)
+Bei Verhungern oder Verdursten halbiert sich die Erholung. Steigt die Müdigkeit über 80 %, sinkt die maximale Ausdauer auf 60 %. Manches Wetter (Wind, Stürme, Schneestürme) zehrt jede Minute zusätzlich an der Ausdauer.
+
+@topic survival
+@title Überleben
+@level 1
+@related stamina,items,time,weather
+# Anzeigen
+> HP       Gesundheit; bei 0 stirbst du
+> Hunger   100 % = satt; iss mit U
+> Durst    100 % = getrunken; schau zum Wasser und drücke U
+> Müdigkeit steigt langsam im Wachzustand; schlaf in einem Bett
+> Temp     Körpertemperatur; halte sie nahe 37 C
+
+Hunger und Durst sinken mit der Spielzeit. Bei 0 verlierst du Gesundheit. Solange beide über 60 % liegen, erholt sich die Gesundheit langsam.
+
+# Tod
+Stirbst du, fallen deine Gegenstände dort zu Boden. Drücke E oder Enter, um am Startpunkt wiederzubeleben, und hol sie dir zurück.
+
+# Temperatur
+Kalte Biome, Winter, Nacht, Höhe, Wind und Wasser kühlen dich; Wüsten, Sommer und Hitzewellen wärmen dich. Unter 35,0 C oder über 39,5 C nimmst du jede Minute Schaden. Willenskraft verlangsamt die Veränderung.
+
+@topic gathering
+@title Sammeln
+@level 1
+@related mining,items,blocks
+Schau zu einer Pflanze, einem Baum oder Block und drücke F. Pflanzen brechen sofort, Bäume und Fels dauern länger. Beute wandert direkt ins Inventar; ist es voll, fällt sie zu Boden.
+> Hohes Gras, Farne, Schilf  -> Pflanzenfaser
+> Büsche, Laub, tote Büsche  -> Stöcke
+> Beerenbüsche -> Beeren (Nahrung)
+> Bäume -> Stämme, Kaktus -> Kaktusfrucht
+> Dschungellaub -> Kokosnüsse
+Nahrung isst du mit U.
+
+@topic mining
+@title Abbauen
+@level 2
+@related gathering,durability,skills,caves
+Drücke F, um den Block vor dir abzubauen. Ist das Feld leer, gräbst du in den Boden davor. Mit > gräbst du den Boden unter dir und steigst ab.
+
+Abbauen braucht Zeit (siehe Balken unten in der Anzeige). Bewegung bricht es ab. Grundgestein ist unzerstörbar.
+
+# Werkzeuge
+Spitzhacken beschleunigen Fels und Erz, Äxte Holz, Schaufeln Erde und Sand. Ohne passendes Werkzeug dauern Blöcke, die Spitzhacke oder Axt brauchen, dreimal so lange. Werkzeuge verlieren mit jedem Block Haltbarkeit.
+
+Erze liegen unter der Erde: Kohle, Eisen, Kupfer und Zinn im Stein; Silber, Gold, Kristalle und Edelsteine im Tiefengestein unter Höhe 24.
+
+@topic building
+@title Bauwerkzeuge
+@level 3
+@related commands,cheats
+Neben dem Setzen von Hand bauen Cheat-Befehle ganze Formen um dich herum. Alles lässt sich mit /undo rückgängig machen.
+> /sphere <Block> <r> [hollow]     /dome <Block> <r>
+> /cylinder <Block> <r> <h> [hollow]   /pyramid <Block> <r> [hollow]
+> /walls <Block> <r> <h>   /circle <Block> <r>   /platform <Block> <r>
+> /box <Block> <x> [y] [z]   /pillar <Block> <h>
+> /line, /wall, /bridge, /stairs <Block> <Länge>, /tunnel <Länge> [b] [h] in Blickrichtung
+> /carve [r]   eine Höhle aushöhlen
+> /fill, /replace, /clone, /setblock, /flatten, /raise, /lower, /smooth, /drain, /flood
+
+@topic crafting
+@title Handwerk, Schmelzen und Kochen
+@level 2
+@related stations,farming,equipment,durability
+Drücke K für das Handwerk. Die Liste zeigt jedes Rezept; helle Einträge kannst du jetzt herstellen. Tab zeigt nur herstellbare Rezepte, C wechselt Kategorien, / sucht.
+> Enter  einmal herstellen
+> A      so viele wie möglich
+> R      den Gegenstand in der Schnellleiste reparieren
+
+Ein Rezept kann brauchen: Zutaten, eine Station in der Nähe (bis 3 Felder), Brennstoff und eine Mindeststufe. Handrezepte brauchen keine Station: Bretter aus Stämmen, Stöcke, eine Werkbank, Lagerfeuer, Fackeln, Stoff und Seil.
+
+# Schmelzen und Kochen
+Der Ofen macht aus Roherz Barren, aus Sand Glas, aus Lehm Ziegel und aus Stämmen Holzkohle. Das Lagerfeuer kocht Brot, Ofenkartoffeln, Eintöpfe und Kräutertee. Beide verbrennen Brennstoff: Kohle und Holzkohle geben 8 Einheiten, Stämme 4, Bretter 2, Stöcke, Stoff und Weizen 1.
+
+Handwerk trainiert die Fertigkeit Handwerk, Kochen die Fertigkeit Kochen. Im Kreativmodus ist alles kostenlos. Rezepte sind Datendateien in data/recipes.
+
+@topic combat
+@title Kampf
+@level 2
+@related monsters,equipment,skills,formulas
+Schau zu einer Kreatur und drücke F, um sie anzugreifen (steht keine Kreatur vor dir, baut F Blöcke ab). Die Statusanzeige zeigt Name und Gesundheit der Kreatur vor dir.
+> Fäuste     2 Schaden
+> Werkzeuge  3 Schaden
+> Schwerter  4-8 Schaden (Holz, Stein, Bronze, Eisen), Speer 5
+> Bogen      halten und F drücken: schießt einen Pfeil bis zu 12 Felder in Blickrichtung (6 Schaden); Pfeile werden verbraucht, die Hälfte der Treffer kann man wieder aufheben
+Jede Waffe hat eine Abklingzeit; Schwingen kostet im Überlebensmodus Ausdauer. Glück gibt eine Chance auf einen kritischen Treffer (doppelter Schaden). Getötete Kreaturen trainieren Nahkampf oder Fernkampf.
+
+Kreaturen schlagen zu, wenn sie neben dir stehen. Getragene Rüstung verringert den Schaden und nutzt sich ab. Manche Kreaturen verursachen Blutung oder Gift. /threat sagt, ob eine feindliche Kreatur nah ist; mit einer im Umkreis von 12 Feldern kannst du nicht schlafen.
+
+@topic monsters
+@title Kreaturen
+@level 2
+@related combat,stealth,trading,difficulty
+Kreaturen erscheinen 16-30 Felder um dich herum, je nach Biom, Tageszeit und ob du unter der Erde oder auf See bist. Sie verschwinden, wenn du weit weggehst.
+> Tiere     Hirsche, Kaninchen, Schafe und Hühner fliehen; Wildschweine und Bären wehren sich; Wölfe jagen nachts; Fische und Haie leben im Wasser; Fledermäuse in Höhlen
+> Monster   Zombies, Skelette, Moorgeister und Frostghule kommen nachts und verbrennen im Tageslicht; Spinnen, Höhlenkriecher und Schleime leben in Höhlen; Sandskorpione in Wüsten
+> NSC       Wanderhändler und Einsiedler an der Oberfläche, alte Bergleute in Höhlen (siehe Handel)
+Kreaturen lassen Fleisch, Leder, Knochen, Federn, Wolle, Faden und mehr fallen. Brate rohes Fleisch und Fisch am Lagerfeuer: rohes Fleisch kann eine Lebensmittelvergiftung auslösen.
+/creatures listet alle Arten, /bestiary <Art> zeigt Details, /mobs die lebenden.
+
+@topic items
+@title Gegenstände
+@level 2
+@related inventory,blocks,durability
+Jeder aufhebbare Block ist auch ein Gegenstand. Andere Gegenstände sind Rohstoffe (Kohle, Roherze, Kristalle, Edelsteine, Fossilien), Materialien (Stöcke, Pflanzenfaser), Nahrung und Werkzeuge.
+
+Gegenstände haben Gewicht und Volumen. Deine Tragkraft beträgt 20 kg + 3 kg pro Stärkepunkt; mehr zu tragen macht dich langsamer.
+
+Fallengelassene Gegenstände liegen als Objekte in der Welt. Im Wasser schwimmen sie, wenn sie leichter als Wasser sind (Holz, Pflanzenfaser, Nahrung), und sinken, wenn sie schwerer sind (Stein, Metall). Nach 20 echten Minuten verschwinden sie.
+
+@topic blocks
+@title Blöcke und Symbole
+@level 2
+@related items,terrain,biomes
+Alle Grafiken sind CP437-Zeichen in 16 VGA-Farben.
+> @   du
+> ♠   Baum (Eiche, Birke, Dschungel, Mangrove)
+> ▲   Kiefer
+> ♣   Laub, Busch
+> ¥   hohes Gras
+> *   Blume
+> ~   Wasser (blau), Lava (rot)
+> ≈   Schlamm
+> ░   Sand, Schnee, Eis
+> .   Gras- oder Erdboden
+> ·   Steinboden
+> ▒ ▓ Klippen 2 oder 3+ Blöcke über dir
+> ♦   Erz (Farbe = Mineral)
+> ☼   Koralle
+Das Aussehen der Blöcke ist in data/blocks festgelegt.
+
+@topic inventory
+@title Inventar und Schnellleiste
+@level 1
+@related items,controls
+Du hast 36 Plätze; die Plätze 1-9 sind die Schnellleiste unten am Bildschirm. Öffne das Inventar mit Tab.
+> Enter      Stapel aufnehmen, erneut Enter zum Verschieben / Tauschen / Zusammenlegen
+> 1-9        gewählten Stapel auf diesen Schnellleistenplatz legen
+> Q / Strg+Q einen / den ganzen Stapel fallen lassen
+> S          Rucksack sortieren (legt Stapel zusammen)
+> X          Stapel halbieren
+> /          nach Namen suchen
+> F          nach Gegenstandsart filtern
+> U          benutzen (Schnellleistenplätze)
+Rechts siehst du Gewicht, Volumen, ob der Gegenstand schwimmt, Haltbarkeit und Nährwert.
+
+@topic stats
+@title Charakterwerte
+@level 3
+@related skills,formulas
+Öffne den Charakterbogen mit C. Werte beginnen bei 10.
+> STR  Tragkraft, Abbaugeschwindigkeit
+> DEX  Bewegungsgeschwindigkeit
+> INT  Erfahrungsgewinn
+> PER  Sichtweite nachts und unter der Erde
+> CON  maximale HP = 80 + 2 x CON
+> END  Ausdauererholung und Sprintkosten
+> WIL  Widerstand gegen Kälte und Hitze
+> LCK  Chance auf zusätzliche Beute beim Abbauen
+Werte wachsen beim Spielen bis 30 (der Balken neben jedem Wert zeigt das Training):
+> STR  Abbauen, Holzfällen, Nahkampf     DEX  Bogenschießen, Schleichen
+> INT  Handwerk, Kochen                  PER  Erkunden, Angeln
+> END  Bauen, Schwimmen, Segeln          CON  Schaden überstehen
+> WIL  Kälte, Hitze, Hunger und Durst ertragen
+> LCK  Beutekisten öffnen, kritische Treffer
+Der nächste Punkt braucht 60 x den aktuellen Wert an Training. /attribute setzt einen Wert direkt (Cheat, bis 100).
+
+@topic skills
+@title Fertigkeiten
+@level 3
+@related stats,mining,formulas,fishing
+Fertigkeiten wachsen durch Tun:
+> Abbauen, Holzfällen   natürliche Blöcke brechen
+> Bauen                 Blöcke setzen
+> Handwerk, Kochen      Rezepte an Stationen und Lagerfeuern
+> Nahkampf, Fernkampf   gegen Kreaturen kämpfen
+> Schwimmen, Segeln     sich im Wasser bewegen, mit dem Schiff reisen
+> Angeln                die Angelrute auswerfen
+> Schleichen            geduckt an wachen Kreaturen vorbeischleichen
+> Erkundung             neue Entfernungen vom Startpunkt erreichen
+Jede Fertigkeit trainiert auch einen Charakterwert (siehe Charakterwerte).
+
+Stufe = Quadratwurzel aus (XP / 10), bis 100. Abbau- und Holzfällerstufen beschleunigen das Brechen, Nah- und Fernkampf erhöhen den Schaden, Segeln macht Schiffe schneller, Angeln erhöht die Fangchance und verkürzt das Warten, Schleichen macht das Ducken leiser und schwerer zu sehen.
+
+Regeln gegen Farmen: von Spielern gesetzte Blöcke geben keine XP, Erkundungs-XP gibt es nur für neue Entfernungen vom Startpunkt, und pro Spielminute sind höchstens 60 XP möglich.
+
+@topic time
+@title Zeit, Tage und Jahreszeiten
+@level 2
+@related weather,sky,pause
+Die Spielzeit ist von der echten Zeit getrennt. Standardmäßig dauert ein Spieltag 20 echte Minuten (1 echte Sekunde = 72 Spielsekunden). Ändere das in den Einstellungen, mit /daylength oder beschleunige mit /timescale.
+
+Ein Jahr hat 12 Monate zu 30 Tagen und vier Jahreszeiten zu 90 Tagen, beginnend im Frühling. Im Sommer sind die Tage länger. Der Mond hat 8 Phasen in 30 Tagen.
+
+Nachts ist es dunkel: du siehst nur wenige Felder um dich, bei Vollmond mehr. Solange die Hilfe (F1) oder das Pausenmenü (Esc) offen ist, steht die Zeit völlig still.
+
+@topic pause
+@title Pausieren
+@level 1
+@related time,saving
+Hilfe (F1, ?) oder Pausenmenü (Esc) frieren das Spiel ein: Zeit, Wetter, Überlebensanzeigen, Physik und alles andere stoppen. Die Menüs selbst funktionieren weiter. Nach dem Schließen geht das Spiel genau dort weiter; die pausierte echte Zeit wird nicht nachgeholt.
+
+Inventar, Charakterbogen, Konsole und Himmelsansicht pausieren das Spiel NICHT.
+
+@topic weather
+@title Wetter
+@level 2
+@related time,sky,survival,wind
+Es gibt 21 Wetterlagen: klar, bewölkt, Nieselregen, Regen, Starkregen, Gewitter, Nebel, starker Wind, Sturm, Schnee, starker Schneefall, Schneesturm, Hagel, Sandsturm, Hitzewelle, Kälteeinbruch und Vulkanasche in der Oberwelt; der Uralte Sturm, Sternenfall, Stiller Nebel und Ätherwind in der Uralten Dimension.
+
+Welches Wetter möglich ist, hängt vom Klima am Ort ab: kein Schnee in heißen Wüsten, Sandstürme nur bei trockener Hitze. Wetter verändert Sicht, Temperatur, Bewegungstempo, Ausdauer und den Himmel. Regen und Schnee sind draußen auf der Karte animiert.
+
+Regen füllt Mulden im Boden mit Wasser und lässt Pflanzen schneller wachsen; schlechte Sicht verkürzt, wie weit Kreaturen sehen; bei Regen streifen Kreaturen weniger umher; Wind treibt Segel an und erzeugt Wellen, die kleine Boote beschädigen.
+
+@topic sky
+@title Den Himmel betrachten
+@level 2
+@related time,weather,ancient
+Drücke rechte Umschalt (oder V), um nach oben zu schauen. Der Himmel zeigt die Sonne von Aufgang bis Untergang, den Mond und seine Phase, Sterne und Sternbilder aus dem Startwert (N zeigt ihre Namen), die Milchstraße, mit dem Wind ziehende Wolken, flatternde Vögel, Krähen (~), Meteore, seltene Kometen, Polarlichter in kalten Gegenden, Sonnen- und Mondfinsternisse, Morgen- und Abendrot und Blitze bei Gewitter.
+
+Die Uralte Dimension hat ihren eigenen Himmel: einen magentafarbenen Tag, magenta- und cyanfarbene Sterne, den Ätherschleier, der jede Nacht über den Himmel wogt, die Ringwelt tief im Süden und Veyra, einen zweiten Mond, der seine acht Phasen in drei Tagen durchläuft. Vögel gibt es dort nicht.
+
+Die Sternbilder hängen vom Startwert ab. Die Zeit läuft weiter, während du nach oben schaust; F1 oder Esc pausieren wie gewohnt.
+
+@topic biomes
+@title Biome
+@level 3
+@related terrain,ocean,caves
+Land: Ebene, Grasland, Laubwald, Nadelwald, Regenwald, Bambuswald, Wüste, Savanne, Sumpf, Feuchtgebiet, Tundra, Schneefeld, Hochgebirge, Vulkanland, Blumenwiese, Ödland.
+Küste: Sandstrand, Kiesküste, Felsküste, Watt, Mangrovenküste.
+Ozean: Flachmeer, Korallenriff, offenes Meer, Tiefsee, Tiefseegraben, gefrorenes Meer.
+Höhlen: Stein-, Kalkstein-, Tropfstein-, Kristall-, Eis-, Pilz-, Fossil-, Lava- und tiefe Grundgesteinshöhlen, unterirdische Seen und Flüsse.
+
+Biome werden nach Temperatur, Feuchtigkeit und Höhenrauschen gewählt. /biome zeigt, wo du bist, /locate <Biom> findet eines. Biome sind in data/biomes festgelegt.
+
+@topic terrain
+@title Gelände und die 3D-Welt
+@level 3
+@related movement,building,caves
+Die Welt besteht aus Blöcken in drei Dimensionen: x (Osten), z (Süden) und y (Höhe, 0-127). Der Meeresspiegel liegt bei 62. Du siehst die Ebene, auf der du stehst: Wände auf Augenhöhe, den Boden darunter und tieferes Gelände in dunkleren Farben.
+
+Alles lässt sich verändern: grabe Löcher und Tunnel, trage Berge ab, schütte das Meer zu, baue Inseln. Mit > und < geht es hinab und hinauf, oder grabe Treppen.
+
+Grundgestein auf Höhe 0 ist unzerstörbar.
+
+@topic caves
+@title Höhlen und Erze
+@level 3
+@related mining,terrain,biomes
+Höhlen entstehen durch 3D-Rauschen: große Kammern und lange gewundene Tunnel. Tief unter Höhe 10 füllen sie sich mit Lava. Unter der Erde siehst du nur wenige Felder (mit Wahrnehmung mehr); Lava, Fackeln und Kristalle spenden Licht.
+
+Kohle, Eisen, Kupfer und Zinn liegen im Stein; Silber, Gold, Kristallhaufen und Edelsteine im Tiefengestein (unter 24). Fossilien verstecken sich im Stein zwischen 24 und 60.
+
+@topic ocean
+@title Ozeane, Küsten und Flüsse
+@level 3
+@related biomes,fluids,ships
+Ozeane bedecken tiefe Gebiete unter dem Meeresspiegel 62: Flachmeere mit Seetang, bunte Korallenriffe in warmem Wasser, offenes Meer, Tiefsee und Gräben. Kalte Meere frieren an der Oberfläche zu.
+
+Flüsse winden sich durch tiefes Land und sind etwas unter den Meeresspiegel eingeschnitten, sodass sie Wasser führen und Seen und Meer verbinden. Tiefe Höhlen bergen manchmal unterirdische Seen.
+
+Du kannst an der Oberfläche schwimmen. Flöße und Boote stehen unter Schiffe.
+
+@topic fluids
+@title Fließendes Wasser und Lava
+@level 3
+@related ocean,terrain,buckets,weather
+ClideFluid bewegt Wasser und Lava. Jedes Flüssigkeitsfeld hat eine Stufe von 1 bis 15 (15 = voller Block); flache Felder zeigen ein Wellenzeichen.
+> Flüssigkeit fällt zuerst gerade nach unten und füllt das Feld darunter.
+> Sie läuft über Kanten und in Löcher, auch als dünner Film.
+> Auf ebenem Boden teilen Nachbarfelder ihr Wasser, bis sie sich höchstens um eine Stufe unterscheiden; Teiche beruhigen sich.
+> Die Wassermenge bleibt erhalten: ein Kanal verschiebt Wasser, er erzeugt oder vernichtet keines.
+Ausnahmen: Meer und Seen unter dem Meeresspiegel füllen sich nach, ein Ozean lässt sich also nicht mit einem Graben leeren; Regen füllt Mulden; Wasser, das Lava berührt, macht sie zu Obsidian (volle Lava) oder Bruchstein.
+
+Baue Dämme aus beliebigen festen Blöcken; brich sie, um das Tal dahinter zu fluten. Lava ist langsamer und zäher als Wasser.
+
+Simuliert werden nur Felder neben einer Änderung; stilles Wasser kostet nichts. /fluid zeigt Statistiken, /settle beruhigt alles, /volume misst.
+
+@topic ships
+@title Schiffe
+@level 2
+@related sailing,shipdamage,ocean,crafting
+Vier Schiffe lassen sich herstellen (Kategorie Fahrzeuge):
+> Floß          6 Stämme + 2 Seile; 1 Feld, gepaddelt, 220 kg, kein Laderaum
+> Ruderboot     Werkbank; 2 Felder, gerudert, 400 kg, Laderaum
+> Segelboot     Werkbank, Handwerk 8; 3 Felder, Segel + Ruder, 900 kg
+> Handelsschiff Werkbank, Handwerk 15; 5 x 3 Felder, nur Segel, 4000 kg
+Halte das Schiff, schau auf offenes Wasser und drücke R zum Ablegen (das Heck beginnt neben dir). E daneben geht an Bord, erneut E von Bord: an Land, wenn neben dem Rumpf Land ist, sonst springst du ins Wasser. F auf ein leeres Schiff holt es vom Ufer aus zurück ins Inventar; der Gegenstand behält den Rumpfschaden.
+
+An Bord öffnet R den Laderaum (27 Plätze, begrenzt durch die Tragfähigkeit) und U schöpft Wasser oder flickt, mit dem Reparaturmaterial in der Hand (Stämme für Flöße, Bretter für Boote), den Rumpf.
+
+@topic ancient
+@title Die Uralte Dimension
+@level 2
+@related portal,ancientbiomes,monsters,weather
+Die einzige andere Dimension. Ihr Himmel leuchtet tagsüber magenta; ihr Wetter umfasst Sternenfall, Stillen Nebel, Ätherwind und den Uralten Sturm (dort gibt es weder Regen noch Schnee). Gelände, Höhlen und Meere entstehen wie in der Oberwelt, aber mit eigenem Startwert, eigenen Blöcken und acht Biomen (siehe Uralte Biome).
+> Erze      Ätheradern (8-90) und Sternmetall (4-40) in uraltem Stein
+> Pflanzen  Leuchtpilze, Sternblumen, Kristallblüten, Mondschilf, Ältestenbäume (leuchtendes Laub)
+> Kreaturen Sternhirsche, Leuchtmotten; nachts Leerenirrlichter und stille Pirscher; uralte Wächter bei Heiligtümern und Rissen; Kristallgolems in Höhlen; Heiligtumshüter handeln mit Relikten
+> Bauwerke  Uralte Städte (ummauert, mit Straßen, Häusern und Schatullen) und uralte Schreine
+Uralte Rezepte brauchen den Uralten Altar (6 uralte Ziegel + 4 Ätherscherben an der Werkbank): Sternmetallwerkzeug, -schwert und -rüstung, Ätherelixier (Uralter Segen), Ätherlaternen. Uralte Relikte gewähren beim Benutzen den Uralten Segen.
+/dimension, /dimensions und /ancientbiomes zeigen, wo du bist.
+
+@topic durability
+@title Haltbarkeit und Reparatur
+@level 3
+@related mining,items,crafting
+Werkzeuge haben Haltbarkeit. Jeder mit dem richtigen Werkzeug abgebaute Block kostet 1 Punkt, mit dem falschen 2; Hacken verlieren 1 pro gepflügtem Feld. Bei 10 % kommt eine Warnung, bei 0 zerbricht das Werkzeug. Die Schnellleiste zeigt die restliche Haltbarkeit.
+
+Reparatur: stell dich an eine Werkbank oder einen Amboss, halte den Gegenstand und drücke R im Handwerksbildschirm. Eine Einheit Reparaturmaterial (Bretter für Holzwerkzeug, Bruchstein für Stein, Eisenbarren für Eisen, Stoff für Kleidung) stellt 25-50 % plus 2 % pro Handwerksstufe wieder her.
+> /durability set <Prozent>   /repair
+
+@topic gamemodes
+@title Spielmodi
+@level 2
+@related cheats,survival
+> Überleben   alle Überlebensanzeigen, begrenzte Rohstoffe
+> Kreativ     kein Hunger, kein Schaden, sofortiges Abbauen, Blöcke werden nicht verbraucht
+> Abenteuer   Überlebensregeln, aber du kannst keine Blöcke brechen oder setzen
+> Zuschauer   fliege durch alles, keine Weltveränderungen
+Wechsel mit /gamemode (braucht Cheats). Cheats sind eine eigene Welteinstellung.
+
+@topic cheats
+@title Cheats
+@level 3
+@related commands,gamemodes
+Cheat-Befehle (in der Befehlsliste mit [cheat] markiert) brauchen für die Welt aktivierte Cheats: beim Erstellen oder mit /cheats on. Jeder benutzte Cheat markiert die Welt als geschummelt; das wird gespeichert.
+
+Gottmodus (/god), Fliegen (/fly) und Durch-Blöcke-Gehen (/noclip) sind vom Spielmodus unabhängige Schalter.
+
+@topic commands
+@title Alle Befehle
+@level 3
+@related cheats,controls,building,waypoints
+Öffne die Konsole mit / (oder T). Tippe einen Befehl und drücke Enter. Tab ergänzt Befehlsnamen und Argumente (Blöcke, Gegenstände, Wetter, Modi...), Hoch/Runter holen frühere Befehle zurück, Bild auf/ab blättern in der Ausgabe. Koordinaten akzeptieren ~ für "relativ zu mir", z. B. /tp ~10 ~ ~.
+
+Es gibt 240 Befehle in Gruppen: Spieler, Position, Bewegung, Aktionen (mine, place, use, interact, step, face: alles, was die Tasten tun), Gegenstände und Lagerung, Handwerk, Ausrüstung, Bauen und Formen, Welt und Gelände, Zeit, Wetter, Flüssigkeiten, Kreaturen und Kampf, Schiffe, Dimensionen, Oberfläche und Hilfe, System. /commands listet sie, /help <Befehl> erklärt einen, /aliases listet Kurznamen, /topics und /helpsearch durchsuchen die Hilfe.
+
+@topic saving
+@title Speichern und Laden
+@level 2
+@related pause,troubleshooting
+Speichere mit Esc > Speichern oder /save; auch das Verlassen ins Menü speichert. Welten liegen in saves/<Name>/:
+> world.ini   Startwert, Zeit, Wetter, Spieler, Inventar, Gegenstände
+> chunks.dat  nur die Chunks, die du verändert hast
+Jeder Speicherstand wird in eine temporäre Datei geschrieben, wieder gelesen und geprüft (CRC-32), bevor er den alten ersetzt; ein Absturz beim Speichern kann den vorherigen Stand also nicht zerstören. Welten lädst du im Titelbild.
+
+@topic settings
+@title Einstellungen
+@level 2
+@related languages,keybinds
+Die Einstellungen stehen in clide.ini neben dem Spiel:
+> Sprache        siehe Sprachliste
+> Tastenbelegung jede Taste ändern (zwei Tasten pro Aktion)
+> Ton            an / aus
+> Taglänge       10 bis 60 echte Minuten pro Spieltag
+
+@topic keybinds
+@title Tasten ändern
+@level 2
+@related settings,controls
+Einstellungen > Tastenbelegung listet jede Aktion. Enter setzt die erste Taste, A die zweite, Entf löscht die zweite, R stellt die Standards wieder her. Die Belegung wird in keys.ini gespeichert. Shift auf einer Bewegungstaste bedeutet immer Sprinten.
+
+@topic languages
+@title Sprachen
+@level 2
+@related settings,troubleshooting
+Das Spiel erkennt die Systemsprache und nutzt sie, wenn deine Anzeige sie darstellen kann. Auf einer CP437-Anzeige (DOS) werden nur Sprachen angeboten, deren Text in CP437 passt; die anderen sind ausgeblendet. Auf Unicode-Terminals gelten Sprachen mit besonderen Schriften (Koreanisch, Japanisch, Chinesisch) als ungeprüft, weil das Spiel nicht weiß, ob deine Schrift die Zeichen hat: bei der Auswahl erscheint ein Beispiel zur Bestätigung.
+
+@topic audio
+@title Ton
+@level 3
+@related settings,platforms,weather
+ClideAudio erzeugt jeden Klang prozedural (Rauschgeneratoren, Oszillatoren, Filter, Hüllkurven) statt Aufnahmen abzuspielen, und mischt überlappende Klänge.
+> Windows        Live-PCM über waveOut (22050 Hz)
+> Linux / BSD    Live-PCM als Strom an PulseAudio (pacat), PipeWire (pw-cat) oder ALSA (aplay), wenn eines davon installiert ist
+> macOS          Live-PCM über afplay (ganze Klänge, ohne Mischen)
+> DOS            Tonfolgen über den PC-Lautsprecher
+Du hörst Schritte und Platschen, Abbauen, Brechen, Setzen, Donner, knarrende und brechende Rümpfe und Umgebungsgeräusche: Regen, Wind, Stürme, Höhlen, das Brummen der Uralten Dimension, tagsüber Vögel und in der Dämmerung Krähen.
+Ohne Audiogerät läuft das Spiel stumm. Prüfe das Gerät mit
+> cliderness --play-sfx rain
+/audio zeigt das Ausgabesystem, /sound on|off schaltet den Ton, /sounds und /playsound probieren Effekte, --render-sfx schreibt eine WAV-Datei.
+
+@topic platforms
+@title Plattformen
+@level 4
+@related audio,troubleshooting
+Die Engine ist ISO C90. Unterstützt: Windows-Konsole, Linux, macOS und andere Unix-Terminals (UTF-8), MS-DOS und FreeDOS (VGA-Textmodus, 16-Bit-Builds mit Open Watcom oder DJGPP). Alle Plattformen nutzen dasselbe 80x25-CP437-Raster und 16 Farben; die genaue Zeichenform hängt von der Terminalschrift ab.
+
+Unter DOS ist der Weltpuffer kleiner (40 Chunks) und der Speicherverbrauch ist so begrenzt, dass er in 640 KB passt.
+
+@topic troubleshooting
+@title Fehlerbehebung
+@level 3
+@related platforms,languages,saving
+> Kästchen oder ? statt Symbolen: nutze eine Schrift mit Rahmenzeichen (Consolas, DejaVu Sans Mono) oder Windows Terminal.
+> Bildschirm zu klein: das Spiel braucht mindestens 80x25 Zeichen; ein roter Hinweis zeigt die aktuelle Größe.
+> Koreanischer/japanischer/chinesischer Text kaputt: deiner Schrift fehlen die Zeichen; wähle eine andere Sprache oder Schrift.
+> Rechte Umschalt / Strg ohne Wirkung: dein Terminal kann sie nicht melden; nutze V und X.
+> "data error" beim Start: starte das Spiel aus seinem Ordner oder gib --data <Ordner> an.
+> Laden scheitert mit CRC-Fehler: world.ini wurde bearbeitet oder beschädigt.
+> Kein Ton: ohne unterstütztes Gerät normal; prüfe Einstellungen > Ton.
+
+@topic world
+@title Weltgenerierung
+@level 4
+@related terrain,biomes,formulas
+Die Welt entsteht aus dem Startwert mit ganzzahligem Wertrauschen und ist daher auf jeder Plattform identisch, auch unter 16-Bit-DOS ohne Gleitkommaeinheit. Die Höhe kommt aus einer Kontinentebene (256-Block-Strukturen), Detail (32 Blöcke) und Gebirgen. Temperatur, Feuchtigkeit und eine Sonderebene wählen das Biom. 3D-Rauschen gräbt Höhlen; Erze werden per Block-Hash verteilt.
+
+Die Welt wird in 32x32-Chunks gespeichert, je eine Höhenebene. Gespeichert werden nur veränderte Chunks.
+
+@topic advanced
+@title Fortgeschrittene Mechanik
+@level 4
+@related formulas,world,time
+Die Simulation läuft mit festen 20 Ticks pro Sekunde. Echte Zeit wird gesammelt und nur in Ticks umgewandelt, solange kein pausierender Bildschirm offen ist; lange Stockungen werden auf 250 ms begrenzt, damit das Spiel nie springt. Die Spielzeit schreitet pro Tick um 50 ms x 86400 / Taglänge x Zeitfaktor voran (standardmäßig 3,6 Spielsekunden) mit exakten Resten, sodass 20 echte Minuten genau einen Spieltag ergeben.
+
+Bewegung wartet eine Abklingzeit pro Schritt in Ticks: Gehen 4, Sprinten 2, Ducken 7, Schwimmen 6, mal 100 / (90 + DEX). Bremsende Blöcke fügen 3 hinzu, Überladung 2 oder 6, Wetter seinen Bewegungsabzug in Prozent.
+
+@topic formulas
+@title Formeln (Meister)
+@level 5
+@related advanced,stats,skills
+> Abbauticks = Härte (x3 ohne nötiges Werkzeug oder x100/Kraft mit dem richtigen), dann x100/(100+2 STR), dann x100/(100+3 Fertigkeit)
+> Fertigkeitsstufe = isqrt(xp / 10); xp pro natürlichem Block = Härte/4 + 1, x(100 + 3 INT)/130, max. 60 pro Minute
+> Sprintkosten = 12 x 100 / (80 + 2 END) pro Schritt
+> Ausdauererholung = 3 + END/5 pro Tick (+2 im Stillstand)
+> Hunger: -0,5 pro Spielminute (-1,0 nach Sprinten), Durst -0,7 (-1,0 über 28 C), Müdigkeit +0,4
+> Körpertemperaturdrift = |Umgebung - Grenze| x 10 / (20 + WIL) Zehntelgrad pro Minute außerhalb 10..28 C
+> Fallschaden = (Blöcke - 3) x 8 bei Stürzen ab 4
+> Tragkraft = 20 kg + 3 kg x STR
+> Sichtweite = 4 + Sicht x 32 / 100 + PER/3 im Freien, 4 + PER/4 unter der Erde
+> Nahkampfschaden = Waffe x (100 + 3 STR) / 130 x (100 + 2 Nahkampf) / 100, x2 bei kritischem Treffer (Chance = LCK %), minus Verteidigung der Kreatur (mind. 1)
+> Bogenschaden = 6 x (100 + 2 Fernkampf) / 100, Reichweite 12
+> Kreaturenschaden = Schaden x Schwierigkeit (50/100/150 %) x (100 - Rüstung) / 100, mind. 1
+> Kreaturen erscheinen: alle 2 s, 16-30 Felder entfernt, Obergrenze 16 + 6 x Schwierigkeit (DOS 8 + Schwierigkeit)
+
+@topic about
+@title Über Cliderness
+@level 1
+@related start,platforms
+Cliderness - Open-World-Survival-Sandbox
+Erstellt von korscripterdev.
+Engine: Cliderness Engine, geschrieben in ISO C90.
+Lizenz: GNU GPL Version 3 oder später (LICENSE).
+Version 1.1.0. Was fertig und was geplant ist, steht in der Roadmap (ROADMAP.md).
+
+@topic stations
+@title Arbeitsstationen
+@level 2
+@related crafting,building,ancient
+> Werkbank        4 Bretter; Werkzeuge, Truhen, Betten, Öfen, Kleidung, Boote
+> Ofen            8 Bruchstein an der Werkbank; Barren, Glas, Ziegel, Holzkohle
+> Lagerfeuer      3 Stöcke + 3 Bruchstein; Kochen (auch Lichtquelle)
+> Amboss          5 Eisenbarren + 2 Steinziegel; Eisenwerkzeug, Rüstung, der Portalkern
+> Uralter Altar   6 uralte Ziegel + 4 Ätherscherben an der Werkbank; Sternmetallausrüstung, Elixiere, Laternen
+Setze eine Station mit R und stell dich bis 3 Felder davor (eine Ebene höher oder tiefer geht). E auf eine Station öffnet das Handwerk.
+
+@topic farming
+@title Ackerbau und Bäume
+@level 2
+@related crafting,time,weather
+Halte eine Hacke und drücke U, um Gras oder Erde vor dir zu Ackerboden zu pflügen. Wähle Samen und drücke R, um sie zu pflanzen.
+> Weizensamen  aus hohem Gras (12 %) oder reifem Weizen
+> Kartoffeln   aus Farnen (6 %); pflanze eine Kartoffel für mehr
+Pflanzen wachsen in Stufen (etwa 4 Spielstunden pro Weizenstufe, 5 bei Kartoffeln). Regen beschleunigt das Wachstum um ein Viertel, Winter halbiert es, und von festen Blöcken bedeckte Pflanzen warten auf Licht. Baue eine reife Pflanze ab, um zu ernten: Weizen gibt Weizen und zwei Samen, Kartoffeln drei Kartoffeln.
+
+Laub lässt manchmal Setzlinge fallen (10 %). Gepflanzte Setzlinge werden nach etwa einem halben Tag zu einem Baum mit Krone, wenn darüber Platz ist.
+
+@topic chests
+@title Truhen
+@level 2
+@related inventory,stations
+Stelle eine Truhe her (8 Bretter an der Werkbank) und setze sie mit R. Schau zu ihr und drücke E zum Öffnen. Links ist die Truhe (27 Plätze), rechts dein Inventar.
+> Tab / Links / Rechts  Seite wechseln
+> Enter                 gewählten Stapel auf die andere Seite
+> A                     alles verschieben
+Eine zerbrochene Truhe lässt ihren Inhalt fallen. Truhen werden mit der Welt gespeichert.
+
+@topic equipment
+@title Ausrüstung und Taschen
+@level 2
+@related inventory,survival,combat
+Kleidung, Rüstung und Taschen trägst du in fünf Plätzen: Kopf, Körper, Beine, Füße und Rücken. Wähle einen Gegenstand im Inventar und drücke W (oder halte ihn und drücke U), um ihn anzulegen; wähle einen getragenen Gegenstand unten in der Liste und drücke Enter oder W, um ihn abzulegen.
+> Faserkleidung   Wärme +1..+4, wenig Schutz
+> Lederrüstung    Schutz 4-12 %, etwas Wärme
+> Eisenrüstung    Schutz 8-20 % pro Teil, etwas kalt
+> Fasertasche     +15 kg Tragkraft
+Schutz verringert Schaden (bis 80 %). Wärme hebt die gefühlte Temperatur in der Kälte. Getragenes zählt zu deinem Gewicht.
+
+@topic sleep
+@title Schlafen
+@level 2
+@related survival,time,effects
+Stelle ein Bett her (3 Bretter + 3 Stoff an der Werkbank), setze es und drücke E davor. Du kannst nachts schlafen oder wenn die Müdigkeit über 60 % liegt. Du schläfst bis eine halbe Stunde nach Sonnenaufgang (höchstens 12 Stunden); tagsüber hält ein müder Spieler stattdessen ein Nickerchen.
+
+Im Schlaf sinkt die Müdigkeit, die Gesundheit kehrt langsam zurück, Hunger und Durst sinken halb so schnell; die Welt läuft weiter (Wetter, Pflanzen). Schlafen setzt den Startpunkt ans Bett und macht dich Ausgeruht. Mit feindlichen Kreaturen im Umkreis von 12 Feldern kannst du nicht schlafen.
+
+@topic effects
+@title Verletzungen, Krankheiten und Stärkungen
+@level 3
+@related survival,sleep,crafting
+Zustände stehen in der Statusanzeige und halten einige Spielminuten an.
+> Blutung              -1 HP pro Minute; schwere Stürze, Klauen und Zähne; Heilung: Verband
+> Knochenbruch         langsamere Bewegung; Stürze ab 7 Blöcken; Heilung: Schiene
+> Lebensmittelvergiftung  Hunger-, Durst- und Ausdauerverlust; rohe Pilze und rohes Fleisch; Heilung: Kohletablette
+> Vergiftet            Gesundheitsverlust; Spinnen, Skorpione, Leerenirrlichter; Heilung: Kohletablette
+> Erkältung            schwache Ausdauererholung, fühlt sich kälter an; nach 30 Minuten Unterkühlung; Heilung: Kräutertee
+> Nass                 fühlt sich 4 C kälter an; Schwimmen oder Regen im Freien
+> Gut genährt          bessere Ausdauererholung; Brot, Eintopf
+> Ausgeruht            bessere Ausdauererholung; Schlafen
+> Uralter Segen        schnelle Ausdauererholung, Wärme; uralte Relikte, Ätherelixier
+Benutze eine Arznei mit U oder /treat für eine passende. Zustände sind in data/effects/effects.def festgelegt.
+
+@topic buckets
+@title Eimer
+@level 2
+@related fluids,crafting
+Stelle einen Eimer aus 3 Eisenbarren am Amboss her. Halte ihn und drücke U vor Wasser oder Lava, um das ganze Feld zu schöpfen; R gießt es vor dir wieder aus. Ein Eimer merkt sich seine Menge (1-15 Stufen), Wasser wird also nie verdoppelt, außer du schöpfst aus dem Meer, das sich nachfüllt.
+
+@topic structures
+@title Minen und Ruinen
+@level 2
+@related caves,items,chests
+Die Welt verbirgt Bauwerke, die aus dem Startwert entstehen:
+> Verlassene Minen  unter der Erde (Höhe 16-44): zwei lange kreuzende Stollen mit Abzweigen, hölzernen Deckenbalken, Fackeln und Minenkisten an den Enden.
+> Steinruinen       auf trockenem Land: ein zerbrochener Ring aus Bruchstein mit einer alten Kiste in der Mitte.
+Beim ersten Öffnen füllt sich eine Kiste mit Beute (Kohle, Erze, Barren, Werkzeug, Nahrung, Stoff, Samen, selten Edelsteine). /findstructure abandoned_mine zeigt die nächste (Cheat).
+
+@topic ai
+@title Verhalten der Kreaturen
+@level 4
+@related monsters,stealth,formulas
+Jede Kreatur folgt einem zielgesteuerten Zustandsautomaten; zweimal pro Sekunde wählt sie das dringendste Ziel:
+> 1 überleben    schwer verletzt und sieht dich: fliehen
+> 2 angreifen    feindlich und nimmt dich wahr: verfolgen, dann angreifen
+> 3 Schutz       verbrennt im Tageslicht: Deckung suchen
+> 4 heimkehren   NSC gehen in der Dämmerung heim und schlafen dort
+> 5 ruhen        Tagtiere schlafen nachts, Nachtwesen tagsüber
+> 6 umherstreifen  sonst streifen oder stehen (bei Regen weniger)
+Wahrnehmung: Sicht = Sichtweite x Wettersicht, für Tagtiere im Dunkeln halbiert und um ein Drittel verringert (mit Schleichen mehr), während du dich duckst; Gehör = Hörweite x dein Lärm in %. Schlafende Kreaturen nehmen halb so weit wahr. Wer eine Kreatur angreift, bleibt ihr im Gedächtnis (defensive Kreaturen wehren sich).
+Wegfindung: ist der gerade Weg versperrt, sucht eine verfolgende oder heimkehrende Kreatur mit A* einen Weg (einen Block hinauf, drei hinab, 24 Felder um sie herum) und folgt ihm; Mauern mit einer Lücke halten sie nicht mehr auf.
+Zustände in /mobs: ruht, streift, jagt, greift an, flieht, schläft, geht heim, sucht Schutz. Roter Hintergrund markiert eine Kreatur, die dich jagt oder angreift; schlafende Kreaturen sind dunkelgrau.
+
+@topic difficulty
+@title Schwierigkeit
+@level 2
+@related monsters,combat
+> Friedlich  keine Monster; feindliche Tiere wehren sich trotzdem
+> Leicht     Monster machen 50 % Schaden, weniger Kreaturen
+> Normal     100 % Schaden (Standard)
+> Schwer     150 % Schaden, mehr Kreaturen
+Ändere sie jederzeit mit /difficulty <Name>; Friedlich entfernt alle Monster. Die Schwierigkeit wird mit der Welt gespeichert. /spawning off stoppt das natürliche Erscheinen (Cheat).
+
+@topic trading
+@title Handel
+@level 2
+@related monsters,items
+Schau zu einem NSC und drücke E (oder /trade). Hast du, was eines seiner Angebote verlangt, wird sofort gehandelt; sonst listet der NSC seine Angebote im Nachrichtenfenster.
+> Wanderhändler  Kohle gegen Handelsmarken, Marken gegen Brot oder Eisenbarren
+> Einsiedler     Leder gegen Verbände, rohes Fleisch gegen Kräutertee, Edelsteine gegen Marken
+> Alter Bergmann Roheisen gegen eine Eisenspitzhacke, Brot gegen Fackeln, Kristallsplitter gegen Marken
+NSC sind defensiv: greifst du sie an, wehren sie sich. E auf ein Tier oder Monster zeigt, was es gerade tut.
+
+@topic sailing
+@title Segeln
+@level 2
+@related ships,wind,shipdamage,skills
+An Bord steuern die Bewegungstasten: die Taste in Richtung Bug erhöht die Leistung (0-3), die entgegengesetzte senkt sie (bis -1 = rückwärts bei Schiffen mit Rudern), eine seitliche dreht den Bug dorthin, wenn Platz ist. /anchor stoppt das Schiff.
+> Ruder   Tempo aus deinen Armen: kostet für jedes Feld Ausdauer
+> Segel   Tempo aus dem Wind: voll bei Rückenwind, 75 % raumschots, 45 % quer zum Wind, 15 % dagegen
+Es zählt das schnellere von beiden. Überladung halbiert das Tempo, Wassereinbruch bremst. Alle 8 Felder trainieren Segeln, das pro Stufe 1 % Tempo bringt. Die Statusanzeige zeigt Schiff, Rumpf, Flutung in %, Leistung und Tempo. /shipinfo zeigt alles, /wind den Wind.
+
+@topic shipdamage
+@title Rumpfschaden und Sinken
+@level 3
+@related ships,sailing,weather,formulas
+Jedes Schiff hat Rumpfpunkte und drei Schadensstufen:
+> Unbeschädigt  über 66 %
+> Beschädigt    34-66 %: leckt 1 Liter pro Sekunde (gelber Rumpf)
+> Schwer        33 % oder weniger: leckt 4 Liter pro Sekunde (roter Rumpf)
+Wellen beschädigen den Rumpf, wenn der Wind stärker ist, als das Schiff verträgt (Floß 40 %, Ruderboot 55 %, Segelboot 70 %, Handelsschiff 85 %): Stürme sind für kleine Boote gefährlich. Auflaufen schneller als 30 Felder pro 100 Ticks kostet Rumpfpunkte. Regen und Überladung lassen Wasser herein.
+
+Das Wasser im Rumpf steht in Prozent da; über 50 % wird der Rumpf blau. Das Schiff sinkt, wenn es voll ist (Tragfähigkeit / 4 Liter), wenn sein Rumpf 0 erreicht oder wenn Ladung + Wasser 150 % der Tragfähigkeit übersteigen. Ein sinkendes Schiff gibt Ladung und etwas Wrackholz als treibende Gegenstände frei. Schöpfe (U oder /bail; ein Eimer in der Hand schöpft dreimal so viel) und repariere rechtzeitig. Knarren und Krachen warnen dich.
+
+@topic wind
+@title Wind
+@level 3
+@related sailing,weather
+Die Windstärke kommt vom Wetter (klar 10 %, Regen 30 %, Gewitter 60 %, starker Wind 80 %, Sturm 95 %), die Richtung wandert langsam. /wind zeigt beides; die Richtung ist die, in die der Wind weht. Segelschiffe sind mit Wind von hinten am schnellsten und kommen gegen ihn fast zum Stehen. Starker Wind wirft Wellen auf, die kleine Rümpfe beschädigen.
+
+@topic portal
+@title Portale
+@level 2
+@related ancient,crafting
+Stelle am Amboss einen Portalkern her (4 Obsidian, 6 Kristallsplitter, 2 Edelsteine, 2 Goldbarren, Handwerk 5) und setze ihn mit R: er wird zu einem Uralten Portal. Schau dazu und drücke E, um zu reisen. Du kommst an denselben x/z in der anderen Dimension an, auf dem nächsten trockenen Land im Umkreis von 48 Feldern; östlich von dir entsteht ein Rückportal, außer es steht schon eines im Umkreis von 8 Feldern. Schiffe, Kreaturen und Gegenstände bleiben zurück.
+
+Obsidian entsteht, wo Wasser auf Lava trifft (oder in tiefen Lavahöhlen). Ein zerbrochenes Portal gibt seinen Kern zurück. Stirbst du, kehrst du in der Dimension deines Startpunkts zurück (Schlafen im Bett setzt ihn).
+
+@topic ancientbiomes
+@title Uralte Biome
+@level 3
+@related ancient,biomes
+> Uraltes Grasland     magentafarbenes Gras, Sternblumen, einzelne Ältestenbäume
+> Uralter Wald         dichte Ältestenwälder mit leuchtendem Laub
+> Vergessener Garten   warm und feucht, jede Art leuchtender Pflanzen
+> Kristallwildnis      Hochland aus Kristallrasen und Kristallblüten
+> Stiller Sumpf        stiller Schlamm, Mondschilf und Leuchtpilze
+> Sternenlichtebene    trockene Felder aus leuchtendem Sternensand
+> Uraltes Heiligtum    ziegelgepflasterter Boden, bewacht
+> Leerenriss           Schluchten, die 40 Blöcke tief zu einem Boden aus Leerenstein fallen; kein Wasser
+
+@topic waypoints
+@title Wegpunkte und Navigation
+@level 2
+@related commands,saving
+Speichere bis zu 16 benannte Orte mit /waypoint add <Name>; /waypoint list zeigt sie mit ihrer Dimension, /waypoint remove <Name> löscht einen. /navigate <Name> nennt Richtung und Entfernung, /compass zeigt zum Startpunkt, /deathpoint zeigt, wo du zuletzt gestorben bist, /distance <x> <z> misst. Wegpunkte werden mit der Welt gespeichert; /gowaypoint <Name> teleportiert (Cheat).
+
+@topic fishing
+@title Angeln
+@level 2
+@related skills,ocean,crafting
+Stelle eine Angelrute her (3 Stöcke + 2 Fäden). Halte sie, schau zum Wasser und drücke U zum Auswerfen; nach 3-8 Sekunden beißt etwas an. Die Fangchance beträgt 35 % + Angelstufe / 2 + Glück / 4: meist roher Fisch, manchmal ein Knochen und in der Uralten Dimension selten ein uraltes Relikt. Bewegung oder erneutes U holt die Leine ein. Jeder Wurf trainiert Angeln (mehr bei einem Fang) und kostet die Rute einen Haltbarkeitspunkt. Brate Fisch am Lagerfeuer.

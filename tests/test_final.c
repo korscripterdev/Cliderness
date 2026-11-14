@@ -11,6 +11,7 @@
 #include "platform/platform.h"
 #include "core/log.h"
 #include "core/str.h"
+#include "renderer/cp437.h"
 
 static int run(Game *g, const char *line)
 {
@@ -205,6 +206,35 @@ static void t_pcm_audio(void)
 }
 
 /* DOS keeps the language tables in 36000-byte pools with 960 entries */
+/* help and language files of the CP437 languages must be displayable on DOS */
+static void t_cp437_text(void)
+{
+    static const char *const files[] = {
+        "help/en.hlp", "help/es.hlp", "help/fr.hlp", "help/de.hlp", "help/it.hlp",
+        "locale/en.lng", "locale/es.lng", "locale/fr.lng", "locale/de.lng", "locale/it.lng", NULL
+    };
+    int i;
+    for (i = 0; files[i]; ++i) {
+        char path[200], line[1200];
+        FILE *f;
+        int n = 0, bad = 0;
+        sprintf(path, "%s/%s", tf_data, files[i]);
+        f = fopen(path, "r");
+        if (!f) continue;   /* a language without its own help falls back to English */
+        while (fgets(line, sizeof(line), f)) {
+            size_t len = strlen(line);
+            ++n;
+            while (len > 0 && (line[len - 1] == '\n' || line[len - 1] == '\r')) line[--len] = '\0';
+            if (!cp437_can_show(line)) {
+                if (bad < 3) printf("    %s:%d not CP437: %.60s\n", files[i], n, line);
+                ++bad;
+            }
+        }
+        fclose(f);
+        CHECK_EQ_L(bad, 0);
+    }
+}
+
 static void t_dos_locale_limits(void)
 {
     static const char *const langs[] = { "en", "es", "fr", "de", "pt", "it", NULL };
@@ -241,4 +271,5 @@ void suite_final(void)
     tf_run("AI freeze, UI requests, unstuck", t_ai_and_requests);
     tf_run("PCM synthesis and priorities", t_pcm_audio);
     tf_run("language tables fit DOS limits", t_dos_locale_limits);
+    tf_run("CP437 languages are displayable on DOS", t_cp437_text);
 }

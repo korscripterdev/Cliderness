@@ -196,10 +196,10 @@ static int a_init(void) { return 1; }
 static void a_shutdown(void) { }
 static void a_tone(int hz) { (void)hz; }
 static const char *a_name(void) { return "headless (counted, silent)"; }
-static int a_pcm(const short *s, long n, int interrupt)
+static int a_pcm(const short *s, long n, int restart)
 {
     (void)s;
-    (void)interrupt;
+    (void)restart;
     ++g_pcm_sounds;
     g_pcm_samples += n;
     return 1;

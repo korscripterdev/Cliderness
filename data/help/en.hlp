@@ -254,10 +254,19 @@ The next point needs 60 x the current value of training. /attribute sets a value
 @topic skills
 @title Skills
 @level 3
-@related stats,mining,formulas
-Skills grow by doing: Mining, Woodcutting, Building, Swimming and Exploration can be trained in 0.1.0. Crafting, combat, sailing, fishing, cooking and stealth will train once those systems exist.
+@related stats,mining,formulas,fishing
+Skills grow by doing:
+> Mining, Woodcutting   breaking natural blocks
+> Building              placing blocks
+> Crafting, Cooking     recipes at stations and campfires
+> Melee, Ranged         fighting creatures
+> Swimming, Sailing     moving through water, travelling by ship
+> Fishing               casting a fishing rod
+> Stealth               sneaking (crouched) near creatures that are awake
+> Exploration           reaching new distances from spawn
+Every skill also trains an attribute (see Character Attributes).
 
-Level = square root of (XP / 10), up to 100. Mining and woodcutting levels make breaking blocks faster.
+Level = square root of (XP / 10), up to 100. Mining and woodcutting levels make breaking blocks faster, Melee and Ranged raise damage, Sailing speeds up ships, Fishing raises the catch chance and shortens the wait, Stealth makes crouching quieter and harder to see.
 
 Anti-farming rules: blocks placed by a player give no XP, exploration XP is only given for reaching new distances from spawn, and at most 60 XP can be earned per game minute.
 
@@ -282,18 +291,20 @@ The inventory, character sheet, console and sky view do NOT pause the game.
 @topic weather
 @title Weather
 @level 2
-@related time,sky,survival
-There are 18 weather types: clear, cloudy, drizzle, rain, heavy rain, thunderstorm, fog, strong wind, storm, snow, heavy snow, blizzard, hail, sandstorm, heat wave, cold snap, volcanic ash and the Ancient Storm (Ancient Dimension only).
+@related time,sky,survival,wind
+There are 21 weather types: clear, cloudy, drizzle, rain, heavy rain, thunderstorm, fog, strong wind, storm, snow, heavy snow, blizzard, hail, sandstorm, heat wave, cold snap and volcanic ash in the overworld; the Ancient Storm, Starfall, Silent Mist and Aether Wind in the Ancient Dimension.
 
 Which weather can happen depends on the climate where you are: no snow in hot deserts, sandstorms only in dry heat. Weather changes visibility, temperature, movement speed, stamina and the sky. Rain and snow are animated on the map when you are outdoors.
 
-Effects on water flow, plant growth, monsters and ships will follow with those systems.
+Rain fills dents in the ground with water and makes crops grow faster; poor visibility shortens how far creatures see; creatures wander less in rain; wind drives sails and raises waves that damage small boats.
 
 @topic sky
 @title Looking at the Sky
 @level 2
-@related time,weather
+@related time,weather,ancient
 Press Right Shift (or V) to look up. The sky shows the sun moving from sunrise to sunset, the moon and its phase, seeded stars and constellations (N shows their names), the Milky Way, clouds drifting with the wind, birds with flapping wings, crows (~), meteors, rare comets, aurora in cold regions, solar and lunar eclipses, sunrise and sunset colours and lightning during storms.
+
+The Ancient Dimension has its own sky: a magenta day, magenta and cyan stars, the aether veil rippling across every night, the ringed world low in the south, and Veyra, a second moon that runs through its eight phases in three days. There are no birds there.
 
 The constellations depend on the world seed. Time keeps running while you look up; F1 or Esc pause as usual.
 
@@ -446,10 +457,10 @@ The game detects your system language and uses it if your display can show it. O
 @title Sound
 @level 3
 @related settings,platforms,weather
-ClideAudio generates every sound procedurally (noise generators, oscillators, filters, envelopes) instead of playing recordings.
-> Windows        live PCM through waveOut (22050 Hz); new sounds are mixed into what is playing
-> Linux / BSD    live PCM through PulseAudio (pacat), PipeWire (pw-cat) or ALSA (aplay) when one of them is installed; sounds queue instead of mixing
-> macOS          live PCM through afplay
+ClideAudio generates every sound procedurally (noise generators, oscillators, filters, envelopes) instead of playing recordings, and mixes sounds that overlap.
+> Windows        live PCM through waveOut (22050 Hz)
+> Linux / BSD    live PCM streamed to PulseAudio (pacat), PipeWire (pw-cat) or ALSA (aplay) when one of them is installed
+> macOS          live PCM through afplay (whole sounds, no mixing)
 > DOS            PC Speaker tone sequences
 You hear footsteps and splashes, mining, breaking, placing, thunder, hull creaks and cracks, and ambience: rain, wind, storms, caves, the drone of the Ancient Dimension, birds by day and crows at dusk.
 Without an audio device the game runs silently. Check the device with
@@ -518,16 +529,17 @@ Cliderness - Open World Survival Sandbox
 Created by korscripterdev.
 Engine: Cliderness Engine, written in ISO C90.
 License: GNU GPL version 3 or later (LICENSE).
-Version 1.0.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
+Version 1.1.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
 
 @topic stations
 @title Workstations
 @level 2
-@related crafting,building
-> Workbench  4 planks; tools, chests, beds, furnaces, clothes
-> Furnace    8 cobblestone at a workbench; ingots, glass, bricks, charcoal
-> Campfire   3 sticks + 3 cobblestone; cooking (also a light source)
-> Anvil      5 iron ingots + 2 stone bricks; iron tools and armour
+@related crafting,building,ancient
+> Workbench      4 planks; tools, chests, beds, furnaces, clothes, boats
+> Furnace        8 cobblestone at a workbench; ingots, glass, bricks, charcoal
+> Campfire       3 sticks + 3 cobblestone; cooking (also a light source)
+> Anvil          5 iron ingots + 2 stone bricks; iron tools, armour, the portal core
+> Ancient Altar  6 ancient bricks + 4 aether shards at a workbench; starmetal gear, elixirs, lanterns
 Place a station with R and stand within 3 cells (one level up or down is fine). Pressing E on a station opens crafting.
 
 @topic farming
@@ -575,14 +587,16 @@ While you sleep fatigue falls, health slowly returns and hunger and thirst drop 
 @level 3
 @related survival,sleep,crafting
 Status effects are shown on the status panel and last a number of game minutes.
-> Bleeding        -1 HP per minute; from heavy falls; cure: bandage
-> Fracture        slower movement; from falls of 7+ blocks; cure: splint
-> Food poisoning  hunger, thirst and stamina loss; raw mushrooms (20%); cure: charcoal pill
-> Common cold     weak stamina regeneration, feels colder; after 30 minutes of hypothermia; cure: herbal tea
-> Wet             feels 4 C colder; swimming or rain outdoors
-> Well fed        better stamina regeneration; bread, stew
-> Rested          better stamina regeneration; sleeping
-Use a medicine with U. Effects are defined in data/effects/effects.def.
+> Bleeding          -1 HP per minute; heavy falls, claws and teeth; cure: bandage
+> Fracture          slower movement; falls of 7+ blocks; cure: splint
+> Food poisoning    hunger, thirst and stamina loss; raw mushrooms and raw meat; cure: charcoal pill
+> Poisoned          health loss; spiders, scorpions, void wisps; cure: charcoal pill
+> Common cold       weak stamina regeneration, feels colder; after 30 minutes of hypothermia; cure: herbal tea
+> Wet               feels 4 C colder; swimming or rain outdoors
+> Well fed          better stamina regeneration; bread, stew
+> Rested            better stamina regeneration; sleeping
+> Ancient Blessing  fast stamina regeneration, warmth; ancient relics, aether elixir
+Use a medicine with U, or /treat to use a fitting one. Effects are defined in data/effects/effects.def.
 
 @topic buckets
 @title Buckets
@@ -610,7 +624,8 @@ Every creature runs a goal-driven state machine; twice a second it picks the mos
 > 4 home      NPCs walk home at dusk and sleep there
 > 5 rest      day animals sleep at night, night creatures by day
 > 6 wander    otherwise wander or stand still (less in rain)
-Perception: sight = sight radius x weather visibility, halved in the dark for day animals and reduced by a third while you crouch; hearing = hearing radius x your noise %. Sleeping creatures perceive half as far. Attacking any creature makes it remember you (defensive creatures fight back).
+Perception: sight = sight radius x weather visibility, halved in the dark for day animals and reduced by a third (more with Stealth) while you crouch; hearing = hearing radius x your noise %. Sleeping creatures perceive half as far. Attacking any creature makes it remember you (defensive creatures fight back).
+Pathfinding: when the straight way is blocked, a chasing or homeward creature searches a route with A* (up one block, down three, 24 cells around it) and follows it; walls with a gap no longer stop them.
 States shown by /mobs: idle, wandering, chasing, attacking, fleeing, sleeping, going home, seeking shelter. A red background marks a creature that is chasing or attacking you; sleeping creatures are dark grey.
 
 @topic difficulty
@@ -686,3 +701,9 @@ Obsidian forms where water meets lava (or in deep lava caves). Breaking a portal
 @level 2
 @related commands,saving
 Save up to 16 named places with /waypoint add <name>; /waypoint list shows them with their dimension, /waypoint remove <name> deletes one. /navigate <name> tells the direction and distance, /compass points to your spawn point, /deathpoint shows where you died last, /distance <x> <z> measures. Waypoints are saved with the world; /gowaypoint <name> teleports (cheat).
+
+@topic fishing
+@title Fishing
+@level 2
+@related skills,ocean,crafting
+Craft a fishing rod (3 sticks + 2 string). Hold it, face water and press U to cast; after 3-8 seconds something bites. The catch chance is 35% + Fishing level / 2 + Luck / 4: usually raw fish, sometimes a bone, and in the Ancient Dimension rarely an ancient relic. Moving or pressing U again reels the line in. Every cast trains Fishing (more on a catch) and costs the rod one point of durability. Cook fish at a campfire.

@@ -393,13 +393,13 @@ static void aud_shutdown(void)
 
 static void aud_tone(int hz) { (void)hz; }
 
-static int aud_pcm(const short *s, long n, int interrupt)
+static int aud_pcm(const short *s, long n, int restart)
 {
     int i;
     if (!g_wo_open || n <= 0) {
         return 0;
     }
-    if (interrupt) {
+    if (restart) {
         waveOutReset(g_wo);   /* marks every queued buffer done */
     }
     for (i = 0; i < WO_BUFS; ++i) {

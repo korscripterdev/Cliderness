@@ -57,13 +57,13 @@ typedef struct ClideAudio {
     void (*tone)(int hz);             /* 0 = silence */
     const char *(*name)(void);
     /* live PCM output (mono, signed 16-bit, CLIDE_PCM_RATE Hz) or NULL.
-     * interrupt = stop what is playing first. Returns 1 if queued. */
-    int  (*pcm)(const short *samples, long n, int interrupt);
-    /* PCM_* capabilities after init (NULL = 0: whole sounds, no interrupt) */
+     * restart = stop what is playing first. Returns 1 if queued. */
+    int  (*pcm)(const short *samples, long n, int restart);
+    /* PCM_* capabilities after init (NULL = 0: whole sounds, no restart) */
     int  (*pcm_caps)(void);
 } ClideAudio;
 
-#define PCM_FLUSH  1   /* interrupt restarts output: the front end mixes and restarts */
+#define PCM_FLUSH  1   /* restart really restarts output: the front end mixes and restarts */
 #define PCM_STREAM 2   /* a continuous stream: the front end mixes and writes blocks */
 
 #define CLIDE_PCM_RATE 22050L
