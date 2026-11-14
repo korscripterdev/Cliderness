@@ -1,0 +1,709 @@
+@topic start
+@title Primeiros passos
+@level 1
+@related controls,survival,gamemodes,about
+# Bem-vindo a Cliderness
+Cliderness é um sandbox de sobrevivência em mundo aberto criado por korscripterdev. Não há história a seguir nem final: explore, colete, minere, construa e sobreviva como quiser.
+
+# Seus primeiros minutos
+1. Escolha Novo mundo na tela inicial, mantenha ou mude o nome e a semente, escolha um modo de jogo e pressione Enter.
+2. Você é o @ branco no meio do mapa. Ande com W A S D.
+3. Fique de olho no painel à direita: saúde, fôlego, fome, sede, cansaço e temperatura corporal.
+4. Olhe para uma árvore ou rocha e pressione F para minerá-la. Os recursos vão para a barra rápida embaixo.
+5. Escolha um bloco com 1-9 e coloque-o com R.
+6. Esc pausa e salva. F1 abre esta ajuda a qualquer momento.
+
+O mundo é gerado a partir da semente, então a mesma semente sempre dá o mesmo mundo. Só as suas alterações são salvas.
+
+@topic controls
+@title Controles
+@level 1
+@related movement,keybinds,inventory,commands
+# Teclas padrão
+> W A S D / setas     mover-se
+> Shift + W A S D     correr
+> Ctrl (toque) ou X   agachar / levantar
+> Shift direito ou V  olhar o céu
+> F                   atacar a criatura / minerar o bloco à frente
+> R                   colocar o bloco escolhido
+> >                   cavar para baixo (descer)
+> <                   construir sob você (subir)
+> E                   interagir: abrir, negociar, embarcar / desembarcar, pegar itens / renascer
+> U                   usar: comer, beber água
+> Q / Ctrl+Q          soltar um item / a pilha inteira
+> Tab ou I            inventário
+> C                   ficha do personagem
+> K                   fabricação
+> 1-9                 escolher espaço da barra rápida
+> P                   trocar a página do painel de estado
+> F1 ou ?             ajuda (pausa o jogo)
+> Esc                 menu de pausa (pausa o jogo)
+> / ou T              console de comandos
+
+Toda tecla pode ser trocada em Configurações > Teclas. Terminais de Linux, macOS e Unix não informam Shift direito nem Ctrl sozinhos; use lá as teclas alternativas V e X. Windows e DOS aceitam os dois.
+
+@topic movement
+@title Movimento
+@level 1
+@related sprint,crouch,stamina,terrain
+# Andar
+Cada toque ou repetição de tecla move você uma célula. Você olha para a última direção em que se moveu; a célula à frente fica destacada.
+
+# Altura
+O mundo é 3D, mas visto de cima. Uma célula desenhada como chão claro um nível acima é um degrau: ande para dentro dela para subir (custa fôlego). Células sombreadas (claras = 2 de altura, escuras = 3 ou mais) são penhascos que não dá para escalar direto; cave degraus ou construa para cima com <.
+
+Passar de uma borda faz você cair. Quedas de 4 blocos ou mais machucam, a não ser que você caia na água.
+
+# Nadar
+Na água você flutua na superfície e nada. Nadar é mais lento, gasta um pouco de fôlego e treina a habilidade Natação.
+
+@topic sprint
+@title Correr
+@level 2
+@related stamina,movement,stats
+Segure Shift ao se mover (ou digite W A S D maiúsculas) para correr. Correr é quase o dobro da velocidade de andar, mas custa fôlego a cada passo e faz muito barulho. Com pouco fôlego, você volta a andar.
+
+Correr durante um minuto de jogo dobra a perda de fome naquele minuto.
+
+@topic crouch
+@title Agachar
+@level 2
+@related movement,stealth
+Toque Ctrl (Windows, DOS) ou pressione X para agachar ou levantar. Você anda na metade da velocidade, mas faz pouquíssimo barulho (10 % em vez de 30 %). O fôlego volta mais rápido agachado ou parado.
+
+Agachado, você passa despercebido por criaturas dormindo ou distantes.
+
+@topic stealth
+@title Barulho e furtividade
+@level 3
+@related crouch,monsters,ai
+O painel de estado mostra o seu barulho: andar 30 %, correr 80 %, nadar 40 %, agachado 10 %, parado cai devagar até 0 %; atacar faz 60 %. As criaturas ouvem você dentro do raio de audição x barulho / 100 células. Agachar também reduz em um terço a distância a que elas veem você. Escuridão, neblina e tempestades encurtam a visão.
+
+@topic stamina
+@title Fôlego
+@level 2
+@related sprint,survival,stats
+O fôlego (0-100 %) é gasto ao correr, subir degraus, nadar e minerar. Ele volta a cada tick em que você não corre nem nada:
+> recuperação por tick = 3 + END / 5  (+2 parado ou agachado)
+A recuperação cai pela metade se você estiver faminto ou desidratado. Quando o cansaço passa de 80 %, o fôlego máximo cai para 60 %. Alguns climas (vento, tempestades, nevascas) gastam fôlego extra a cada minuto.
+
+@topic survival
+@title Noções de sobrevivência
+@level 1
+@related stamina,items,time,weather
+# Medidores
+> PV       saúde; em 0 você morre
+> Fome     100 % = satisfeito; coma com U
+> Sede     100 % = hidratado; olhe para a água e pressione U para beber
+> Cansaço  sobe devagar enquanto acordado; durma numa cama para recuperar
+> Temp     temperatura corporal; mantenha perto de 37 C
+
+Fome e sede caem com o tempo de jogo. Em 0 você perde saúde. Enquanto as duas ficarem acima de 60 %, a saúde volta aos poucos.
+
+# Morte
+Ao morrer, seus itens caem onde você estava. Pressione E ou Enter para renascer no ponto inicial e volte para buscá-los.
+
+# Temperatura
+Biomas frios, inverno, noite, altitude, vento e água esfriam você; desertos, verão e ondas de calor esquentam. Abaixo de 35,0 C ou acima de 39,5 C você perde saúde a cada minuto. A força de vontade desacelera a mudança.
+
+@topic gathering
+@title Coleta
+@level 1
+@related mining,items,blocks
+Olhe para uma planta, árvore ou bloco e pressione F. Plantas quebram na hora, árvores e rochas demoram mais. O que você coleta vai direto para o inventário; se estiver cheio, cai no chão.
+> Grama alta, samambaias, juncos  -> fibra vegetal
+> Arbustos, folhas, arbustos secos -> gravetos
+> Arbustos de frutas -> frutas silvestres (comida)
+> Árvores -> toras, cacto -> fruto de cacto
+> Folhas da selva -> cocos
+A comida se come com U.
+
+@topic mining
+@title Mineração
+@level 2
+@related gathering,durability,skills,caves
+Pressione F para minerar o bloco à frente. Se a célula estiver vazia, você cava o chão à frente. Pressione > para cavar o chão sob você e descer.
+
+Minerar leva tempo (veja a barra embaixo do painel). Mover-se cancela. A rocha-mãe é indestrutível.
+
+# Ferramentas
+Picaretas aceleram rocha e minério, machados a madeira, pás a terra e a areia. Sem a ferramenta certa, blocos que pedem picareta ou machado levam três vezes mais tempo. As ferramentas perdem durabilidade a cada bloco.
+
+Os minérios ficam no subsolo: carvão, ferro, cobre e estanho na pedra; prata, ouro, cristais e gemas na rocha profunda abaixo da altura 24.
+
+@topic building
+@title Ferramentas de construção
+@level 3
+@related commands,cheats
+Além de colocar blocos à mão, comandos de trapaça constroem formas inteiras ao seu redor. Tudo pode ser desfeito com /undo.
+> /sphere <bloco> <r> [hollow]     /dome <bloco> <r>
+> /cylinder <bloco> <r> <h> [hollow]   /pyramid <bloco> <r> [hollow]
+> /walls <bloco> <r> <h>   /circle <bloco> <r>   /platform <bloco> <r>
+> /box <bloco> <x> [y] [z]   /pillar <bloco> <h>
+> /line, /wall, /bridge, /stairs <bloco> <comprimento>, /tunnel <comprimento> [l] [a] na direção para onde você olha
+> /carve [r]   escavar uma caverna
+> /fill, /replace, /clone, /setblock, /flatten, /raise, /lower, /smooth, /drain, /flood
+
+@topic crafting
+@title Fabricação, fundição e culinária
+@level 2
+@related stations,farming,equipment,durability
+Pressione K para fabricar. A lista mostra todas as receitas; as claras podem ser feitas agora. Tab mostra só as possíveis, C troca de categoria, / pesquisa.
+> Enter  fabricar uma vez
+> A      fabricar o máximo possível
+> R      reparar o item segurado na barra rápida
+
+Uma receita pode pedir: ingredientes, uma estação por perto (até 3 células), combustível e um nível mínimo de habilidade. Receitas à mão não precisam de estação: tábuas a partir de toras, gravetos, uma bancada, fogueiras, tochas, tecido e corda.
+
+# Fundição e culinária
+A fornalha transforma minério bruto em lingotes, areia em vidro, argila em tijolos e toras em carvão vegetal. A fogueira cozinha pão, batatas assadas, ensopados e chá de ervas. Ambas queimam combustível: carvão e carvão vegetal dão 8 unidades, toras 4, tábuas 2, gravetos, tecido e trigo 1.
+
+Fabricar treina a habilidade Fabricação, cozinhar a habilidade Culinária. O modo criativo fabrica de graça. As receitas são arquivos de dados em data/recipes.
+
+@topic combat
+@title Combate
+@level 2
+@related monsters,equipment,skills,formulas
+Olhe para uma criatura e pressione F para atacá-la (sem criatura à frente, F minera blocos). O painel de estado mostra o nome e a saúde da criatura à frente.
+> Punhos      2 de dano
+> Ferramentas 3 de dano
+> Espadas     4-8 de dano (madeira, pedra, bronze, ferro), lança 5
+> Arco        segure-o e pressione F: dispara uma flecha até 12 células na direção em que você olha (6 de dano); as flechas são gastas, metade dos acertos pode ser recolhida
+Toda arma tem um tempo de recarga; golpear custa fôlego na sobrevivência. A sorte dá chance de golpe crítico (dano dobrado). Matar criaturas treina Corpo a corpo ou Distância.
+
+As criaturas atacam quando estão ao seu lado. A armadura vestida reduz o dano e se desgasta. Algumas criaturas causam sangramento ou veneno. /threat diz se há uma criatura hostil por perto; não dá para dormir com uma a menos de 12 células.
+
+@topic monsters
+@title Criaturas
+@level 2
+@related combat,stealth,trading,difficulty
+As criaturas surgem a 16-30 células de você conforme o bioma, a hora e se você está no subsolo ou no mar. Elas somem quando você se afasta muito.
+> Animais   cervos, coelhos, ovelhas e galinhas fogem; javalis e ursos se defendem; lobos caçam à noite; peixes e tubarões vivem na água; morcegos nas cavernas
+> Monstros  zumbis, esqueletos, espectros do pântano e carniçais de gelo saem à noite e queimam à luz do dia; aranhas, rastejadores da caverna e gosmas vivem em cavernas; escorpiões da areia nos desertos
+> PNJ       mercadores errantes e eremitas na superfície, velhos mineiros nas cavernas (veja comércio)
+As criaturas deixam carne, couro, ossos, penas, lã, linha e mais. Cozinhe carne e peixe crus numa fogueira: carne crua pode causar intoxicação.
+/creatures lista todos os tipos, /bestiary <tipo> mostra detalhes, /mobs as vivas.
+
+@topic items
+@title Itens
+@level 2
+@related inventory,blocks,durability
+Todo bloco que pode ser pego também é um item. Os outros itens são recursos (carvão, metais brutos, cristais, gemas, fósseis), materiais (gravetos, fibra vegetal), comida e ferramentas.
+
+Itens têm peso e volume. Sua capacidade de carga é 20 kg + 3 kg por ponto de Força; carregar mais deixa você lento.
+
+Itens soltos ficam no mundo como entidades. Na água eles flutuam se forem mais leves que a água (madeira, fibra, comida) e afundam se forem mais pesados (pedra, metal). Eles somem após 20 minutos reais.
+
+@topic blocks
+@title Blocos e símbolos
+@level 2
+@related items,terrain,biomes
+Todos os gráficos são caracteres CP437 em 16 cores VGA.
+> @   você
+> ♠   árvore (carvalho, bétula, selva, mangue)
+> ▲   pinheiro
+> ♣   folhas, arbusto
+> ¥   grama alta
+> *   flor
+> ~   água (azul), lava (vermelha)
+> ≈   lama
+> ░   areia, neve, gelo
+> .   chão de grama ou terra
+> ·   chão de pedra
+> ▒ ▓ penhascos de 2 ou 3+ blocos acima de você
+> ♦   minério (cor = mineral)
+> ☼   coral
+A aparência dos blocos é definida em data/blocks.
+
+@topic inventory
+@title Inventário e barra rápida
+@level 1
+@related items,controls
+Você tem 36 espaços; os espaços 1-9 são a barra rápida embaixo da tela. Abra o inventário com Tab.
+> Enter      pegar uma pilha, Enter de novo para mover / trocar / juntar
+> 1-9        mover a pilha escolhida para aquele espaço da barra rápida
+> Q / Ctrl+Q soltar um / a pilha inteira
+> S          organizar a mochila (junta pilhas)
+> X          dividir uma pilha ao meio
+> /          pesquisar pelo nome
+> F          filtrar pelo tipo de item
+> U          usar (espaços da barra rápida)
+À direita aparecem peso, volume, se flutua, durabilidade e valor nutritivo.
+
+@topic stats
+@title Atributos do personagem
+@level 3
+@related skills,formulas
+Abra a ficha do personagem com C. Os atributos começam em 10.
+> STR  capacidade de carga, velocidade de mineração
+> DEX  velocidade de movimento
+> INT  ganho de experiência
+> PER  raio de visão à noite e no subsolo
+> CON  PV máximos = 80 + 2 x CON
+> END  recuperação de fôlego e custo de correr
+> WIL  resistência ao frio e ao calor
+> LCK  chance de item extra ao minerar
+Os atributos crescem jogando até 30 (a barra ao lado de cada valor mostra o treino):
+> STR  minerar, cortar madeira, corpo a corpo    DEX  arco, furtividade
+> INT  fabricação, culinária                     PER  exploração, pesca
+> END  construção, natação, navegação            CON  sobreviver a danos
+> WIL  suportar frio, calor, fome e sede
+> LCK  abrir caixas de saque, golpes críticos
+O próximo ponto precisa de 60 x o valor atual de treino. /attribute define um valor diretamente (trapaça, até 100).
+
+@topic skills
+@title Habilidades
+@level 3
+@related stats,mining,formulas,fishing
+As habilidades crescem com a prática:
+> Mineração, Lenhador    quebrar blocos naturais
+> Construção             colocar blocos
+> Fabricação, Culinária  receitas em estações e fogueiras
+> Corpo a corpo, Distância   lutar contra criaturas
+> Natação, Navegação     mover-se na água, viajar de barco
+> Pesca                  lançar uma vara de pesca
+> Furtividade            passar agachado perto de criaturas acordadas
+> Exploração             alcançar novas distâncias do ponto inicial
+Cada habilidade treina também um atributo (veja Atributos do personagem).
+
+Nível = raiz quadrada de (XP / 10), até 100. Os níveis de mineração e lenhador aceleram a quebra, Corpo a corpo e Distância aumentam o dano, Navegação acelera os barcos, Pesca aumenta a chance de captura e encurta a espera, Furtividade deixa o agachar mais silencioso e menos visível.
+
+Regras contra abuso: blocos colocados por um jogador não dão XP, a XP de exploração só vem ao alcançar novas distâncias e no máximo 60 XP podem ser ganhos por minuto de jogo.
+
+@topic time
+@title Tempo, dias e estações
+@level 2
+@related weather,sky,pause
+O tempo de jogo é separado do tempo real. Por padrão um dia de jogo dura 20 minutos reais (1 segundo real = 72 segundos de jogo). Mude isso nas Configurações, com /daylength, ou acelere com /timescale.
+
+Um ano tem 12 meses de 30 dias e quatro estações de 90 dias, começando na primavera. No verão os dias são mais longos. A lua tem 8 fases em 30 dias.
+
+A noite é escura: você só vê algumas células, mais na lua cheia. O tempo para completamente enquanto a ajuda (F1) ou o menu de pausa (Esc) estiverem abertos.
+
+@topic pause
+@title Pausa
+@level 1
+@related time,saving
+Abrir a ajuda (F1, ?) ou o menu de pausa (Esc) congela o jogo: tempo, clima, medidores de sobrevivência, física e todo o resto param. Os menus continuam funcionando. Ao fechá-los, o jogo continua exatamente de onde parou; o tempo real passado em pausa não é somado.
+
+O inventário, a ficha do personagem, o console e a vista do céu NÃO pausam o jogo.
+
+@topic weather
+@title Clima
+@level 2
+@related time,sky,survival,wind
+Há 21 tipos de clima: limpo, nublado, garoa, chuva, chuva forte, trovoada, neblina, vento forte, tempestade, neve, nevasca forte, nevasca, granizo, tempestade de areia, onda de calor, onda de frio e cinza vulcânica no mundo normal; a Tempestade ancestral, a Chuva de estrelas, a Névoa silenciosa e o Vento de éter na Dimensão Ancestral.
+
+O clima possível depende do clima local: não neva em desertos quentes e tempestades de areia só ocorrem com calor seco. O clima muda a visibilidade, a temperatura, a velocidade, o fôlego e o céu. Chuva e neve são animadas no mapa ao ar livre.
+
+A chuva enche de água as depressões do solo e faz as plantações crescerem mais rápido; a pouca visibilidade encurta a visão das criaturas; com chuva as criaturas vagam menos; o vento empurra as velas e levanta ondas que danificam barcos pequenos.
+
+@topic sky
+@title Olhar o céu
+@level 2
+@related time,weather,ancient
+Pressione Shift direito (ou V) para olhar para cima. O céu mostra o sol do nascer ao pôr, a lua e sua fase, estrelas e constelações da semente (N mostra os nomes), a Via Láctea, nuvens levadas pelo vento, pássaros batendo as asas, corvos (~), meteoros, cometas raros, auroras nas regiões frias, eclipses do sol e da lua, as cores do amanhecer e do entardecer e relâmpagos nas tempestades.
+
+A Dimensão Ancestral tem seu próprio céu: um dia magenta, estrelas magenta e ciano, o véu de éter que ondula toda noite, o mundo com anéis baixo no sul e Veyra, uma segunda lua que percorre suas oito fases em três dias. Lá não há pássaros.
+
+As constelações dependem da semente do mundo. O tempo continua passando enquanto você olha para cima; F1 ou Esc pausam como sempre.
+
+@topic biomes
+@title Biomas
+@level 3
+@related terrain,ocean,caves
+Terra: planície, campina, floresta decídua, floresta de coníferas, floresta tropical, floresta de bambu, deserto, savana, pântano, brejo, tundra, campo de neve, alta montanha, terra vulcânica, campo de flores, terra devastada.
+Costa: praia de areia, costa de cascalho, costa rochosa, lodaçal, costa de mangue.
+Oceano: mar raso, recife de coral, mar aberto, oceano profundo, fossa oceânica, mar congelado.
+Cavernas: de pedra, de calcário, de estalactites, de cristal, de gelo, de fungos, de fósseis, de lava e da rocha profunda, lagos e rios subterrâneos.
+
+Os biomas são escolhidos pela temperatura, umidade e ruído de altura. /biome mostra onde você está e /locate <bioma> encontra um. Os biomas são definidos em data/biomes.
+
+@topic terrain
+@title Terreno e mundo 3D
+@level 3
+@related movement,building,caves
+O mundo é feito de blocos em três dimensões: x (leste), z (sul) e y (altura, 0-127). O nível do mar é 62. Você vê o nível em que está: paredes na altura dos olhos, o chão abaixo e o terreno mais baixo em cores mais escuras.
+
+Tudo pode ser mudado: cave buracos e túneis, corte montanhas, aterre o mar, construa ilhas. Use > e < para descer e subir, ou cave escadas.
+
+A rocha-mãe na altura 0 é indestrutível.
+
+@topic caves
+@title Cavernas e minérios
+@level 3
+@related mining,terrain,biomes
+As cavernas são escavadas por ruído 3D: grandes salões e túneis longos e sinuosos. Abaixo da altura 10 elas se enchem de lava. No subsolo você só vê algumas células (mais com Percepção); lava, tochas e cristais dão luz.
+
+Carvão, ferro, cobre e estanho aparecem na pedra; prata, ouro, aglomerados de cristal e gemas na rocha profunda (abaixo de 24). Fósseis se escondem na pedra entre 24 e 60.
+
+@topic ocean
+@title Oceanos, costas e rios
+@level 3
+@related biomes,fluids,ships
+Os oceanos cobrem as áreas baixas abaixo do nível do mar 62: mares rasos com algas, recifes de coral coloridos em águas quentes, mar aberto, oceano profundo e fossas. Mares frios congelam na superfície.
+
+Os rios serpenteiam pelas terras baixas e são escavados um pouco abaixo do nível do mar, então se enchem de água e ligam lagos e mar. Cavernas profundas às vezes guardam lagos subterrâneos.
+
+Você pode nadar na superfície. Jangadas e barcos estão descritos em Barcos.
+
+@topic fluids
+@title Água e lava que correm
+@level 3
+@related ocean,terrain,buckets,weather
+ClideFluid move água e lava. Cada célula de fluido tem um nível de 1 a 15 (15 = bloco cheio); células rasas mostram um sinal de onda.
+> O fluido primeiro cai reto e enche a célula abaixo.
+> Ele escorre pelas bordas e para dentro de buracos, mesmo como uma película fina.
+> Em chão plano, células vizinhas dividem a água até diferirem no máximo um nível; as poças se acalmam.
+> A quantidade de água se conserva: cavar um canal move a água, não cria nem destrói.
+Exceções: o mar e os lagos abaixo do nível do mar se reabastecem, então um oceano não se esvazia por uma vala; a chuva acrescenta água às depressões; a água que toca a lava a transforma em obsidiana (lava cheia) ou pedregulho.
+
+Construa represas com qualquer bloco sólido; quebre-as para inundar o vale atrás. A lava é mais lenta e grossa que a água.
+
+Só as células perto de uma mudança são simuladas; a água parada não custa nada. /fluid mostra estatísticas, /settle acalma tudo, /volume mede.
+
+@topic ships
+@title Barcos
+@level 2
+@related sailing,shipdamage,ocean,crafting
+Dá para fabricar quatro barcos (categoria Veículos):
+> Jangada         6 toras + 2 cordas; 1 célula, a remo curto, 220 kg, sem porão
+> Barco a remo    bancada; 2 células, a remo, 400 kg, porão
+> Veleiro         bancada, Fabricação 8; 3 células, velas + remos, 900 kg
+> Navio mercante  bancada, Fabricação 15; 5 x 3 células, só velas, 4000 kg
+Segure o barco, olhe para a água aberta e pressione R para lançá-lo (a popa começa ao seu lado). Pressione E ao lado dele para embarcar e E de novo para desembarcar: você desce em terra se houver terra junto ao casco; senão, pula na água. F num barco vazio a partir da margem o devolve ao inventário; o item mantém o dano do casco.
+
+A bordo, R abre o porão (27 espaços, limitado pela capacidade do barco) e U tira água ou, com o material de reparo na mão (toras para jangadas, tábuas para barcos), remenda o casco.
+
+@topic ancient
+@title A Dimensão Ancestral
+@level 2
+@related portal,ancientbiomes,monsters,weather
+A única outra dimensão. Seu céu brilha em magenta durante o dia; seu clima inclui a Chuva de estrelas, a Névoa silenciosa, o Vento de éter e a Tempestade ancestral (lá não há chuva nem neve). Terreno, cavernas e mares são gerados como no mundo normal, mas com semente, blocos e oito biomas próprios (veja Biomas ancestrais).
+> Minérios   veios de éter (8-90) e metal estelar (4-40) na pedra ancestral
+> Plantas    cogumelos luminosos, flores estelares, flores de cristal, juncos lunares, árvores anciãs (folhas luminosas)
+> Criaturas  cervos estelares, mariposas luminosas; à noite fogos-fátuos do vazio e espreitadores silenciosos; guardiões ancestrais perto de santuários e fendas; golens de cristal nas cavernas; guardiões do santuário que trocam relíquias
+> Estruturas Cidades ancestrais (muradas, com ruas, casas e cofres) e santuários ancestrais
+As receitas ancestrais precisam do Altar ancestral (6 tijolos ancestrais + 4 fragmentos de éter na bancada): ferramentas, espada e armadura de metal estelar, Elixir de éter (Bênção ancestral), lanternas de éter. As relíquias ancestrais concedem a Bênção ancestral ao serem usadas.
+/dimension, /dimensions e /ancientbiomes mostram onde você está.
+
+@topic durability
+@title Durabilidade e reparo
+@level 3
+@related mining,items,crafting
+As ferramentas têm durabilidade. Cada bloco minerado com a ferramenta certa custa 1 ponto, com a errada 2; enxadas perdem 1 por célula arada. Em 10 % aparece um aviso; em 0 a ferramenta quebra. A barra rápida mostra a durabilidade restante.
+
+Reparo: fique perto de uma bancada ou bigorna, segure o item e pressione R na tela de fabricação. Uma unidade do material de reparo (tábuas para madeira, pedregulho para pedra, lingotes de ferro para ferro, tecido para roupas) restaura 25-50 % mais 2 % por nível de Fabricação.
+> /durability set <porcentagem>   /repair
+
+@topic gamemodes
+@title Modos de jogo
+@level 2
+@related cheats,survival
+> Sobrevivência  todos os medidores de sobrevivência, recursos limitados
+> Criativo       sem fome nem dano, mineração instantânea, blocos não se gastam
+> Aventura       regras de sobrevivência, mas você não pode quebrar nem colocar blocos
+> Espectador     voa através de tudo, sem mudanças no mundo
+Troque com /gamemode (precisa de trapaças). As trapaças são uma configuração separada do mundo.
+
+@topic cheats
+@title Trapaças
+@level 3
+@related commands,gamemodes
+Os comandos de trapaça (marcados [cheat] na lista) exigem trapaças ativadas para o mundo: ao criá-lo ou com /cheats on. Usar qualquer trapaça marca o mundo como trapaceado; isso é salvo.
+
+O modo deus (/god), o voo (/fly) e atravessar blocos (/noclip) são opções independentes do modo de jogo.
+
+@topic commands
+@title Todos os comandos
+@level 3
+@related cheats,controls,building,waypoints
+Abra o console com / (ou T). Digite um comando e pressione Enter. Tab completa nomes e argumentos (blocos, itens, clima, modos...), Cima/Baixo trazem comandos anteriores, PgUp/PgDn rolam a saída. As coordenadas aceitam ~ para "relativo a mim", por exemplo /tp ~10 ~ ~.
+
+Há 240 comandos em grupos: jogador, posição, movimento, ações (mine, place, use, interact, step, face: tudo o que as teclas fazem), itens e armazenamento, fabricação, equipamento, construção e formas, mundo e terreno, tempo, clima, fluidos, criaturas e combate, barcos, dimensões, interface e ajuda, sistema. /commands lista todos, /help <comando> explica um, /aliases lista os nomes curtos, /topics e /helpsearch pesquisam na ajuda.
+
+@topic saving
+@title Salvar e carregar
+@level 2
+@related pause,troubleshooting
+Salve com Esc > Salvar ou /save; sair para o menu também salva. Os mundos ficam em saves/<nome>/:
+> world.ini   semente, tempo, clima, jogador, inventário, itens
+> chunks.dat  só os chunks que você mudou
+Cada salvamento é escrito num arquivo temporário, relido e conferido (CRC-32) antes de substituir o anterior, então uma falha durante o salvamento não destrói o jogo salvo antes. Carregue os mundos na tela inicial.
+
+@topic settings
+@title Configurações
+@level 2
+@related languages,keybinds
+As configurações ficam em clide.ini ao lado do jogo:
+> Idioma          veja a lista de idiomas
+> Teclas          troque qualquer tecla (duas por ação)
+> Som             ligado / desligado
+> Duração do dia  de 10 a 60 minutos reais por dia de jogo
+
+@topic keybinds
+@title Trocar teclas
+@level 2
+@related settings,controls
+Configurações > Teclas lista cada ação. Enter define a primeira tecla, A a segunda, Del apaga a segunda, R restaura o padrão. As teclas são salvas em keys.ini. Shift com uma tecla de movimento sempre significa correr.
+
+@topic languages
+@title Idiomas
+@level 2
+@related settings,troubleshooting
+O jogo detecta o idioma do sistema e o usa se a sua tela puder mostrá-lo. Numa tela CP437 (DOS) só são oferecidos os idiomas cujo texto cabe em CP437; os outros ficam ocultos. Em terminais Unicode, idiomas com escritas especiais (coreano, japonês, chinês) aparecem como não verificados porque o jogo não sabe se a sua fonte tem os caracteres: ao escolher um, aparece um exemplo para confirmar.
+
+@topic audio
+@title Som
+@level 3
+@related settings,platforms,weather
+ClideAudio gera cada som de forma procedural (geradores de ruído, osciladores, filtros, envelopes) em vez de tocar gravações, e mistura os sons que se sobrepõem.
+> Windows        PCM ao vivo pelo waveOut (22050 Hz)
+> Linux / BSD    PCM ao vivo em fluxo para PulseAudio (pacat), PipeWire (pw-cat) ou ALSA (aplay) quando um deles está instalado
+> macOS          PCM ao vivo pelo afplay (sons inteiros, sem mistura)
+> DOS            sequências de tons do alto-falante do PC
+Você ouve passos e respingos, mineração, quebra, colocação, trovões, rangidos e rachaduras do casco, e o ambiente: chuva, vento, tempestades, cavernas, o zumbido da Dimensão Ancestral, pássaros de dia e corvos ao entardecer.
+Sem dispositivo de áudio o jogo roda em silêncio. Teste o dispositivo com
+> cliderness --play-sfx rain
+/audio mostra o sistema de som, /sound on|off liga o som, /sounds e /playsound testam efeitos, --render-sfx grava um arquivo WAV.
+
+@topic platforms
+@title Plataformas
+@level 4
+@related audio,troubleshooting
+O motor é ISO C90. Compatível com: console do Windows, Linux, macOS e outros terminais Unix (UTF-8), MS-DOS e FreeDOS (modo texto VGA, versões de 16 bits com Open Watcom ou DJGPP). Todas as plataformas usam a mesma grade CP437 de 80x25 e 16 cores; a forma exata dos caracteres depende da fonte do terminal.
+
+No DOS o cache do mundo é menor (40 chunks) e a memória é limitada para caber em 640 KB.
+
+@topic troubleshooting
+@title Solução de problemas
+@level 3
+@related platforms,languages,saving
+> Quadrados ou ? no lugar de símbolos: use uma fonte com caracteres de moldura (Consolas, DejaVu Sans Mono) ou o Windows Terminal.
+> Tela pequena demais: o jogo precisa de pelo menos 80x25 caracteres; um aviso vermelho mostra o tamanho atual.
+> Texto coreano/japonês/chinês quebrado: falta à sua fonte os caracteres; escolha outro idioma ou outra fonte.
+> Shift direito / Ctrl não fazem nada: o seu terminal não consegue informá-los; use V e X.
+> "data error" ao iniciar: rode o jogo na pasta dele ou informe --data <pasta>.
+> O carregamento falha por CRC: world.ini foi editado ou está danificado.
+> Sem som: normal sem um dispositivo compatível; confira Configurações > Som.
+
+@topic world
+@title Geração do mundo
+@level 4
+@related terrain,biomes,formulas
+O mundo é gerado a partir da semente com ruído de valores inteiros, por isso é idêntico em todas as plataformas, inclusive no DOS de 16 bits sem unidade de ponto flutuante. A altura vem de uma camada continental (formas de 256 blocos), do detalhe (32 blocos) e das montanhas. Temperatura, umidade e uma camada especial escolhem o bioma. Ruído 3D escava as cavernas; os minérios são colocados por hash de bloco.
+
+O mundo é guardado em chunks de 32x32, um por nível de altura. Só os chunks que você muda são salvos.
+
+@topic advanced
+@title Mecânicas avançadas
+@level 4
+@related formulas,world,time
+A simulação roda a 20 ticks fixos por segundo. O tempo real é acumulado e convertido em ticks só quando nenhuma tela de pausa está aberta; travadas longas são limitadas a 250 ms para que o jogo nunca pule para a frente. O tempo de jogo avança 50 ms x 86400 / duração_do_dia x escala_de_tempo por tick (3,6 segundos de jogo por padrão) com restos exatos, de modo que 20 minutos reais são exatamente um dia.
+
+O movimento espera um tempo por passo em ticks: andar 4, correr 2, agachado 7, nadar 6, multiplicado por 100 / (90 + DEX). Blocos que atrasam somam 3, sobrecarga 2 ou 6 e o clima sua penalidade de movimento em porcentagem.
+
+@topic formulas
+@title Fórmulas (mestre)
+@level 5
+@related advanced,stats,skills
+> ticks de mineração = dureza (x3 sem a ferramenta exigida, ou x100/potência com a certa), depois x100/(100+2 STR), depois x100/(100+3 habilidade)
+> nível de habilidade = isqrt(xp / 10); xp por bloco natural = dureza/4 + 1, x(100 + 3 INT)/130, máx. 60 por minuto
+> custo de correr = 12 x 100 / (80 + 2 END) por passo
+> recuperação de fôlego = 3 + END/5 por tick (+2 parado)
+> fome: -0,5 por minuto de jogo (-1,0 se você correu), sede -0,7 (-1,0 acima de 28 C), cansaço +0,4
+> variação da temperatura corporal = |ambiente - limite| x 10 / (20 + WIL) décimos de grau por minuto fora de 10..28 C
+> dano de queda = (blocos - 3) x 8 para quedas de 4+
+> capacidade de carga = 20 kg + 3 kg x STR
+> raio de visão = 4 + visibilidade x 32 / 100 + PER/3 ao ar livre, 4 + PER/4 no subsolo
+> dano corpo a corpo = arma x (100 + 3 STR) / 130 x (100 + 2 Corpo a corpo) / 100, x2 em golpe crítico (chance = LCK %), menos a defesa da criatura (mín. 1)
+> dano do arco = 6 x (100 + 2 Distância) / 100, alcance 12
+> dano das criaturas = dano x dificuldade (50/100/150 %) x (100 - defesa da armadura) / 100, mín. 1
+> surgimento de criaturas: a cada 2 s, a 16-30 células, limite 16 + 6 x dificuldade (DOS 8 + dificuldade)
+
+@topic about
+@title Sobre Cliderness
+@level 1
+@related start,platforms
+Cliderness - sandbox de sobrevivência em mundo aberto
+Criado por korscripterdev.
+Motor: Cliderness Engine, escrito em ISO C90.
+Licença: GNU GPL versão 3 ou posterior (LICENSE).
+Versão 1.1.0. Veja o roteiro (ROADMAP.md) para o que está pronto e o que está planejado.
+
+@topic stations
+@title Estações de trabalho
+@level 2
+@related crafting,building,ancient
+> Bancada           4 tábuas; ferramentas, baús, camas, fornalhas, roupas, barcos
+> Fornalha          8 pedregulhos na bancada; lingotes, vidro, tijolos, carvão vegetal
+> Fogueira          3 gravetos + 3 pedregulhos; culinária (também ilumina)
+> Bigorna           5 lingotes de ferro + 2 tijolos de pedra; ferramentas e armaduras de ferro, o núcleo de portal
+> Altar ancestral   6 tijolos ancestrais + 4 fragmentos de éter na bancada; equipamento de metal estelar, elixires, lanternas
+Coloque uma estação com R e fique a até 3 células (um nível acima ou abaixo serve). E numa estação abre a fabricação.
+
+@topic farming
+@title Agricultura e árvores
+@level 2
+@related crafting,time,weather
+Segure uma enxada e pressione U para arar a grama ou a terra à frente e transformá-la em terra arada. Escolha sementes e pressione R para plantá-las.
+> Sementes de trigo  da grama alta (12 %) ou do trigo maduro
+> Batatas            das samambaias (6 %); plante uma batata para ter mais
+As plantações crescem em fases (cerca de 4 horas de jogo por fase de trigo, 5 para batatas). A chuva acelera o crescimento em um quarto, o inverno o reduz pela metade e plantações cobertas por um bloco sólido esperam pela luz. Minere uma plantação madura para colher: o trigo dá trigo e duas sementes, as batatas dão três batatas.
+
+As folhas às vezes soltam mudas (10 %). Plantadas, elas viram uma árvore com copa em cerca de meio dia, se o espaço acima estiver livre.
+
+@topic chests
+@title Baús
+@level 2
+@related inventory,stations
+Fabrique um baú (8 tábuas na bancada) e coloque-o com R. Olhe para ele e pressione E para abri-lo. À esquerda está o baú (27 espaços), à direita o seu inventário.
+> Tab / Esquerda / Direita  trocar de lado
+> Enter                     mover a pilha escolhida para o outro lado
+> A                         mover tudo
+Quebrar um baú solta o conteúdo. Os baús são salvos com o mundo.
+
+@topic equipment
+@title Equipamento e bolsas
+@level 2
+@related inventory,survival,combat
+Roupas, armaduras e bolsas são vestidas em cinco espaços: cabeça, corpo, pernas, pés e costas. Escolha um item no inventário e pressione W (ou segure-o e pressione U) para vesti-lo; escolha um item vestido no fim da lista e pressione Enter ou W para tirá-lo.
+> Roupas de fibra      calor +1..+4, pouca defesa
+> Armadura de couro    defesa 4-12 %, um pouco de calor
+> Armadura de ferro    defesa 8-20 % por peça, um pouco fria
+> Bolsa de fibra       +15 kg de capacidade
+A defesa reduz o dano (até 80 %). O calor eleva a temperatura sentida no frio. O que você veste conta no seu peso.
+
+@topic sleep
+@title Dormir
+@level 2
+@related survival,time,effects
+Fabrique uma cama (3 tábuas + 3 tecidos na bancada), coloque-a e pressione E olhando para ela. Você pode dormir à noite ou quando o cansaço passar de 60 %. Você dorme até meia hora depois do nascer do sol (no máximo 12 horas); de dia, um jogador cansado tira um cochilo.
+
+Enquanto você dorme o cansaço cai, a saúde volta aos poucos e a fome e a sede caem pela metade da velocidade; o mundo continua (clima, plantações). Dormir define o ponto inicial na cama e deixa você Descansado. Não dá para dormir com criaturas hostis a menos de 12 células.
+
+@topic effects
+@title Ferimentos, doenças e bônus
+@level 3
+@related survival,sleep,crafting
+Os efeitos de estado aparecem no painel de estado e duram alguns minutos de jogo.
+> Sangramento            -1 PV por minuto; quedas fortes, garras e dentes; cura: bandagem
+> Fratura                movimento mais lento; quedas de 7+ blocos; cura: tala
+> Intoxicação alimentar  perda de fome, sede e fôlego; cogumelos e carne crus; cura: pastilha de carvão
+> Envenenado             perda de saúde; aranhas, escorpiões, fogos-fátuos do vazio; cura: pastilha de carvão
+> Resfriado              pouca recuperação de fôlego, sensação de frio; após 30 minutos de hipotermia; cura: chá de ervas
+> Molhado                sensação de 4 C mais frio; nadar ou chuva ao ar livre
+> Bem alimentado         melhor recuperação de fôlego; pão, ensopado
+> Descansado             melhor recuperação de fôlego; dormir
+> Bênção ancestral       recuperação de fôlego rápida, calor; relíquias ancestrais, elixir de éter
+Use um remédio com U, ou /treat para usar o adequado. Os efeitos são definidos em data/effects/effects.def.
+
+@topic buckets
+@title Baldes
+@level 2
+@related fluids,crafting
+Fabrique um balde com 3 lingotes de ferro na bigorna. Segure-o e pressione U diante da água ou da lava para recolher a célula inteira; pressione R para despejá-la à sua frente. Um balde lembra quanto carrega (1-15 níveis), então a água nunca é duplicada, a não ser quando você a tira do mar, que se reabastece.
+
+@topic structures
+@title Minas e ruínas
+@level 2
+@related caves,items,chests
+O mundo esconde estruturas geradas pela semente:
+> Minas abandonadas  no subsolo (altura 16-44): dois longos corredores cruzados com ramificações, vigas de madeira, tochas e caixas da mina nas pontas.
+> Ruínas de pedra    em terra firme: um anel quebrado de pedregulhos com uma caixa velha no meio.
+Ao abrir uma caixa pela primeira vez ela se enche de saque (carvão, minérios, lingotes, ferramentas, comida, tecido, sementes, raramente gemas). /findstructure abandoned_mine mostra a mais próxima (trapaça).
+
+@topic ai
+@title Comportamento das criaturas
+@level 4
+@related monsters,stealth,formulas
+Cada criatura segue uma máquina de estados guiada por objetivos; duas vezes por segundo ela escolhe o mais urgente:
+> 1 sobreviver   muito ferida e vê você: fugir
+> 2 atacar       hostil e percebe você: perseguir e depois atacar
+> 3 abrigar-se   queima à luz do dia: procurar abrigo
+> 4 voltar       os PNJ voltam para casa ao entardecer e dormem lá
+> 5 descansar    animais diurnos dormem à noite, os noturnos de dia
+> 6 vagar        senão vagar ou ficar parada (menos com chuva)
+Percepção: visão = raio de visão x visibilidade do clima, pela metade no escuro para animais diurnos e reduzida em um terço (mais com Furtividade) enquanto você está agachado; audição = raio de audição x o seu barulho em %. Criaturas dormindo percebem a metade da distância. Atacar uma criatura faz com que ela se lembre de você (as defensivas revidam).
+Busca de caminho: se o caminho reto está bloqueado, uma criatura que persegue ou volta para casa procura uma rota com A* (um bloco para cima, três para baixo, 24 células ao redor) e a segue; um muro com uma brecha não a detém mais.
+Estados mostrados por /mobs: parado, vagando, perseguindo, atacando, fugindo, dormindo, indo para casa, abrigando-se. Um fundo vermelho marca uma criatura que persegue ou ataca você; as que dormem ficam cinza-escuro.
+
+@topic difficulty
+@title Dificuldade
+@level 2
+@related monsters,combat
+> Pacífico  sem monstros; animais hostis ainda se defendem
+> Fácil     monstros causam 50 % do dano, menos criaturas
+> Normal    100 % do dano (padrão)
+> Difícil   150 % do dano, mais criaturas
+Mude quando quiser com /difficulty <nome>; passar para Pacífico remove todos os monstros. A dificuldade é salva com o mundo. /spawning off interrompe o surgimento natural (trapaça).
+
+@topic trading
+@title Comércio
+@level 2
+@related monsters,items
+Olhe para um PNJ e pressione E (ou use /trade). Se você levar o que uma das ofertas pede, a troca acontece na hora; senão o PNJ lista as ofertas no registro de mensagens.
+> Mercador errante  carvão por fichas de troca, fichas por pão ou lingotes de ferro
+> Eremita           couro por bandagens, carne crua por chá de ervas, gemas por fichas
+> Velho mineiro     ferro bruto por uma picareta de ferro, pão por tochas, fragmentos de cristal por fichas
+Os PNJ são defensivos: revidam se você os atacar. E num animal ou monstro mostra o que ele está fazendo.
+
+@topic sailing
+@title Navegar
+@level 2
+@related ships,wind,shipdamage,skills
+A bordo, as teclas de movimento pilotam: a tecla na direção da proa aumenta a potência (0-3), a oposta reduz (até -1 = ré para barcos com remos), uma tecla lateral vira a proa para aquele lado se houver espaço. /anchor para o barco.
+> Remos   velocidade dos seus braços: custa fôlego a cada célula
+> Velas   velocidade do vento: total com vento de popa, 75 % com vento largo, 45 % de través, 15 % contra
+Vale a mais rápida das duas. A sobrecarga corta a velocidade pela metade e a água embarcada atrasa. A cada 8 células se treina Navegação, que soma 1 % de velocidade por nível. O painel de estado mostra barco, casco, alagamento em %, potência e velocidade. /shipinfo mostra tudo, /wind o vento.
+
+@topic shipdamage
+@title Dano no casco e naufrágio
+@level 3
+@related ships,sailing,weather,formulas
+Cada barco tem pontos de casco e três estágios de dano:
+> Intacto       acima de 66 %
+> Danificado    34-66 %: entra 1 litro por segundo (casco amarelo)
+> Crítico       33 % ou menos: entram 4 litros por segundo (casco vermelho)
+As ondas danificam o casco quando o vento é mais forte do que o barco aguenta (jangada 40 %, barco a remo 55 %, veleiro 70 %, navio mercante 85 %): tempestades são perigosas para barcos pequenos. Encalhar a mais de 30 células por 100 ticks custa pontos de casco. Chuva e sobrecarga deixam a água entrar.
+
+A água no casco aparece em porcentagem; acima de 50 % o casco fica azul. O barco afunda quando está cheio (capacidade / 4 litros), quando o casco chega a 0 ou quando carga + água passam de 150 % da capacidade. Um barco que afunda solta a carga e destroços flutuantes. Tire a água (U ou /bail; um balde na mão tira três vezes mais) e conserte a tempo. Rangidos e estalos avisam você.
+
+@topic wind
+@title Vento
+@level 3
+@related sailing,weather
+A força do vento vem do clima (limpo 10 %, chuva 30 %, trovoada 60 %, vento forte 80 %, tempestade 95 %) e a direção muda devagar. /wind mostra os dois; a direção é para onde o vento sopra. Os veleiros são mais rápidos com o vento pelas costas e quase param navegando contra ele. Vento forte levanta ondas que danificam cascos pequenos.
+
+@topic portal
+@title Portais
+@level 2
+@related ancient,crafting
+Fabrique um núcleo de portal na bigorna (4 obsidianas, 6 fragmentos de cristal, 2 gemas, 2 lingotes de ouro, Fabricação 5) e coloque-o com R: ele vira um Portal ancestral. Olhe para ele e pressione E para viajar. Você chega às mesmas x/z na outra dimensão, na terra firme mais próxima dentro de 48 células; um portal de volta é construído a leste de você, a menos que já exista um a até 8 células. Barcos, criaturas e itens ficam para trás.
+
+A obsidiana se forma onde a água encontra a lava (ou em cavernas de lava profundas). Quebrar um portal devolve o núcleo. Se você morrer, renasce na dimensão do seu ponto inicial (dormir numa cama o define).
+
+@topic ancientbiomes
+@title Biomas ancestrais
+@level 3
+@related ancient,biomes
+> Pradaria ancestral     grama magenta, flores estelares, árvores anciãs isoladas
+> Floresta ancestral     matas densas de anciãs com folhas luminosas
+> Jardim esquecido       quente e úmido, todo tipo de planta luminosa
+> Ermos de cristal       planaltos de relva de cristal e flores de cristal
+> Pântano silencioso     lama silenciosa, juncos lunares e cogumelos luminosos
+> Planície estelar       campos secos de areia estelar luminosa
+> Santuário ancestral    chão calçado de tijolos, vigiado
+> Fenda do vazio         abismos de 40 blocos até um fundo de pedra do vazio; sem água
+
+@topic waypoints
+@title Pontos de referência e navegação
+@level 2
+@related commands,saving
+Salve até 16 lugares com nome com /waypoint add <nome>; /waypoint list mostra todos com a dimensão, /waypoint remove <nome> apaga um. /navigate <nome> informa a direção e a distância, /compass aponta para o seu ponto inicial, /deathpoint mostra onde você morreu pela última vez, /distance <x> <z> mede. Os pontos de referência são salvos com o mundo; /gowaypoint <nome> teletransporta (trapaça).
+
+@topic fishing
+@title Pesca
+@level 2
+@related skills,ocean,crafting
+Fabrique uma vara de pesca (3 gravetos + 2 linhas). Segure-a, olhe para a água e pressione U para lançar; após 3-8 segundos algo morde a isca. A chance de captura é 35 % + nível de Pesca / 2 + Sorte / 4: em geral peixe cru, às vezes um osso e, na Dimensão Ancestral, raramente uma relíquia ancestral. Mover-se ou pressionar U de novo recolhe a linha. Cada lançamento treina a Pesca (mais quando você pega algo) e gasta um ponto de durabilidade da vara. Cozinhe o peixe numa fogueira.
