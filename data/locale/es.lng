@@ -903,3 +903,12 @@ effect.well_fed=Bien alimentado
 effect.rested=Descansado
 effect.poisoned=Envenenado
 effect.ancient_blessing=Bendición ancestral
+
+# ships: crew and drift
+mob.sailor=Marinero
+item.crew_contract=Contrato de tripulante
+msg.crew_hired=Marinero contratado ({0} a bordo): la tripulación rema y achica.
+msg.crew_full=No quedan literas en {0}.
+msg.ship_drift=El viento arrastra el barco.
+ship.crew=Tripulación
+ship.drift=Deriva

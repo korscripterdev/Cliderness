@@ -4,6 +4,25 @@
 
 Mudanças importantes do Cliderness (criado por korscripterdev).
 
+## [1.1.0] — 2026-11-15
+
+Completa o que a 1.0.0 deixou em aberto no roteiro.
+
+### Adicionado
+- Busca de caminho A* para as criaturas (heap binário e hash, sobe 1 e desce 3 blocos, guarda uma rota de 12 passos).
+- Atributos que crescem jogando até 30: cada habilidade treina um atributo; Constituição sobe ao sofrer dano (+2 de vida máxima), Vontade ao suportar extremos, Sorte com saque e críticos.
+- Pesca: vara de pescar, fisgada após 3-8 segundos, chance 35% + Pesca / 2 + Sorte / 4, relíquias na Dimensão Antiga.
+- Habilidade de furtividade: passar agachado perto de criaturas acordadas a treina e deixa você mais silencioso.
+- Navios derivam com ventos acima de 25%, a menos que estejam ancorados ou encostados na margem.
+- O Marinheiro (costas) vende contratos de tripulante; a tripulação rema sem vigor (+10% cada), esgota 2 l por segundo e pesa 75 kg. Beliches: jangada 0, barco a remo 1, veleiro 2, mercante 4.
+- O céu antigo: a segunda lua Veyra (ciclo de 3 dias), um mundo com anéis, o véu de éter, estrelas magenta e ciano.
+- O áudio no Linux/BSD transmite PCM mixado com 60 ms de antecedência.
+- Ajuda nos 11 idiomas (63 tópicos) e nomes de blocos, itens, biomas, clima e efeitos.
+
+### Alterado
+- As versões de DOS compilam e ligam na CI (Open Watcom 16 bits e DOS/4GW); ainda não executadas em hardware nem emulador.
+- Tabelas de idioma no DOS: 36000 bytes e 960 entradas.
+
 ## [1.0.0] — 2026-11-15
 
 Fase 10 do roteiro (sistemas avançados). As dez fases estão implementadas; o que falta verificar está em ROADMAP.md.

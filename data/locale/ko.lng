@@ -1098,3 +1098,12 @@ item.fishing_rod=낚싯대
 sky.veyra=베이라: {0}
 sky.ringed=고리 행성
 sky.veil=에테르 장막
+
+# ships: crew and drift
+mob.sailor=선원
+item.crew_contract=선원 계약서
+msg.crew_hired=선원 {0}명째 고용: 선원이 노를 젓고 물을 퍼냅니다.
+msg.crew_full={0}에 남은 선원 자리가 없습니다.
+msg.ship_drift=바람에 배가 떠밀려 갑니다.
+ship.crew=선원
+ship.drift=표류

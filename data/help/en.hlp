@@ -646,6 +646,7 @@ Face an NPC and press E (or use /trade). If you carry what one of its offers ask
 > Wandering Trader  coal for trade tokens, tokens for bread or iron ingots
 > Hermit            leather for bandages, raw meat for herbal tea, gems for tokens
 > Old Miner         raw iron for an iron pickaxe, bread for torches, crystal shards for tokens
+> Sailor            4 trade tokens for a crew contract, raw fish for rope, coal for a token (coasts)
 NPCs are defensive: they fight back if you attack them. Pressing E on an animal or monster shows what it is doing.
 
 @topic sailing
@@ -656,6 +657,9 @@ Aboard, the movement keys steer: the key in the direction of the bow raises the 
 > Oars    speed from your arms: costs stamina for every cell
 > Sails   speed from the wind: full in a tailwind, 75% on a broad reach, 45% across the wind, 15% into it
 The faster of both counts. Overloading halves the speed, flooding slows the ship. Every 8 cells train Sailing, which adds 1% speed per level. The status panel shows ship, hull, flooding %, throttle and speed. /shipinfo shows everything, /wind the wind.
+
+# Drift and crew
+A ship without power or anchor drifts with winds above 25% unless it touches the shore. Sailors on the coast sell crew contracts: hold one aboard and press U to hire a sailor. The crew rows for you without stamina (+10% oar speed each), bails 2 l a second each and weighs 75 kg. Berths: raft 0, rowing boat 1, sailing boat 2, merchant ship 4. Hauling the ship ashore hands the contracts back.
 
 @topic shipdamage
 @title Hull Damage and Sinking

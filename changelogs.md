@@ -4,6 +4,27 @@
 
 All notable changes to Cliderness (created by korscripterdev).
 
+## [1.1.0] — 2026-11-15
+
+Fills in what 1.0.0 left open on the roadmap.
+
+### Added
+- A* pathfinding for creatures (binary heap and hash, climbs 1 and drops 3 blocks, keeps a 12-step route, a search budget per tick); creatures no longer float over gaps.
+- Attributes grow with play up to 30: each skill trains an attribute, CON grows by taking damage (+2 max HP), WIL by enduring extremes, LCK by loot and critical hits. The character sheet shows the training bar.
+- Fishing: fishing rod, bites after 3-8 seconds, chance 35% + Fishing / 2 + Luck / 4, relics in the Ancient Dimension.
+- Stealth skill: sneaking past awake creatures trains it and makes you quieter and harder to see.
+- Ships drift with winds above 25% unless anchored or touching the shore.
+- The Sailor (coasts) sells crew contracts; hired crew row for you without stamina (+10% oar speed each), bail 2 l a second and weigh 75 kg. Berths: raft 0, rowing boat 1, sailing boat 2, merchant ship 4. Crew are saved.
+- The Ancient sky: the second moon Veyra (3-day cycle), a ringed world, the aether veil, magenta and cyan stars, no birds.
+- Linux/BSD audio streams mixed PCM with a 60 ms lead.
+- Help in all 11 languages (63 topics, including fishing), checked by `tools/help_check.py`; block, item, biome, weather and effect names in all languages.
+- Tests: pathfinding, attribute training, fishing, stealth, the Ancient sky, PCM streaming, drift and crew, CP437 text of the Latin languages.
+
+### Changed
+- The DOS builds compile and link in CI (Open Watcom 16-bit with `-zc -zt=256`, and DOS/4GW). They are not yet run on hardware or in an emulator.
+- Language tables on DOS: 36000-byte pools with 960 entries.
+- `gameplay/survival/effects.c` is now `status.c` (an object file name clash on DOS).
+
 ## [1.0.0] — 2026-11-15
 
 Roadmap phase 10 (advanced systems). All ten roadmap phases are implemented; see ROADMAP.md for what is still unverified.

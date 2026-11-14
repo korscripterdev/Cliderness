@@ -808,3 +808,12 @@ msg.fish_reel=You reel the line in.
 sky.veyra=Veyra: {0}
 sky.ringed=The ringed world
 sky.veil=Aether veil
+
+# ships: crew and drift
+mob.sailor=Sailor
+item.crew_contract=Crew Contract
+msg.crew_hired=Sailor hired ({0} aboard): the crew rows and bails.
+msg.crew_full=No berth left on the {0}.
+msg.ship_drift=The wind drives the ship.
+ship.crew=Crew
+ship.drift=Drift

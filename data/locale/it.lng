@@ -903,3 +903,12 @@ effect.well_fed=Sazio
 effect.rested=Riposato
 effect.poisoned=Avvelenato
 effect.ancient_blessing=Benedizione antica
+
+# ships: crew and drift
+mob.sailor=Marinaio
+item.crew_contract=Contratto di equipaggio
+msg.crew_hired=Marinaio ingaggiato ({0} a bordo): l'equipaggio rema e svuota l'acqua.
+msg.crew_full=Nessuna cuccetta libera su {0}.
+msg.ship_drift=Il vento trascina la nave.
+ship.crew=Equipaggio
+ship.drift=Deriva

@@ -4,6 +4,25 @@
 
 Changements notables de Cliderness (créé par korscripterdev).
 
+## [1.1.0] — 2026-11-15
+
+Complète ce que la 1.0.0 laissait ouvert dans la feuille de route.
+
+### Ajouté
+- Recherche de chemin A* pour les créatures (tas binaire et hachage, monte 1 et descend 3 blocs, garde un trajet de 12 pas).
+- Attributs qui progressent en jouant jusqu'à 30 : chaque compétence entraîne un attribut ; Constitution monte en subissant des dégâts (+2 PV max), Volonté en endurant les extrêmes, Chance avec le butin et les critiques.
+- Pêche : canne à pêche, touche après 3-8 secondes, chance 35 % + Pêche / 2 + Chance / 4, reliques dans la Dimension antique.
+- Compétence de discrétion : passer accroupi près de créatures éveillées l'entraîne et te rend plus silencieux.
+- Les navires dérivent avec un vent de plus de 25 % sauf à l'ancre ou contre le rivage.
+- Le Marin (côtes) vend des contrats d'équipage ; l'équipage rame sans endurance (+10 % chacun), écope 2 l par seconde et pèse 75 kg. Couchettes : radeau 0, barque 1, voilier 2, navire marchand 4.
+- Le ciel antique : la seconde lune Veyra (cycle de 3 jours), un monde à anneaux, le voile d'éther, des étoiles magenta et cyan.
+- L'audio Linux/BSD diffuse un PCM mixé avec 60 ms d'avance.
+- Aide dans les 11 langues (63 sujets) et noms des blocs, objets, biomes, météo et effets.
+
+### Modifié
+- Les versions DOS se compilent et se lient dans la CI (Open Watcom 16 bits et DOS/4GW) ; pas encore lancées sur machine ni émulateur.
+- Tables de langue sous DOS : 36000 octets et 960 entrées.
+
 ## [1.0.0] — 2026-11-15
 
 Phase 10 de la feuille de route (systèmes avancés). Les dix phases sont implémentées ; ce qui reste à vérifier est dans ROADMAP.md.

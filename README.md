@@ -15,7 +15,7 @@ explore, mine, build, reshape the land and survive.
 ~~~~~~~~~≈≈≈≈@..¥.▒▓▓·····▓│Hunger  ████████·  90%
 ```
 
-## What works in 1.0.0
+## What works in 1.1.0
 
 * Seeded, deterministic 3D world (identical on 16-bit and 64-bit), 46 biomes,
   caves, ores, oceans, coral reefs, rivers and underground lakes; only changed
@@ -29,7 +29,7 @@ explore, mine, build, reshape the land and survive.
   farming and growing trees, chests, beds and sleep, equipment and bags, repairs.
 * ClideFluid: flowing water and lava with volume conservation, dams, rain
   puddles, buckets; abandoned mines, ruins, ancient cities and shrines.
-* 29 creatures (animals, monsters, NPCs) with goal-driven AI, sight and
+* 30 creatures (animals, monsters, NPCs) with goal-driven AI, sight and
   hearing, day/night routines; melee and bow combat, armour, loot, trading,
   undead that burn in daylight, four difficulty levels.
 * Ships: raft, rowing boat, sailing boat, merchant ship; oars and sails with
@@ -42,15 +42,19 @@ explore, mine, build, reshape the land and survive.
   (sun, moon, seeded constellations, clouds, birds, meteors, aurora, eclipses).
 * Procedural sound: live PCM on Windows (waveOut, mixed), Linux/BSD
   (PulseAudio, PipeWire or ALSA) and macOS (afplay); PC Speaker tones on DOS.
+* New in 1.1.0: A* pathfinding for creatures, attributes that grow with play,
+  fishing and stealth, wind drift and hired ship crews, the second moon and
+  ringed world of the Ancient sky, mixed audio streaming on Linux, and help and
+  content names in all 11 languages.
 * Command console: **240** working commands with permissions, Tab completion,
   history, undo/redo for building commands, waypoints and building shapes.
-* Offline help: 62 topics, 5 levels, search, favourites, related links.
+* Offline help: 63 topics, 5 levels, search, favourites, related links.
 * 11 UI languages; F1 / Esc freeze the game completely.
 * Crash-safe saves (temporary file + CRC verification + atomic replace).
 
-Limits: the help and the names of blocks and items exist in English and Korean
-only (the other UI languages show English there). The DOS executables are built
-by CI but not yet run on real hardware or in an emulator. See
+Limits: the DOS executables are built and linked by CI (Open Watcom, 16-bit
+and DOS/4GW) but have not yet been run on real hardware or in an emulator. Live
+audio on Linux and macOS has not been tried on real devices. See
 [ROADMAP.md](ROADMAP.md) for the exact status.
 
 ## Build

@@ -287,8 +287,8 @@ static void write_body(SaveW *w, Game *g)
             continue;
         }
         sprintf(key, "s%d", i);
-        sprintf(buf, "%s %d %ld %ld %ld %d %d %d %d %d %ld", g_ships[s->def].id, s->dim, s->x, s->y, s->z,
-                s->heading, s->hull, s->water, (int)s->throttle, s->anchored, s->moved);
+        sprintf(buf, "%s %d %ld %ld %ld %d %d %d %d %d %ld %d", g_ships[s->def].id, s->dim, s->x, s->y, s->z,
+                s->heading, s->hull, s->water, (int)s->throttle, s->anchored, s->moved, (int)s->crew);
         sw_kv(w, key, buf);
     }
     sw_line(w, "[mobs]");
@@ -635,11 +635,11 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
         }
     } else if (str_ieq(type, "ships")) {
         char sid[32];
-        int dim, heading, hull, water, throttle, anchored, def;
+        int dim, heading, hull, water, throttle, anchored, def, crew = 0;
         long x, y, z, moved, slot;
         if (key[0] != 's' || !str_to_long(key + 1, &slot) || slot < 0 || slot >= MAX_SHIPS ||
-            sscanf(v, "%31s %d %ld %ld %ld %d %d %d %d %d %ld", sid, &dim, &x, &y, &z, &heading, &hull, &water,
-                   &throttle, &anchored, &moved) != 11) {
+            sscanf(v, "%31s %d %ld %ld %ld %d %d %d %d %d %ld %d", sid, &dim, &x, &y, &z, &heading, &hull, &water,
+                   &throttle, &anchored, &moved, &crew) < 11) {
             return 0;
         }
         def = shipdef_find(sid);
@@ -661,6 +661,7 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
             s->throttle = (signed char)CL_CLAMP(throttle, -1, 3);
             s->anchored = (cl_u8)(anchored != 0);
             s->moved = moved;
+            s->crew = (cl_u8)CL_CLAMP(crew, 0, (int)g_ships[def].berths);
             s->chest = -1;
         }
     } else if (str_ieq(type, "mobs")) {

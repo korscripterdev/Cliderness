@@ -646,6 +646,7 @@ Schau zu einem NSC und drücke E (oder /trade). Hast du, was eines seiner Angebo
 > Wanderhändler  Kohle gegen Handelsmarken, Marken gegen Brot oder Eisenbarren
 > Einsiedler     Leder gegen Verbände, rohes Fleisch gegen Kräutertee, Edelsteine gegen Marken
 > Alter Bergmann Roheisen gegen eine Eisenspitzhacke, Brot gegen Fackeln, Kristallsplitter gegen Marken
+> Seemann    4 Handelsmarken für einen Heuervertrag, roher Fisch gegen Seil, Kohle gegen eine Marke (Küsten)
 NSC sind defensiv: greifst du sie an, wehren sie sich. E auf ein Tier oder Monster zeigt, was es gerade tut.
 
 @topic sailing
@@ -656,6 +657,9 @@ An Bord steuern die Bewegungstasten: die Taste in Richtung Bug erhöht die Leist
 > Ruder   Tempo aus deinen Armen: kostet für jedes Feld Ausdauer
 > Segel   Tempo aus dem Wind: voll bei Rückenwind, 75 % raumschots, 45 % quer zum Wind, 15 % dagegen
 Es zählt das schnellere von beiden. Überladung halbiert das Tempo, Wassereinbruch bremst. Alle 8 Felder trainieren Segeln, das pro Stufe 1 % Tempo bringt. Die Statusanzeige zeigt Schiff, Rumpf, Flutung in %, Leistung und Tempo. /shipinfo zeigt alles, /wind den Wind.
+
+# Abdrift und Mannschaft
+Ein Schiff ohne Antrieb und Anker treibt bei Wind über 25 % ab, wenn es nicht das Ufer berührt. Seeleute an der Küste verkaufen Heuerverträge: halte einen an Bord und drücke U, um einen Seemann anzuheuern. Die Mannschaft rudert für dich ohne Ausdauer (+10 % Rudertempo je Seemann), schöpft je 2 l pro Sekunde und wiegt 75 kg. Kojen: Floß 0, Ruderboot 1, Segelboot 2, Handelsschiff 4. Holst du das Schiff an Land, bekommst du die Verträge zurück.
 
 @topic shipdamage
 @title Rumpfschaden und Sinken

@@ -52,7 +52,9 @@ typedef struct Ship {
     cl_s16 water;              /* litres in the hull */
     cl_s16 acc;                /* movement accumulator (100 = one cell) */
     cl_s16 chest;              /* cargo hold (virtual chest) or -1 */
+    cl_s16 drift;              /* wind drift accumulator (100 = one cell) */
     cl_u8  dim, active, heading, anchored;
+    cl_u8  crew;               /* hired sailors */
     signed char throttle;      /* -1 reverse .. 3 full */
 } Ship;
 
@@ -210,6 +212,9 @@ void ship_tick(Game *g);
 int  ship_use(Game *g);
 int  ship_open_cargo(Game *g);
 int  ship_rowing(Game *g);
+int  ship_drift_dir(Game *g);
+int  ship_moored(Game *g, int idx);
+int  ship_drift_speed(Game *g, int idx);
 
 /* dimensions (gameplay/dimension/portal.c) */
 const char *dim_key(int dim);

@@ -44,3 +44,15 @@ stack=1
 weight=30000
 volume=4000
 density=600
+
+# A sailor's signed contract, bought from a Sailor on the coast.
+# Hold it aboard a ship and press U to hire the sailor as crew.
+[item crew_contract]
+name=Crew Contract
+type=material
+glyph=21
+fg=white
+stack=16
+weight=20
+volume=1
+density=700

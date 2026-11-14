@@ -646,6 +646,7 @@ Mira a un PNJ y pulsa E (o usa /trade). Si llevas lo que pide una de sus ofertas
 > Mercader errante  carbón por fichas de comercio, fichas por pan o lingotes de hierro
 > Ermitaño          cuero por vendas, carne cruda por té de hierbas, gemas por fichas
 > Viejo minero      hierro en bruto por un pico de hierro, pan por antorchas, fragmentos de cristal por fichas
+> Marinero   4 fichas por un contrato de tripulante, pescado crudo por cuerda, carbón por una ficha (costas)
 Los PNJ son defensivos: contraatacan si los atacas. E sobre un animal o monstruo muestra lo que está haciendo.
 
 @topic sailing
@@ -656,6 +657,9 @@ A bordo, las teclas de movimiento gobiernan: la tecla hacia la proa sube la pote
 > Remos   velocidad de tus brazos: cuesta aguante en cada casilla
 > Velas   velocidad del viento: completa con viento de popa, 75 % a un largo, 45 % de través, 15 % en contra
 Cuenta el más rápido de los dos. La sobrecarga reduce la velocidad a la mitad y el agua embarcada frena. Cada 8 casillas se entrena Navegación, que añade un 1 % de velocidad por nivel. El panel de estado muestra barco, casco, inundación en %, potencia y velocidad. /shipinfo lo muestra todo, /wind el viento.
+
+# Deriva y tripulación
+Un barco sin potencia ni ancla deriva con vientos de más del 25% salvo que toque la orilla. Los marineros de la costa venden contratos de tripulante: sostén uno a bordo y pulsa U para contratar a un marinero. La tripulación rema por ti sin gastar aguante (+10% de velocidad de remo cada uno), achica 2 l por segundo cada uno y pesa 75 kg. Literas: balsa 0, bote de remos 1, velero 2, barco mercante 4. Al recoger el barco se devuelven los contratos.
 
 @topic shipdamage
 @title Daños del casco y hundimiento

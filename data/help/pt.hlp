@@ -646,6 +646,7 @@ Olhe para um PNJ e pressione E (ou use /trade). Se você levar o que uma das ofe
 > Mercador errante  carvão por fichas de troca, fichas por pão ou lingotes de ferro
 > Eremita           couro por bandagens, carne crua por chá de ervas, gemas por fichas
 > Velho mineiro     ferro bruto por uma picareta de ferro, pão por tochas, fragmentos de cristal por fichas
+> Marinheiro 4 fichas por um contrato de tripulante, peixe cru por corda, carvão por uma ficha (costas)
 Os PNJ são defensivos: revidam se você os atacar. E num animal ou monstro mostra o que ele está fazendo.
 
 @topic sailing
@@ -656,6 +657,9 @@ A bordo, as teclas de movimento pilotam: a tecla na direção da proa aumenta a 
 > Remos   velocidade dos seus braços: custa fôlego a cada célula
 > Velas   velocidade do vento: total com vento de popa, 75 % com vento largo, 45 % de través, 15 % contra
 Vale a mais rápida das duas. A sobrecarga corta a velocidade pela metade e a água embarcada atrasa. A cada 8 células se treina Navegação, que soma 1 % de velocidade por nível. O painel de estado mostra barco, casco, alagamento em %, potência e velocidade. /shipinfo mostra tudo, /wind o vento.
+
+# Deriva e tripulação
+Um navio sem potência nem âncora é levado por ventos acima de 25%, a menos que toque a margem. Os marinheiros da costa vendem contratos de tripulante: segure um a bordo e aperte U para contratar um marinheiro. A tripulação rema por você sem gastar vigor (+10% de velocidade de remo cada), esgota 2 l por segundo cada e pesa 75 kg. Beliches: jangada 0, barco a remo 1, veleiro 2, navio mercante 4. Recolher o navio devolve os contratos.
 
 @topic shipdamage
 @title Dano no casco e naufrágio

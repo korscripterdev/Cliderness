@@ -903,3 +903,12 @@ effect.well_fed=Rassasié
 effect.rested=Reposé
 effect.poisoned=Empoisonné
 effect.ancient_blessing=Bénédiction ancienne
+
+# ships: crew and drift
+mob.sailor=Marin
+item.crew_contract=Contrat d'équipage
+msg.crew_hired=Marin engagé ({0} à bord) : l'équipage rame et écope.
+msg.crew_full=Plus de couchette libre sur {0}.
+msg.ship_drift=Le vent fait dériver le navire.
+ship.crew=Équipage
+ship.drift=Dérive

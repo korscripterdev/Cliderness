@@ -903,3 +903,12 @@ effect.well_fed=飽足
 effect.rested=休息充分
 effect.poisoned=中毒
 effect.ancient_blessing=遠古祝福
+
+# ships: crew and drift
+mob.sailor=水手
+item.crew_contract=船員契約
+msg.crew_hired=僱用了第 {0} 名船員：船員會划槳和舀水。
+msg.crew_full={0}上沒有空鋪位了。
+msg.ship_drift=風推著船漂流。
+ship.crew=船員
+ship.drift=漂流

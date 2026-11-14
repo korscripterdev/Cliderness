@@ -903,3 +903,12 @@ effect.well_fed=Сытость
 effect.rested=Отдых
 effect.poisoned=Отравление
 effect.ancient_blessing=Древнее благословение
+
+# ships: crew and drift
+mob.sailor=Моряк
+item.crew_contract=Договор матроса
+msg.crew_hired=Нанят матрос (на борту: {0}): команда гребёт и вычерпывает воду.
+msg.crew_full=На судне «{0}» нет свободных коек.
+msg.ship_drift=Ветер сносит судно.
+ship.crew=Команда
+ship.drift=Дрейф

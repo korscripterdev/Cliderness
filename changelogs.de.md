@@ -4,6 +4,25 @@
 
 Wichtige Änderungen an Cliderness (erstellt von korscripterdev).
 
+## [1.1.0] — 2026-11-15
+
+Ergänzt, was 1.0.0 im Fahrplan offen ließ.
+
+### Hinzugefügt
+- A*-Wegfindung für Kreaturen (Binärheap und Hash, 1 Block hoch, 3 Blöcke runter, speichert 12 Schritte).
+- Attribute wachsen beim Spielen bis 30: jede Fertigkeit trainiert ein Attribut; Konstitution durch erlittenen Schaden (+2 max. LP), Willenskraft durch Extreme, Glück durch Beute und kritische Treffer.
+- Angeln: Angelrute, Biss nach 3-8 Sekunden, Chance 35 % + Angeln / 2 + Glück / 4, Relikte in der Uralten Dimension.
+- Schleichen-Fertigkeit: geduckt an wachen Kreaturen vorbeigehen trainiert sie und macht dich leiser.
+- Schiffe treiben bei Wind über 25 % ab, außer vor Anker oder am Ufer.
+- Der Seemann (Küsten) verkauft Heuerverträge; die Mannschaft rudert ohne Ausdauer (+10 % je Seemann), schöpft 2 l pro Sekunde und wiegt 75 kg. Kojen: Floß 0, Ruderboot 1, Segelboot 2, Handelsschiff 4.
+- Der uralte Himmel: der zweite Mond Veyra (3-Tage-Zyklus), eine Ringwelt, der Ätherschleier, magenta und cyan Sterne.
+- Linux/BSD-Audio streamt gemischtes PCM mit 60 ms Vorlauf.
+- Hilfe in allen 11 Sprachen (63 Themen) und Namen von Blöcken, Gegenständen, Biomen, Wetter und Effekten.
+
+### Geändert
+- Die DOS-Builds kompilieren und linken in der CI (Open Watcom 16 Bit und DOS/4GW); noch nicht auf Hardware oder Emulator gestartet.
+- Sprachtabellen unter DOS: 36000 Byte und 960 Einträge.
+
 ## [1.0.0] — 2026-11-15
 
 Roadmap-Phase 10 (fortgeschrittene Systeme). Alle zehn Phasen sind umgesetzt; was noch ungeprüft ist, steht in ROADMAP.md.

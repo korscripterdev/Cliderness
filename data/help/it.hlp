@@ -646,6 +646,7 @@ Guarda un PNG e premi E (o usa /trade). Se porti ciò che chiede una delle sue o
 > Mercante errante  carbone per gettoni di scambio, gettoni per pane o lingotti di ferro
 > Eremita           cuoio per bende, carne cruda per tisana, gemme per gettoni
 > Vecchio minatore  ferro grezzo per un piccone di ferro, pane per torce, frammenti di cristallo per gettoni
+> Marinaio   4 gettoni per un contratto di equipaggio, pesce crudo per corda, carbone per un gettone (coste)
 I PNG sono difensivi: reagiscono se li attacchi. E su un animale o un mostro mostra cosa sta facendo.
 
 @topic sailing
@@ -656,6 +657,9 @@ A bordo i tasti di movimento governano: il tasto verso la prua aumenta la potenz
 > Remi   velocità delle tue braccia: costa resistenza per ogni casella
 > Vele   velocità del vento: piena col vento in poppa, 75 % al lasco, 45 % al traverso, 15 % controvento
 Conta il più veloce dei due. Il sovraccarico dimezza la velocità, l'acqua imbarcata rallenta. Ogni 8 caselle si allena Navigazione, che aggiunge l'1 % di velocità per livello. Il pannello di stato mostra nave, scafo, allagamento in %, potenza e velocità. /shipinfo mostra tutto, /wind il vento.
+
+# Deriva ed equipaggio
+Una nave senza spinta né ancora va alla deriva con venti oltre il 25%, a meno che non tocchi la riva. I marinai sulla costa vendono contratti di equipaggio: tienine uno a bordo e premi U per ingaggiare un marinaio. L'equipaggio rema per te senza resistenza (+10% di velocità ai remi ciascuno), svuota 2 l al secondo ciascuno e pesa 75 kg. Cuccette: zattera 0, barca a remi 1, barca a vela 2, nave mercantile 4. Riportando la nave a riva i contratti tornano a te.
 
 @topic shipdamage
 @title Danni allo scafo e affondamento

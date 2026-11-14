@@ -4,6 +4,25 @@
 
 Modifiche principali di Cliderness (creato da korscripterdev).
 
+## [1.1.0] — 2026-11-15
+
+Completa ciò che la 1.0.0 lasciava aperto nella tabella di marcia.
+
+### Aggiunto
+- Ricerca del percorso A* per le creature (heap binario e hash, sale 1 e scende 3 blocchi, conserva un percorso di 12 passi).
+- Attributi che crescono giocando fino a 30: ogni abilità allena un attributo; Costituzione sale subendo danni (+2 PV max), Volontà sopportando gli estremi, Fortuna con bottino e colpi critici.
+- Pesca: canna da pesca, abboccata dopo 3-8 secondi, probabilità 35% + Pesca / 2 + Fortuna / 4, reliquie nella Dimensione Antica.
+- Abilità di furtività: passare accovacciato vicino a creature sveglie la allena e ti rende più silenzioso.
+- Le navi vanno alla deriva con venti oltre il 25%, a meno che siano ancorate o tocchino la riva.
+- Il Marinaio (coste) vende contratti di equipaggio; l'equipaggio rema senza resistenza (+10% ciascuno), svuota 2 l al secondo e pesa 75 kg. Cuccette: zattera 0, barca a remi 1, barca a vela 2, mercantile 4.
+- Il cielo antico: la seconda luna Veyra (ciclo di 3 giorni), un mondo con anelli, il velo d'etere, stelle magenta e ciano.
+- L'audio su Linux/BSD trasmette PCM mixato con 60 ms di anticipo.
+- Guida in tutte le 11 lingue (63 argomenti) e nomi di blocchi, oggetti, biomi, meteo ed effetti.
+
+### Modificato
+- Le build DOS compilano e collegano nella CI (Open Watcom 16 bit e DOS/4GW); non ancora avviate su hardware o emulatore.
+- Tabelle di lingua su DOS: 36000 byte e 960 voci.
+
 ## [1.0.0] — 2026-11-15
 
 Fase 10 della roadmap (sistemi avanzati). Tutte e dieci le fasi sono implementate; ciò che resta da verificare è in ROADMAP.md.

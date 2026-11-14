@@ -438,6 +438,26 @@ trade=raw_meat:3>herbal_tea:1
 trade=gem:1>trade_token:6
 biomes=conifer_forest,alpine,tundra,swamp
 
+[creature sailor]
+name=Sailor
+glyph=1
+color=lightblue
+kind=npc
+aggression=defensive
+activity=day
+habitat=surface
+hp=28
+damage=3
+speed=7
+sight=8
+hearing=8
+weight=2
+xp=0
+trade=trade_token:4>crew_contract:1
+trade=raw_fish:4>rope:2
+trade=coal:4>trade_token:1
+biomes=sand_beach,gravel_shore,rocky_shore,mangrove_coast
+
 [creature miner_npc]
 name=Old Miner
 glyph=1

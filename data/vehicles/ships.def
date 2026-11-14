@@ -8,6 +8,7 @@
 # sail_speed  cells per 100 ticks with full sails in a 100% tailwind
 # capacity    kg the hull carries; flooding limit = capacity / 4 litres
 # cargo       1 = has a cargo hold (27 slots, limited by capacity)
+# berths      sailors that can be hired with crew contracts (U aboard)
 # wave_limit  wind % the hull withstands without damage
 # repair      material used with U aboard; wreck = what floats up on sinking
 
@@ -22,6 +23,7 @@ oar_speed=25
 sail_speed=0
 capacity=220
 cargo=0
+berths=0
 wave_limit=40
 repair=oak_log
 wreck=oak_log
@@ -37,6 +39,7 @@ oar_speed=55
 sail_speed=0
 capacity=400
 cargo=1
+berths=1
 wave_limit=55
 repair=oak_planks
 wreck=oak_planks
@@ -53,6 +56,7 @@ oar_speed=18
 sail_speed=130
 capacity=900
 cargo=1
+berths=2
 wave_limit=70
 repair=oak_planks
 wreck=oak_planks
@@ -71,6 +75,7 @@ oar_speed=0
 sail_speed=110
 capacity=4000
 cargo=1
+berths=4
 wave_limit=85
 repair=oak_planks
 wreck=oak_planks

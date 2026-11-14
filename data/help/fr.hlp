@@ -646,6 +646,7 @@ Faites face à un PNJ et appuyez sur E (ou /trade). Si vous portez ce que demand
 > Marchand ambulant  charbon contre jetons d'échange, jetons contre pain ou lingots de fer
 > Ermite             cuir contre bandages, viande crue contre tisane, gemmes contre jetons
 > Vieux mineur       fer brut contre une pioche en fer, pain contre torches, éclats de cristal contre jetons
+> Marin      4 jetons pour un contrat d'équipage, poisson cru contre corde, charbon contre un jeton (côtes)
 Les PNJ sont défensifs : ils ripostent si vous les attaquez. E sur un animal ou un monstre montre ce qu'il fait.
 
 @topic sailing
@@ -656,6 +657,9 @@ A bord, les touches de déplacement gouvernent : la touche vers la proue augment
 > Rames   vitesse de vos bras : coûte de l'endurance à chaque case
 > Voiles  vitesse du vent : pleine par vent arrière, 75 % au grand largue, 45 % vent de travers, 15 % face au vent
 La plus rapide des deux compte. La surcharge divise la vitesse par deux, l'eau embarquée ralentit. Toutes les 8 cases la compétence Navigation progresse et ajoute 1 % de vitesse par niveau. Le panneau d'état montre bateau, coque, inondation en %, puissance et vitesse. /shipinfo montre tout, /wind le vent.
+
+# Dérive et équipage
+Un navire sans puissance ni ancre dérive avec un vent de plus de 25 % s'il ne touche pas le rivage. Les marins de la côte vendent des contrats d'équipage : tiens-en un à bord et appuie sur U pour engager un marin. L'équipage rame pour toi sans endurance (+10 % de vitesse à la rame chacun), écope 2 l par seconde chacun et pèse 75 kg. Couchettes : radeau 0, barque 1, voilier 2, navire marchand 4. Ramener le navire à terre rend les contrats.
 
 @topic shipdamage
 @title Dégâts de coque et naufrage

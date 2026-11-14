@@ -903,3 +903,12 @@ effect.well_fed=Gut genährt
 effect.rested=Ausgeruht
 effect.poisoned=Vergiftet
 effect.ancient_blessing=Uralter Segen
+
+# ships: crew and drift
+mob.sailor=Seemann
+item.crew_contract=Heuervertrag
+msg.crew_hired=Seemann angeheuert ({0} an Bord): die Mannschaft rudert und schöpft.
+msg.crew_full=Keine Koje mehr frei auf {0}.
+msg.ship_drift=Der Wind treibt das Schiff ab.
+ship.crew=Mannschaft
+ship.drift=Abdrift

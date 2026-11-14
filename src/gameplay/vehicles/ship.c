@@ -57,6 +57,7 @@ static int scb(void *user, const char *type, const char *id, const char *key, co
         d->color = C_BROWN;
         d->sail_glyph = 244;
         d->crew = 1;
+        d->berths = 0;
         d->hull = 40;
         d->oar_speed = 30;
         d->capacity = 300;
@@ -84,6 +85,7 @@ static int scb(void *user, const char *type, const char *id, const char *key, co
         else if (str_ieq(key, "glyph")) d->glyph = (cl_u8)n;
         else if (str_ieq(key, "sail_glyph")) d->sail_glyph = (cl_u8)n;
         else if (str_ieq(key, "crew")) d->crew = (cl_u8)CL_MAX(1L, n);
+        else if (str_ieq(key, "berths")) d->berths = (cl_u8)CL_MIN(n, 8L);
         else if (str_ieq(key, "hull")) d->hull = (cl_s16)CL_MAX(1L, n);
         else if (str_ieq(key, "oar_speed")) d->oar_speed = (cl_s16)n;
         else if (str_ieq(key, "sail_speed")) d->sail_speed = (cl_s16)n;
@@ -312,6 +314,7 @@ long ship_load(Game *g, int idx)
     if (g->aboard == idx) {
         grams += inv_weight(&g->inv) + 75000L;
     }
+    grams += 75000L * s->crew;
     return grams / 1000L;
 }
 
@@ -337,8 +340,9 @@ int ship_speed(Game *g, int idx)
     if (s->throttle < 0) {
         return d->oar_speed / 3;
     }
-    if (g->p.stamina >= 4 * s->throttle || g->mode != GM_SURVIVAL || g->p.god) {
+    if (s->crew > 0 || g->p.stamina >= 4 * s->throttle || g->mode != GM_SURVIVAL || g->p.god) {
         oars = (long)d->oar_speed * s->throttle / 3;
+        oars = oars * (100 + 10 * s->crew) / 100;
     }
     if (d->sail_speed > 0) {
         sails = (long)d->sail_speed * s->throttle / 3 * ship_wind_pct(g, idx) / 100;
@@ -472,6 +476,13 @@ int ship_pickup(Game *g, int idx)
     if (inv_add(&g->inv, d->item, 1, s->hull) > 0) {
         ent_spawn(g, g->p.dim, g->p.x, g->p.y, g->p.z, d->item, 1, s->hull);
     }
+    if (s->crew > 0) {
+        /* the sailors go ashore and hand their contracts back */
+        int contract = item_find("crew_contract");
+        int left = contract >= 0 ? inv_add(&g->inv, contract, s->crew, 0) : 0;
+        if (left > 0) ent_spawn(g, g->p.dim, g->p.x, g->p.y, g->p.z, contract, left, 0);
+        s->crew = 0;
+    }
     log_add(ATTR(C_LIGHTGREEN, C_BLACK), loc_fmt("msg.ship_picked", shipdef_name(s->def), NULL, NULL));
     ship_remove(g, idx, 0);
     g->unsaved = 1;
@@ -587,6 +598,71 @@ static void sink(Game *g, int idx)
     ship_remove(g, idx, 1);
 }
 
+/* the direction the wind blows towards, as a cardinal direction */
+int ship_drift_dir(Game *g)
+{
+    int q = ((g->weather.wind_dir + 32) & 255) / 64;   /* 0 E, 1 S, 2 W, 3 N */
+    return (q + 1) & 3;
+}
+
+/* a ship touching the shore (land next to the hull) is moored */
+int ship_moored(Game *g, int idx)
+{
+    const Ship *s = &g->ships[idx];
+    const ShipDef *d = &g_ships[s->def];
+    int k, w, dir;
+    for (k = 0; k < d->length; ++k) {
+        int lw = lateral(d, k);
+        for (w = -lw; w <= lw; ++w) {
+            long cx, cz;
+            cell_of(d, s->x, s->z, s->heading, k, w, &cx, &cz);
+            for (dir = 0; dir < 4; ++dir) {
+                long dx, dz, nx, nz;
+                dir_delta(dir, &dx, &dz);
+                nx = cx + dx;
+                nz = cz + dz;
+                if (ship_covers(g, idx, nx, nz)) continue;
+                if (blk_solid(at(g, s->dim, nx, s->y, nz)) || blk_solid(at(g, s->dim, nx, s->y - 1, nz))) {
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+/* wind drift in cells per 100 ticks (0 = the ship holds its place) */
+int ship_drift_speed(Game *g, int idx)
+{
+    const Ship *s = &g->ships[idx];
+    int wind = weather_cur(&g->weather)->wind;
+    if (s->anchored || wind <= 25 || ship_speed(g, idx) > 0 || ship_moored(g, idx)) {
+        return 0;
+    }
+    return (wind - 25) / 3;
+}
+
+static void drift_one(Game *g, int idx)
+{
+    Ship *s = &g->ships[idx];
+    long dx, dz;
+    dir_delta(ship_drift_dir(g), &dx, &dz);
+    if (!fits(g, s->def, s->dim, s->x + dx, s->y, s->z + dz, s->heading, idx)) {
+        s->drift = 0;
+        return;
+    }
+    s->x += dx;
+    s->z += dz;
+    if (g->aboard == idx) {
+        g->p.x = s->x;
+        g->p.z = s->z;
+        if (g->blocked_msg == 0) {
+            log_add(ATTR(C_LIGHTGRAY, C_BLACK), loc_get("msg.ship_drift"));
+            g->blocked_msg = 200;
+        }
+    }
+}
+
 static void move_one(Game *g, int idx, int back)
 {
     Ship *s = &g->ships[idx];
@@ -618,7 +694,7 @@ static void move_one(Game *g, int idx, int back)
         g->p.x = s->x;
         g->p.z = s->z;
         (void)d;
-        if (g->mode == GM_SURVIVAL && !g->p.god && ship_rowing(g)) {
+        if (g->mode == GM_SURVIVAL && !g->p.god && s->crew == 0 && ship_rowing(g)) {
             g->p.stamina = CL_MAX(0, g->p.stamina - 4 * mx_abs(s->throttle));
         }
         if ((s->moved & 7) == 0) {
@@ -656,6 +732,19 @@ void ship_tick(Game *g)
                 s->acc = 0;
             }
         }
+        if ((g->tick % 5L) == 0 && s->active && s->dim == g->p.dim &&
+            mx_abs(s->x - g->p.x) <= 128 && mx_abs(s->z - g->p.z) <= 128) {
+            int dv = ship_drift_speed(g, i);
+            if (dv == 0) {
+                s->drift = 0;
+            } else {
+                s->drift = (cl_s16)(s->drift + dv * 5);
+                while (s->drift >= 100) {
+                    s->drift = (cl_s16)(s->drift - 100);
+                    drift_one(g, i);
+                }
+            }
+        }
         if ((g->tick % 20L) != 0) continue;
         /* once per second: the sea takes its toll (only near the player,
          * where the world is simulated) */
@@ -678,6 +767,9 @@ void ship_tick(Game *g)
             }
             if (load > d->capacity && rng_range(&g->rng, 4) == 0) {
                 s->water = (cl_s16)(s->water + 1);
+            }
+            if (s->crew > 0 && s->water > 0) {
+                s->water = (cl_s16)CL_MAX(0, s->water - 2 * s->crew);
             }
             if (s->hull <= 0 || s->water >= ship_max_water(g, i) || load + s->water > (long)d->capacity * 3 / 2) {
                 sink(g, i);
@@ -702,6 +794,18 @@ int ship_use(Game *g)
     }
     s = &g->ships[g->aboard];
     d = &g_ships[s->def];
+    if (st->item >= 0 && st->item == item_find("crew_contract")) {
+        if (s->crew >= d->berths) {
+            log_add(ATTR(C_YELLOW, C_BLACK), loc_fmt("msg.crew_full", shipdef_name(s->def), NULL, NULL));
+            return 1;
+        }
+        ++s->crew;
+        inv_remove_slot(&g->inv, g->inv.selected, 1);
+        sprintf(num, "%d", (int)s->crew);
+        log_add(ATTR(C_LIGHTGREEN, C_BLACK), loc_fmt("msg.crew_hired", num, NULL, NULL));
+        g->unsaved = 1;
+        return 1;
+    }
     if (st->item >= 0 && st->item == d->repair_item && s->hull < d->hull) {
         int add = d->hull / 4 + player_skill_level(&g->p, SK_CRAFTING) / 2;
         s->hull = (cl_s16)CL_MIN((int)d->hull, s->hull + add);

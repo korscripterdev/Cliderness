@@ -22,6 +22,12 @@
  *               (wind - limit) / 10 litres with chance (wind - limit)% / s
  *   aground   = moving into land stops the ship; above 30 cells/100 ticks it
  *               costs speed / 20 hull
+ *   drift     = a ship that is not moving, not anchored and not moored
+ *               (touching the shore) drifts with the wind: (wind% - 25) / 3
+ *               cells per 100 ticks when the wind is above 25%
+ *   crew      = hired sailors (crew contracts, up to `berths`): they row for
+ *               the player (no stamina, +10% oar speed each), bail 2 l/s each
+ *               and weigh 75 kg each
  */
 #ifndef CLIDE_GAMEPLAY_SHIP_H
 #define CLIDE_GAMEPLAY_SHIP_H
@@ -40,6 +46,7 @@ typedef struct ShipDef {
     cl_u8  length, width;
     cl_u8  glyph, color, sail_glyph;
     cl_u8  crew;           /* people aboard (for the load) */
+    cl_u8  berths;         /* sailors that can be hired */
     cl_s16 hull;           /* max hull points */
     cl_s16 oar_speed, sail_speed;
     cl_s16 capacity;       /* kg */

@@ -294,6 +294,80 @@ static void t_commands(void)
     game_destroy(g);
 }
 
+static void t_drift_and_crew(void)
+{
+    Game *g = harbour(GM_SURVIVAL);
+    int s = launch(g, "rowboat"), contract = item_find("crew_contract"), st0, i;
+    long x0, z0;
+    CHECK(contract >= 0);
+    g->p.god = 1;
+    game_interact(g);
+    CHECK_EQ_L(g->aboard, s);
+    /* next to the beach the ship is moored: no drift even in a gale */
+    calm(g, "storm", 64);
+    CHECK(ship_moored(g, s));
+    CHECK_EQ_L(ship_drift_speed(g, s), 0);
+    /* out on the lake it drifts with the wind (blowing south) */
+    g->ships[s].x = 20;
+    g->ships[s].z = -6;
+    g->p.x = 20;
+    g->p.z = -6;
+    CHECK(!ship_moored(g, s));
+    CHECK_EQ_L(ship_drift_dir(g), DIR_S);
+    CHECK(ship_drift_speed(g, s) > 0);
+    x0 = g->ships[s].x;
+    z0 = g->ships[s].z;
+    ticks(g, 100);
+    printf("    storm drift: %ld cells in 100 ticks\n", g->ships[s].z - z0);
+    CHECK(g->ships[s].z > z0 && g->ships[s].x == x0);
+    CHECK(g->p.z == g->ships[s].z);
+    /* drifting stops at the shore of the lake */
+    ticks(g, 400);
+    CHECK(g->ships[s].z <= 10);
+    /* the anchor holds, light winds do not move the ship */
+    g->ships[s].z = 0;
+    g->p.z = 0;
+    g->ships[s].anchored = 1;
+    CHECK_EQ_L(ship_drift_speed(g, s), 0);
+    g->ships[s].anchored = 0;
+    calm(g, "clear", 64);
+    CHECK_EQ_L(ship_drift_speed(g, s), 0);
+    /* hire a sailor: U with a crew contract aboard */
+    g->p.god = 0;
+    inv_add(&g->inv, contract, 2, 0);
+    for (i = 0; i < INV_SLOTS; ++i) {
+        if (g->inv.s[i].item == contract) g->inv.selected = i;
+    }
+    game_use(g);
+    CHECK_EQ_L(g->ships[s].crew, 1);
+    CHECK_EQ_L(inv_count(&g->inv, contract), 1);
+    game_use(g);                            /* a rowing boat has one berth */
+    CHECK_EQ_L(g->ships[s].crew, 1);
+    CHECK_EQ_L(inv_count(&g->inv, contract), 1);
+    /* the crew rows: no stamina used, and a little faster */
+    g->ships[s].heading = DIR_E;
+    g->ships[s].throttle = 3;
+    g->p.stamina = 100;
+    st0 = g->p.stamina;
+    g->ships[s].water = 0;
+    {
+        int with = ship_speed(g, s), without;
+        g->ships[s].crew = 0;
+        without = ship_speed(g, s);
+        g->ships[s].crew = 1;
+        CHECK(with > without);
+    }
+    ticks(g, 20);
+    CHECK(g->p.stamina >= st0);
+    /* the crew bails */
+    g->ships[s].throttle = 0;
+    g->ships[s].water = 20;
+    ticks(g, 100);
+    CHECK(g->ships[s].water < 20);
+    CHECK(ship_load(g, s) >= 150);          /* player and sailor */
+    game_destroy(g);
+}
+
 static void t_save_ships(void)
 {
     Game *g = &g_game;
@@ -326,6 +400,7 @@ static void t_save_ships(void)
     game_interact(g);
     g->ships[s].hull = 33;
     g->ships[s].water = 7;
+    g->ships[s].crew = 1;
     ch = g->ships[s].chest;
     g->chests[ch].s[3].item = (cl_s16)item_find("bread");
     g->chests[ch].s[3].count = 4;
@@ -337,6 +412,7 @@ static void t_save_ships(void)
     CHECK(g->ships[s].active && g->ships[s].x == x && g->ships[s].z == z);
     CHECK_EQ_L(g->ships[s].hull, 33);
     CHECK_EQ_L(g->ships[s].water, 7);
+    CHECK_EQ_L(g->ships[s].crew, 1);
     CHECK_EQ_L(g->aboard, s);
     ch = g->ships[s].chest;
     CHECK(ch >= 0 && g->chests[ch].s[3].item == item_find("bread") && g->chests[ch].s[3].count == 4);
@@ -353,5 +429,6 @@ void suite_ship(void)
     tf_run("damage stages, leaks, bailing, repair, sinking", t_damage_stages_sinking);
     tf_run("cargo hold and overloading", t_cargo_and_load);
     tf_run("ship commands", t_commands);
+    tf_run("wind drift, mooring, hired crew", t_drift_and_crew);
     tf_run("ships are saved", t_save_ships);
 }

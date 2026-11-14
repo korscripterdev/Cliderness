@@ -134,6 +134,9 @@ static int c_shipinfo(ConCtx *c)
     con_out(buf);
     sprintf(buf, "%s %d%%  %s %ld", loc_get("ship.wind"), ship_wind_pct(c->g, i), loc_get("ship.travelled"), s->moved);
     con_out(buf);
+    sprintf(buf, "%s %d/%d  %s %d", loc_get("ship.crew"), (int)s->crew, (int)d->berths, loc_get("ship.drift"),
+            ship_drift_speed(c->g, i));
+    con_out(buf);
     if (s->anchored) con_out(loc_get("msg.anchor_down"));
     return CMD_OK;
 }
