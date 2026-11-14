@@ -1,0 +1,709 @@
+@topic start
+@title Primi passi
+@level 1
+@related controls,survival,gamemodes,about
+# Benvenuto in Cliderness
+Cliderness è un sandbox di sopravvivenza a mondo aperto creato da korscripterdev. Non c'è una storia da seguire né un finale: esplora, raccogli, scava, costruisci e sopravvivi come preferisci.
+
+# I primi minuti
+1. Scegli Nuovo mondo nella schermata iniziale, tieni o cambia nome e seme, scegli una modalità di gioco e premi Invio.
+2. Sei la @ bianca al centro della mappa. Cammina con W A S D.
+3. Tieni d'occhio il pannello a destra: salute, resistenza, fame, sete, fatica e temperatura corporea.
+4. Guarda un albero o una roccia e premi F per scavarlo. Le risorse finiscono nella barra rapida in basso.
+5. Scegli un blocco con 1-9 e piazzalo con R.
+6. Esc mette in pausa e salva. F1 apre questa guida in qualsiasi momento.
+
+Il mondo nasce dal seme: lo stesso seme dà sempre lo stesso mondo. Vengono salvate solo le tue modifiche.
+
+@topic controls
+@title Comandi
+@level 1
+@related movement,keybinds,inventory,commands
+# Tasti predefiniti
+> W A S D / frecce    muoversi
+> Shift + W A S D     correre
+> Ctrl (tocco) o X    accovacciarsi / alzarsi
+> Shift destro o V    guardare il cielo
+> F                   attaccare la creatura / scavare il blocco davanti
+> R                   piazzare il blocco scelto
+> >                   scavare verso il basso (scendere)
+> <                   costruire sotto di sé (salire)
+> E                   interagire: aprire, commerciare, salire / scendere dalla nave, raccogliere / rinascere
+> U                   usare: mangiare, bere acqua
+> Q / Ctrl+Q          lasciare un oggetto / tutta la pila
+> Tab o I             inventario
+> C                   scheda del personaggio
+> K                   creazione
+> 1-9                 scegliere uno slot della barra rapida
+> P                   cambiare pagina del pannello di stato
+> F1 o ?              guida (mette in pausa)
+> Esc                 menu di pausa (mette in pausa)
+> / o T               console dei comandi
+
+Ogni tasto si può cambiare in Impostazioni > Tasti. I terminali di Linux, macOS e Unix non segnalano Shift destro o Ctrl da soli; usa lì i tasti alternativi V e X. Windows e DOS supportano entrambi.
+
+@topic movement
+@title Movimento
+@level 1
+@related sprint,crouch,stamina,terrain
+# Camminare
+Ogni pressione o ripetizione di tasto ti sposta di una casella. Guardi nell'ultima direzione presa; la casella davanti a te è evidenziata.
+
+# Altezza
+Il mondo è 3D ma visto dall'alto. Una casella disegnata come pavimento chiaro un livello più in alto è un gradino: camminaci dentro per salire (costa resistenza). Le caselle ombreggiate (chiare = 2 di altezza, scure = 3 o più) sono pareti che non puoi scalare direttamente; scavaci dei gradini o costruisci verso l'alto con <.
+
+Superando un bordo cadi. Le cadute di 4 blocchi o più fanno male, a meno che tu non finisca in acqua.
+
+# Nuotare
+Sull'acqua galleggi in superficie e nuoti. Nuotare è più lento, consuma un po' di resistenza e allena l'abilità Nuoto.
+
+@topic sprint
+@title Correre
+@level 2
+@related stamina,movement,stats
+Tieni premuto Shift mentre ti muovi (o scrivi W A S D maiuscole) per correre. Correre è circa il doppio più veloce che camminare, ma costa resistenza a ogni passo e fa molto rumore. Con poca resistenza torni a camminare.
+
+Correre durante un minuto di gioco raddoppia il calo della fame in quel minuto.
+
+@topic crouch
+@title Accovacciarsi
+@level 2
+@related movement,stealth
+Tocca Ctrl (Windows, DOS) o premi X per accovacciarti o alzarti. Ti muovi a circa metà velocità ma fai pochissimo rumore (10 % invece del 30 %). La resistenza si recupera più in fretta da accovacciato o fermo.
+
+Accovacciato passi di nascosto accanto a creature addormentate o lontane.
+
+@topic stealth
+@title Rumore e furtività
+@level 3
+@related crouch,monsters,ai
+Il pannello di stato mostra il tuo rumore: camminare 30 %, correre 80 %, nuotare 40 %, accovacciato 10 %, da fermo scende piano a 0 %; attaccare fa 60 %. Le creature ti sentono entro raggio d'udito x rumore / 100 caselle. Accovacciarsi riduce anche di un terzo la distanza a cui ti vedono. Buio, nebbia e tempeste accorciano la vista.
+
+@topic stamina
+@title Resistenza
+@level 2
+@related sprint,survival,stats
+La resistenza (0-100 %) serve per correre, salire gradini, nuotare e scavare. Si recupera a ogni tick in cui non corri né nuoti:
+> recupero per tick = 3 + END / 5  (+2 fermo o accovacciato)
+Il recupero si dimezza se sei affamato o disidratato. Quando la fatica supera l'80 %, la resistenza massima scende al 60 %. Alcuni meteo (vento, tempeste, bufere) consumano resistenza extra ogni minuto.
+
+@topic survival
+@title Basi della sopravvivenza
+@level 1
+@related stamina,items,time,weather
+# Indicatori
+> PS       salute; a 0 muori
+> Fame     100 % = sazio; mangia con U
+> Sete     100 % = idratato; guarda l'acqua e premi U per bere
+> Fatica   sale piano da sveglio; dormi in un letto per recuperare
+> Temp     temperatura corporea; tienila vicina a 37 C
+
+Fame e sete calano col tempo di gioco. A 0 perdi salute. Finché entrambe restano sopra il 60 %, la salute si recupera lentamente.
+
+# Morte
+Quando muori, i tuoi oggetti cadono sul posto. Premi E o Invio per rinascere al punto di partenza e torna a riprenderli.
+
+# Temperatura
+Biomi freddi, inverno, notte, altitudine, vento e acqua ti raffreddano; deserti, estate e ondate di caldo ti scaldano. Sotto 35,0 C o sopra 39,5 C perdi salute ogni minuto. La volontà rallenta il cambiamento.
+
+@topic gathering
+@title Raccolta
+@level 1
+@related mining,items,blocks
+Guarda una pianta, un albero o un blocco e premi F. Le piante si rompono subito, alberi e rocce richiedono più tempo. Il bottino va direttamente nell'inventario; se è pieno, cade a terra.
+> Erba alta, felci, canne  -> fibra vegetale
+> Cespugli, foglie, cespugli secchi -> bastoni
+> Cespugli di bacche -> bacche (cibo)
+> Alberi -> tronchi, cactus -> frutto di cactus
+> Foglie della giungla -> noci di cocco
+Il cibo si mangia con U.
+
+@topic mining
+@title Scavare
+@level 2
+@related gathering,durability,skills,caves
+Premi F per scavare il blocco davanti. Se la casella è vuota, scavi nel pavimento davanti a te. Premi > per scavare il pavimento sotto di te e scendere.
+
+Scavare richiede tempo (vedi la barra in fondo al pannello). Muoversi lo annulla. La roccia madre è indistruttibile.
+
+# Attrezzi
+I picconi velocizzano roccia e minerali, le asce il legno, le pale terra e sabbia. Senza l'attrezzo giusto, i blocchi che richiedono piccone o ascia impiegano il triplo. Gli attrezzi perdono durabilità a ogni blocco.
+
+I minerali sono sottoterra: carbone, ferro, rame e stagno nella pietra; argento, oro, cristalli e gemme nella roccia profonda sotto l'altezza 24.
+
+@topic building
+@title Strumenti di costruzione
+@level 3
+@related commands,cheats
+Oltre a piazzare blocchi a mano, i comandi trucco costruiscono forme intere attorno a te. Tutto si annulla con /undo.
+> /sphere <blocco> <r> [hollow]     /dome <blocco> <r>
+> /cylinder <blocco> <r> <h> [hollow]   /pyramid <blocco> <r> [hollow]
+> /walls <blocco> <r> <h>   /circle <blocco> <r>   /platform <blocco> <r>
+> /box <blocco> <x> [y] [z]   /pillar <blocco> <h>
+> /line, /wall, /bridge, /stairs <blocco> <lunghezza>, /tunnel <lunghezza> [l] [h] nella direzione in cui guardi
+> /carve [r]   scavare una grotta
+> /fill, /replace, /clone, /setblock, /flatten, /raise, /lower, /smooth, /drain, /flood
+
+@topic crafting
+@title Creazione, fusione e cucina
+@level 2
+@related stations,farming,equipment,durability
+Premi K per la creazione. L'elenco mostra ogni ricetta; le voci chiare si possono fare ora. Tab mostra solo quelle realizzabili, C cambia categoria, / cerca.
+> Invio  creare una volta
+> A      creare il più possibile
+> R      riparare l'oggetto tenuto nella barra rapida
+
+Una ricetta può richiedere: ingredienti, una stazione vicina (entro 3 caselle), combustibile e un livello minimo di abilità. Le ricette a mano non richiedono stazioni: assi dai tronchi, bastoni, un banco da lavoro, falò, torce, stoffa e corda.
+
+# Fusione e cucina
+La fornace trasforma i minerali grezzi in lingotti, la sabbia in vetro, l'argilla in mattoni e i tronchi in carbonella. Il falò cuoce pane, patate al forno, stufati e tisane. Entrambi bruciano combustibile: carbone e carbonella danno 8 unità, tronchi 4, assi 2, bastoni, stoffa e grano 1.
+
+Creare allena l'abilità Creazione, cucinare l'abilità Cucina. La modalità creativa crea gratis. Le ricette sono file di dati in data/recipes.
+
+@topic combat
+@title Combattimento
+@level 2
+@related monsters,equipment,skills,formulas
+Guarda una creatura e premi F per attaccarla (senza creature davanti, F scava i blocchi). Il pannello di stato mostra nome e salute della creatura davanti a te.
+> Pugni      2 danni
+> Attrezzi   3 danni
+> Spade      4-8 danni (legno, pietra, bronzo, ferro), lancia 5
+> Arco       tienilo e premi F: scocca una freccia fino a 12 caselle nella direzione in cui guardi (6 danni); le frecce si consumano, metà dei colpi a segno si possono raccogliere
+Ogni arma ha un tempo di ricarica; colpire costa resistenza in sopravvivenza. La fortuna dà una probabilità di colpo critico (danno doppio). Uccidere creature allena Corpo a corpo o Distanza.
+
+Le creature colpiscono quando ti sono accanto. L'armatura indossata riduce i danni e si consuma. Alcune creature causano sanguinamento o veleno. /threat dice se una creatura ostile è vicina; non puoi dormire con una entro 12 caselle.
+
+@topic monsters
+@title Creature
+@level 2
+@related combat,stealth,trading,difficulty
+Le creature compaiono a 16-30 caselle da te secondo il bioma, l'ora e se sei sottoterra o in mare. Scompaiono quando ti allontani molto.
+> Animali   cervi, conigli, pecore e galline fuggono; cinghiali e orsi si difendono; i lupi cacciano di notte; pesci e squali vivono in acqua; pipistrelli nelle grotte
+> Mostri    zombi, scheletri, spettri della palude e ghoul del gelo escono di notte e bruciano alla luce; ragni, striscianti delle grotte e melme vivono nelle grotte; scorpioni delle sabbie nei deserti
+> PNG       mercanti erranti ed eremiti in superficie, vecchi minatori nelle grotte (vedi commercio)
+Le creature lasciano carne, cuoio, ossa, piume, lana, filo e altro. Cuoci carne e pesce crudi su un falò: la carne cruda può causare intossicazione.
+/creatures elenca tutti i tipi, /bestiary <tipo> mostra i dettagli, /mobs quelle vive.
+
+@topic items
+@title Oggetti
+@level 2
+@related inventory,blocks,durability
+Ogni blocco raccoglibile è anche un oggetto. Gli altri oggetti sono risorse (carbone, metalli grezzi, cristalli, gemme, fossili), materiali (bastoni, fibra vegetale), cibo e attrezzi.
+
+Gli oggetti hanno peso e volume. La tua capacità di carico è 20 kg + 3 kg per punto di Forza; portare di più ti rallenta.
+
+Gli oggetti lasciati restano nel mondo come entità. In acqua galleggiano se più leggeri dell'acqua (legno, fibra, cibo) e affondano se più pesanti (pietra, metallo). Scompaiono dopo 20 minuti reali.
+
+@topic blocks
+@title Blocchi e simboli
+@level 2
+@related items,terrain,biomes
+Tutta la grafica è fatta di caratteri CP437 in 16 colori VGA.
+> @   tu
+> ♠   albero (quercia, betulla, giungla, mangrovia)
+> ▲   pino
+> ♣   foglie, cespuglio
+> ¥   erba alta
+> *   fiore
+> ~   acqua (blu), lava (rossa)
+> ≈   fango
+> ░   sabbia, neve, ghiaccio
+> .   pavimento d'erba o di terra
+> ·   pavimento di pietra
+> ▒ ▓ pareti di 2 o 3+ blocchi sopra di te
+> ♦   minerale (colore = tipo)
+> ☼   corallo
+L'aspetto dei blocchi è definito in data/blocks.
+
+@topic inventory
+@title Inventario e barra rapida
+@level 1
+@related items,controls
+Hai 36 slot; gli slot 1-9 sono la barra rapida in fondo allo schermo. Apri l'inventario con Tab.
+> Invio      prendere una pila, Invio di nuovo per spostare / scambiare / unire
+> 1-9        mettere la pila scelta in quello slot della barra rapida
+> Q / Ctrl+Q lasciare uno / tutta la pila
+> S          ordinare lo zaino (unisce le pile)
+> X          dividere una pila a metà
+> /          cercare per nome
+> F          filtrare per tipo di oggetto
+> U          usare (slot della barra rapida)
+A destra vedi peso, volume, se galleggia, durabilità e valore nutritivo.
+
+@topic stats
+@title Attributi del personaggio
+@level 3
+@related skills,formulas
+Apri la scheda del personaggio con C. Gli attributi partono da 10.
+> STR  capacità di carico, velocità di scavo
+> DEX  velocità di movimento
+> INT  guadagno di esperienza
+> PER  raggio visivo di notte e sottoterra
+> CON  PS massimi = 80 + 2 x CON
+> END  recupero di resistenza e costo della corsa
+> WIL  resistenza al freddo e al caldo
+> LCK  probabilità di bottino extra scavando
+Gli attributi crescono giocando fino a 30 (la barra accanto a ogni valore mostra l'allenamento):
+> STR  scavare, tagliare legna, corpo a corpo    DEX  tiro con l'arco, furtività
+> INT  creazione, cucina                         PER  esplorazione, pesca
+> END  costruzione, nuoto, navigazione           CON  sopravvivere ai danni
+> WIL  sopportare freddo, caldo, fame e sete
+> LCK  aprire casse di bottino, colpi critici
+Il punto successivo richiede 60 x il valore attuale di allenamento. /attribute imposta un valore direttamente (trucco, fino a 100).
+
+@topic skills
+@title Abilità
+@level 3
+@related stats,mining,formulas,fishing
+Le abilità crescono facendo:
+> Scavo, Taglialegna     rompere blocchi naturali
+> Costruzione            piazzare blocchi
+> Creazione, Cucina      ricette alle stazioni e ai falò
+> Corpo a corpo, Distanza   combattere le creature
+> Nuoto, Navigazione     muoversi in acqua, viaggiare in nave
+> Pesca                  lanciare una canna da pesca
+> Furtività              passare accovacciato vicino a creature sveglie
+> Esplorazione           raggiungere nuove distanze dal punto di partenza
+Ogni abilità allena anche un attributo (vedi Attributi del personaggio).
+
+Livello = radice quadrata di (XP / 10), fino a 100. I livelli di scavo e taglialegna velocizzano la rottura, Corpo a corpo e Distanza aumentano i danni, Navigazione rende più veloci le navi, Pesca aumenta la probabilità di cattura e accorcia l'attesa, Furtività rende l'accovacciarsi più silenzioso e meno visibile.
+
+Regole anti-farming: i blocchi piazzati da un giocatore non danno XP, l'XP di esplorazione si ottiene solo raggiungendo nuove distanze, e al massimo 60 XP per minuto di gioco.
+
+@topic time
+@title Tempo, giorni e stagioni
+@level 2
+@related weather,sky,pause
+Il tempo di gioco è separato da quello reale. Per impostazione un giorno di gioco dura 20 minuti reali (1 secondo reale = 72 secondi di gioco). Cambialo nelle Impostazioni, con /daylength, o acceleralo con /timescale.
+
+Un anno ha 12 mesi di 30 giorni e quattro stagioni di 90 giorni, a partire dalla primavera. In estate i giorni sono più lunghi. La luna ha 8 fasi in 30 giorni.
+
+La notte è buia: vedi solo poche caselle, di più con la luna piena. Il tempo si ferma del tutto mentre la guida (F1) o il menu di pausa (Esc) sono aperti.
+
+@topic pause
+@title Pausa
+@level 1
+@related time,saving
+Aprire la guida (F1, ?) o il menu di pausa (Esc) congela il gioco: tempo, meteo, indicatori di sopravvivenza, fisica e tutto il resto si fermano. I menu continuano a funzionare. Alla chiusura il gioco riprende esattamente da dove si era fermato; il tempo reale trascorso in pausa non viene aggiunto.
+
+Inventario, scheda del personaggio, console e vista del cielo NON mettono in pausa il gioco.
+
+@topic weather
+@title Meteo
+@level 2
+@related time,sky,survival,wind
+Esistono 21 tipi di meteo: sereno, nuvoloso, pioviggine, pioggia, pioggia forte, temporale, nebbia, vento forte, tempesta, neve, nevicata forte, bufera di neve, grandine, tempesta di sabbia, ondata di caldo, ondata di freddo e cenere vulcanica nel mondo normale; la Tempesta antica, la Pioggia di stelle, la Nebbia silenziosa e il Vento d'etere nella Dimensione Antica.
+
+Il meteo possibile dipende dal clima del luogo: niente neve nei deserti caldi, tempeste di sabbia solo con caldo secco. Il meteo cambia visibilità, temperatura, velocità, resistenza e cielo. Pioggia e neve sono animate sulla mappa all'aperto.
+
+La pioggia riempie d'acqua gli avvallamenti e fa crescere prima le coltivazioni; la scarsa visibilità accorcia la vista delle creature; con la pioggia le creature vagano meno; il vento spinge le vele e solleva onde che danneggiano le barche piccole.
+
+@topic sky
+@title Guardare il cielo
+@level 2
+@related time,weather,ancient
+Premi Shift destro (o V) per guardare in alto. Il cielo mostra il sole dall'alba al tramonto, la luna e la sua fase, stelle e costellazioni dal seme (N mostra i nomi), la Via Lattea, nuvole spinte dal vento, uccelli che battono le ali, corvi (~), meteore, comete rare, aurore nelle regioni fredde, eclissi di sole e di luna, i colori dell'alba e del tramonto e i fulmini durante i temporali.
+
+La Dimensione Antica ha un cielo tutto suo: un giorno magenta, stelle magenta e ciano, il velo d'etere che ondeggia ogni notte, il mondo con gli anelli basso a sud e Veyra, una seconda luna che percorre le sue otto fasi in tre giorni. Lì non ci sono uccelli.
+
+Le costellazioni dipendono dal seme del mondo. Il tempo continua mentre guardi in alto; F1 o Esc mettono in pausa come sempre.
+
+@topic biomes
+@title Biomi
+@level 3
+@related terrain,ocean,caves
+Terra: pianura, prateria, foresta decidua, foresta di conifere, foresta pluviale, foresta di bambù, deserto, savana, palude, zona umida, tundra, campo di neve, alta montagna, terra vulcanica, campo di fiori, terra desolata.
+Costa: spiaggia di sabbia, costa di ghiaia, costa rocciosa, piana di marea, costa di mangrovie.
+Oceano: mare basso, barriera corallina, mare aperto, oceano profondo, fossa oceanica, mare ghiacciato.
+Grotte: di pietra, calcaree, di stalattiti, di cristallo, di ghiaccio, dei funghi, dei fossili, di lava e della roccia profonda, laghi e fiumi sotterranei.
+
+I biomi si scelgono in base a temperatura, umidità e rumore di altezza. /biome mostra dove sei, /locate <bioma> ne trova uno. I biomi sono definiti in data/biomes.
+
+@topic terrain
+@title Terreno e mondo 3D
+@level 3
+@related movement,building,caves
+Il mondo è fatto di blocchi in tre dimensioni: x (est), z (sud) e y (altezza, 0-127). Il livello del mare è 62. Vedi il livello su cui stai: pareti all'altezza degli occhi, il pavimento sotto e il terreno più basso in colori più scuri.
+
+Tutto si può cambiare: scava buche e gallerie, spiana montagne, riempi il mare, costruisci isole. Usa > e < per scendere e salire, o scava delle scale.
+
+La roccia madre all'altezza 0 è indistruttibile.
+
+@topic caves
+@title Grotte e minerali
+@level 3
+@related mining,terrain,biomes
+Le grotte sono scavate da un rumore 3D: grandi camere e lunghe gallerie tortuose. Sotto l'altezza 10 si riempiono di lava. Sottoterra vedi solo poche caselle (di più con la Percezione); lava, torce e cristalli fanno luce.
+
+Carbone, ferro, rame e stagno si trovano nella pietra; argento, oro, grappoli di cristalli e gemme nella roccia profonda (sotto 24). I fossili si nascondono nella pietra tra 24 e 60.
+
+@topic ocean
+@title Oceani, coste e fiumi
+@level 3
+@related biomes,fluids,ships
+Gli oceani coprono le zone basse sotto il livello del mare 62: mari bassi con alghe, barriere coralline colorate in acque calde, mare aperto, oceano profondo e fosse. I mari freddi gelano in superficie.
+
+I fiumi serpeggiano nelle terre basse e sono scavati poco sotto il livello del mare, quindi si riempiono d'acqua e collegano laghi e mare. Le grotte profonde a volte ospitano laghi sotterranei.
+
+Puoi nuotare in superficie. Zattere e barche sono descritte in Navi.
+
+@topic fluids
+@title Acqua e lava che scorrono
+@level 3
+@related ocean,terrain,buckets,weather
+ClideFluid muove acqua e lava. Ogni casella di fluido ha un livello da 1 a 15 (15 = blocco pieno); le caselle basse hanno un segno d'onda.
+> Il fluido cade prima dritto in basso e riempie la casella sotto.
+> Scorre oltre i bordi e nelle buche, anche come velo sottile.
+> Su terreno piano le caselle vicine si dividono l'acqua finché differiscono al massimo di un livello; le pozze si calmano.
+> La quantità d'acqua si conserva: scavare un canale sposta l'acqua, non la crea né la distrugge.
+Eccezioni: mare e laghi sotto il livello del mare si riempiono da soli, quindi un oceano non si svuota con un fosso; la pioggia aggiunge acqua agli avvallamenti; l'acqua che tocca la lava la trasforma in ossidiana (lava piena) o ciottoli.
+
+Costruisci dighe con qualsiasi blocco solido; rompile per allagare la valle dietro. La lava è più lenta e densa dell'acqua.
+
+Si simulano solo le caselle vicine a un cambiamento; l'acqua ferma non costa nulla. /fluid mostra statistiche, /settle calma tutto, /volume misura.
+
+@topic ships
+@title Navi
+@level 2
+@related sailing,shipdamage,ocean,crafting
+Si possono creare quattro navi (categoria Veicoli):
+> Zattera           6 tronchi + 2 corde; 1 casella, a pagaia, 220 kg, senza stiva
+> Barca a remi      banco da lavoro; 2 caselle, a remi, 400 kg, stiva
+> Barca a vela      banco da lavoro, Creazione 8; 3 caselle, vele + remi, 900 kg
+> Nave mercantile   banco da lavoro, Creazione 15; 5 x 3 caselle, solo vele, 4000 kg
+Tieni la nave, guarda l'acqua libera e premi R per vararla (la poppa parte accanto a te). E accanto per salire a bordo, di nuovo E per scendere: sbarchi se accanto allo scafo c'è terra, altrimenti salti in acqua. F su una nave vuota dalla riva la rimette nell'inventario; l'oggetto conserva i danni dello scafo.
+
+A bordo, R apre la stiva (27 slot, limitata dalla portata della nave) e U sgotta l'acqua oppure, con il materiale di riparazione in mano (tronchi per le zattere, assi per le barche), ripara lo scafo.
+
+@topic ancient
+@title La Dimensione Antica
+@level 2
+@related portal,ancientbiomes,monsters,weather
+L'unica altra dimensione. Il suo cielo brilla di magenta di giorno; il suo meteo comprende la Pioggia di stelle, la Nebbia silenziosa, il Vento d'etere e la Tempesta antica (niente pioggia né neve). Terreno, grotte e mari si generano come nel mondo normale, ma con un seme, blocchi e otto biomi propri (vedi Biomi antichi).
+> Minerali   vene d'etere (8-90) e metallo stellare (4-40) nella pietra antica
+> Piante     funghi luminosi, fiori stellari, fiori di cristallo, canne lunari, alberi anziani (foglie luminose)
+> Creature   cervi stellari, falene luminose; di notte fuochi fatui del vuoto e predatori silenziosi; guardiani antichi vicino a santuari e fenditure; golem di cristallo nelle grotte; custodi del santuario che scambiano reliquie
+> Strutture  Città antiche (con mura, strade, case e scrigni) e santuari antichi
+Le ricette antiche richiedono l'Altare antico (6 mattoni antichi + 4 frammenti d'etere al banco da lavoro): attrezzi, spada e armatura di metallo stellare, Elisir d'etere (Benedizione antica), lanterne d'etere. Le reliquie antiche concedono la Benedizione antica quando le usi.
+/dimension, /dimensions e /ancientbiomes mostrano dove sei.
+
+@topic durability
+@title Durabilità e riparazione
+@level 3
+@related mining,items,crafting
+Gli attrezzi hanno durabilità. Ogni blocco scavato con l'attrezzo giusto costa 1 punto, con quello sbagliato 2; le zappe perdono 1 per casella arata. Al 10 % arriva un avviso; a 0 l'attrezzo si rompe. La barra rapida mostra la durabilità residua.
+
+Riparare: stai vicino a un banco da lavoro o a un'incudine, tieni l'oggetto e premi R nella schermata di creazione. Un'unità di materiale di riparazione (assi per il legno, ciottoli per la pietra, lingotti di ferro per il ferro, stoffa per i vestiti) ripristina il 25-50 % più il 2 % per livello di Creazione.
+> /durability set <percentuale>   /repair
+
+@topic gamemodes
+@title Modalità di gioco
+@level 2
+@related cheats,survival
+> Sopravvivenza  tutti gli indicatori di sopravvivenza, risorse limitate
+> Creativa       niente fame né danni, scavo istantaneo, i blocchi non si consumano
+> Avventura      regole di sopravvivenza ma non puoi rompere né piazzare blocchi
+> Spettatore     voli attraverso tutto, nessuna modifica al mondo
+Cambia con /gamemode (servono i trucchi). I trucchi sono un'impostazione separata del mondo.
+
+@topic cheats
+@title Trucchi
+@level 3
+@related commands,gamemodes
+I comandi trucco (segnati [cheat] nell'elenco) richiedono i trucchi attivi per il mondo: alla creazione o con /cheats on. Usare un trucco segna il mondo come truccato; viene salvato.
+
+La modalità dio (/god), il volo (/fly) e l'attraversare i blocchi (/noclip) sono opzioni indipendenti dalla modalità di gioco.
+
+@topic commands
+@title Tutti i comandi
+@level 3
+@related cheats,controls,building,waypoints
+Apri la console con / (o T). Scrivi un comando e premi Invio. Tab completa nomi e argomenti (blocchi, oggetti, meteo, modalità...), Su/Giù richiamano i comandi precedenti, PagSu/PagGiù scorrono l'uscita. Le coordinate accettano ~ per "relativo a me", per es. /tp ~10 ~ ~.
+
+Ci sono 240 comandi in gruppi: giocatore, posizione, movimento, azioni (mine, place, use, interact, step, face: tutto ciò che fanno i tasti), oggetti e deposito, creazione, equipaggiamento, costruzione e forme, mondo e terreno, tempo, meteo, fluidi, creature e combattimento, navi, dimensioni, interfaccia e guida, sistema. /commands li elenca, /help <comando> ne spiega uno, /aliases elenca i nomi brevi, /topics e /helpsearch cercano nella guida.
+
+@topic saving
+@title Salvare e caricare
+@level 2
+@related pause,troubleshooting
+Salva con Esc > Salva o /save; anche tornare al menu salva. I mondi si trovano in saves/<nome>/:
+> world.ini   seme, tempo, meteo, giocatore, inventario, oggetti
+> chunks.dat  solo i chunk che hai modificato
+Ogni salvataggio viene scritto in un file temporaneo, riletto e verificato (CRC-32) prima di sostituire il precedente, così un crash durante il salvataggio non può distruggere quello vecchio. Carica i mondi dalla schermata iniziale.
+
+@topic settings
+@title Impostazioni
+@level 2
+@related languages,keybinds
+Le impostazioni sono in clide.ini accanto al gioco:
+> Lingua             vedi l'elenco delle lingue
+> Tasti              cambia qualsiasi tasto (due per azione)
+> Suono              attivo / disattivo
+> Durata del giorno  da 10 a 60 minuti reali per giorno di gioco
+
+@topic keybinds
+@title Cambiare i tasti
+@level 2
+@related settings,controls
+Impostazioni > Tasti elenca ogni azione. Invio imposta il primo tasto, A il secondo, Canc cancella il secondo, R ripristina i valori predefiniti. I tasti vengono salvati in keys.ini. Shift con un tasto di movimento significa sempre correre.
+
+@topic languages
+@title Lingue
+@level 2
+@related settings,troubleshooting
+Il gioco rileva la lingua del sistema e la usa se lo schermo può mostrarla. Su uno schermo CP437 (DOS) vengono offerte solo le lingue il cui testo sta in CP437; le altre sono nascoste. Sui terminali Unicode le lingue con scritture speciali (coreano, giapponese, cinese) sono segnate come non verificate perché il gioco non sa se il tuo font ha i caratteri: sceglierne una mostra un esempio e chiede conferma.
+
+@topic audio
+@title Suono
+@level 3
+@related settings,platforms,weather
+ClideAudio genera ogni suono in modo procedurale (generatori di rumore, oscillatori, filtri, inviluppi) invece di riprodurre registrazioni, e mescola i suoni che si sovrappongono.
+> Windows        PCM dal vivo con waveOut (22050 Hz)
+> Linux / BSD    PCM dal vivo in streaming verso PulseAudio (pacat), PipeWire (pw-cat) o ALSA (aplay) se uno è installato
+> macOS          PCM dal vivo con afplay (suoni interi, senza mixaggio)
+> DOS            sequenze di toni del PC Speaker
+Senti passi e schizzi, scavo, rotture, piazzamenti, tuoni, scricchiolii e schianti dello scafo, e l'ambiente: pioggia, vento, tempeste, grotte, il ronzio della Dimensione Antica, uccelli di giorno e corvi al tramonto.
+Senza dispositivo audio il gioco funziona in silenzio. Prova il dispositivo con
+> cliderness --play-sfx rain
+/audio mostra il sistema audio, /sound on|off attiva il suono, /sounds e /playsound provano gli effetti, --render-sfx scrive un file WAV.
+
+@topic platforms
+@title Piattaforme
+@level 4
+@related audio,troubleshooting
+Il motore è in ISO C90. Supportati: console di Windows, Linux, macOS e altri terminali Unix (UTF-8), MS-DOS e FreeDOS (modalità testo VGA, build a 16 bit con Open Watcom o DJGPP). Tutte le piattaforme usano la stessa griglia CP437 80x25 e 16 colori; la forma esatta dei caratteri dipende dal font del terminale.
+
+Su DOS la cache del mondo è più piccola (40 chunk) e la memoria è limitata per stare in 640 KB.
+
+@topic troubleshooting
+@title Risoluzione dei problemi
+@level 3
+@related platforms,languages,saving
+> Riquadri o ? al posto dei simboli: usa un font con caratteri di cornice (Consolas, DejaVu Sans Mono) o Windows Terminal.
+> Schermo troppo piccolo: il gioco richiede almeno 80x25 caratteri; un avviso rosso mostra la dimensione attuale.
+> Testo coreano/giapponese/cinese rovinato: al font mancano i caratteri; scegli un'altra lingua o un altro font.
+> Shift destro / Ctrl non fanno nulla: il terminale non può segnalarli; usa V e X.
+> "data error" all'avvio: avvia il gioco dalla sua cartella o indica --data <cartella>.
+> Il caricamento fallisce con errore CRC: world.ini è stato modificato o danneggiato.
+> Nessun suono: normale senza un dispositivo supportato; controlla Impostazioni > Suono.
+
+@topic world
+@title Generazione del mondo
+@level 4
+@related terrain,biomes,formulas
+Il mondo si genera dal seme con un rumore di valori interi, quindi è identico su ogni piattaforma, incluso il DOS a 16 bit senza unità in virgola mobile. L'altezza viene da uno strato continentale (forme di 256 blocchi), dal dettaglio (32 blocchi) e dalle montagne. Temperatura, umidità e uno strato speciale scelgono il bioma. Il rumore 3D scava le grotte; i minerali sono piazzati con un hash per blocco.
+
+Il mondo è salvato in chunk di 32x32, uno per livello di altezza. Si salvano solo i chunk modificati.
+
+@topic advanced
+@title Meccaniche avanzate
+@level 4
+@related formulas,world,time
+La simulazione gira a 20 tick fissi al secondo. Il tempo reale si accumula e si converte in tick solo quando nessuna schermata di pausa è aperta; i blocchi lunghi sono limitati a 250 ms perché il gioco non salti mai in avanti. Il tempo di gioco avanza di 50 ms x 86400 / durata_giorno x scala_tempo per tick (3,6 secondi di gioco di base) con resti esatti, così 20 minuti reali sono esattamente un giorno.
+
+Il movimento attende un tempo per passo in tick: camminare 4, correre 2, accovacciato 7, nuotare 6, moltiplicato per 100 / (90 + DEX). I blocchi che rallentano aggiungono 3, il sovraccarico 2 o 6, il meteo la sua penalità di movimento in percentuale.
+
+@topic formulas
+@title Formule (maestro)
+@level 5
+@related advanced,stats,skills
+> tick di scavo = durezza (x3 senza l'attrezzo richiesto, o x100/potenza con quello giusto), poi x100/(100+2 STR), poi x100/(100+3 abilità)
+> livello di abilità = isqrt(xp / 10); xp per blocco naturale = durezza/4 + 1, x(100 + 3 INT)/130, max 60 al minuto
+> costo della corsa = 12 x 100 / (80 + 2 END) per passo
+> recupero di resistenza = 3 + END/5 per tick (+2 da fermo)
+> fame: -0,5 per minuto di gioco (-1,0 se hai corso), sete -0,7 (-1,0 sopra 28 C), fatica +0,4
+> deriva della temperatura corporea = |ambiente - limite| x 10 / (20 + WIL) decimi di grado al minuto fuori da 10..28 C
+> danno da caduta = (blocchi - 3) x 8 per cadute di 4+
+> capacità di carico = 20 kg + 3 kg x STR
+> raggio visivo = 4 + visibilità x 32 / 100 + PER/3 all'aperto, 4 + PER/4 sottoterra
+> danno corpo a corpo = arma x (100 + 3 STR) / 130 x (100 + 2 Corpo a corpo) / 100, x2 con colpo critico (probabilità = LCK %), meno la difesa della creatura (min 1)
+> danno dell'arco = 6 x (100 + 2 Distanza) / 100, gittata 12
+> danno delle creature = danno x difficoltà (50/100/150 %) x (100 - difesa dell'armatura) / 100, min 1
+> comparsa delle creature: ogni 2 s, a 16-30 caselle, limite 16 + 6 x difficoltà (DOS 8 + difficoltà)
+
+@topic about
+@title Informazioni su Cliderness
+@level 1
+@related start,platforms
+Cliderness - sandbox di sopravvivenza a mondo aperto
+Creato da korscripterdev.
+Motore: Cliderness Engine, scritto in ISO C90.
+Licenza: GNU GPL versione 3 o successiva (LICENSE).
+Versione 1.1.0. Consulta la roadmap (ROADMAP.md) per ciò che è finito e ciò che è previsto.
+
+@topic stations
+@title Stazioni di lavoro
+@level 2
+@related crafting,building,ancient
+> Banco da lavoro  4 assi; attrezzi, forzieri, letti, fornaci, vestiti, barche
+> Fornace          8 ciottoli al banco da lavoro; lingotti, vetro, mattoni, carbonella
+> Falò             3 bastoni + 3 ciottoli; cucina (anche fonte di luce)
+> Incudine         5 lingotti di ferro + 2 mattoni di pietra; attrezzi e armature di ferro, il nucleo del portale
+> Altare antico    6 mattoni antichi + 4 frammenti d'etere al banco da lavoro; equipaggiamento di metallo stellare, elisir, lanterne
+Piazza una stazione con R e resta entro 3 caselle (un livello sopra o sotto va bene). E su una stazione apre la creazione.
+
+@topic farming
+@title Agricoltura e alberi
+@level 2
+@related crafting,time,weather
+Tieni una zappa e premi U per arare l'erba o la terra davanti a te in terreno coltivabile. Scegli dei semi e premi R per piantarli.
+> Semi di grano  dall'erba alta (12 %) o dal grano maturo
+> Patate         dalle felci (6 %); pianta una patata per averne altre
+Le coltivazioni crescono a fasi (circa 4 ore di gioco per fase di grano, 5 per le patate). La pioggia accelera la crescita di un quarto, l'inverno la dimezza, e le coltivazioni coperte da un blocco solido aspettano la luce. Scava una coltivazione matura per raccoglierla: il grano dà grano e due semi, le patate tre patate.
+
+Le foglie a volte lasciano alberelli (10 %). Piantati, diventano un albero con chioma in circa mezza giornata, se lo spazio sopra è libero.
+
+@topic chests
+@title Forzieri
+@level 2
+@related inventory,stations
+Crea un forziere (8 assi al banco da lavoro) e piazzalo con R. Guardalo e premi E per aprirlo. A sinistra c'è il forziere (27 slot), a destra il tuo inventario.
+> Tab / Sinistra / Destra  cambiare lato
+> Invio                    spostare la pila scelta dall'altra parte
+> A                        spostare tutto
+Rompere un forziere fa cadere il contenuto. I forzieri si salvano con il mondo.
+
+@topic equipment
+@title Equipaggiamento e borse
+@level 2
+@related inventory,survival,combat
+Vestiti, armature e borse si indossano in cinque slot: testa, corpo, gambe, piedi e schiena. Scegli un oggetto nell'inventario e premi W (o tienilo e premi U) per indossarlo; scegli un oggetto indossato in fondo all'elenco e premi Invio o W per toglierlo.
+> Vestiti di fibra     calore +1..+4, poca difesa
+> Armatura di cuoio    difesa 4-12 %, un po' di calore
+> Armatura di ferro    difesa 8-20 % per pezzo, un po' fredda
+> Borsa di fibra       +15 kg di capacità
+La difesa riduce i danni (fino all'80 %). Il calore alza la temperatura percepita al freddo. Ciò che indossi conta nel tuo peso.
+
+@topic sleep
+@title Dormire
+@level 2
+@related survival,time,effects
+Crea un letto (3 assi + 3 stoffe al banco da lavoro), piazzalo e premi E guardandolo. Puoi dormire di notte o quando la fatica supera il 60 %. Dormi fino a mezz'ora dopo l'alba (al massimo 12 ore); di giorno un giocatore stanco fa invece un pisolino.
+
+Mentre dormi la fatica cala, la salute torna lentamente e fame e sete calano a metà velocità; il mondo continua (meteo, coltivazioni). Dormire sposta il punto di partenza sul letto e ti rende Riposato. Non puoi dormire con creature ostili entro 12 caselle.
+
+@topic effects
+@title Ferite, malattie e potenziamenti
+@level 3
+@related survival,sleep,crafting
+Gli effetti di stato compaiono nel pannello di stato e durano alcuni minuti di gioco.
+> Sanguinamento             -1 PS al minuto; cadute gravi, artigli e denti; cura: benda
+> Frattura                  movimento più lento; cadute di 7+ blocchi; cura: stecca
+> Intossicazione alimentare calo di fame, sete e resistenza; funghi e carne crudi; cura: pastiglia di carbone
+> Avvelenato                perdita di salute; ragni, scorpioni, fuochi fatui del vuoto; cura: pastiglia di carbone
+> Raffreddore               scarso recupero di resistenza, si sente più freddo; dopo 30 minuti di ipotermia; cura: tisana
+> Bagnato                   si sente 4 C più freddo; nuoto o pioggia all'aperto
+> Sazio                     miglior recupero di resistenza; pane, stufato
+> Riposato                  miglior recupero di resistenza; sonno
+> Benedizione antica        recupero di resistenza rapido, calore; reliquie antiche, elisir d'etere
+Usa una medicina con U, o /treat per usare quella adatta. Gli effetti sono definiti in data/effects/effects.def.
+
+@topic buckets
+@title Secchi
+@level 2
+@related fluids,crafting
+Crea un secchio con 3 lingotti di ferro all'incudine. Tienilo e premi U davanti ad acqua o lava per raccogliere l'intera casella; R la versa di nuovo davanti a te. Un secchio ricorda quanto contiene (1-15 livelli), quindi l'acqua non si duplica mai, salvo quando la raccogli dal mare, che si riempie.
+
+@topic structures
+@title Miniere e rovine
+@level 2
+@related caves,items,chests
+Il mondo nasconde strutture generate dal seme:
+> Miniere abbandonate  sottoterra (altezza 16-44): due lunghe gallerie che si incrociano con diramazioni, travi di legno, torce e casse della miniera alle estremità.
+> Rovine di pietra     sulla terraferma: un anello spezzato di ciottoli con una cassa vecchia al centro.
+Alla prima apertura una cassa si riempie di bottino (carbone, minerali, lingotti, attrezzi, cibo, stoffa, semi, raramente gemme). /findstructure abandoned_mine mostra la più vicina (trucco).
+
+@topic ai
+@title Comportamento delle creature
+@level 4
+@related monsters,stealth,formulas
+Ogni creatura segue una macchina a stati guidata da obiettivi; due volte al secondo sceglie quello più urgente:
+> 1 sopravvivere   ferita gravemente e ti vede: fuggire
+> 2 attaccare      ostile e ti percepisce: inseguire, poi attaccare
+> 3 ripararsi      brucia alla luce del giorno: cercare riparo
+> 4 tornare        i PNG tornano a casa al tramonto e ci dormono
+> 5 riposare       gli animali diurni dormono di notte, quelli notturni di giorno
+> 6 vagare         altrimenti vagare o restare fermi (meno con la pioggia)
+Percezione: vista = raggio visivo x visibilità del meteo, dimezzata al buio per gli animali diurni e ridotta di un terzo (di più con la Furtività) quando sei accovacciato; udito = raggio d'udito x il tuo rumore in %. Le creature addormentate percepiscono a metà distanza. Attaccare una creatura fa sì che si ricordi di te (quelle difensive reagiscono).
+Ricerca del percorso: se la via diretta è bloccata, una creatura che insegue o torna a casa cerca un percorso con A* (un blocco in su, tre in giù, 24 caselle intorno) e lo segue; un muro con un varco non la ferma più.
+Stati mostrati da /mobs: fermo, vaga, insegue, attacca, fugge, dorme, torna a casa, cerca riparo. Uno sfondo rosso indica una creatura che ti insegue o ti attacca; quelle addormentate sono grigio scuro.
+
+@topic difficulty
+@title Difficoltà
+@level 2
+@related monsters,combat
+> Pacifica   niente mostri; gli animali ostili si difendono comunque
+> Facile     i mostri fanno il 50 % dei danni, meno creature
+> Normale    100 % dei danni (predefinita)
+> Difficile  150 % dei danni, più creature
+Cambiala quando vuoi con /difficulty <nome>; passare a Pacifica rimuove tutti i mostri. La difficoltà si salva con il mondo. /spawning off ferma la comparsa naturale (trucco).
+
+@topic trading
+@title Commercio
+@level 2
+@related monsters,items
+Guarda un PNG e premi E (o usa /trade). Se porti ciò che chiede una delle sue offerte, lo scambio avviene subito; altrimenti il PNG elenca le offerte nel registro dei messaggi.
+> Mercante errante  carbone per gettoni di scambio, gettoni per pane o lingotti di ferro
+> Eremita           cuoio per bende, carne cruda per tisana, gemme per gettoni
+> Vecchio minatore  ferro grezzo per un piccone di ferro, pane per torce, frammenti di cristallo per gettoni
+I PNG sono difensivi: reagiscono se li attacchi. E su un animale o un mostro mostra cosa sta facendo.
+
+@topic sailing
+@title Navigare
+@level 2
+@related ships,wind,shipdamage,skills
+A bordo i tasti di movimento governano: il tasto verso la prua aumenta la potenza (0-3), quello opposto la riduce (fino a -1 = indietro per le navi con remi), un tasto laterale gira la prua da quella parte se c'è spazio. /anchor ferma la nave.
+> Remi   velocità delle tue braccia: costa resistenza per ogni casella
+> Vele   velocità del vento: piena col vento in poppa, 75 % al lasco, 45 % al traverso, 15 % controvento
+Conta il più veloce dei due. Il sovraccarico dimezza la velocità, l'acqua imbarcata rallenta. Ogni 8 caselle si allena Navigazione, che aggiunge l'1 % di velocità per livello. Il pannello di stato mostra nave, scafo, allagamento in %, potenza e velocità. /shipinfo mostra tutto, /wind il vento.
+
+@topic shipdamage
+@title Danni allo scafo e affondamento
+@level 3
+@related ships,sailing,weather,formulas
+Ogni nave ha punti scafo e tre stadi di danno:
+> Intatto      sopra il 66 %
+> Danneggiato  34-66 %: imbarca 1 litro al secondo (scafo giallo)
+> Critico      33 % o meno: imbarca 4 litri al secondo (scafo rosso)
+Le onde danneggiano lo scafo quando il vento supera ciò che la nave sopporta (zattera 40 %, barca a remi 55 %, barca a vela 70 %, nave mercantile 85 %): le tempeste sono pericolose per le barche piccole. Incagliarsi a più di 30 caselle per 100 tick costa punti scafo. Pioggia e sovraccarico fanno entrare acqua.
+
+L'acqua nello scafo è mostrata in percentuale; sopra il 50 % lo scafo diventa blu. La nave affonda quando è piena (portata / 4 litri), quando lo scafo arriva a 0 o quando carico + acqua superano il 150 % della portata. Una nave che affonda libera il carico e dei rottami galleggianti. Sgotta (U o /bail; un secchio in mano sgotta il triplo) e ripara in tempo. Scricchiolii e schianti ti avvisano.
+
+@topic wind
+@title Vento
+@level 3
+@related sailing,weather
+La forza del vento dipende dal meteo (sereno 10 %, pioggia 30 %, temporale 60 %, vento forte 80 %, tempesta 95 %), la direzione cambia lentamente. /wind mostra entrambi; la direzione è quella verso cui soffia il vento. Le barche a vela sono più veloci col vento alle spalle e quasi si fermano controvento. Il vento forte solleva onde che danneggiano gli scafi piccoli.
+
+@topic portal
+@title Portali
+@level 2
+@related ancient,crafting
+Crea un nucleo del portale all'incudine (4 ossidiane, 6 frammenti di cristallo, 2 gemme, 2 lingotti d'oro, Creazione 5) e piazzalo con R: diventa un Portale antico. Guardalo e premi E per viaggiare. Arrivi alle stesse x/z nell'altra dimensione, sulla terraferma più vicina entro 48 caselle; a est di te si costruisce un portale di ritorno, a meno che ce ne sia già uno entro 8 caselle. Navi, creature e oggetti restano indietro.
+
+L'ossidiana si forma dove l'acqua incontra la lava (o nelle grotte di lava profonde). Rompere un portale restituisce il nucleo. Se muori, rinasci nella dimensione del tuo punto di partenza (dormire in un letto lo imposta).
+
+@topic ancientbiomes
+@title Biomi antichi
+@level 3
+@related ancient,biomes
+> Prateria antica          erba magenta, fiori stellari, alberi anziani isolati
+> Foresta antica           fitti boschi di anziani con foglie luminose
+> Giardino dimenticato     caldo e umido, ogni tipo di pianta luminosa
+> Lande di cristallo       altopiani di prato di cristallo e fiori di cristallo
+> Palude silenziosa        fango silenzioso, canne lunari e funghi luminosi
+> Pianura stellare         campi secchi di sabbia stellare luminosa
+> Santuario antico         suolo lastricato di mattoni, sorvegliato
+> Fenditura del vuoto      abissi di 40 blocchi fino a un fondo di pietra del vuoto; niente acqua
+
+@topic waypoints
+@title Punti di riferimento e navigazione
+@level 2
+@related commands,saving
+Salva fino a 16 luoghi con un nome con /waypoint add <nome>; /waypoint list li mostra con la loro dimensione, /waypoint remove <nome> ne elimina uno. /navigate <nome> dà direzione e distanza, /compass punta al tuo punto di partenza, /deathpoint mostra dove sei morto l'ultima volta, /distance <x> <z> misura. I punti di riferimento si salvano con il mondo; /gowaypoint <nome> teletrasporta (trucco).
+
+@topic fishing
+@title Pesca
+@level 2
+@related skills,ocean,crafting
+Crea una canna da pesca (3 bastoni + 2 fili). Tienila, guarda l'acqua e premi U per lanciare; dopo 3-8 secondi qualcosa abbocca. La probabilità di cattura è 35 % + livello di Pesca / 2 + Fortuna / 4: di solito pesce crudo, a volte un osso e, nella Dimensione Antica, di rado una reliquia antica. Muoverti o premere di nuovo U riavvolge la lenza. Ogni lancio allena la Pesca (di più con una cattura) e costa un punto di durabilità alla canna. Cuoci il pesce su un falò.
