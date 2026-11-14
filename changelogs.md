@@ -4,6 +4,24 @@
 
 All notable changes to Cliderness (created by korscripterdev).
 
+## [1.0.0] — 2026-11-15
+
+Roadmap phase 10 (advanced systems). All ten roadmap phases are implemented; see ROADMAP.md for what is still unverified.
+
+### Added
+- Live PCM audio: Windows waveOut (new sounds are mixed into what is playing), Linux/BSD pipes to PulseAudio, PipeWire or ALSA, macOS afplay. Every effect is synthesised by the procedural DSP; effects without a DSP voice are rendered from their tone sequences.
+- Sound in play: footsteps and splashes, thunder with lightning, and ambience (rain, wind, storm, caves, the Ancient Dimension, birds, crows, ships).
+- `--play-sfx <effect>` checks the audio device.
+- 119 commands (240 in total, 73 aliases): building shapes (sphere, dome, cylinder, walls, pyramid, circle, platform, box, line, wall, bridge, tunnel, stairs, pillar, carve), information (survival, skills, whereami, compass, map, survey, forecast, ores, lootinfo, usedin, nearest, hostiles and more), actions that do what the keys do (mine, place, use, interact, step, face, eat, treat, equipbest), storage (deposit, withdraw, sort, stack, cargo), waypoints (waypoint, navigate, gowaypoint), death point, quick world controls, interface and system commands.
+- Waypoints, deaths and the last death point are saved.
+- Packaging: CMake install rules and CPack (ZIP, tar.gz), `tools/package.py` including a DOS 8.3 ZIP; CI uploads the packages.
+- Help: sound, all commands, building tools, waypoints.
+- Tests: every command is run in a smoke test; PCM mixing; language tables are checked against the DOS limits.
+
+### Changed
+- Language tables on DOS: 32000-byte pools with 840 entries.
+- The system command `platform` is called `osinfo`; `/platform` builds a platform.
+
 ## [0.6.0] — 2026-11-14
 
 Roadmap phase 9 (the Ancient Dimension).

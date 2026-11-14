@@ -127,5 +127,124 @@ Every command below has a real handler and is covered by the test suite. Cheat c
 | `/travel` | world | cheat | `<overworld\|ancient> [portal]` |
 | `/makeportal` | world | cheat |  |
 | `/ancientbiomes` | world | any |  |
+| `/sphere` | building | cheat | `<block> <radius 1-24> [hollow]` |
+| `/dome` | building | cheat | `<block> <radius 1-24>` |
+| `/cylinder` | building | cheat | `<block> <radius> <height> [hollow]` |
+| `/walls` | building | cheat | `<block> <radius> <height>` |
+| `/pyramid` | building | cheat | `<block> <radius> [hollow]` |
+| `/circle` | building | cheat | `<block> <radius>` |
+| `/platform` | building | cheat | `<block> <radius>` |
+| `/box` | building | cheat | `<block> <x> [y] [z]` |
+| `/line` | building | cheat | `<block> <length>` |
+| `/wall` | building | cheat | `<block> <length> [height]` |
+| `/bridge` | building | cheat | `<block> <length>` |
+| `/tunnel` | building | cheat | `<length> [width] [height]` |
+| `/stairs` | building | cheat | `<block> <length>` |
+| `/pillar` | building | cheat | `<block> <height>` |
+| `/carve` | building | cheat | `[radius 1-12]` |
+| `/survival` | player | any |  |
+| `/effects` | player | any |  |
+| `/skills` | player | any |  |
+| `/carry` | player | any |  |
+| `/noise` | player | any |  |
+| `/whereami` | position | any |  |
+| `/compass` | position | any |  |
+| `/distance` | position | any | `<x> <z>` |
+| `/look` | player | any |  |
+| `/playtime` | system | any |  |
+| `/date` | time | any |  |
+| `/moon` | time | any |  |
+| `/sun` | time | any |  |
+| `/forecast` | weather | any |  |
+| `/weathers` | weather | any |  |
+| `/light` | world | any |  |
+| `/climate` | world | any | `[x z]` |
+| `/height` | world | any | `[x z]` |
+| `/depth` | world | any |  |
+| `/biomeat` | world | any | `<x> <z>` |
+| `/blockat` | world | any | `<x> <y> <z>` |
+| `/survey` | world | any | `[radius 4-64]` |
+| `/map` | world | any | `[cells per letter]` |
+| `/count` | world | cheat | `<block> [radius 1-16]` |
+| `/orescan` | world | cheat | `[radius 1-16]` |
+| `/ores` | world | any |  |
+| `/highest` | world | any |  |
+| `/biomeinfo` | world | any | `[biome]` |
+| `/loottables` | items | any |  |
+| `/lootinfo` | items | any | `<table>` |
+| `/effectlist` | player | any |  |
+| `/usedin` | crafting | any | `<item>` |
+| `/itemsearch` | items | any | `<text>` |
+| `/blocksearch` | items | any | `<text>` |
+| `/nearest` | creatures | any | `[creature]` |
+| `/hostiles` | creatures | any |  |
+| `/lootof` | creatures | any | `<creature>` |
+| `/cargo` | ships | any |  |
+| `/portals` | world | any | `[radius 1-32]` |
+| `/mine` | actions | any |  |
+| `/place` | actions | any |  |
+| `/use` | actions | any |  |
+| `/interact` | actions | any |  |
+| `/drop` | actions | any | `[all]` |
+| `/face` | actions | any | `<n\|e\|s\|w>` |
+| `/step` | actions | any | `<n\|e\|s\|w> [sprint]` |
+| `/unstuck` | position | any |  |
+| `/eat` | actions | any |  |
+| `/treat` | actions | any |  |
+| `/equipbest` | equipment | any |  |
+| `/sort` | items | any |  |
+| `/stack` | items | any |  |
+| `/swap` | items | any | `<slot> <slot>` |
+| `/deposit` | items | any | `[item\|all]` |
+| `/withdraw` | items | any | `[item\|all]` |
+| `/loadcargo` | ships | any | `[item\|all]` |
+| `/unload` | ships | any | `[item\|all]` |
+| `/chestinfo` | items | any |  |
+| `/emptychest` | items | cheat |  |
+| `/repairall` | items | cheat |  |
+| `/maxskills` | player | cheat | `[level]` |
+| `/resetskills` | player | cheat |  |
+| `/stop` | ships | any |  |
+| `/turn` | ships | any | `<n\|e\|s\|w>` |
+| `/ai` | creatures | cheat | `[on\|off]` |
+| `/killhostile` | creatures | cheat |  |
+| `/mobcap` | creatures | any |  |
+| `/lightning` | weather | cheat |  |
+| `/dawn` | time | cheat |  |
+| `/noon` | time | cheat |  |
+| `/dusk` | time | cheat |  |
+| `/midnight` | time | cheat |  |
+| `/storm` | weather | cheat |  |
+| `/calm` | weather | cheat |  |
+| `/fluidinfo` | fluid | any |  |
+| `/sponge` | fluid | cheat | `[radius 1-8]` |
+| `/constellations` | time | any |  |
+| `/deathpoint` | position | any |  |
+| `/waypoint` | position | any | `<add\|remove\|list\|clear> [name]` |
+| `/navigate` | position | any | `<waypoint>` |
+| `/gowaypoint` | position | cheat | `<waypoint>` |
+| `/sky` | interface | any |  |
+| `/openinv` | interface | any |  |
+| `/opencraft` | interface | any |  |
+| `/openstats` | interface | any |  |
+| `/panel` | interface | any | `<1-3>` |
+| `/log` | interface | any | `[lines]` |
+| `/say` | interface | any | `<text>` |
+| `/history` | interface | any |  |
+| `/aliases` | system | any |  |
+| `/keys` | interface | any |  |
+| `/topics` | help | any |  |
+| `/helpsearch` | help | any | `<text>` |
+| `/hint` | help | any |  |
+| `/tick` | system | any |  |
+| `/osinfo` | system | any |  |
+| `/audio` | system | any |  |
+| `/sounds` | system | any |  |
+| `/playsound` | system | any | `<effect>` |
+| `/sound` | system | any | `[on\|off]` |
+| `/license` | system | any |  |
+| `/creator` | system | any |  |
+| `/colors` | system | any |  |
+| `/glyphs` | system | any |  |
 
-total top-level commands: 121 (aliases: 37)
+total top-level commands: 240 (aliases: 73)

@@ -9,17 +9,18 @@ Engine: **Cliderness Engine**, ISO C90. Created by korscripterdev.
    └─ ui/            app shell, screen stack, fixed-step loop, screens
         ├─ commands/ ClideConsole: registry, parser, completion, handlers
         ├─ help/     ClideHelp: streamed help index
-        ├─ gameplay/ Game: player, inventory, entities, survival, mining/building, undo journal
-        │    └─ world/   World: chunk cache, terrain, biomes, time, weather, sky, chunk store
+        ├─ gameplay/ Game: player, inventory, survival, crafting, farming, chests, effects,
+        │            creatures + AI (entities/), ships (vehicles/), portals (dimension/), undo journal
+        │    └─ world/   World: chunk cache, terrain, biomes, structures, ClideFluid, time, weather, sky, chunk store
         ├─ save/     world.ini (CRC) + chunk store commit
-        ├─ content/  block / item registry from data/
+        ├─ content/  blocks, items, recipes, effects from data/
         ├─ localization/ ClideLocale: string tables, display checks
-        ├─ audio/    ClideAudio front end + fixed-point DSP
+        ├─ audio/    ClideAudio front end (PCM synthesis + mixing, or tones) + fixed-point DSP
         ├─ renderer/ ClideRenderer: framebuffer, CP437 table, text/wide chars
         ├─ input/    key events, rebindable actions
         └─ core/     types, integer math, rng, noise, strings, ini, crc, log, memory
  platform/  ClidePlatform implementations (the only OS-specific code)
-   windows/ Win32 console      unix/ POSIX termios + ANSI      dos/ VGA text + BIOS + PC speaker
+   windows/ Win32 console + waveOut   unix/ POSIX termios + ANSI + PCM pipe   dos/ VGA text + BIOS + PC speaker
    null/    headless (tests, --headless)
 ```
 
@@ -56,7 +57,7 @@ Game logic never calls an OS API. `platform/platform.h` defines
 
 | file | content |
 |---|---|
-| `world.ini` | text, sections world/time/weather/player/inventory/entities, trailing `crc=` line |
+| `world.ini` | text, sections world/time/weather/player/inventory/equipment/effects/crops/chests/fluid/waypoints/ships/mobs/entities, trailing `crc=` line |
 | `chunks.dat` | `CLCHUNK1` header + RLE records with per-record CRC |
 | `../worlds.lst` | world list (no directory listing needed in C90) |
 
@@ -81,15 +82,33 @@ loop:
 | `data/blocks/*.def` | content.c | glyph, colours, flags, hardness, tool, drop, ore generation |
 | `data/items/*.def` | content.c | blocks automatically get block items |
 | `data/biomes/*.def` | biome.c | first match wins (height, temp, humidity, special) |
-| `data/weather/weather.def` | weather.c | climate ranges, effects, durations |
+| `data/weather/weather.def` | weather.c | climate ranges, effects, durations, dimension |
+| `data/recipes/*.def` | recipes.c | inputs, station, fuel, skill |
+| `data/effects/effects.def` | effects.c | status effects |
+| `data/structs/structs.def` | structure.c | mines, ruins, cities, loot tables |
+| `data/entities/creature.def` | creature.c | creatures, AI parameters, trades, loot tables |
+| `data/vehicles/ships.def` | ship.c | hull, oars, sails, capacity, wave limit |
 | `data/locale/*.lng` | locale.c | `key=value`, `@name/@native/@script/@sample` |
 | `data/help/*.hlp` | help.c | `@topic/@title/@level/@related`, streamed |
 | `data/config/time.ini` | app.c | ClideTime defaults |
 
 Every directory has an `index.lst` because C90 cannot list directories.
 
+## Simulation per tick
+
+```text
+player (move, mine, gravity, survival) → item entities → creatures (think every
+10 ticks, act by speed) → natural spawning (every 40 ticks) → ships (speed,
+movement; sea, leaks and sinking once per second) → ClideFluid (every 5 ticks)
+→ per game minute: survival, crops, rain, weather
+```
+
+Audio requests from the simulation go through `Game.sfx`; the UI plays them
+and schedules ambience. On back ends that can restart output (waveOut,
+headless) a new sound is mixed into the rest of the current one.
+
 ## Memory budget (16-bit DOS)
 
-Chunk cache 40 × 2 KB, columns 6 × 4 KB, locale pools 2 × 24 KB, help index
+Chunk cache 40 × 2 KB, columns 6 × 4 KB, locale pools 2 × 32 KB (+ 840-entry index each), help index
 ≈19 KB, store index ≤ 32 KB, edit journal 16 KB. `mem_set_budget(420000)` is
 enforced on 16-bit builds; `/mem` shows live usage.

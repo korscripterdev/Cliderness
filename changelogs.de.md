@@ -4,6 +4,16 @@
 
 Wichtige Änderungen an Cliderness (erstellt von korscripterdev).
 
+## [1.0.0] — 2026-11-15
+
+Roadmap-Phase 10 (fortgeschrittene Systeme). Alle zehn Phasen sind umgesetzt; was noch ungeprüft ist, steht in ROADMAP.md.
+
+### Hinzugefügt
+- Live-PCM-Ton: Windows waveOut (wird mit dem Laufenden gemischt), Linux/BSD über PulseAudio, PipeWire oder ALSA, macOS über afplay. Alles wird vom prozeduralen DSP erzeugt.
+- Schritte, Donner und Umgebungsgeräusche (Regen, Wind, Sturm, Höhlen, Uralte Dimension, Vögel, Krähen, Schiffe). `--play-sfx` prüft das Gerät.
+- 119 neue Befehle (240 insgesamt): Bauformen, Informationen, Aktionen wie die Tasten, Lagerung, Wegpunkte, Todespunkt, Oberfläche und System.
+- Pakete: CMake-install-Regeln und CPack (ZIP, tar.gz), `tools/package.py` (mit DOS-ZIP).
+
 ## [0.6.0] — 2026-11-14
 
 Roadmap-Phase 9 (die Uralte Dimension).

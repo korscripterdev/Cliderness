@@ -6,16 +6,19 @@
 
 Cliderness ist eine freie Survival-Sandbox, die vollständig mit CP437-Zeichen in 16 VGA-Farben auf einem 80×25-Raster gezeichnet wird. Eine einzige ISO-C90-Engine läuft auf MS-DOS, FreeDOS, Windows, Linux, macOS und anderen Unix-Systemen. Keine Geschichte, kein Ende: erkunde, baue ab, baue auf, forme das Land um und überlebe.
 
-## Was in 0.1.0 funktioniert
+## Was in 1.0.0 funktioniert
 
-* Deterministische 3D-Welt aus einem Startwert (identisch auf 16 und 64 Bit), 38 Biome, Höhlen, Erze, Ozeane und Riffe; nur geänderte Chunks werden gespeichert.
-* Gehen, Sprinten, Ducken, Schwimmen, Klettern, Fallen; Abbauen, Platzieren, nach unten graben, nach oben bauen; Werkzeuge mit Haltbarkeit.
-* Gesundheit, Ausdauer, Hunger, Durst, Müdigkeit, Körpertemperatur; Inventar mit 36 Plätzen und Schnellleiste, Gegenstände schwimmen oder sinken.
-* Spielzeit mit Jahreszeiten und Mondphasen, 18 Wetterlagen, Himmelsansicht (Sonne, Mond, Sternbilder, Wolken, Vögel, Meteore, Polarlichter, Finsternisse).
-* **71** wirklich funktionierende Befehle (Rechte, Tab-Ergänzung, Verlauf, Rückgängig/Wiederholen).
-* Offline-Hilfe mit 45 Themen in 5 Stufen, Oberfläche in 11 Sprachen; F1 / Esc halten das Spiel vollständig an; sicheres Speichern (Temporärdatei + CRC).
+* Deterministische 3D-Welt aus einem Startwert (identisch auf 16 und 64 Bit), 46 Biome, Höhlen, Erze, Ozeane, Flüsse und unterirdische Seen; nur geänderte Chunks werden gespeichert.
+* Gehen, Sprinten, Ducken, Schwimmen, Abbauen, Setzen, Werkzeuge mit Haltbarkeit; Gesundheit, Ausdauer, Hunger, Durst, Müdigkeit, Körpertemperatur, Verletzungen und Krankheiten.
+* Handwerk (87 Rezepte), Werkbank, Ofen, Lagerfeuer, Amboss und Altar, Ackerbau und Bäume, Truhen, Betten, Ausrüstung und Taschen, Reparaturen.
+* ClideFluid: fließendes Wasser und Lava mit Volumenerhaltung, Dämme, Regenpfützen, Eimer; verlassene Minen, Ruinen und uralte Städte.
+* 29 Kreaturen (Tiere, Monster, NSC) mit zielgesteuerter KI, Sicht und Gehör, Tag- und Nachtrhythmus; Nah- und Bogenkampf, Rüstung, Beute, Handel, 4 Schwierigkeitsgrade.
+* Schiffe: Floß, Ruderboot, Segelboot und Handelsschiff; Ruder und Segel mit Wind, Laderäume, Auftrieb und Überladung, 3 Rumpfschadensstufen, Wassereinbruch, Sinken.
+* Die Uralte Dimension: Portale, 8 Biome (mit Leerenrissen), uralte Erze, Pflanzen und Kreaturen, der uralte Altar.
+* Jahreszeiten und Mondphasen, 21 Wetterlagen, Himmelsansicht, prozeduraler Ton (Live-PCM unter Windows, Linux und macOS; PC-Lautsprecher unter DOS).
+* **240** Befehle, Offline-Hilfe mit 62 Themen in 5 Stufen, Oberfläche in 11 Sprachen, sicheres Speichern (Temporärdatei + CRC).
 
-Noch nicht: Handwerk, Kreaturen und Kampf, fließendes Wasser, Schiffe, die Uralte Dimension, Live-PCM-Ton. Genauer Stand in [ROADMAP.md](ROADMAP.md).
+Grenzen: Hilfe und Gegenstandsnamen gibt es nur auf Englisch und Koreanisch (andere Sprachen zeigen Englisch). Die DOS-Programme werden in der CI gebaut, sind aber noch nicht auf echter Hardware oder in einem Emulator getestet. Details in [ROADMAP.md](ROADMAP.md).
 
 ## Bauen
 
@@ -23,13 +26,14 @@ Noch nicht: Handwerk, Kreaturen und Kampf, fließendes Wasser, Schiffe, die Ural
 cmake -S . -B build && cmake --build build && ctest --test-dir build
 make && make test
 sh builds/dos/build_watcom.sh 16
+python tools/package.py            # ZIP / tar.gz (CPack)
 ```
 
-Starte `build/cliderness`. `--help` zeigt die Optionen, `--version` Version und Ersteller.
+Starte `build/cliderness` (sucht `data/` neben dem Programm oder im aktuellen Ordner). `--help` zeigt die Optionen, `--version` Version und Ersteller, `--play-sfx rain` prüft das Audiogerät.
 
 ## Steuerung (Standard)
 
-`WASD` bewegen · `Shift` sprinten · `Strg`/`X` ducken · `F` abbauen · `R` setzen · `>`/`<` runter/hoch · `E` aufheben · `U` benutzen · `Tab` Inventar · `C` Charakter · `rechte Umschalt`/`V` Himmel · `F1`/`?` Hilfe · `Esc` Pause · `/` Konsole. Alle Tasten sind frei belegbar.
+`WASD` bewegen · `Shift` sprinten · `Strg`/`X` ducken · `F` angreifen/abbauen · `R` setzen · `>`/`<` runter/hoch · `E` aufheben/an Bord/handeln · `U` benutzen · `K` Handwerk · `Tab` Inventar · `C` Charakter · `rechte Umschalt`/`V` Himmel · `F1`/`?` Hilfe · `Esc` Pause · `/` Konsole. Alle Tasten sind frei belegbar.
 
 ## Dokumentation
 

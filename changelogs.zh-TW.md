@@ -4,6 +4,16 @@
 
 Cliderness（製作：korscripterdev）的主要變更。
 
+## [1.0.0] — 2026-11-15
+
+路線圖第 10 階段（進階系統）。全部 10 個階段均已實作；尚未驗證的部分見 ROADMAP.md。
+
+### 新增
+- 即時 PCM 音訊：Windows waveOut（與正在播放的聲音混音）、Linux/BSD 使用 PulseAudio、PipeWire 或 ALSA、macOS 使用 afplay。所有音效都由程序化 DSP 合成。
+- 腳步聲、雷聲與環境音（雨、風、風暴、洞穴、遠古維度、鳥、烏鴉、船）。`--play-sfx` 檢查音訊裝置。
+- 新增 119 個指令（共 240 個）：建築形狀、資訊、與按鍵相同的動作、儲存、路標、死亡點、介面與系統。
+- 打包：CMake install 與 CPack（ZIP、tar.gz），`tools/package.py`（含 DOS ZIP）。
+
 ## [0.6.0] — 2026-11-14
 
 路線圖第 9 階段（遠古維度）。

@@ -95,7 +95,7 @@ Ctrl을 짧게 누르거나(Windows, DOS) X를 눌러 웅크리기를 전환합�
 > HP    체력; 0이 되면 사망
 > 허기  100% = 배부름; U로 음식을 먹습니다
 > 갈증  100% = 충분; 물을 바라보고 U로 마십니다
-> 피로  깨어 있는 동안 천천히 오릅니다 (수면은 예정)
+> 피로  깨어 있는 동안 천천히 오르며, 침대에서 자면 회복됩니다
 > 체온  37도 근처를 유지하세요
 
 허기와 갈증은 게임 시간에 따라 줄어듭니다. 0이 되면 체력이 깎입니다. 둘 다 60% 이상이면 체력이 천천히 회복됩니다.
@@ -132,14 +132,17 @@ F로 바라보는 블록을 캡니다. 그 칸이 비어 있으면 앞쪽 바닥
 광석은 지하에 있습니다: 돌에는 석탄, 철, 구리, 주석이 있고, 높이 24 아래 심층암에는 은, 금, 수정, 보석이 있습니다.
 
 @topic building
-@title 건축
-@level 2
-@related mining,blocks,cheats,commands
-핫바(1-9)에서 블록을 고르고 R로 앞에 설치합니다. 그 칸이 차 있으면 그 위에 놓입니다. <를 누르면 발밑에 블록을 놓고 한 칸 올라갑니다(기둥 쌓기).
-
-설치한 블록은 플레이어가 만든 것으로 기록되어 캐도 경험치가 없습니다. 구멍, 벽, 메운 호수, 없앤 언덕 등 바꾼 모든 것이 저장되며, 손대지 않은 지형은 시드로 다시 생성됩니다.
-
-크리에이티브 모드에서는 블록이 소모되지 않습니다. 치트가 켜져 있으면 /fill, /replace, /clone, /flatten, /raise, /lower, /smooth로 넓은 영역을 편집하고 /undo로 되돌릴 수 있습니다.
+@title 건축 도구
+@level 3
+@related commands,cheats
+손으로 블록을 놓는 것 외에, 치트 명령어로 주변에 도형 전체를 지을 수 있습니다. 모두 /undo로 되돌릴 수 있습니다.
+> /sphere <블록> <반지름> [hollow]     /dome <블록> <반지름>
+> /cylinder <블록> <반지름> <높이> [hollow]   /pyramid <블록> <반지름> [hollow]
+> /walls <블록> <반지름> <높이>   /circle <블록> <반지름>   /platform <블록> <반지름>
+> /box <블록> <x> [y] [z]   /pillar <블록> <높이>
+> 바라보는 방향으로 /line, /wall, /bridge, /stairs <블록> <길이>, /tunnel <길이> [폭] [높이]
+> /carve [반지름]   동굴 파기
+> /fill, /replace, /clone, /setblock, /flatten, /raise, /lower, /smooth, /drain, /flood
 
 @topic crafting
 @title 제작, 제련, 요리
@@ -397,8 +400,10 @@ ClideFluid가 물과 용암을 움직입니다. 유체 칸마다 수위 1~15가 
 @topic commands
 @title 모든 명령어
 @level 3
-@related cheats,controls
+@related cheats,controls,building,waypoints
 / (또는 T)로 콘솔을 엽니다. 명령어를 입력하고 Enter를 누르세요. Tab은 명령어 이름과 인수(블록, 아이템, 날씨, 모드...)를 자동완성하고, 위/아래는 이전 명령어를 불러오며, PgUp/PgDn은 출력을 스크롤합니다. 좌표에는 "내 위치 기준"을 뜻하는 ~를 쓸 수 있습니다. 예: /tp ~10 ~ ~
+
+명령어는 240개이며 분류는 플레이어, 위치, 이동, 행동(mine, place, use, interact, step, face: 키로 하는 모든 일), 아이템과 보관, 제작, 장비, 건축과 도형, 월드와 지형, 시간, 날씨, 유체, 생물과 전투, 선박, 차원, 인터페이스와 도움말, 시스템입니다. /commands는 목록, /help <명령어>는 설명, /aliases는 줄임말, /topics와 /helpsearch는 도움말 검색입니다.
 
 @topic saving
 @title 저장과 불러오기
@@ -433,11 +438,17 @@ Esc > 저장 또는 /save로 저장합니다. 메뉴로 나갈 때도 저장됩�
 
 @topic audio
 @title 소리
-@level 4
-@related settings,platforms
-ClideAudio는 녹음된 소리 대신 알고리즘으로 소리를 생성합니다. DOS에서는 PC Speaker가 걸음, 채굴, 메뉴 등의 짧은 음을 냅니다. 절차적 PCM 신시사이저(노이즈 생성기, 발진기, 필터, 엔벨로프, 거리 감쇠, 동굴 메아리)는 바람, 비, 폭풍, 천둥, 강, 파도, 불, 나무 삐걱임과 파손, 돌, 채굴, 발소리, 새, 까마귀, 동굴, 고대 차원 음을 이미 WAV 파일로 만들 수 있습니다:
-> cliderness --render-sfx wind wind.wav
-Windows, Linux, macOS의 실시간 PCM 출력은 예정이며, 오디오 장치가 없으면 소리 없이 정상 실행됩니다.
+@level 3
+@related settings,platforms,weather
+ClideAudio는 녹음된 소리 대신 모든 소리를 알고리즘(노이즈 생성기, 발진기, 필터, 엔벨로프)으로 생성합니다.
+> Windows       waveOut 실시간 PCM(22050Hz). 새 소리는 재생 중인 소리에 섞입니다
+> Linux / BSD   PulseAudio(pacat), PipeWire(pw-cat), ALSA(aplay) 중 하나가 설치되어 있으면 실시간 PCM. 소리는 섞이지 않고 차례로 재생됩니다
+> macOS         afplay 실시간 PCM
+> DOS           PC Speaker 음
+발소리와 물소리, 채굴, 부수기, 놓기, 천둥, 선체 삐걱임과 갈라짐, 그리고 비, 바람, 폭풍, 동굴, 고대 차원의 울림, 낮의 새와 해질녘 까마귀 같은 환경음이 들립니다.
+오디오 장치가 없으면 소리 없이 실행됩니다. 장치 확인:
+> cliderness --play-sfx rain
+/audio는 백엔드, /sound on|off는 소리 켜기/끄기, /sounds와 /playsound는 효과음 시험, --render-sfx는 WAV 파일 저장입니다.
 
 @topic platforms
 @title 지원 플랫폼
@@ -501,7 +512,7 @@ Cliderness - 오픈 월드 생존 샌드박스
 제작: korscripterdev
 엔진: Cliderness Engine (ISO C90)
 라이선스: GNU GPL 버전 3 이상 (LICENSE).
-버전 0.6.0. 완료된 기능과 예정된 기능은 로드맵(ROADMAP.md)을 참고하세요.
+버전 1.0.0. 완료된 기능과 예정된 기능은 로드맵(ROADMAP.md)을 참고하세요.
 
 @topic stations
 @title 작업대 종류
@@ -663,3 +674,9 @@ NPC는 방어적이라 공격하면 반격합니다. 동물이나 몬스터에�
 > 별빛 평원     빛나는 별모래의 건조한 들판
 > 고대 성소     벽돌로 포장된 땅, 수호자가 지킴
 > 공허의 균열   공허석 바닥까지 40블록 떨어지는 협곡, 물 없음
+
+@topic waypoints
+@title 웨이포인트와 길찾기
+@level 2
+@related commands,saving
+/waypoint add <이름>으로 장소를 최대 16개 저장합니다. /waypoint list는 차원과 함께 보여 주고, /waypoint remove <이름>은 삭제합니다. /navigate <이름>은 방향과 거리를, /compass는 부활 지점 방향을, /deathpoint는 마지막으로 죽은 곳을, /distance <x> <z>는 거리를 알려 줍니다. 웨이포인트는 월드와 함께 저장되며, /gowaypoint <이름>은 순간이동합니다(치트).

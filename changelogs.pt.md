@@ -4,6 +4,16 @@
 
 Mudanças importantes do Cliderness (criado por korscripterdev).
 
+## [1.0.0] — 2026-11-15
+
+Fase 10 do roteiro (sistemas avançados). As dez fases estão implementadas; o que falta verificar está em ROADMAP.md.
+
+### Adicionado
+- Áudio PCM ao vivo: Windows waveOut (mixado com o que toca), Linux/BSD via PulseAudio, PipeWire ou ALSA, macOS via afplay. Tudo é sintetizado pelo DSP procedural.
+- Passos, trovões e som ambiente (chuva, vento, tempestade, cavernas, Dimensão Ancestral, pássaros, corvos, barcos). `--play-sfx` testa o dispositivo.
+- 119 comandos novos (240 no total): formas de construção, informações, ações iguais às teclas, armazenamento, pontos de referência, ponto de morte, interface e sistema.
+- Pacotes: regras install do CMake e CPack (ZIP, tar.gz), `tools/package.py` (com ZIP para DOS).
+
 ## [0.6.0] — 2026-11-14
 
 Fase 9 do roteiro (a Dimensão Ancestral).

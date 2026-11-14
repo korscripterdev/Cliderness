@@ -4,6 +4,16 @@
 
 Cliderness(制作: korscripterdev)の主な変更点です。
 
+## [1.0.0] — 2026-11-15
+
+ロードマップのフェーズ10(高度なシステム)。10フェーズすべてを実装しました。未検証の部分はROADMAP.mdを参照してください。
+
+### 追加
+- リアルタイムPCM音声: Windows waveOut(再生中の音とミキシング)、Linux/BSDはPulseAudio・PipeWire・ALSA、macOSはafplay。すべて手続き型DSPで合成。
+- 足音、雷、環境音(雨、風、嵐、洞窟、古代次元、鳥、カラス、船)。`--play-sfx`で音声デバイスを確認。
+- コマンド119個追加(合計240): 建築図形、情報、キーと同じ行動、収納、ウェイポイント、死亡地点、インターフェースとシステム。
+- パッケージ: CMakeのinstallとCPack(ZIP、tar.gz)、`tools/package.py`(DOS用ZIP)。
+
 ## [0.6.0] — 2026-11-14
 
 ロードマップのフェーズ9(古代次元)。

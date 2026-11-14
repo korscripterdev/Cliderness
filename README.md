@@ -15,36 +15,43 @@ explore, mine, build, reshape the land and survive.
 ~~~~~~~~~≈≈≈≈@..¥.▒▓▓·····▓│Hunger  ████████·  90%
 ```
 
-## What works in 0.6.0
+## What works in 1.0.0
 
-* Seeded, deterministic 3D world (identical on 16-bit and 64-bit), 38 biomes,
-  caves, ores, oceans, coral reefs; only changed chunks are saved.
+* Seeded, deterministic 3D world (identical on 16-bit and 64-bit), 46 biomes,
+  caves, ores, oceans, coral reefs, rivers and underground lakes; only changed
+  chunks are saved.
 * Walking, sprinting, crouching, swimming, climbing, falling; mining, placing,
   digging down, building up; tools with durability.
-* Survival meters: HP, stamina, hunger, thirst, fatigue, body temperature.
+* Survival meters: HP, stamina, hunger, thirst, fatigue, body temperature;
+  injuries, illness and buffs.
 * 36-slot inventory + hotbar, dropped items that float or sink.
-* Crafting (58 recipes), workstations, smelting, cooking, farming and growing
-  trees, chests, beds and sleep, equipment and bags, repairs, injuries and illness.
+* Crafting (87 recipes), workbench, furnace, campfire, anvil and altar,
+  farming and growing trees, chests, beds and sleep, equipment and bags, repairs.
 * ClideFluid: flowing water and lava with volume conservation, dams, rain
-  puddles, buckets; rivers, underground lakes, abandoned mines and ruins.
-* 22 creatures (animals, monsters, NPCs) with goal-driven AI, sight and
+  puddles, buckets; abandoned mines, ruins, ancient cities and shrines.
+* 29 creatures (animals, monsters, NPCs) with goal-driven AI, sight and
   hearing, day/night routines; melee and bow combat, armour, loot, trading,
   undead that burn in daylight, four difficulty levels.
 * Ships: raft, rowing boat, sailing boat, merchant ship; oars and sails with
   wind direction, cargo holds, buoyancy and overloading, three hull damage
   stages, leaks, flooding, bailing, repairs, waves, running aground, sinking.
 * The Ancient Dimension: portals, eight biomes with void rifts, ancient ores,
-  plants and creatures, ancient cities and shrines, its own sky and weather,
-  the Ancient Altar with starmetal gear and relics.
-* Game time with seasons and moon phases, 18 weather types, a full sky view
+  plants and creatures, its own sky and weather, the Ancient Altar with
+  starmetal gear and relics.
+* Game time with seasons and moon phases, 21 weather types, a full sky view
   (sun, moon, seeded constellations, clouds, birds, meteors, aurora, eclipses).
-* Command console: **121** working commands with permissions, Tab completion,
-  history and undo/redo for building commands.
-* Offline help: 61 topics, 5 levels, search, favourites, related links.
+* Procedural sound: live PCM on Windows (waveOut, mixed), Linux/BSD
+  (PulseAudio, PipeWire or ALSA) and macOS (afplay); PC Speaker tones on DOS.
+* Command console: **240** working commands with permissions, Tab completion,
+  history, undo/redo for building commands, waypoints and building shapes.
+* Offline help: 62 topics, 5 levels, search, favourites, related links.
 * 11 UI languages; F1 / Esc freeze the game completely.
 * Crash-safe saves (temporary file + CRC verification + atomic replace).
 
-Not yet: live PCM audio. See [ROADMAP.md](ROADMAP.md) for the exact status.
+Limits: the help and the names of blocks and items exist in English and Korean
+only (the other UI languages show English there). The DOS executables are built
+by CI but not yet run on real hardware or in an emulator. See
+[ROADMAP.md](ROADMAP.md) for the exact status.
 
 ## Build
 
@@ -52,18 +59,19 @@ Not yet: live PCM audio. See [ROADMAP.md](ROADMAP.md) for the exact status.
 cmake -S . -B build && cmake --build build && ctest --test-dir build
 make && make test                     # Linux / macOS / Unix without CMake
 sh builds/dos/build_watcom.sh 16      # MS-DOS (Open Watcom), see docs/platforms/dos.md
+python tools/package.py               # release ZIP / tar.gz (CPack)
 ```
 
 Run `build/cliderness` (it finds `data/` next to the executable or in the
 current directory). `cliderness --help` lists the options; `--version` prints
-the version and creator.
+the version and creator; `--play-sfx rain` checks the audio device.
 
 ## Controls (default)
 
-`WASD` move · `Shift` sprint · `Ctrl`/`X` crouch · `F` mine · `R` place ·
-`>`/`<` down/up · `E` pick up · `U` use · `Tab` inventory · `C` character ·
-`Right Shift`/`V` sky · `F1`/`?` help · `Esc` pause · `/` console. All keys can
-be rebound in Settings.
+`WASD` move · `Shift` sprint · `Ctrl`/`X` crouch · `F` attack / mine ·
+`R` place · `>`/`<` down/up · `E` pick up / board / trade · `U` use ·
+`K` crafting · `Tab` inventory · `C` character · `Right Shift`/`V` sky ·
+`F1`/`?` help · `Esc` pause · `/` console. All keys can be rebound in Settings.
 
 ## Documentation
 

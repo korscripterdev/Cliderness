@@ -4,6 +4,24 @@
 
 Cliderness(제작: korscripterdev)의 주요 변경 사항입니다.
 
+## [1.0.0] — 2026-11-15
+
+로드맵 10단계(고급 시스템). 로드맵의 10단계가 모두 구현되었습니다. 아직 검증되지 않은 부분은 ROADMAP.md를 참고하세요.
+
+### 추가
+- 실시간 PCM 소리: Windows waveOut(새 소리를 재생 중인 소리에 믹싱), Linux/BSD는 PulseAudio·PipeWire·ALSA 파이프, macOS는 afplay. 모든 효과음은 절차적 DSP로 합성되며, DSP 음색이 없는 효과음은 음 시퀀스로 렌더링합니다.
+- 게임 속 소리: 발소리와 물소리, 번개와 함께 치는 천둥, 환경음(비, 바람, 폭풍, 동굴, 고대 차원, 새, 까마귀, 배).
+- `--play-sfx <효과음>`으로 오디오 장치 확인.
+- 명령어 119개 추가(총 240개, 별칭 73개): 건축 도형(sphere, dome, cylinder, walls, pyramid, circle, platform, box, line, wall, bridge, tunnel, stairs, pillar, carve), 정보(survival, skills, whereami, compass, map, survey, forecast, ores, lootinfo, usedin, nearest, hostiles 등), 키와 같은 행동(mine, place, use, interact, step, face, eat, treat, equipbest), 보관(deposit, withdraw, sort, stack, cargo), 웨이포인트(waypoint, navigate, gowaypoint), 사망 지점, 빠른 월드 조작, 인터페이스와 시스템 명령어.
+- 웨이포인트, 사망 횟수, 마지막 사망 지점이 저장됩니다.
+- 패키징: CMake install 규칙과 CPack(ZIP, tar.gz), DOS 8.3 ZIP을 포함한 `tools/package.py`. CI가 패키지를 올립니다.
+- 도움말: 소리, 모든 명령어, 건축 도구, 웨이포인트.
+- 테스트: 모든 명령어 스모크 테스트, PCM 믹싱, DOS 한도에 맞는 언어 표 검사.
+
+### 변경
+- DOS 언어 표: 32000바이트 풀, 840개 항목.
+- 시스템 명령어 `platform`은 `osinfo`로 바뀌었고 `/platform`은 발판을 만듭니다.
+
 ## [0.6.0] — 2026-11-14
 
 로드맵 9단계(고대 차원).

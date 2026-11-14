@@ -95,7 +95,7 @@ Regeneration is halved when you are starving or dehydrated. When fatigue rises a
 > HP       health; at 0 you die
 > Hunger   100% = full; eat food with U
 > Thirst   100% = hydrated; face water and press U to drink
-> Fatigue  rises slowly while awake (sleep is planned)
+> Fatigue  rises slowly while awake; sleep in a bed to recover
 > Temp     body temperature; keep it near 37 C
 
 Hunger and thirst fall over game time. At 0 you lose health. You slowly regenerate health while both are above 60%.
@@ -132,14 +132,17 @@ Pickaxes speed up rock and ore, axes wood, shovels soil and sand. Without the ri
 Ores are found underground: coal, iron, copper and tin in stone; silver, gold, crystals and gems in deep rock below height 24.
 
 @topic building
-@title Building
-@level 2
-@related mining,blocks,cheats,commands
-Select a block in the hotbar (1-9) and press R to place it in front of you. If that cell is full, the block goes on top of it. Press < to put a block under yourself and rise one level (pillar up).
-
-Placed blocks are remembered as player-made: mining them gives no experience. Everything you change - holes, walls, filled lakes, removed hills - is saved; untouched terrain is regenerated from the seed.
-
-Creative mode places blocks without using them up. With cheats, /fill, /replace, /clone, /flatten, /raise, /lower and /smooth edit large areas and can be undone with /undo.
+@title Building Tools
+@level 3
+@related commands,cheats
+Besides placing blocks by hand, cheat commands build whole shapes around you. Every one can be undone with /undo.
+> /sphere <block> <r> [hollow]     /dome <block> <r>
+> /cylinder <block> <r> <h> [hollow]   /pyramid <block> <r> [hollow]
+> /walls <block> <r> <h>   /circle <block> <r>   /platform <block> <r>
+> /box <block> <x> [y] [z]   /pillar <block> <h>
+> /line, /wall, /bridge, /stairs <block> <length>, /tunnel <length> [w] [h] in the facing direction
+> /carve [r]   hollow out a cave
+> /fill, /replace, /clone, /setblock, /flatten, /raise, /lower, /smooth, /drain, /flood
 
 @topic crafting
 @title Crafting, Smelting and Cooking
@@ -397,8 +400,10 @@ God mode (/god), flying (/fly) and walking through blocks (/noclip) are flags in
 @topic commands
 @title All Commands
 @level 3
-@related cheats,controls
+@related cheats,controls,building,waypoints
 Open the console with / (or T). Type a command and press Enter. Tab completes command names and arguments (blocks, items, weather, modes...), Up/Down recall earlier commands, PgUp/PgDn scroll the output. Coordinates accept ~ for "relative to me", e.g. /tp ~10 ~ ~.
+
+There are 240 commands in groups: player, position, movement, actions (mine, place, use, interact, step, face: everything the keys do), items and storage, crafting, equipment, building and shapes, world and terrain, time, weather, fluids, creatures and combat, ships, dimensions, interface and help, system. /commands lists them, /help <command> explains one, /aliases lists short names, /topics and /helpsearch search the help.
 
 @topic saving
 @title Saving and Loading
@@ -433,11 +438,17 @@ The game detects your system language and uses it if your display can show it. O
 
 @topic audio
 @title Sound
-@level 4
-@related settings,platforms
-ClideAudio generates sound procedurally instead of playing recordings. On DOS the PC Speaker plays short tone patterns for steps, mining, menus and so on. The procedural PCM synthesiser (noise generators, oscillators, filters, envelopes, distance attenuation, cave echo) can already render wind, rain, storm, thunder, river, waves, fire, wood creaking and breaking, stone, mining, steps, birds, crows, caves and ancient drones to WAV files:
-> cliderness --render-sfx wind wind.wav
-Live PCM output on Windows, Linux and macOS is planned; without an audio device the game simply runs silently.
+@level 3
+@related settings,platforms,weather
+ClideAudio generates every sound procedurally (noise generators, oscillators, filters, envelopes) instead of playing recordings.
+> Windows        live PCM through waveOut (22050 Hz); new sounds are mixed into what is playing
+> Linux / BSD    live PCM through PulseAudio (pacat), PipeWire (pw-cat) or ALSA (aplay) when one of them is installed; sounds queue instead of mixing
+> macOS          live PCM through afplay
+> DOS            PC Speaker tone sequences
+You hear footsteps and splashes, mining, breaking, placing, thunder, hull creaks and cracks, and ambience: rain, wind, storms, caves, the drone of the Ancient Dimension, birds by day and crows at dusk.
+Without an audio device the game runs silently. Check the device with
+> cliderness --play-sfx rain
+/audio shows the back end, /sound on|off switches sound, /sounds and /playsound try effects, --render-sfx writes a WAV file.
 
 @topic platforms
 @title Platforms
@@ -501,7 +512,7 @@ Cliderness - Open World Survival Sandbox
 Created by korscripterdev.
 Engine: Cliderness Engine, written in ISO C90.
 License: GNU GPL version 3 or later (LICENSE).
-Version 0.6.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
+Version 1.0.0. See the roadmap (ROADMAP.md) for what is finished and what is planned.
 
 @topic stations
 @title Workstations
@@ -663,3 +674,9 @@ Obsidian forms where water meets lava (or in deep lava caves). Breaking a portal
 > Starlight Plain     dry fields of glowing star sand
 > Ancient Sanctuary   brick-paved ground, guarded
 > Void Rift           chasms falling 40 blocks to a floor of void stone; no water
+
+@topic waypoints
+@title Waypoints and Navigation
+@level 2
+@related commands,saving
+Save up to 16 named places with /waypoint add <name>; /waypoint list shows them with their dimension, /waypoint remove <name> deletes one. /navigate <name> tells the direction and distance, /compass points to your spawn point, /deathpoint shows where you died last, /distance <x> <z> measures. Waypoints are saved with the world; /gowaypoint <name> teleports (cheat).
