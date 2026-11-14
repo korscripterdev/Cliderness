@@ -8,7 +8,7 @@ echo name builds\dos\CLIDE16.EXE>> builds\dos\obj16\link.lnk
 echo option quiet>> builds\dos\obj16\link.lnk
 echo option stack=24k>> builds\dos\obj16\link.lnk
 for /f "eol=# delims=" %%s in (builds\dos\sources.lst) do (
-  wcc -ml -zt=2048 -bt=dos -ox -zq -w3 -i=src -fo=builds\dos\obj16\%%~ns.obj %%s || goto fail
+  wcc -ml -zc -zt=256 -bt=dos -ox -zq -w3 -i=src -fo=builds\dos\obj16\%%~ns.obj %%s || goto fail
   echo file builds\dos\obj16\%%~ns.obj>> builds\dos\obj16\link.lnk
 )
 wlink @builds\dos\obj16\link.lnk || goto fail

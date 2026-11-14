@@ -21,7 +21,9 @@ mkdir -p "$OBJ"
 if [ "$T" = "386" ]; then
   CC=wcc386; MODEL=""; SYS=dos4g
 else
-  CC=wcc; MODEL="-ml -zt=2048"; SYS=dos
+  # large model; string literals in the code segment (-zc) and data objects
+  # above 256 bytes in their own far segments (-zt) keep DGROUP below 64 KB
+  CC=wcc; MODEL="-ml -zc -zt=256"; SYS=dos
 fi
 LNK=$OBJ/link.lnk
 {

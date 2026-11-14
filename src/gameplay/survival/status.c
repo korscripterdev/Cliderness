@@ -1,5 +1,5 @@
 /*
- * Cliderness - gameplay/survival/effects.c
+ * Cliderness - gameplay/survival/status.c
  * Status effects (injuries, illness, buffs) and sleeping.
  *
  * Triggers (implemented in game.c / survival.c):

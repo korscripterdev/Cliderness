@@ -37,7 +37,7 @@ src/gameplay/game.c
 src/gameplay/inventory/inventory.c
 src/gameplay/player/player.c
 src/gameplay/storage/chest.c
-src/gameplay/survival/effects.c
+src/gameplay/survival/status.c
 src/gameplay/survival/survival.c
 src/gameplay/vehicles/ship.c
 src/help/help.c

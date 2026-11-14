@@ -264,7 +264,7 @@ void chest_fill_loot(Game *g, int idx, const char *table);
 /* fluids and rain (game.c) */
 void game_rain_minute(Game *g);
 
-/* status effects and sleep (gameplay/survival/effects.c) */
+/* status effects and sleep (gameplay/survival/status.c) */
 void fx_add(Game *g, int effect, int minutes);
 int  fx_has(const Game *g, int effect);
 int  fx_remove(Game *g, int effect);

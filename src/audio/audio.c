@@ -73,9 +73,11 @@ static const Tone *g_cur = 0;
 static long g_left = 0;
 static int g_prio = 0;
 static int g_use_pcm = 0;
+#if CLIDE_PCM_BUFFER > 0
 static int g_caps = 0;        /* PCM_* of the back end */
 static int g_stream = 0;      /* queue-only back end: the front end streams the mix */
 static int g_streaming = 0;   /* lead-in already written */
+#endif
 static long g_pcm_left = 0;
 static long g_played = 0;
 
