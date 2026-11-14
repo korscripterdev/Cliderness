@@ -601,3 +601,18 @@ hint.low_hp=Deine Gesundheit ist niedrig: ruh dich aus, iss und meide Gefahr.
 hint.night=Nachts ist es draußen gefährlich: bleib unter einem Dach oder nahe am Licht.
 hint.thirsty=Du hast Durst: schau aufs Wasser und drücke U.
 hint.wood=Fang an, mit F Bäume zu fällen: Stämme werden zu Brettern, Stöcken und Werkzeugen.
+
+# --- added ---
+msg.stat_up=Dein Wert {0} steigt!
+
+# --- added ---
+msg.fish_cast=Du wirfst die Angel aus.
+msg.fish_caught=Gefangen: {0}!
+msg.fish_nothing=Nichts beißt an.
+msg.fish_need_water=Schau zum Wasser, um zu angeln.
+msg.fish_reel=Du holst die Leine ein.
+
+# --- added ---
+sky.veyra=Veyra: {0}
+sky.ringed=Die Ringwelt
+sky.veil=Ätherschleier

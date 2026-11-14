@@ -1082,3 +1082,19 @@ hint.low_hp=체력이 낮습니다: 쉬고 먹고 위험을 피하세요.
 hint.night=밤의 야외는 위험합니다: 지붕 아래나 빛 근처에 머무세요.
 hint.thirsty=목이 마릅니다: 물을 바라보고 U를 누르세요.
 hint.wood=F로 나무를 캐서 시작하세요: 원목은 판자, 막대, 도구가 됩니다.
+
+# --- added ---
+msg.stat_up={0} 능력치가 올랐습니다!
+
+# --- added ---
+msg.fish_cast=낚싯줄을 던졌습니다.
+msg.fish_caught={0}을(를) 낚았습니다!
+msg.fish_nothing=아무것도 물지 않았습니다.
+msg.fish_need_water=물을 바라보고 낚시하세요.
+msg.fish_reel=낚싯줄을 감았습니다.
+item.fishing_rod=낚싯대
+
+# --- added ---
+sky.veyra=베이라: {0}
+sky.ringed=고리 행성
+sky.veil=에테르 장막

@@ -601,3 +601,18 @@ hint.low_hp=体力が低いです: 休んで食べ、危険を避けてくださ
 hint.night=夜の屋外は危険です: 屋根の下か光のそばにいましょう。
 hint.thirsty=喉が渇いています: 水に向かってUを押してください。
 hint.wood=Fで木を切って始めましょう: 原木は板、棒、道具になります。
+
+# --- added ---
+msg.stat_up={0}が上がった!
+
+# --- added ---
+msg.fish_cast=釣り糸を投げた。
+msg.fish_caught={0}を釣った!
+msg.fish_nothing=何もかからなかった。
+msg.fish_need_water=水の方を向いて釣ってください。
+msg.fish_reel=釣り糸を巻き上げた。
+
+# --- added ---
+sky.veyra=ヴェイラ: {0}
+sky.ringed=環のある星
+sky.veil=エーテルのヴェール

@@ -17,6 +17,7 @@ enum { MOVE_WALK = 0, MOVE_SPRINT, MOVE_CROUCH, MOVE_SWIM, MOVE_FLY, MOVE_IDLE, 
 enum { DIR_N = 0, DIR_E, DIR_S, DIR_W };
 
 #define SKILL_MAX_LEVEL 100
+#define STAT_PLAY_MAX 30      /* attributes grow through play up to this value */
 #define PLAYER_FX 8
 
 typedef struct Player {
@@ -40,6 +41,7 @@ typedef struct Player {
     int  visibility;      /* 0..100 */
     int  sprinted;        /* sprint steps during the current minute */
     int  stats[ST_COUNT];
+    long stat_xp[ST_COUNT];  /* training towards the next attribute point */
     long skill_xp[SK_COUNT];
     int  xp_minute;       /* xp gained this game minute (anti-farming cap) */
     long best_dist;       /* farthest distance from spawn (exploration xp) */
@@ -58,12 +60,15 @@ typedef struct Player {
     struct { cl_s16 id; cl_s16 minutes; } fx[PLAYER_FX];
     int  cold_minutes;      /* minutes spent hypothermic (common cold trigger) */
     int  sleeping;
+    int  fishing;           /* ticks until a bite (0 = not fishing) */
 } Player;
 
 void player_init(Player *p);
 int  player_skill_level(const Player *p, int skill);
 /* xp needed to reach a level: 10 * level^2 */
 long player_level_xp(int level);
+/* training needed for the next point of an attribute at value v: 60 x v */
+long player_stat_need(int v);
 long player_carry_capacity(const Player *p);  /* grams */
 const char *player_stat_key(int st);
 const char *player_skill_key(int sk);

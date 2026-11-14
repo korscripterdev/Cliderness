@@ -66,6 +66,8 @@ typedef struct Waypoint {
 
 enum { DIFF_PEACEFUL = 0, DIFF_EASY, DIFF_NORMAL, DIFF_HARD, DIFF_COUNT };
 
+#define MOB_PATH 12
+
 /* a living creature (definition in gameplay/entities/creature.h) */
 typedef struct Mob {
     long   x, y, z;
@@ -74,6 +76,9 @@ typedef struct Mob {
     cl_s16 hp;
     cl_s16 think, cd_move, cd_attack;
     cl_u8  dim, active, state, aggro;
+    cl_u8  path[MOB_PATH];     /* A* route as directions (DIR_*) */
+    long   path_tx, path_tz;   /* target the route was planned for */
+    cl_u8  npath, pathpos;
 } Mob;
 
 /* a planted crop or sapling waiting for its next growth stage */
@@ -175,6 +180,8 @@ int  mob_at(Game *g, int dim, long x, long y, long z);
 int  mob_count(const Game *g);
 int  mob_damage(Game *g, int idx, int dmg, int skill);   /* 0 none, 1 hit, 2 killed */
 int  mob_kill_type(Game *g, int def);                    /* def -1 = all */
+/* A* route for creature idx to (tx,ty,tz); returns path length (0 = none) */
+int  mob_find_path(Game *g, int idx, long tx, long ty, long tz);
 void mob_tick(Game *g);
 void mob_spawn_tick(Game *g);
 int  game_attack(Game *g);   /* 1 if an attack happened (or was on cooldown) */
@@ -216,6 +223,9 @@ void surv_tick(Game *g);
 int  surv_env_temp(Game *g);
 void surv_damage(Game *g, int amount, const char *cause_key);
 void skill_gain(Game *g, int skill, int xp);
+/* attribute training (skills train their attribute; CON from damage taken,
+ * WIL from enduring cold, heat, hunger and thirst, LCK from loot and criticals) */
+void stat_train(Game *g, int stat, int xp);
 
 /* edit journal */
 int  edit_init(EditJournal *j);

@@ -293,6 +293,10 @@ static void stats_draw(Framebuffer *fb)
         sprintf(buf, "%3d", p->stats[i]);
         fb_text(fb, 2, 4 + i * 2, loc_get(player_stat_key(i)), UI_HI, 14);
         fb_text(fb, 16, 4 + i * 2, buf, UI_GOOD, 4);
+        if (p->stats[i] < STAT_PLAY_MAX) {
+            /* training towards the next point */
+            fb_bar(fb, 21, 4 + i * 2, 16, p->stat_xp[i], player_stat_need(p->stats[i]), ATTR(C_GREEN, C_BLACK));
+        }
         fb_text(fb, 4, 5 + i * 2, loc_get(effect_keys[i]), UI_DIM, 34);
     }
     fb_vline(fb, 40, 1, FB_H - 3, G_VLINE, UI_DIM);
@@ -445,7 +449,7 @@ static int g_sky_names = 0;
 static void sky_draw(Framebuffer *fb)
 {
     ClideDate d;
-    char buf[120];
+    char buf[200];
     SkyInfo info;
     sky_render(fb, &g_game, 0, 0, FB_W, FB_H - 1, g_sky_names, &info);
     ctime_date(&g_game.time, &d);
@@ -468,6 +472,18 @@ static void sky_draw(Framebuffer *fb)
     if (info.aurora) {
         str_cat(buf, "  ", sizeof(buf));
         str_cat(buf, loc_get("sky.aurora"), sizeof(buf));
+    }
+    if (info.second_moon) {
+        str_cat(buf, "  ", sizeof(buf));
+        str_cat(buf, loc_fmt("sky.veyra", loc_get(ctime_moon_key(sky_veyra_phase(&g_game))), NULL, NULL), sizeof(buf));
+    }
+    if (info.ringed_world) {
+        str_cat(buf, "  ", sizeof(buf));
+        str_cat(buf, loc_get("sky.ringed"), sizeof(buf));
+    }
+    if (info.aether_veil) {
+        str_cat(buf, "  ", sizeof(buf));
+        str_cat(buf, loc_get("sky.veil"), sizeof(buf));
     }
     ui_hint(fb, loc_get("hint.sky"));
     fb_text(fb, 1, 0, buf, ATTR(C_WHITE, ATTR_BG(fb->cells[0].attr)), FB_W - 2);

@@ -601,3 +601,18 @@ hint.low_hp=生命值很低：休息、进食并远离危险。
 hint.night=夜晚在户外很危险：待在屋顶下或光源附近。
 hint.thirsty=你渴了：面向水并按 U。
 hint.wood=先用 F 砍树：原木可以做成木板、木棍和工具。
+
+# --- added ---
+msg.stat_up=你的{0}提升了！
+
+# --- added ---
+msg.fish_cast=你抛出了鱼线。
+msg.fish_caught=你钓到了{0}！
+msg.fish_nothing=什么也没上钩。
+msg.fish_need_water=面向水面才能钓鱼。
+msg.fish_reel=你收回了鱼线。
+
+# --- added ---
+sky.veyra=维拉：{0}
+sky.ringed=环带星球
+sky.veil=以太帷幕

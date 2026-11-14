@@ -9,6 +9,12 @@
 # (e.g. by the open-watcom/setup-watcom GitHub action).
 set -e
 cd "$(dirname "$0")/../.."
+# The DOS C library headers live in $WATCOM/h. setup-watcom on a Linux host
+# points INCLUDE at $WATCOM/lh (the Linux headers), which cannot build DOS code.
+if [ -n "$WATCOM" ]; then
+  INCLUDE="$WATCOM/h"
+  export INCLUDE
+fi
 T=${1:-16}
 OBJ=builds/dos/obj$T
 mkdir -p "$OBJ"
@@ -32,7 +38,7 @@ grep -v '^#' builds/dos/sources.lst | while read -r src; do
     *) STRICT="-za" ;;             # engine: strict ISO C (C89/C90)
   esac
   echo "  $CC $src"
-  $CC $MODEL -bt=dos $STRICT -ox -zq -w3 -i=src -fo="$o" "$src"
+  $CC $MODEL -bt=dos $STRICT -ox -zq -w3 -i=src ${WATCOM:+-i="$WATCOM/h"} -fo="$o" "$src"
   echo "file $o" >> "$LNK"
 done
 wlink @"$LNK"

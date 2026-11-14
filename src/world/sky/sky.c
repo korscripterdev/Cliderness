@@ -42,6 +42,13 @@ static int bg_at(const Framebuffer *fb, int x, int y)
     return ATTR_BG(fb->cells[y * FB_W + x].attr);
 }
 
+int sky_veyra_phase(const Game *g)
+{
+    /* eight phases over three days */
+    long t = g->time.day * 1440L + ctime_minute_of_day(&g->time);
+    return (int)((t / 540L) % 8L);
+}
+
 void sky_render(Framebuffer *fb, Game *g, int x0, int y0, int w, int h, int show_names, SkyInfo *info)
 {
     ClideDate d;
@@ -124,6 +131,10 @@ void sky_render(Framebuffer *fb, Game *g, int x0, int y0, int w, int h, int show
             int twinkle = (rng_hash3(seed, i, anim / 6L, 9) & 7UL) == 0;
             int glyph = cls == 0 ? '*' : cls < 3 ? '+' : G_MIDDOT;
             int col = cls == 0 ? C_WHITE : cls == 1 ? C_YELLOW : cls == 2 ? C_LIGHTCYAN : C_LIGHTGRAY;
+            if (g->p.dim == DIM_ANCIENT) {
+                /* ancient stars burn in magenta and cyan */
+                col = cls < 2 ? C_LIGHTMAGENTA : cls < 5 ? C_LIGHTCYAN : C_MAGENTA;
+            }
             if (twinkle) {
                 glyph = cls == 0 ? '+' : '.';
                 col = C_DARKGRAY;
@@ -163,6 +174,44 @@ void sky_render(Framebuffer *fb, Game *g, int x0, int y0, int w, int h, int show
             int col = ((x + anim / 3) % 7) < 3 ? C_LIGHTGREEN : C_LIGHTCYAN;
             put(fb, x0, y0, w, h, x, wy, G_SHADE2, col, C_BLACK);
             put(fb, x0, y0, w, h, x, wy + 1, G_SHADE1, C_GREEN, C_BLACK);
+        }
+    }
+
+    /* ---- the Ancient Dimension: aether veil, ringed world, second moon ---- */
+    if (g->p.dim == DIM_ANCIENT) {
+        /* the aether veil ripples across every night sky */
+        if (night && cloud < 80) {
+            info->aether_veil = 1;
+            for (x = 0; x < w; ++x) {
+                int wy = 1 + (mx_sin256((int)(x * 7 + anim)) * 2 + 2048) / 1024;
+                int col = ((x + anim / 4) % 9) < 4 ? C_LIGHTMAGENTA : C_MAGENTA;
+                put(fb, x0, y0, w, h, x, wy, G_SHADE1, col, bg_at(fb, x0 + x, y0 + wy));
+            }
+        }
+        /* the ringed world hangs low in the south, drifting once per day */
+        if (cloud < 90) {
+            int rx = (int)mx_floor_mod((long)(seed % (cl_u32)w) + minute * (long)w / 1440L, (long)w);
+            int ry = sky_h - 5;
+            int rb = bg_at(fb, x0 + CL_CLAMP(rx, 0, w - 1), y0 + CL_CLAMP(ry, 0, sky_h - 1));
+            info->ringed_world = 1;
+            put(fb, x0, y0, w, h, rx, ry, 233, C_LIGHTCYAN, rb);
+            put(fb, x0, y0, w, h, rx - 2, ry, G_DHLINE, C_CYAN, rb);
+            put(fb, x0, y0, w, h, rx - 1, ry, G_DHLINE, C_LIGHTCYAN, rb);
+            put(fb, x0, y0, w, h, rx + 1, ry, G_DHLINE, C_LIGHTCYAN, rb);
+            put(fb, x0, y0, w, h, rx + 2, ry, G_DHLINE, C_CYAN, rb);
+        }
+        /* Veyra, the second moon, runs through eight phases in three days */
+        {
+            static const char vg[8] = { 'o', ')', 'D', 'O', 'O', 'O', 'C', '(' };
+            int ph = sky_veyra_phase(g);
+            long pos = mx_floor_mod(minute * 2L + (long)ph * 90L, 1440L);
+            if (pos < 720 && cloud < 85) {
+                int vx = (int)(pos * (long)(w - 1) / 720L);
+                int vy = (sky_h - 3) - (mx_sin256((int)(pos * 128L / 720L)) * (sky_h - 5)) / 1024;
+                info->second_moon = 1;
+                put(fb, x0, y0, w, h, vx, vy, vg[ph & 7], ph == 0 ? C_DARKGRAY : C_LIGHTMAGENTA,
+                    bg_at(fb, x0 + CL_CLAMP(vx, 0, w - 1), y0 + CL_CLAMP(vy, 0, sky_h - 1)));
+            }
         }
     }
 
@@ -250,8 +299,8 @@ void sky_render(Framebuffer *fb, Game *g, int x0, int y0, int w, int h, int show
         }
     }
 
-    /* ---- birds (day) and crows (dusk/day) ---- */
-    if (light >= 40 && cloud < 90 && !wd->precip) {
+    /* ---- birds (day) and crows (dusk/day); none in the Ancient Dimension ---- */
+    if (light >= 40 && cloud < 90 && !wd->precip && g->p.dim == DIM_OVERWORLD) {
         info->birds = 1;
         for (i = 0; i < 3; ++i) {
             int bx = (int)mx_floor_mod(anim / 3L + (long)i * 23L + (long)(seed % 17UL), (long)w + 12L) - 6;
@@ -260,7 +309,7 @@ void sky_render(Framebuffer *fb, Game *g, int x0, int y0, int w, int h, int show
             put(fb, x0, y0, w, h, bx, by, flap ? 'v' : '^', C_BLACK, bg_at(fb, x0 + CL_CLAMP(bx, 0, w - 1), y0 + by));
         }
     }
-    if (light >= 15 && light < 70 && !wd->precip) {
+    if (light >= 15 && light < 70 && !wd->precip && g->p.dim == DIM_OVERWORLD) {
         info->crows = 1;
         for (i = 0; i < 2; ++i) {
             int bx = w - (int)mx_floor_mod(anim / 2L + (long)i * 31L, (long)w + 10L) + 5;

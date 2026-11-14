@@ -601,3 +601,18 @@ hint.low_hp=Votre santé est basse : reposez-vous, mangez et évitez le danger.
 hint.night=La nuit dehors est dangereuse : restez sous un toit ou près d'une lumière.
 hint.thirsty=Vous avez soif : faites face à l'eau et appuyez sur U.
 hint.wood=Commencez par abattre des arbres avec F : les bûches donnent planches, bâtons et outils.
+
+# --- added ---
+msg.stat_up=Votre {0} augmente !
+
+# --- added ---
+msg.fish_cast=Vous lancez la ligne.
+msg.fish_caught=Vous avez pêché : {0} !
+msg.fish_nothing=Rien ne mord.
+msg.fish_need_water=Faites face à l'eau pour pêcher.
+msg.fish_reel=Vous remontez la ligne.
+
+# --- added ---
+sky.veyra=Veyra : {0}
+sky.ringed=Le monde aux anneaux
+sky.veil=Voile d'éther

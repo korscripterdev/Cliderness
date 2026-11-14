@@ -66,6 +66,7 @@ void chest_fill_loot(Game *g, int idx, const char *table)
         return;
     }
     c = &g->chests[idx];
+    stat_train(g, ST_LCK, 5);
     rng_seed(&r, rng_hash3(g->seed ^ 0x1007UL, c->x, c->y, c->z));
     for (k = 0; k < g_loot[l].n && slot < CHEST_SLOTS; ++k) {
         const LootDef *t = &g_loot[l];

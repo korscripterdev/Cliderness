@@ -95,3 +95,9 @@ result=bucket
 in=iron_ingot:3
 station=anvil
 category=tools
+
+[recipe fishing_rod]
+result=fishing_rod
+in=stick:3
+in=string:2
+category=tools

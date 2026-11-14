@@ -192,6 +192,8 @@ static void write_body(SaveW *w, Game *g)
     for (i = 0; i < ST_COUNT; ++i) {
         sprintf(key, "stat%d", i);
         sw_kl(w, key, p->stats[i]);
+        sprintf(key, "sxp%d", i);
+        sw_kl(w, key, p->stat_xp[i]);
     }
     for (i = 0; i < SK_COUNT; ++i) {
         sprintf(key, "skill%d", i);
@@ -461,6 +463,13 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
             if (!g->weather.rng.s) g->weather.rng.s = 1;
         }
     } else if (str_ieq(type, "player")) {
+        if (str_iprefix(key, "sxp")) {
+            long k;
+            if (str_to_long(key + 3, &k) && k >= 0 && k < ST_COUNT) {
+                p->stat_xp[k] = CL_MAX(0L, num(v));
+            }
+            return 0;
+        }
         if (str_iprefix(key, "stat") && !str_iprefix(key, "stamina")) {
             long k;
             if (str_to_long(key + 4, &k) && k >= 0 && k < ST_COUNT) {

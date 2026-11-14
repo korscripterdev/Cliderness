@@ -211,3 +211,16 @@ stack=1
 weight=26000
 volume=100
 density=3100
+
+[item fishing_rod]
+name=Fishing Rod
+type=tool
+glyph=244
+fg=brown
+durability=64
+stack=1
+weight=500
+volume=40
+density=600
+repair=string
+repair_pct=40

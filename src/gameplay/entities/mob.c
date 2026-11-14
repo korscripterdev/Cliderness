@@ -268,6 +268,7 @@ int game_attack(Game *g)
         dmg = dmg * (100 + player_skill_level(p, SK_MELEE) * 2) / 100;
         if (rng_range(&g->rng, 100) < p->stats[ST_LCK]) {
             dmg *= 2;
+            stat_train(g, ST_LCK, 2);
             log_add(ATTR(C_LIGHTCYAN, C_BLACK), loc_get("msg.critical"));
         }
         if (dmg < 1) {
@@ -331,8 +332,8 @@ static int walkable(Game *g, const CreatureDef *d, int dim, long x, long y, long
     if (blk_solid(b) || b == (cl_u8)g_cb.lava || (g_blocks[b].flags & BF_HURT)) {
         return 0;
     }
-    return blk_solid(below) || blk_liquid(below) || blk_solid(at(g, dim, x, y - 2, z)) ||
-           blk_solid(at(g, dim, x, y - 3, z));
+    /* ground directly below (falls are found by the step search) */
+    return blk_solid(below) || blk_liquid(below);
 }
 
 static int occupied(Game *g, int self, int dim, long x, long y, long z)
@@ -393,6 +394,242 @@ static int step_toward(Game *g, int idx, long tx, long tz, int flee)
     return 0;
 }
 
+/* the cell a creature reaches by stepping in direction dir, or 0 */
+static int neighbour(Game *g, int idx, long x, long y, long z, int dir, long *ox, long *oy, long *oz)
+{
+    const Mob *m = &g->mobs[idx];
+    const CreatureDef *d = &g_creatures[m->def];
+    long dx, dz, ny;
+    dir_delta(dir, &dx, &dz);
+    for (ny = y + 1; ny >= y - 3; --ny) {
+        if (walkable(g, d, m->dim, x + dx, ny, z + dz)) {
+            if (ny == y + 1 && blk_solid(at(g, m->dim, x, y + 1, z))) {
+                continue;   /* no head room to climb */
+            }
+            *ox = x + dx;
+            *oy = ny;
+            *oz = z + dz;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+/*
+ * A* over the cells a creature can walk (4 directions, one block up, falls of
+ * up to three) inside a 24-cell box around the creature. Open cells live in a
+ * binary heap, visited cells in a small hash table, so even PATH_NODES cells
+ * cost only a few thousand block lookups. At most two searches run per tick
+ * (g_path_budget), and only when the straight step is blocked.
+ */
+#ifdef CLIDE_TARGET_DOS16
+#define PATH_NODES 160
+#define PATH_HASH  256
+#else
+#define PATH_NODES 1200
+#define PATH_HASH  4096
+#endif
+
+typedef struct PNode {
+    long  x, y, z;
+    short g, f, parent;
+    cl_u8 dir, closed;
+} PNode;
+
+static PNode g_pn[PATH_NODES];
+static short g_heap[PATH_NODES];
+static short g_hash[PATH_HASH];   /* node index + 1, 0 = empty */
+static int g_nheap;
+static int g_path_budget = 0;
+static long g_path_tick = -1;
+
+static unsigned phash(long x, long y, long z)
+{
+    return (unsigned)(CL_U32((cl_u32)x * 73856093UL ^ (cl_u32)y * 19349663UL ^ (cl_u32)z * 83492791UL) % PATH_HASH);
+}
+
+static int pfind(long x, long y, long z)
+{
+    unsigned h = phash(x, y, z);
+    while (g_hash[h]) {
+        const PNode *n = &g_pn[g_hash[h] - 1];
+        if (n->x == x && n->y == y && n->z == z) return g_hash[h] - 1;
+        h = (h + 1) % PATH_HASH;
+    }
+    return -1;
+}
+
+static void pinsert(int idx)
+{
+    unsigned h = phash(g_pn[idx].x, g_pn[idx].y, g_pn[idx].z);
+    while (g_hash[h]) h = (h + 1) % PATH_HASH;
+    g_hash[h] = (short)(idx + 1);
+}
+
+static void heap_push(int idx)
+{
+    int i = g_nheap++;
+    while (i > 0) {
+        int par = (i - 1) / 2;
+        if (g_pn[g_heap[par]].f <= g_pn[idx].f) break;
+        g_heap[i] = g_heap[par];
+        i = par;
+    }
+    g_heap[i] = (short)idx;
+}
+
+static int heap_pop(void)
+{
+    int top = g_heap[0], last, i = 0;
+    last = g_heap[--g_nheap];
+    while (g_nheap > 0) {
+        int c = 2 * i + 1;
+        if (c >= g_nheap) break;
+        if (c + 1 < g_nheap && g_pn[g_heap[c + 1]].f < g_pn[g_heap[c]].f) ++c;
+        if (g_pn[last].f <= g_pn[g_heap[c]].f) break;
+        g_heap[i] = g_heap[c];
+        i = c;
+    }
+    if (g_nheap > 0) g_heap[i] = (short)last;
+    return top;
+}
+
+int mob_find_path(Game *g, int idx, long tx, long ty, long tz)
+{
+    Mob *m = &g->mobs[idx];
+    int n = 1, k, goal = -1, expanded = 0;
+    memset(g_hash, 0, sizeof(g_hash));
+    g_nheap = 0;
+    g_pn[0].x = m->x;
+    g_pn[0].y = m->y;
+    g_pn[0].z = m->z;
+    g_pn[0].g = 0;
+    g_pn[0].f = (short)(mx_abs(tx - m->x) + mx_abs(tz - m->z));
+    g_pn[0].parent = -1;
+    g_pn[0].closed = 0;
+    pinsert(0);
+    heap_push(0);
+    m->npath = 0;
+    m->pathpos = 0;
+    while (g_nheap > 0 && expanded < PATH_NODES) {
+        int best = heap_pop();
+        PNode *c = &g_pn[best];
+        if (c->closed) continue;   /* stale heap entry */
+        c->closed = 1;
+        ++expanded;
+        if (mx_abs(c->x - tx) + mx_abs(c->z - tz) <= 1 && mx_abs(c->y - ty) <= 1) {
+            goal = best;
+            break;
+        }
+        for (k = 0; k < 4; ++k) {
+            long nx, ny, nz;
+            int j, cost;
+            if (!neighbour(g, idx, c->x, c->y, c->z, k, &nx, &ny, &nz)) continue;
+            if (mx_abs(nx - m->x) > 24 || mx_abs(nz - m->z) > 24) continue;
+            cost = c->g + 1 + (ny > c->y ? 1 : 0);
+            j = pfind(nx, ny, nz);
+            if (j >= 0) {
+                if (!g_pn[j].closed && cost < g_pn[j].g && g_nheap < PATH_NODES) {
+                    g_pn[j].f = (short)(g_pn[j].f - g_pn[j].g + cost);
+                    g_pn[j].g = (short)cost;
+                    g_pn[j].parent = (short)best;
+                    g_pn[j].dir = (cl_u8)k;
+                    heap_push(j);
+                }
+                continue;
+            }
+            if (n >= PATH_NODES || g_nheap >= PATH_NODES) continue;
+            g_pn[n].x = nx;
+            g_pn[n].y = ny;
+            g_pn[n].z = nz;
+            g_pn[n].g = (short)cost;
+            g_pn[n].f = (short)(cost + mx_abs(tx - nx) + mx_abs(tz - nz) + mx_abs(ty - ny));
+            g_pn[n].parent = (short)best;
+            g_pn[n].dir = (cl_u8)k;
+            g_pn[n].closed = 0;
+            pinsert(n);
+            heap_push(n);
+            ++n;
+        }
+    }
+    if (goal < 0) {
+        return 0;
+    }
+    /* walk back from the goal; keep the first MOB_PATH steps */
+    {
+        int len = 0, j;
+        for (j = goal; g_pn[j].parent >= 0; j = g_pn[j].parent) {
+            ++len;
+        }
+        for (j = goal, k = len; g_pn[j].parent >= 0; j = g_pn[j].parent) {
+            --k;
+            if (k < MOB_PATH) m->path[k] = g_pn[j].dir;
+        }
+        m->npath = (cl_u8)(len < MOB_PATH ? len : MOB_PATH);
+        return len;
+    }
+}
+
+/* follow the stored route; returns 1 if a step was taken */
+static int follow_path(Game *g, int idx)
+{
+    Mob *m = &g->mobs[idx];
+    long nx, ny, nz;
+    if (m->pathpos >= m->npath) {
+        return 0;
+    }
+    if (!neighbour(g, idx, m->x, m->y, m->z, m->path[m->pathpos], &nx, &ny, &nz) ||
+        occupied(g, idx, m->dim, nx, ny, nz)) {
+        m->npath = 0;
+        return 0;
+    }
+    m->x = nx;
+    m->y = ny;
+    m->z = nz;
+    ++m->pathpos;
+    return 1;
+}
+
+/* move toward a target: by the A* route when there is one, else greedily */
+static void go_to(Game *g, int idx, long tx, long ty, long tz)
+{
+    if (!follow_path(g, idx)) {
+        step_toward(g, idx, tx, tz, 0);
+    }
+    (void)ty;
+}
+
+/* plan a route when the straight way is blocked (budgeted) */
+static void plan(Game *g, int idx, long tx, long ty, long tz)
+{
+    Mob *m = &g->mobs[idx];
+    long dx = tx - m->x, dz = tz - m->z, nx, ny, nz;
+    int dir;
+    if (g_path_tick != g->tick) {
+        g_path_tick = g->tick;
+        g_path_budget = 2;
+    }
+    if (mx_abs(dx) + mx_abs(dz) <= 1 || mx_abs(dx) > 20 || mx_abs(dz) > 20) {
+        m->npath = 0;
+        return;
+    }
+    /* keep a route while it lasts and the target stayed close to its end */
+    if (m->pathpos < m->npath && mx_abs(tx - m->path_tx) + mx_abs(tz - m->path_tz) <= 2) {
+        return;
+    }
+    dir = mx_abs(dx) >= mx_abs(dz) ? (dx > 0 ? DIR_E : DIR_W) : (dz > 0 ? DIR_S : DIR_N);
+    if (m->npath == 0 && neighbour(g, idx, m->x, m->y, m->z, dir, &nx, &ny, &nz) &&
+        (mx_abs(dx) <= 2 || mx_abs(dz) <= 2)) {
+        return;   /* open ground straight ahead: walk greedily */
+    }
+    if (g_path_budget > 0) {
+        --g_path_budget;
+        mob_find_path(g, idx, tx, ty, tz);
+        m->path_tx = tx;
+        m->path_tz = tz;
+    }
+}
+
 static void think(Game *g, int idx)
 {
     Mob *m = &g->mobs[idx];
@@ -411,7 +648,7 @@ static void think(Game *g, int idx)
         sight /= 2;
     }
     if (p->crouch) {
-        sight = sight * 2 / 3;
+        sight = sight * 2 / 3 * (100 - player_skill_level(p, SK_STEALTH) / 2) / 100;
     }
     hear = d->hearing * p->noise / 100;
     if (m->state == MS_SLEEP) {
@@ -428,6 +665,9 @@ static void think(Game *g, int idx)
     /* goal 2: attack */
     if (perceives && hostile_now(g, m) && !p->god && g->mode != GM_CREATIVE) {
         m->state = dist <= 1 ? MS_ATTACK : MS_CHASE;
+        if (m->state == MS_CHASE) {
+            plan(g, idx, p->x, p->y, p->z);
+        }
         return;
     }
     /* timid animals run from loud or close players */
@@ -444,6 +684,9 @@ static void think(Game *g, int idx)
     if (d->kind == MK_NPC && light < 25) {
         long hx = m->home_x - m->x, hz = m->home_z - m->z;
         m->state = (hx * hx + hz * hz > 4) ? MS_HOME : MS_SLEEP;
+        if (m->state == MS_HOME && m->npath == 0) {
+            plan(g, idx, m->home_x, m->y, m->home_z);
+        }
         return;
     }
     /* goal 5: rest */
@@ -465,7 +708,7 @@ static void act(Game *g, int idx)
     Player *p = &g->p;
     switch (m->state) {
     case MS_CHASE:
-        step_toward(g, idx, p->x, p->z, 0);
+        go_to(g, idx, p->x, p->y, p->z);
         break;
     case MS_ATTACK: {
         long dx = mx_abs(p->x - m->x), dz = mx_abs(p->z - m->z);
@@ -475,7 +718,7 @@ static void act(Game *g, int idx)
                 m->cd_attack = d->attack_cd;
             }
         } else {
-            step_toward(g, idx, p->x, p->z, 0);
+            go_to(g, idx, p->x, p->y, p->z);
         }
         break;
     }
@@ -483,7 +726,7 @@ static void act(Game *g, int idx)
         step_toward(g, idx, p->x, p->z, 1);
         break;
     case MS_HOME:
-        step_toward(g, idx, m->home_x, m->home_z, 0);
+        go_to(g, idx, m->home_x, m->y, m->home_z);
         break;
     case MS_SHELTER:
     case MS_WANDER: {

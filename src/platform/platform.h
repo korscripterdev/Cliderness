@@ -59,8 +59,12 @@ typedef struct ClideAudio {
     /* live PCM output (mono, signed 16-bit, CLIDE_PCM_RATE Hz) or NULL.
      * interrupt = stop what is playing first. Returns 1 if queued. */
     int  (*pcm)(const short *samples, long n, int interrupt);
-    int  pcm_flush;   /* 1 = interrupt really restarts output (the front end mixes) */
+    /* PCM_* capabilities after init (NULL = 0: whole sounds, no interrupt) */
+    int  (*pcm_caps)(void);
 } ClideAudio;
+
+#define PCM_FLUSH  1   /* interrupt restarts output: the front end mixes and restarts */
+#define PCM_STREAM 2   /* a continuous stream: the front end mixes and writes blocks */
 
 #define CLIDE_PCM_RATE 22050L
 
@@ -92,6 +96,8 @@ const ClidePlatform *plat_headless(void);
 /* Headless control (tests and --headless). */
 void headless_reset(void);
 long headless_pcm_sounds(void);
+/* tests: pretend the headless audio device has these PCM_* capabilities */
+void headless_pcm_mode(int caps);
 long headless_pcm_samples(void);
 void headless_push(long key, int mods);
 void headless_push_wait(int frames);

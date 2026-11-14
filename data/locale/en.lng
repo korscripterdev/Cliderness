@@ -793,3 +793,18 @@ hint.low_hp=Your health is low: rest, eat and avoid danger.
 hint.night=Night is dangerous outdoors: stay under a roof or near light.
 hint.thirsty=You are thirsty: face water and press U.
 hint.wood=Start by mining trees with F: logs become planks, sticks and tools.
+
+# --- added ---
+msg.stat_up=Your {0} increases!
+
+# --- added ---
+msg.fish_cast=You cast the line.
+msg.fish_caught=You caught: {0}!
+msg.fish_nothing=Nothing bites.
+msg.fish_need_water=Face water to fish.
+msg.fish_reel=You reel the line in.
+
+# --- added ---
+sky.veyra=Veyra: {0}
+sky.ringed=The ringed world
+sky.veil=Aether veil

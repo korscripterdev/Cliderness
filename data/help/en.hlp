@@ -243,7 +243,13 @@ Open the character sheet with C. Attributes start at 10.
 > END  stamina regeneration and sprint cost
 > WIL  resistance to cold and heat
 > LCK  chance of an extra drop when mining
-Attributes can currently be changed with /attribute; growth through play is planned.
+Attributes grow through play up to 30 (the bar next to each value shows the training):
+> STR  mining, woodcutting, melee      DEX  archery, stealth
+> INT  crafting, cooking              PER  exploring, fishing
+> END  building, swimming, sailing    CON  surviving damage
+> WIL  enduring cold, heat, hunger and thirst
+> LCK  opening loot crates, critical hits
+The next point needs 60 x the current value of training. /attribute sets a value directly (cheat, up to 100).
 
 @topic skills
 @title Skills

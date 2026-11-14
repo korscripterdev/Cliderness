@@ -48,6 +48,11 @@ void player_init(Player *p)
     }
 }
 
+long player_stat_need(int v)
+{
+    return 60L * (long)(v < 1 ? 1 : v);
+}
+
 long player_level_xp(int level)
 {
     return 10L * (long)level * (long)level;

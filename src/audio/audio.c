@@ -73,12 +73,19 @@ static const Tone *g_cur = 0;
 static long g_left = 0;
 static int g_prio = 0;
 static int g_use_pcm = 0;
+static int g_caps = 0;        /* PCM_* of the back end */
+static int g_stream = 0;      /* queue-only back end: the front end streams the mix */
+static int g_streaming = 0;   /* lead-in already written */
 static long g_pcm_left = 0;
 static long g_played = 0;
-static cl_u32 g_seed = 1;
 
 #if CLIDE_PCM_BUFFER > 0
+static cl_u32 g_seed = 1;
 static short g_buf[CLIDE_PCM_BUFFER];
+/* g_mix: what is still to be heard (flush back ends: what is playing now) */
+static short g_mix[CLIDE_PCM_BUFFER];
+static long g_mix_len = 0;
+static void stream_out(long n);
 #endif
 
 void aud_init(const ClidePlatform *p, int enabled)
@@ -88,6 +95,9 @@ void aud_init(const ClidePlatform *p, int enabled)
     g_available = p->audio.init();
 #if CLIDE_PCM_BUFFER > 0
     g_use_pcm = g_available && p->audio.pcm != 0;
+    g_caps = (g_use_pcm && p->audio.pcm_caps) ? p->audio.pcm_caps() : 0;
+    g_stream = g_use_pcm && (g_caps & PCM_STREAM) != 0;
+    g_streaming = 0;
 #else
     g_use_pcm = 0;
 #endif
@@ -147,6 +157,10 @@ void aud_silence(void)
     g_left = 0;
     g_pcm_left = 0;
     g_prio = 0;
+#if CLIDE_PCM_BUFFER > 0
+    g_mix_len = 0;
+    g_streaming = 0;
+#endif
 }
 
 #if CLIDE_PCM_BUFFER > 0
@@ -167,18 +181,24 @@ static long render_tones(const Tone *t, short *out, long max)
     return n;
 }
 
-/* g_mix holds what is playing now (g_mix_len samples, started g_mix_ms ago) */
-static short g_mix[CLIDE_PCM_BUFFER];
-static long g_mix_len = 0;
+
+/* write the next n samples of the mix to a streaming back end */
+static void stream_out(long n)
+{
+    if (n > g_mix_len) n = g_mix_len;
+    if (n <= 0) {
+        return;
+    }
+    g_p->audio.pcm(g_mix, n, 0);
+    g_mix_len -= n;
+    memmove(g_mix, g_mix + n, sizeof(short) * (size_t)g_mix_len);
+}
 
 static void play_pcm(int sfx)
 {
     const SfxInfo *s = &g_sfx[sfx];
     long n, i, rest = 0, out;
     int busy = g_pcm_left > 0;
-    if (busy && !g_p->audio.pcm_flush && s->prio <= g_prio) {
-        return;   /* a queue-only back end: do not pile sounds up */
-    }
     if (s->dsp) {
         n = (long)s->ms * CLIDE_PCM_RATE / 1000L;
         if (n > CLIDE_PCM_BUFFER) n = CLIDE_PCM_BUFFER;
@@ -197,7 +217,27 @@ static void play_pcm(int sfx)
     for (i = 0; i < n; ++i) {
         g_buf[i] = (short)((long)g_buf[i] * s->vol / 256L);
     }
-    if (busy && g_p->audio.pcm_flush) {
+    if (g_stream) {
+        /* streaming: g_mix starts at the next sample to be written */
+        out = CL_MAX(g_mix_len, n);
+        for (i = 0; i < out; ++i) {
+            long v = (i < g_mix_len ? (long)g_mix[i] : 0L) + (i < n ? (long)g_buf[i] : 0L);
+            g_mix[i] = (short)CL_CLAMP(v, -32767L, 32767L);
+        }
+        g_mix_len = out;
+        g_pcm_left = out * 1000L / CLIDE_PCM_RATE;
+        g_prio = CL_MAX((int)s->prio, busy ? g_prio : 0);
+        ++g_played;
+        if (!g_streaming) {
+            stream_out(CLIDE_PCM_RATE / 16L);   /* ~60 ms lead against underruns */
+            g_streaming = 1;
+        }
+        return;
+    }
+    if (busy && !(g_caps & PCM_FLUSH) && s->prio <= g_prio) {
+        return;   /* whole-sound back end (afplay): do not pile sounds up */
+    }
+    if (busy && (g_caps & PCM_FLUSH)) {
         /* mix the new sound into the part of the current one still to come */
         long done = (g_mix_len * 1000L / CLIDE_PCM_RATE - g_pcm_left) * CLIDE_PCM_RATE / 1000L;
         if (done < 0) done = 0;
@@ -245,6 +285,14 @@ void aud_play(int sfx)
 
 void aud_update(long ms)
 {
+#if CLIDE_PCM_BUFFER > 0
+    if (g_stream && g_streaming) {
+        stream_out(ms * CLIDE_PCM_RATE / 1000L);
+        if (g_mix_len == 0) {
+            g_streaming = 0;
+        }
+    }
+#endif
     if (g_pcm_left > 0) {
         g_pcm_left -= ms;
         if (g_pcm_left <= 0) {

@@ -89,6 +89,7 @@ void surv_damage(Game *g, int amount, const char *cause_key)
     }
     p->hp -= amount;
     if (p->hp > 0) {
+        stat_train(g, ST_CON, amount / 2 + 1);
         log_add(ATTR(C_LIGHTRED, C_BLACK), loc_fmt("msg.hurt", loc_get(cause_key), NULL, NULL));
         return;
     }
@@ -113,6 +114,29 @@ void surv_damage(Game *g, int amount, const char *cause_key)
     log_add(ATTR(C_YELLOW, C_BLACK), loc_get("msg.press_respawn"));
 }
 
+/* the attribute each skill trains */
+static const int g_skill_stat[SK_COUNT] = {
+    ST_STR, ST_STR, ST_END, ST_INT, ST_STR, ST_DEX, ST_END, ST_END, ST_PER, ST_INT, ST_DEX, ST_PER
+};
+
+void stat_train(Game *g, int stat, int xp)
+{
+    Player *p = &g->p;
+    if (stat < 0 || stat >= ST_COUNT || xp <= 0 || p->stats[stat] >= STAT_PLAY_MAX) {
+        return;
+    }
+    p->stat_xp[stat] += xp;
+    while (p->stats[stat] < STAT_PLAY_MAX && p->stat_xp[stat] >= player_stat_need(p->stats[stat])) {
+        p->stat_xp[stat] -= player_stat_need(p->stats[stat]);
+        ++p->stats[stat];
+        if (stat == ST_CON) {
+            p->hp_max += 2;
+            p->hp += 2;
+        }
+        log_add(ATTR(C_LIGHTGREEN, C_BLACK), loc_fmt("msg.stat_up", loc_get(player_stat_key(stat)), NULL, NULL));
+    }
+}
+
 void skill_gain(Game *g, int skill, int xp)
 {
     Player *p = &g->p;
@@ -131,6 +155,7 @@ void skill_gain(Game *g, int skill, int xp)
         }
     }
     p->xp_minute += xp;
+    stat_train(g, g_skill_stat[skill], xp);
     before = player_skill_level(p, skill);
     p->skill_xp[skill] += xp;
     after = player_skill_level(p, skill);
@@ -185,6 +210,10 @@ void surv_minute(Game *g)
     p->xp_minute = 0;
     env = surv_env_temp(g);
     p->env_temp = env;
+    if (survival_on(g) && !p->dead &&
+        (p->body_temp < 355 || p->body_temp > 385 || p->hunger < 200 || p->thirst < 200)) {
+        stat_train(g, ST_WIL, 2);
+    }
     if (!survival_on(g)) {
         p->hunger = CL_MAX(p->hunger, 500);
         p->thirst = CL_MAX(p->thirst, 500);

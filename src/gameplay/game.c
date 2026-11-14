@@ -1,6 +1,7 @@
 /* Cliderness - gameplay/game.c : session lifecycle, tick, player actions */
 #include <string.h>
 #include "gameplay/game.h"
+#include "gameplay/entities/creature.h"
 #include "content/content.h"
 #include "content/effects.h"
 #include "world/biomes/biome.h"
@@ -250,6 +251,8 @@ static void explore_xp(Game *g)
     }
 }
 
+static void fish_bite(Game *g);
+
 static void do_move(Game *g)
 {
     Player *p = &g->p;
@@ -312,6 +315,19 @@ static void do_move(Game *g)
     }
     p->noise = mode == MOVE_SPRINT ? 80 : mode == MOVE_CROUCH ? 10 : mode == MOVE_SWIM ? 40 :
                mode == MOVE_FLY ? 5 : 30;
+    p->fishing = 0;
+    if (mode == MOVE_CROUCH) {
+        int i;
+        p->noise = CL_MAX(2, 10 - player_skill_level(p, SK_STEALTH) / 12);
+        for (i = 0; i < MAX_MOBS; ++i) {
+            const Mob *m = &g->mobs[i];
+            if (m->active && m->dim == p->dim && m->state != MS_SLEEP && m->state != MS_CHASE &&
+                m->state != MS_ATTACK && mx_abs(m->x - p->x) <= 10 && mx_abs(m->z - p->z) <= 10) {
+                skill_gain(g, SK_STEALTH, 1);
+                break;
+            }
+        }
+    }
     if (mode == MOVE_SWIM) {
         skill_gain(g, SK_SWIMMING, 1);
     }
@@ -361,6 +377,9 @@ void game_tick(Game *g)
             if (p->mine_progress >= p->mine_total) {
                 mine_finish(g);
             }
+        }
+        if (p->fishing > 0 && --p->fishing == 0) {
+            fish_bite(g);
         }
         apply_gravity(g);
         surv_tick(g);
@@ -684,6 +703,36 @@ void game_drop(Game *g, int slot, int whole_stack)
     g->unsaved = 1;
 }
 
+/* fishing: the line is out; decide the catch */
+static void fish_bite(Game *g)
+{
+    Player *p = &g->p;
+    int lvl = player_skill_level(p, SK_FISHING);
+    int fish = item_find("raw_fish");
+    ItemStack *st = inv_selected(&g->inv);
+    if (st->item < 0 || st->item != item_find("fishing_rod")) {
+        return;
+    }
+    if (rng_range(&g->rng, 100) < 35 + lvl / 2 + p->stats[ST_LCK] / 4) {
+        int it = fish;
+        if (p->dim == DIM_ANCIENT && rng_range(&g->rng, 100) < 4) it = item_find("ancient_relic");
+        else if (rng_range(&g->rng, 100) < 3) it = item_find("bone");
+        if (inv_add(&g->inv, it, 1, 0) > 0) {
+            ent_spawn(g, p->dim, p->x, p->y, p->z, it, 1, 0);
+        }
+        log_add(MSG_GOOD, loc_fmt("msg.fish_caught", item_name(it), NULL, NULL));
+        skill_gain(g, SK_FISHING, 4);
+        g->sfx = SFX_SPLASH;
+    } else {
+        log_add(MSG_INFO, loc_get("msg.fish_nothing"));
+        skill_gain(g, SK_FISHING, 1);
+    }
+    if (g->mode != GM_CREATIVE && g_items[st->item].durability > 0 && --st->dur <= 0) {
+        log_add(MSG_WARN, loc_fmt("msg.tool_broke", item_name(st->item), NULL, NULL));
+        inv_remove_slot(&g->inv, g->inv.selected, 1);
+    }
+}
+
 void game_use(Game *g)
 {
     ItemStack *st = inv_selected(&g->inv);
@@ -695,6 +744,25 @@ void game_use(Game *g)
         return;
     }
     if (st->item >= 0 && g_items[st->item].tool_type == TOOL_HOE && farm_till(g)) {
+        return;
+    }
+    if (st->item >= 0 && st->item == item_find("fishing_rod")) {
+        long x, y, z, k;
+        int water = 0;
+        facing_cell(g, &x, &y, &z);
+        for (k = 0; k <= 2 && !water; ++k) {
+            water = at(g, x, y - k, z) == (cl_u8)g_cb.water;
+        }
+        if (!water) {
+            log_add(MSG_INFO, loc_get("msg.fish_need_water"));
+        } else if (p->fishing > 0) {
+            p->fishing = 0;
+            log_add(MSG_INFO, loc_get("msg.fish_reel"));
+        } else {
+            /* 3-8 s, shorter with skill */
+            p->fishing = (int)(60 + rng_range(&g->rng, 100)) * (100 - player_skill_level(p, SK_FISHING) / 2) / 100;
+            log_add(MSG_INFO, loc_get("msg.fish_cast"));
+        }
         return;
     }
     if (st->item >= 0 && st->item == item_find("bone_meal")) {
@@ -833,14 +901,17 @@ void game_respawn(Game *g)
     Player *p = &g->p;
     int stats[ST_COUNT];
     long xp[SK_COUNT];
+    long sxp[ST_COUNT];
     long sx = p->spawn_x, sy = p->spawn_y, sz = p->spawn_z;
     int sdim = p->spawn_dim;
     int god = p->god, fly = p->fly, noclip = p->noclip;
     memcpy(stats, p->stats, sizeof(stats));
     memcpy(xp, p->skill_xp, sizeof(xp));
+    memcpy(sxp, p->stat_xp, sizeof(sxp));
     player_init(p);
     memcpy(p->stats, stats, sizeof(stats));
     memcpy(p->skill_xp, xp, sizeof(xp));
+    memcpy(p->stat_xp, sxp, sizeof(sxp));
     p->spawn_x = sx;
     p->spawn_y = sy;
     p->spawn_z = sz;

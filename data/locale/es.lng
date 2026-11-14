@@ -601,3 +601,18 @@ hint.low_hp=Tienes poca salud: descansa, come y evita el peligro.
 hint.night=La noche al aire libre es peligrosa: quédate bajo techo o cerca de la luz.
 hint.thirsty=Tienes sed: mira al agua y pulsa U.
 hint.wood=Empieza talando árboles con F: los troncos dan tablas, palos y herramientas.
+
+# --- added ---
+msg.stat_up=¡Tu {0} aumenta!
+
+# --- added ---
+msg.fish_cast=Lanzas el sedal.
+msg.fish_caught=¡Has pescado: {0}!
+msg.fish_nothing=No pica nada.
+msg.fish_need_water=Mira al agua para pescar.
+msg.fish_reel=Recoges el sedal.
+
+# --- added ---
+sky.veyra=Veyra: {0}
+sky.ringed=El mundo anillado
+sky.veil=Velo de éter

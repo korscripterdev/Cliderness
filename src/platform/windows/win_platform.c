@@ -424,6 +424,8 @@ static int aud_pcm(const short *s, long n, int interrupt)
     return 0;   /* all buffers busy: drop the sound */
 }
 
+static int aud_caps(void) { return PCM_FLUSH; }
+
 static const char *aud_name(void) { return g_wo_open ? "waveOut PCM 22050 Hz" : "none (no audio device)"; }
 
 static void win_detect(char *lang, int n)
@@ -466,7 +468,7 @@ static const ClidePlatform g_win = {
     { win_poll },
     { win_ms, win_sleep, win_seed },
     { win_mkdir, win_replace, '\\' },
-    { aud_init, aud_shutdown, aud_tone, aud_name, aud_pcm, 1 },
+    { aud_init, aud_shutdown, aud_tone, aud_name, aud_pcm, aud_caps },
     { win_detect, win_codepage },
     { win_free }
 };

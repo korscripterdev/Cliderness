@@ -560,6 +560,9 @@ static int aud_pcm(const short *s, long n, int interrupt)
     return 0;
 }
 
+/* pipes stream continuously; afplay plays whole sounds */
+static int aud_caps(void) { return g_au_mode == 1 ? PCM_STREAM : 0; }
+
 static const char *aud_name(void) { return g_au_name; }
 
 static void px_detect(char *lang, int n)
@@ -604,7 +607,7 @@ static const ClidePlatform g_px = {
     { px_poll },
     { px_ms, px_sleep, px_seed },
     { px_mkdir, px_replace, '/' },
-    { aud_init, aud_shutdown, aud_tone, aud_name, aud_pcm, 0 },
+    { aud_init, aud_shutdown, aud_tone, aud_name, aud_pcm, aud_caps },
     { px_detect, px_codepage },
     { px_free }
 };

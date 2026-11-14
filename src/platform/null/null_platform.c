@@ -204,6 +204,9 @@ static int a_pcm(const short *s, long n, int interrupt)
     g_pcm_samples += n;
     return 1;
 }
+static int g_pcm_caps = PCM_FLUSH;
+static int a_caps(void) { return g_pcm_caps; }
+void headless_pcm_mode(int caps) { g_pcm_caps = caps; }
 long headless_pcm_sounds(void) { return g_pcm_sounds; }
 long headless_pcm_samples(void) { return g_pcm_samples; }
 static void h_detect(char *lang, int n) { str_copy(lang, "en", (size_t)n); }
@@ -230,7 +233,7 @@ const ClidePlatform *plat_headless(void)
         g_head.audio.tone = a_tone;
         g_head.audio.name = a_name;
         g_head.audio.pcm = a_pcm;
-        g_head.audio.pcm_flush = 1;
+        g_head.audio.pcm_caps = a_caps;
         g_head.locale.detect = h_detect;
         g_head.locale.codepage = h_cp;
         g_head.memory.free_bytes = h_free;

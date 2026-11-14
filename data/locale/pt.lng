@@ -601,3 +601,18 @@ hint.low_hp=Sua saúde está baixa: descanse, coma e evite o perigo.
 hint.night=A noite ao ar livre é perigosa: fique sob um teto ou perto da luz.
 hint.thirsty=Você está com sede: olhe para a água e pressione U.
 hint.wood=Comece cortando árvores com F: toras viram tábuas, gravetos e ferramentas.
+
+# --- added ---
+msg.stat_up=Seu atributo {0} aumenta!
+
+# --- added ---
+msg.fish_cast=Você lança a linha.
+msg.fish_caught=Você pescou: {0}!
+msg.fish_nothing=Nada morde a isca.
+msg.fish_need_water=Olhe para a água para pescar.
+msg.fish_reel=Você recolhe a linha.
+
+# --- added ---
+sky.veyra=Veyra: {0}
+sky.ringed=O mundo com anéis
+sky.veil=Véu de éter

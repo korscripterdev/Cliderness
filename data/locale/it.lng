@@ -601,3 +601,18 @@ hint.low_hp=Hai poca salute: riposa, mangia ed evita il pericolo.
 hint.night=La notte all'aperto è pericolosa: resta sotto un tetto o vicino alla luce.
 hint.thirsty=Hai sete: guarda l'acqua e premi U.
 hint.wood=Inizia abbattendo alberi con F: i tronchi diventano assi, bastoni e attrezzi.
+
+# --- added ---
+msg.stat_up=Il tuo attributo {0} aumenta!
+
+# --- added ---
+msg.fish_cast=Lanci la lenza.
+msg.fish_caught=Hai pescato: {0}!
+msg.fish_nothing=Non abbocca niente.
+msg.fish_need_water=Guarda l'acqua per pescare.
+msg.fish_reel=Riavvolgi la lenza.
+
+# --- added ---
+sky.veyra=Veyra: {0}
+sky.ringed=Il mondo con gli anelli
+sky.veil=Velo d'etere
