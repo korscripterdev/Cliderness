@@ -95,6 +95,11 @@ void surv_damage(Game *g, int amount, const char *cause_key)
     p->hp = 0;
     p->dead = 1;
     p->mining = 0;
+    ++g->deaths;
+    g->death_x = p->x;
+    g->death_y = p->y;
+    g->death_z = p->z;
+    g->death_dim = p->dim;
     log_add(ATTR(C_LIGHTRED, C_BLACK), loc_fmt("msg.died", loc_get(cause_key), NULL, NULL));
     /* drop everything where the player died */
     for (i = 0; i < INV_SLOTS + INV_EQUIP; ++i) {

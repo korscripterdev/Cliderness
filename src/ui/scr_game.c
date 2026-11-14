@@ -506,6 +506,53 @@ static void draw_log(Framebuffer *fb)
     }
 }
 
+/* procedural ambience: weather, caves, the Ancient Dimension, footsteps */
+static void ambience(Game *g)
+{
+    static long next = 0, last_tick = -1, lx = 0, lz = 0;
+    static int last_flash = 0, steps = 0;
+    const WeatherDef *w = weather_cur(&g->weather);
+    Player *p = &g->p;
+    int covered;
+    if (g->tick == last_tick) {
+        return;   /* paused or no new tick */
+    }
+    last_tick = g->tick;
+    if (g->weather.flash > 0 && last_flash == 0 && w->thunder) {
+        aud_play(SFX_THUNDER);
+    }
+    last_flash = g->weather.flash;
+    if (aud_pcm() && (p->x != lx || p->z != lz)) {
+        if ((++steps & 1) == 0 && g->aboard < 0) {
+            aud_play(blk_liquid(world_get(&g->world, p->dim, p->x, p->y - 1, p->z)) ? SFX_SPLASH : SFX_STEP);
+        }
+        lx = p->x;
+        lz = p->z;
+    }
+    if (g->tick < next) {
+        return;
+    }
+    next = g->tick + 70 + (g->tick % 37L);
+    covered = game_is_covered(g, p->x, p->y, p->z);
+    if (covered && p->y < world_gen_height(&g->world, p->dim, p->x, p->z) - 4) {
+        aud_play(SFX_CAVE);
+    } else if (w->thunder || w->wind >= 85) {
+        aud_play(SFX_STORM);
+    } else if (w->precip == PRECIP_RAIN && !covered) {
+        aud_play(SFX_RAIN);
+    } else if (w->wind >= 50) {
+        aud_play(SFX_WIND);
+    } else if (p->dim == DIM_ANCIENT) {
+        aud_play(SFX_ANCIENT);
+    } else if (g->aboard >= 0) {
+        aud_play((g->tick / 100L) % 3L == 0 ? SFX_CREAK : SFX_SPLASH);
+    } else if (ctime_daylight(&g->time) > 40 && (g->tick % 3L) == 0) {
+        aud_play(SFX_BIRD);
+    } else if (ctime_daylight(&g->time) > 0 && ctime_daylight(&g->time) < 30 && (g->tick % 5L) == 0) {
+        aud_play(SFX_CROW);
+    }
+}
+
 static void game_draw(Framebuffer *fb)
 {
     if (!g_game.active) {
@@ -515,6 +562,7 @@ static void game_draw(Framebuffer *fb)
         aud_play(g_game.sfx);
         g_game.sfx = SFX_NONE;
     }
+    ambience(&g_game);
     draw_world(fb, &g_game);
     draw_panel(fb, &g_game);
     draw_hotbar(fb, &g_game);

@@ -190,10 +190,22 @@ static int h_poll(ClideKeyEvent *ev)
 static cl_u32 h_ms(void) { return g_ms; }
 static void h_sleep(cl_u32 ms) { g_ms += ms; }
 static cl_u32 h_seed(void) { return 12345UL; }
-static int a_init(void) { return 0; }
+/* headless audio: no device, but PCM requests are counted for tests */
+static long g_pcm_sounds = 0, g_pcm_samples = 0;
+static int a_init(void) { return 1; }
 static void a_shutdown(void) { }
 static void a_tone(int hz) { (void)hz; }
-static const char *a_name(void) { return "null"; }
+static const char *a_name(void) { return "headless (counted, silent)"; }
+static int a_pcm(const short *s, long n, int interrupt)
+{
+    (void)s;
+    (void)interrupt;
+    ++g_pcm_sounds;
+    g_pcm_samples += n;
+    return 1;
+}
+long headless_pcm_sounds(void) { return g_pcm_sounds; }
+long headless_pcm_samples(void) { return g_pcm_samples; }
 static void h_detect(char *lang, int n) { str_copy(lang, "en", (size_t)n); }
 static int h_cp(void) { return 65001; }
 static cl_u32 h_free(void) { return 0; }
@@ -217,6 +229,8 @@ const ClidePlatform *plat_headless(void)
         g_head.audio.shutdown = a_shutdown;
         g_head.audio.tone = a_tone;
         g_head.audio.name = a_name;
+        g_head.audio.pcm = a_pcm;
+        g_head.audio.pcm_flush = 1;
         g_head.locale.detect = h_detect;
         g_head.locale.codepage = h_cp;
         g_head.memory.free_bytes = h_free;

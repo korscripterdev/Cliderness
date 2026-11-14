@@ -10,8 +10,8 @@
 #include "core/rng.h"
 
 #ifdef CLIDE_TARGET_DOS16
-#define LOC_POOL    24000U
-#define LOC_ENTRIES 640
+#define LOC_POOL    32000U
+#define LOC_ENTRIES 840
 #else
 #define LOC_POOL    60000U
 #define LOC_ENTRIES 1400

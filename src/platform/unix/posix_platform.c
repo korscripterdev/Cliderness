@@ -427,10 +427,140 @@ static int px_replace(const char *tmp, const char *dst)
     return rename(tmp, dst) == 0 ? 0 : -1;
 }
 
-static int aud_init(void) { return 0; }
-static void aud_shutdown(void) { }
+/* ---- audio: a pipe to the system's PCM player ----
+ * Linux / BSD: pacat (PulseAudio), pw-cat (PipeWire) or aplay (ALSA) reading
+ * raw samples from a non-blocking pipe; macOS: afplay with short WAV files.
+ * Without any of them the game runs silently. */
+static FILE *g_au_pipe = NULL;
+static int g_au_fd = -1;
+static int g_au_mode = 0;            /* 0 none, 1 pipe, 2 afplay */
+static const char *g_au_name = "none (no PCM player found)";
+#ifdef __APPLE__
+static int g_au_file = 0;
+#endif
+
+static int have_cmd(const char *probe)
+{
+    return system(probe) == 0;
+}
+
+static int aud_init(void)
+{
+    static const char *const probe[3] = {
+        "command -v pacat >/dev/null 2>&1 && pactl info >/dev/null 2>&1",
+        "command -v pw-cat >/dev/null 2>&1",
+        "command -v aplay >/dev/null 2>&1 && aplay -l 2>/dev/null | grep -q card"
+    };
+    static const char *const cmd[3] = {
+        "pacat --raw --format=s16le --rate=22050 --channels=1 --latency-msec=60 2>/dev/null",
+        "pw-cat --playback --format=s16 --rate=22050 --channels=1 - 2>/dev/null",
+        "aplay -q -t raw -f S16_LE -r 22050 -c 1 2>/dev/null"
+    };
+    static const char *const names[3] = { "PulseAudio (pacat) 22050 Hz", "PipeWire (pw-cat) 22050 Hz",
+                                          "ALSA (aplay) 22050 Hz" };
+    int i;
+    if (g_au_mode) {
+        return 1;
+    }
+    if (getenv("CLIDE_NO_AUDIO")) {
+        return 0;
+    }
+    signal(SIGPIPE, SIG_IGN);
+#ifdef __APPLE__
+    if (have_cmd("command -v afplay >/dev/null 2>&1")) {
+        g_au_mode = 2;
+        g_au_name = "macOS afplay 22050 Hz";
+        return 1;
+    }
+#endif
+    for (i = 0; i < 3; ++i) {
+        if (have_cmd(probe[i])) {
+            g_au_pipe = popen(cmd[i], "w");
+            if (g_au_pipe) {
+                g_au_fd = fileno(g_au_pipe);
+                fcntl(g_au_fd, F_SETFL, fcntl(g_au_fd, F_GETFL) | O_NONBLOCK);
+                g_au_mode = 1;
+                g_au_name = names[i];
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+static void aud_shutdown(void)
+{
+    if (g_au_pipe) {
+        pclose(g_au_pipe);
+    }
+    g_au_pipe = NULL;
+    g_au_fd = -1;
+    g_au_mode = 0;
+}
+
 static void aud_tone(int hz) { (void)hz; }
-static const char *aud_name(void) { return "null (POSIX PCM backend planned)"; }
+
+static int aud_pcm(const short *s, long n, int interrupt)
+{
+    (void)interrupt;
+    if (n <= 0) {
+        return 0;
+    }
+    if (g_au_mode == 1) {
+        /* little-endian samples; the pipe never blocks the game */
+        static unsigned char buf[CLIDE_PCM_RATE * 4L];
+        long i, bytes = n * 2L > (long)sizeof(buf) ? (long)sizeof(buf) : n * 2L;
+        ssize_t w;
+        for (i = 0; i < bytes / 2; ++i) {
+            buf[i * 2] = (unsigned char)(s[i] & 0xFF);
+            buf[i * 2 + 1] = (unsigned char)((s[i] >> 8) & 0xFF);
+        }
+        w = write(g_au_fd, buf, (size_t)bytes);
+        if (w < 0 && errno == EPIPE) {
+            aud_shutdown();   /* the player went away */
+            return 0;
+        }
+        return w > 0;
+    }
+#ifdef __APPLE__
+    if (g_au_mode == 2) {
+        char path[160], cmdline[220];
+        const char *tmp = getenv("TMPDIR");
+        FILE *f;
+        long i;
+        unsigned long rate = (unsigned long)CLIDE_PCM_RATE, len = (unsigned long)n * 2UL;
+        unsigned char h[44];
+        static const unsigned char tmpl[44] = {
+            'R','I','F','F',0,0,0,0,'W','A','V','E','f','m','t',' ',16,0,0,0,1,0,1,0,
+            0,0,0,0,0,0,0,0,2,0,16,0,'d','a','t','a',0,0,0,0 };
+        memcpy(h, tmpl, 44);
+        h[4] = (unsigned char)((len + 36UL) & 0xFF); h[5] = (unsigned char)(((len + 36UL) >> 8) & 0xFF);
+        h[6] = (unsigned char)(((len + 36UL) >> 16) & 0xFF); h[7] = (unsigned char)(((len + 36UL) >> 24) & 0xFF);
+        h[24] = (unsigned char)(rate & 0xFF); h[25] = (unsigned char)((rate >> 8) & 0xFF);
+        h[28] = (unsigned char)((rate * 2UL) & 0xFF); h[29] = (unsigned char)(((rate * 2UL) >> 8) & 0xFF);
+        h[30] = (unsigned char)(((rate * 2UL) >> 16) & 0xFF);
+        h[40] = (unsigned char)(len & 0xFF); h[41] = (unsigned char)((len >> 8) & 0xFF);
+        h[42] = (unsigned char)((len >> 16) & 0xFF); h[43] = (unsigned char)((len >> 24) & 0xFF);
+        g_au_file = (g_au_file + 1) & 3;
+        snprintf(path, sizeof(path), "%s/clide_sfx%d.wav", tmp ? tmp : "/tmp", g_au_file);
+        f = fopen(path, "wb");
+        if (!f) {
+            return 0;
+        }
+        fwrite(h, 1, 44, f);
+        for (i = 0; i < n; ++i) {
+            fputc(s[i] & 0xFF, f);
+            fputc((s[i] >> 8) & 0xFF, f);
+        }
+        fclose(f);
+        snprintf(cmdline, sizeof(cmdline), "afplay '%s' >/dev/null 2>&1 &", path);
+        return system(cmdline) == 0;
+    }
+#endif
+    return 0;
+}
+
+static const char *aud_name(void) { return g_au_name; }
 
 static void px_detect(char *lang, int n)
 {
@@ -474,7 +604,7 @@ static const ClidePlatform g_px = {
     { px_poll },
     { px_ms, px_sleep, px_seed },
     { px_mkdir, px_replace, '/' },
-    { aud_init, aud_shutdown, aud_tone, aud_name },
+    { aud_init, aud_shutdown, aud_tone, aud_name, aud_pcm, 0 },
     { px_detect, px_codepage },
     { px_free }
 };

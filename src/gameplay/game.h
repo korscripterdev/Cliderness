@@ -56,6 +56,14 @@ typedef struct Ship {
     signed char throttle;      /* -1 reverse .. 3 full */
 } Ship;
 
+#define MAX_WAYPOINTS 16
+
+typedef struct Waypoint {
+    char  name[16];
+    long  x, y, z;
+    cl_u8 dim, active;
+} Waypoint;
+
 enum { DIFF_PEACEFUL = 0, DIFF_EASY, DIFF_NORMAL, DIFF_HARD, DIFF_COUNT };
 
 /* a living creature (definition in gameplay/entities/creature.h) */
@@ -115,6 +123,11 @@ typedef struct Game {
     Ship        ships[MAX_SHIPS];
     int         aboard;        /* ship the player is on, -1 = none */
     int         sfx;           /* sound requested by the simulation (audio.h SFX_*) */
+    Waypoint    wp[MAX_WAYPOINTS];
+    int         ai_off;        /* creature AI frozen (/ai off) */
+    long        deaths;
+    long        death_x, death_y, death_z;
+    int         death_dim;
 } Game;
 
 extern Game g_game;

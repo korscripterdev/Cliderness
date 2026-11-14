@@ -24,15 +24,14 @@ jobs:
       - name: Test
         run: ctest --test-dir build -C Release --output-on-failure
       - name: Package
-        shell: bash
-        run: |
-          mkdir -p dist/Cliderness
-          if [ -f build/Release/cliderness.exe ]; then cp build/Release/cliderness.exe dist/Cliderness/; else cp build/cliderness dist/Cliderness/; fi
-          cp -r data README*.md changelogs*.md LICENSE dist/Cliderness/
+        working-directory: build
+        run: cpack -C Release
       - uses: actions/upload-artifact@v4
         with:
           name: Cliderness-${{ runner.os }}
-          path: dist/Cliderness
+          path: |
+            build/Cliderness-*.zip
+            build/Cliderness-*.tar.gz
 
   make-strict:
     runs-on: ubuntu-latest
@@ -55,11 +54,8 @@ jobs:
       - name: 32-bit DOS/4GW
         run: sh builds/dos/build_watcom.sh 386
       - name: Package
-        run: |
-          mkdir -p dist/CLIDE
-          cp builds/dos/CLIDE16.EXE builds/dos/CLIDE386.EXE dist/CLIDE/
-          cp -r data dist/CLIDE/DATA
+        run: python3 tools/package.py --dos
       - uses: actions/upload-artifact@v4
         with:
           name: Cliderness-DOS
-          path: dist/CLIDE
+          path: dist/CLIDE-DOS.ZIP

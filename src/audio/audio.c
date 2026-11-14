@@ -1,5 +1,15 @@
-/* Cliderness - audio/audio.c : PC Speaker style tone sequencer */
+/* Cliderness - audio/audio.c : ClideAudio front end (PCM synthesis or tones) */
+#include <string.h>
 #include "audio/audio.h"
+#include "audio/dsp.h"
+#include "core/str.h"
+
+/* PCM synthesis buffer in samples (none on 16-bit DOS: PC Speaker only) */
+#ifdef CLIDE_TARGET_DOS16
+#define CLIDE_PCM_BUFFER 0
+#else
+#define CLIDE_PCM_BUFFER 44100L
+#endif
 
 typedef struct Tone {
     short hz;
@@ -21,9 +31,39 @@ static const Tone s_bird[] = { { 2400, 25 }, { 3000, 25 }, { 2600, 30 }, { 0, 0 
 static const Tone s_creak[] = { { 130, 40 }, { 150, 50 }, { 125, 60 }, { 0, 0 } };
 static const Tone s_crack[] = { { 900, 10 }, { 240, 25 }, { 1, 10 }, { 180, 40 }, { 90, 60 }, { 0, 0 } };
 
-static const Tone *const g_seq[SFX_COUNT] = {
-    0, s_step, s_mine, s_break, s_place, s_pickup, s_hurt, s_menu, s_splash, s_thunder, s_crow, s_bird,
-    s_creak, s_crack
+/* per effect: PC Speaker tones, DSP renderer, PCM length (ms), volume (/256),
+ * priority (a louder event interrupts a quieter one) */
+typedef struct SfxInfo {
+    const char *name;
+    const Tone *tones;
+    const char *dsp;
+    short ms;
+    short vol;
+    short prio;
+} SfxInfo;
+
+static const SfxInfo g_sfx[SFX_COUNT] = {
+    { "none", 0, 0, 0, 0, 0 },
+    { "step", s_step, "step", 110, 150, 1 },
+    { "mine", s_mine, "mining", 170, 200, 2 },
+    { "break", s_break, "stone", 260, 230, 3 },
+    { "place", s_place, "stone", 140, 160, 2 },
+    { "pickup", s_pickup, 0, 0, 120, 4 },
+    { "hurt", s_hurt, 0, 0, 170, 6 },
+    { "menu", s_menu, 0, 0, 90, 5 },
+    { "splash", s_splash, "waves", 450, 200, 3 },
+    { "thunder", s_thunder, "thunder", 1600, 256, 7 },
+    { "crow", s_crow, "crow", 520, 160, 4 },
+    { "bird", s_bird, "bird", 450, 140, 2 },
+    { "creak", s_creak, "wood_creak", 650, 220, 4 },
+    { "crack", s_crack, "wood_break", 520, 256, 6 },
+    { "rain", 0, "rain", 1800, 110, 1 },
+    { "wind", 0, "wind", 1800, 120, 1 },
+    { "storm", 0, "storm", 1800, 140, 1 },
+    { "cave", 0, "cave", 1800, 110, 1 },
+    { "ancient", 0, "ancient", 1800, 110, 1 },
+    { "river", 0, "river", 1800, 100, 1 },
+    { "fire", 0, "fire", 1500, 120, 1 }
 };
 
 static const ClidePlatform *g_p = 0;
@@ -32,13 +72,28 @@ static int g_enabled = 1;
 static const Tone *g_cur = 0;
 static long g_left = 0;
 static int g_prio = 0;
+static int g_use_pcm = 0;
+static long g_pcm_left = 0;
+static long g_played = 0;
+static cl_u32 g_seed = 1;
+
+#if CLIDE_PCM_BUFFER > 0
+static short g_buf[CLIDE_PCM_BUFFER];
+#endif
 
 void aud_init(const ClidePlatform *p, int enabled)
 {
     g_p = p;
     g_enabled = enabled;
     g_available = p->audio.init();
+#if CLIDE_PCM_BUFFER > 0
+    g_use_pcm = g_available && p->audio.pcm != 0;
+#else
+    g_use_pcm = 0;
+#endif
     g_cur = 0;
+    g_pcm_left = 0;
+    g_played = 0;
 }
 
 void aud_shutdown(void)
@@ -48,6 +103,7 @@ void aud_shutdown(void)
         g_p->audio.shutdown();
     }
     g_available = 0;
+    g_use_pcm = 0;
 }
 
 void aud_set_enabled(int on)
@@ -60,10 +116,26 @@ void aud_set_enabled(int on)
 
 int aud_enabled(void) { return g_enabled; }
 int aud_available(void) { return g_available; }
+int aud_pcm(void) { return g_use_pcm; }
+long aud_played(void) { return g_played; }
 
 const char *aud_backend(void)
 {
     return g_p ? g_p->audio.name() : "none";
+}
+
+int aud_find(const char *name)
+{
+    int i;
+    for (i = 1; i < SFX_COUNT; ++i) {
+        if (str_ieq(name, g_sfx[i].name)) return i;
+    }
+    return -1;
+}
+
+const char *aud_sfx_name(int sfx)
+{
+    return (sfx > 0 && sfx < SFX_COUNT) ? g_sfx[sfx].name : "none";
 }
 
 void aud_silence(void)
@@ -73,26 +145,113 @@ void aud_silence(void)
     }
     g_cur = 0;
     g_left = 0;
+    g_pcm_left = 0;
+    g_prio = 0;
 }
+
+#if CLIDE_PCM_BUFFER > 0
+/* square-wave rendering of a tone sequence (effects without a DSP voice) */
+static long render_tones(const Tone *t, short *out, long max)
+{
+    long n = 0;
+    cl_u32 ph = 0;
+    for (; t->ms > 0 && n < max; ++t) {
+        long k, len = (long)t->ms * CLIDE_PCM_RATE / 1000L;
+        cl_u32 inc = t->hz > 1 ? dsp_freq_inc(t->hz, CLIDE_PCM_RATE) : 0;
+        for (k = 0; k < len && n < max; ++k) {
+            /* short fade in/out against clicks */
+            long edge = k < 64 ? k : (len - k < 64 ? len - k : 64);
+            out[n++] = (short)(inc ? (long)dsp_osc(&ph, inc, WAVE_SQUARE) / 3L * edge / 64L : 0);
+        }
+    }
+    return n;
+}
+
+/* g_mix holds what is playing now (g_mix_len samples, started g_mix_ms ago) */
+static short g_mix[CLIDE_PCM_BUFFER];
+static long g_mix_len = 0;
+
+static void play_pcm(int sfx)
+{
+    const SfxInfo *s = &g_sfx[sfx];
+    long n, i, rest = 0, out;
+    int busy = g_pcm_left > 0;
+    if (busy && !g_p->audio.pcm_flush && s->prio <= g_prio) {
+        return;   /* a queue-only back end: do not pile sounds up */
+    }
+    if (s->dsp) {
+        n = (long)s->ms * CLIDE_PCM_RATE / 1000L;
+        if (n > CLIDE_PCM_BUFFER) n = CLIDE_PCM_BUFFER;
+        g_seed = g_seed * 1103515245UL + 12345UL;
+        n = dsp_render(s->dsp, g_buf, n, CLIDE_PCM_RATE, CL_U32(g_seed));
+        /* fade the tail so cut sounds do not click */
+        for (i = 0; i < 256 && i < n; ++i) {
+            g_buf[n - 1 - i] = (short)((long)g_buf[n - 1 - i] * i / 256L);
+        }
+    } else {
+        n = render_tones(s->tones, g_buf, CLIDE_PCM_BUFFER);
+    }
+    if (n <= 0) {
+        return;
+    }
+    for (i = 0; i < n; ++i) {
+        g_buf[i] = (short)((long)g_buf[i] * s->vol / 256L);
+    }
+    if (busy && g_p->audio.pcm_flush) {
+        /* mix the new sound into the part of the current one still to come */
+        long done = (g_mix_len * 1000L / CLIDE_PCM_RATE - g_pcm_left) * CLIDE_PCM_RATE / 1000L;
+        if (done < 0) done = 0;
+        rest = g_mix_len - done;
+        if (rest > 0) {
+            memmove(g_mix, g_mix + done, sizeof(short) * (size_t)rest);
+        } else {
+            rest = 0;
+        }
+    }
+    out = CL_MAX(rest, n);
+    for (i = 0; i < out; ++i) {
+        long v = (i < rest ? (long)g_mix[i] : 0L) + (i < n ? (long)g_buf[i] : 0L);
+        g_mix[i] = (short)CL_CLAMP(v, -32767L, 32767L);
+    }
+    if (g_p->audio.pcm(g_mix, out, busy)) {
+        g_mix_len = out;
+        g_pcm_left = out * 1000L / CLIDE_PCM_RATE;
+        g_prio = CL_MAX((int)s->prio, busy ? g_prio : 0);
+        ++g_played;
+    }
+}
+#endif
 
 void aud_play(int sfx)
 {
-    /* simple priority mixing: a louder event interrupts a quieter one */
-    static const int prio[SFX_COUNT] = { 0, 1, 2, 3, 2, 4, 6, 5, 3, 7, 4, 2, 4, 6 };
     if (!g_available || !g_enabled || sfx <= SFX_NONE || sfx >= SFX_COUNT) {
         return;
     }
-    if (g_cur && prio[sfx] < g_prio) {
+#if CLIDE_PCM_BUFFER > 0
+    if (g_use_pcm) {
+        play_pcm(sfx);
         return;
     }
-    g_cur = g_seq[sfx];
-    g_prio = prio[sfx];
+#endif
+    if (!g_sfx[sfx].tones || (g_cur && g_sfx[sfx].prio < g_prio)) {
+        return;
+    }
+    g_cur = g_sfx[sfx].tones;
+    g_prio = g_sfx[sfx].prio;
     g_left = g_cur->ms;
     g_p->audio.tone(g_cur->hz);
+    ++g_played;
 }
 
 void aud_update(long ms)
 {
+    if (g_pcm_left > 0) {
+        g_pcm_left -= ms;
+        if (g_pcm_left <= 0) {
+            g_pcm_left = 0;
+            g_prio = 0;
+        }
+    }
     if (!g_cur || !g_available) {
         return;
     }

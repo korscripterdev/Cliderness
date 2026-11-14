@@ -67,7 +67,13 @@ const char *con_desc(const Command *c);
 #define CON_REQ_NONE 0
 #define CON_REQ_QUIT 1
 #define CON_REQ_DEBUG 2
+#define CON_REQ_SKY 3
+#define CON_REQ_INVENTORY 4
+#define CON_REQ_CRAFT 5
+#define CON_REQ_STATS 6
+#define CON_REQ_PANEL 7
 extern int g_con_request;
+extern int g_con_arg;
 extern int g_con_debug;
 
 /* output helpers for command handlers */
@@ -96,5 +102,8 @@ CommandTable cmd_table_fluid(void);
 CommandTable cmd_table_mob(void);
 CommandTable cmd_table_ship(void);
 CommandTable cmd_table_ancient(void);
+CommandTable cmd_table_shape(void);
+CommandTable cmd_table_info(void);
+CommandTable cmd_table_act(void);
 
 #endif

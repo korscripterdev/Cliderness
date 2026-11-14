@@ -517,6 +517,9 @@ void mob_tick(Game *g)
             continue;
         }
         if (m->cd_attack > 0) --m->cd_attack;
+        if (g->ai_off) {
+            continue;
+        }
         if (--m->think <= 0) {
             m->think = 10;
             think(g, i);

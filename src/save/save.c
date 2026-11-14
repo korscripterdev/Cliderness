@@ -147,6 +147,9 @@ static void write_body(SaveW *w, Game *g)
     sw_kl(w, "spawning", g->spawning);
     sw_kl(w, "kills", g->kills);
     sw_kl(w, "aboard", g->aboard);
+    sw_kl(w, "deaths", g->deaths);
+    sprintf(buf, "%ld %ld %ld %d", g->death_x, g->death_y, g->death_z, g->death_dim);
+    sw_kv(w, "death", buf);
     sw_kl(w, "tick", g->tick);
     sw_line(w, "[time]");
     sw_kl(w, "day", g->time.day);
@@ -264,6 +267,16 @@ static void write_body(SaveW *w, Game *g)
             sw_kv(w, key, buf);
         }
         sw_kl(w, "enabled", f->enabled);
+    }
+    sw_line(w, "[waypoints]");
+    for (i = 0; i < MAX_WAYPOINTS; ++i) {
+        const Waypoint *p = &g->wp[i];
+        if (!p->active) {
+            continue;
+        }
+        sprintf(key, "w%d", i);
+        sprintf(buf, "%s %d %ld %ld %ld", p->name, p->dim, p->x, p->y, p->z);
+        sw_kv(w, key, buf);
     }
     sw_line(w, "[ships]");
     for (i = 0; i < MAX_SHIPS; ++i) {
@@ -418,6 +431,10 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
         else if (c->phase && str_ieq(key, "spawning")) g->spawning = num(v) != 0;
         else if (c->phase && str_ieq(key, "kills")) g->kills = num(v);
         else if (c->phase && str_ieq(key, "aboard")) c->aboard = (int)num(v);
+        else if (c->phase && str_ieq(key, "deaths")) g->deaths = num(v);
+        else if (c->phase && str_ieq(key, "death")) {
+            sscanf(v, "%ld %ld %ld %d", &g->death_x, &g->death_y, &g->death_z, &g->death_dim);
+        }
         else if (c->phase && str_ieq(key, "tick")) g->tick = num(v);
         return 0;
     }
@@ -594,6 +611,18 @@ static int load_cb(void *user, const char *type, const char *id, const char *key
             g->chests[idx].s[slot].item = (cl_s16)it;
             g->chests[idx].s[slot].count = (cl_s16)cnt;
             g->chests[idx].s[slot].dur = (cl_s16)dur;
+        }
+    } else if (str_ieq(type, "waypoints")) {
+        long slot;
+        int dim;
+        Waypoint *p;
+        if (key[0] != 'w' || !str_to_long(key + 1, &slot) || slot < 0 || slot >= MAX_WAYPOINTS) {
+            return 0;
+        }
+        p = &g->wp[slot];
+        if (sscanf(v, "%15s %d %ld %ld %ld", p->name, &dim, &p->x, &p->y, &p->z) == 5) {
+            p->dim = (cl_u8)dim;
+            p->active = 1;
         }
     } else if (str_ieq(type, "ships")) {
         char sid[32];

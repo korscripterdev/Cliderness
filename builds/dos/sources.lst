@@ -1,13 +1,16 @@
 # Cliderness DOS build: every source compiled into CLIDE.EXE (checked by tools/check_dos_sources.cmake)
 src/audio/audio.c
 src/audio/dsp.c
+src/commands/cmd_act.c
 src/commands/cmd_ancient.c
 src/commands/cmd_build.c
 src/commands/cmd_craft.c
 src/commands/cmd_fluid.c
+src/commands/cmd_info.c
 src/commands/cmd_items.c
 src/commands/cmd_mob.c
 src/commands/cmd_player.c
+src/commands/cmd_shape.c
 src/commands/cmd_ship.c
 src/commands/cmd_system.c
 src/commands/cmd_world.c

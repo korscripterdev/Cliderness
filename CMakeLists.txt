@@ -23,6 +23,9 @@ endif()
 list(APPEND CLIDE_PLATFORM_SOURCES src/platform/null/null_platform.c)
 
 add_library(clide_engine STATIC ${CLIDE_ENGINE_SOURCES} ${CLIDE_PLATFORM_SOURCES})
+if(WIN32)
+  target_link_libraries(clide_engine PUBLIC winmm)
+endif()
 target_include_directories(clide_engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 if(MSVC)
@@ -75,3 +78,28 @@ if(CLIDE_TESTS)
   add_test(NAME dos_makefile_sync COMMAND ${CMAKE_COMMAND}
            -DROOT=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_CURRENT_SOURCE_DIR}/tools/check_dos_sources.cmake)
 endif()
+
+# ---------------------------------------------------------------- packaging
+# `cmake --install build --prefix dist/Cliderness` lays out a portable game
+# folder (the executable finds ./data next to itself); `cpack` in the build
+# directory turns it into a ZIP (and a .tar.gz on Unix).
+install(TARGETS cliderness RUNTIME DESTINATION .)
+install(DIRECTORY data/ DESTINATION data)
+install(DIRECTORY docs/ DESTINATION docs)
+install(FILES LICENSE ROADMAP.md DESIGN.md ARCHITECTURE.md DESTINATION .)
+file(GLOB CLIDE_DOC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/README*.md" "${CMAKE_CURRENT_SOURCE_DIR}/changelogs*.md")
+install(FILES ${CLIDE_DOC_FILES} DESTINATION .)
+
+set(CPACK_PACKAGE_NAME "Cliderness")
+set(CPACK_PACKAGE_VENDOR "korscripterdev")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Cliderness - open world survival sandbox (CP437 / VGA text mode)")
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_PACKAGE_FILE_NAME "Cliderness-${PROJECT_VERSION}-${CMAKE_SYSTEM_NAME}")
+set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY ON)
+if(WIN32)
+  set(CPACK_GENERATOR "ZIP")
+else()
+  set(CPACK_GENERATOR "TGZ;ZIP")
+endif()
+include(CPack)

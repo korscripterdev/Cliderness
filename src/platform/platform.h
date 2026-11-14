@@ -56,7 +56,13 @@ typedef struct ClideAudio {
     void (*shutdown)(void);
     void (*tone)(int hz);             /* 0 = silence */
     const char *(*name)(void);
+    /* live PCM output (mono, signed 16-bit, CLIDE_PCM_RATE Hz) or NULL.
+     * interrupt = stop what is playing first. Returns 1 if queued. */
+    int  (*pcm)(const short *samples, long n, int interrupt);
+    int  pcm_flush;   /* 1 = interrupt really restarts output (the front end mixes) */
 } ClideAudio;
+
+#define CLIDE_PCM_RATE 22050L
 
 typedef struct ClideLocale {
     void (*detect)(char *lang, int n); /* e.g. "ko", "en", "zh-CN" */
@@ -85,6 +91,8 @@ const ClidePlatform *plat_headless(void);
 
 /* Headless control (tests and --headless). */
 void headless_reset(void);
+long headless_pcm_sounds(void);
+long headless_pcm_samples(void);
 void headless_push(long key, int mods);
 void headless_push_wait(int frames);
 int  headless_script(const char *script);   /* returns 0 on parse error */

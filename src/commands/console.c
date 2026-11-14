@@ -17,6 +17,7 @@ static int g_nreg = 0;
 static char g_hist[CON_HISTORY][CON_LINE];
 static int g_nhist = 0;
 int g_con_request = CON_REQ_NONE;
+int g_con_arg = 0;
 int g_con_debug = 0;
 
 /* completion state */
@@ -45,6 +46,9 @@ void con_init(void)
     add_table(cmd_table_mob());
     add_table(cmd_table_ship());
     add_table(cmd_table_ancient());
+    add_table(cmd_table_shape());
+    add_table(cmd_table_info());
+    add_table(cmd_table_act());
 }
 
 int con_count(void)

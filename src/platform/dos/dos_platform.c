@@ -317,7 +317,7 @@ static const ClidePlatform g_dos = {
     { dos_poll },
     { dos_ms, dos_sleep, dos_seed },
     { dos_mkdir, dos_replace, '\\' },
-    { aud_init, aud_shutdown, aud_tone, aud_name },
+    { aud_init, aud_shutdown, aud_tone, aud_name, NULL, 0 },
     { dos_detect, dos_codepage },
     { dos_free }
 };

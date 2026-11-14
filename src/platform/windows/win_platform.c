@@ -10,6 +10,8 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <mmsystem.h>
+#include <stdlib.h>
 #include <string.h>
 #include <direct.h>
 #include "platform/platform.h"
@@ -330,10 +332,99 @@ static int win_replace(const char *tmp, const char *dst)
     return MoveFileExA(tmp, dst, MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH) ? 0 : -1;
 }
 
-static int aud_init(void) { return 0; }
-static void aud_shutdown(void) { }
+/* ---- audio: waveOut PCM (winmm), a small ring of buffers ---- */
+#define WO_BUFS 4
+#define WO_MAX  (CLIDE_PCM_RATE * 2L)   /* 2 s per buffer */
+
+static HWAVEOUT g_wo;
+static WAVEHDR g_wo_hdr[WO_BUFS];
+static short *g_wo_buf[WO_BUFS];
+static int g_wo_open = 0;
+
+static int aud_init(void)
+{
+    WAVEFORMATEX f;
+    int i;
+    if (g_wo_open) {
+        return 1;
+    }
+    if (getenv("CLIDE_NO_AUDIO")) {
+        return 0;
+    }
+    memset(&f, 0, sizeof(f));
+    f.wFormatTag = WAVE_FORMAT_PCM;
+    f.nChannels = 1;
+    f.nSamplesPerSec = (DWORD)CLIDE_PCM_RATE;
+    f.wBitsPerSample = 16;
+    f.nBlockAlign = 2;
+    f.nAvgBytesPerSec = (DWORD)(CLIDE_PCM_RATE * 2L);
+    if (waveOutOpen(&g_wo, WAVE_MAPPER, &f, 0, 0, CALLBACK_NULL) != MMSYSERR_NOERROR) {
+        return 0;
+    }
+    for (i = 0; i < WO_BUFS; ++i) {
+        g_wo_buf[i] = (short *)malloc(sizeof(short) * (size_t)WO_MAX);
+        memset(&g_wo_hdr[i], 0, sizeof(WAVEHDR));
+        if (!g_wo_buf[i]) {
+            waveOutClose(g_wo);
+            return 0;
+        }
+    }
+    g_wo_open = 1;
+    return 1;
+}
+
+static void aud_shutdown(void)
+{
+    int i;
+    if (!g_wo_open) {
+        return;
+    }
+    waveOutReset(g_wo);
+    for (i = 0; i < WO_BUFS; ++i) {
+        if (g_wo_hdr[i].dwFlags & WHDR_PREPARED) {
+            waveOutUnprepareHeader(g_wo, &g_wo_hdr[i], sizeof(WAVEHDR));
+        }
+        free(g_wo_buf[i]);
+        g_wo_buf[i] = NULL;
+    }
+    waveOutClose(g_wo);
+    g_wo_open = 0;
+}
+
 static void aud_tone(int hz) { (void)hz; }
-static const char *aud_name(void) { return "null (Windows PCM backend planned)"; }
+
+static int aud_pcm(const short *s, long n, int interrupt)
+{
+    int i;
+    if (!g_wo_open || n <= 0) {
+        return 0;
+    }
+    if (interrupt) {
+        waveOutReset(g_wo);   /* marks every queued buffer done */
+    }
+    for (i = 0; i < WO_BUFS; ++i) {
+        WAVEHDR *h = &g_wo_hdr[i];
+        if (!(h->dwFlags & WHDR_PREPARED) || (h->dwFlags & WHDR_DONE)) {
+            if (h->dwFlags & WHDR_PREPARED) {
+                waveOutUnprepareHeader(g_wo, h, sizeof(WAVEHDR));
+            }
+            if (n > WO_MAX) {
+                n = WO_MAX;
+            }
+            memcpy(g_wo_buf[i], s, sizeof(short) * (size_t)n);
+            memset(h, 0, sizeof(WAVEHDR));
+            h->lpData = (LPSTR)g_wo_buf[i];
+            h->dwBufferLength = (DWORD)(n * 2L);
+            if (waveOutPrepareHeader(g_wo, h, sizeof(WAVEHDR)) != MMSYSERR_NOERROR) {
+                return 0;
+            }
+            return waveOutWrite(g_wo, h, sizeof(WAVEHDR)) == MMSYSERR_NOERROR;
+        }
+    }
+    return 0;   /* all buffers busy: drop the sound */
+}
+
+static const char *aud_name(void) { return g_wo_open ? "waveOut PCM 22050 Hz" : "none (no audio device)"; }
 
 static void win_detect(char *lang, int n)
 {
@@ -375,7 +466,7 @@ static const ClidePlatform g_win = {
     { win_poll },
     { win_ms, win_sleep, win_seed },
     { win_mkdir, win_replace, '\\' },
-    { aud_init, aud_shutdown, aud_tone, aud_name },
+    { aud_init, aud_shutdown, aud_tone, aud_name, aud_pcm, 1 },
     { win_detect, win_codepage },
     { win_free }
 };

@@ -451,6 +451,7 @@ static void usage(void)
     printf("  --check-lang         report missing translations\n");
     printf("  --render-sfx <name> <file.wav>  render a procedural sound to WAV\n");
     printf("  --list-sfx           list procedural sounds\n");
+    printf("  --play-sfx <effect>  play a game sound effect on the audio device\n");
 }
 
 static int load_content(char *err, size_t n)
@@ -479,6 +480,33 @@ static int load_content(char *err, size_t n)
     str_cat(path, "/config/time.ini", sizeof(path));
     ini_parse_file(path, time_cb, &g_app.tcfg);
     return 1;
+}
+
+/* play one game sound effect on the live audio back end (audio check) */
+static int play_sfx(const char *name)
+{
+    const ClidePlatform *p = plat_native();
+    int sfx = aud_find(name);
+    long t;
+    if (sfx < 0) {
+        int k;
+        fprintf(stderr, "unknown sound effect: %s\neffects:", name);
+        for (k = 1; k < SFX_COUNT; ++k) {
+            fprintf(stderr, " %s", aud_sfx_name(k));
+        }
+        fprintf(stderr, "\n");
+        return 1;
+    }
+    aud_init(p, 1);
+    printf("audio back end: %s\n", aud_backend());
+    aud_play(sfx);
+    for (t = 0; t < 2000; t += 20) {
+        p->clock.sleep_ms(20);
+        aud_update(20);
+    }
+    printf("%s: %s\n", name, aud_played() > 0 ? "played" : "not played (no audio device)");
+    aud_shutdown();
+    return aud_played() > 0 ? 0 : 3;
 }
 
 static int render_sfx(const char *name, const char *file)
@@ -534,6 +562,8 @@ int app_main(int argc, char **argv)
             return 0;
         } else if (str_ieq(argv[i], "--render-sfx") && i + 2 < argc) {
             return render_sfx(argv[i + 1], argv[i + 2]);
+        } else if (str_ieq(argv[i], "--play-sfx") && i + 1 < argc) {
+            return play_sfx(argv[i + 1]);
         } else {
             fprintf(stderr, "unknown option: %s\n", argv[i]);
             usage();

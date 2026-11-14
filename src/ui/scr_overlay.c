@@ -382,6 +382,17 @@ static void console_key(const ClideKeyEvent *ev)
                 app_reset(&scr_menu);
                 return;
             }
+            if (g_con_request >= CON_REQ_SKY && g_con_request <= CON_REQ_PANEL) {
+                int req = g_con_request;
+                g_con_request = CON_REQ_NONE;
+                app_pop();   /* close the console, then open the requested screen */
+                if (req == CON_REQ_SKY) app_push(&scr_sky);
+                else if (req == CON_REQ_INVENTORY) app_push(&scr_inventory);
+                else if (req == CON_REQ_CRAFT) app_push(&scr_craft);
+                else if (req == CON_REQ_STATS) app_push(&scr_stats);
+                else g_app.set.panel_page = g_con_arg;
+                return;
+            }
         } else {
             app_pop();
         }
